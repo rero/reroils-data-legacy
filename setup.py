@@ -61,6 +61,8 @@ setup_requires = [
 
 install_requires = [
     'Flask-BabelEx>=0.9.2',
+    'dojson>=1.3.2',
+    'jsonschema>=2.5.1',
 ]
 
 packages = find_packages()
@@ -95,6 +97,13 @@ setup(
         ],
         'invenio_jsonschemas.schemas': [
             'record = reroils_data.jsonschemas'
+        ],
+        'dojson.cli.dump': [
+            'pjson = reroils_data.dojson.utils:dump'
+        ],
+        'dojson.cli.rule': [
+            'marc21tojson ='
+            'reroils_data.dojson.contrib.marc21_rero2json:marc21_rero2json',
         ],
         # TODO: Edit these entry points to fit your needs.
         # 'invenio_access.actions': [],

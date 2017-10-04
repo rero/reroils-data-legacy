@@ -21,11 +21,41 @@
 # In applying this license, RERO does not
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
-#
-# TODO: Add development versions of some important dependencies here to get a
-#       warning when there are breaking upstream changes, e.g.:
-#
-#     -e git+git://github.com/mitsuhiko/werkzeug.git#egg=Werkzeug
-#     -e git+git://github.com/mitsuhiko/jinja2.git#egg=Jinja2
 
--e git+git://github.com/inveniosoftware/dojson.git#egg=dojson
+"""DOJSON module tests."""
+
+from __future__ import absolute_import, print_function
+
+from dojson.contrib.marc21.utils import create_record
+
+from reroils_data.dojson.contrib.marc21tojson import marc21tojson
+
+
+def test_marc21totitle():
+    """Test dojson marc21totitle."""
+
+    marc21xml = """
+    <record>
+      <datafield tag="245" ind1="1" ind2="0">
+        <subfield code="a">RERO21 pour les nuls</subfield>
+      </datafield>
+    </record>
+    """
+    blob = create_record(marc21xml)
+    data = marc21tojson.do(blob)
+    assert data.get('title') == 'RERO21 pour les nuls'
+
+
+def test_marc21toauthor():
+    """Test dojson marc21toauthor."""
+
+    marc21xml = """
+    <record>
+      <datafield tag="100" ind1=" " ind2=" ">
+        <subfield code="a">Jean Dumont</subfield>
+      </datafield>
+    </record>
+    """
+    blob = create_record(marc21xml)
+    data = marc21tojson.do(blob)
+    assert data.get('author') == 'Jean Dumont'

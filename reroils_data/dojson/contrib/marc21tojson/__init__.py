@@ -21,11 +21,12 @@
 # In applying this license, RERO does not
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
-#
-# TODO: Add development versions of some important dependencies here to get a
-#       warning when there are breaking upstream changes, e.g.:
-#
-#     -e git+git://github.com/mitsuhiko/werkzeug.git#egg=Werkzeug
-#     -e git+git://github.com/mitsuhiko/jinja2.git#egg=Jinja2
 
--e git+git://github.com/inveniosoftware/dojson.git#egg=dojson
+
+"""MARC21 RERO to JSON."""
+
+from __future__ import absolute_import
+
+from .model import marc21tojson
+
+__all__ = ('marc21tojson')

@@ -48,3 +48,30 @@ TODO: Please provide feature overview of module
 
 Further documentation is available on
 https://reroils-data.readthedocs.io/
+
+
+# DOJSON
+
+## MARC21 to JSON
+
+### MARC21 to MARCXML
+
+`yaz-marcdump -o marcxml MARC21.mrc > MARCXML.xml`
+
+### MARCXML to JSON
+
+#### dojson help
+
+`dojson --help`
+
+#### create json file
+
+`dojson -l marcxml -i MARCXML.xml do marc21tojson > REROILS.json`
+
+#### show missing tags
+
+`dojson -l marcxml -i MARCXML.xml missing marc21to2json`
+
+#### validate with json schema
+
+`dojson -l marcxml -i MARCXML.xml validate ./reroils_data/jsonschemas/records/record-v0.0.1.json`
