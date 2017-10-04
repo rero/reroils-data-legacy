@@ -27,7 +27,6 @@
 from __future__ import absolute_import, print_function
 
 from flask import Flask
-
 from reroils_data import REROILSDATA
 
 

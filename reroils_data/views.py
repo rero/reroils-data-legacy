@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""rero21 ils data module"""
+"""rero21 ils data module."""
 
 # TODO: This is an example file. Remove it if you do not need it, including
 # the templates and static folders as well as the test case.
