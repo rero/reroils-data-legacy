@@ -14,13 +14,13 @@
             "title": "Title of the bib record",
             "description": "Title of the bib record",
             "type": "string",
-            "minLength": "3"
+            "minLength": 3
         },
         "author": {
             "title": "Author of the bib record",
             "description": "Name of the bib record's author",
             "type": "string",
-            "minLength": "3"
+            "minLength": 3
         }
     }
 }
