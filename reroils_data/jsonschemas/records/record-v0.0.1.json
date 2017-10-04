@@ -1,0 +1,26 @@
+{
+    "$schema": "json-schema.org/draft-04/schema#",
+    "title": "Bib records minimal schema",
+    "additionalProperties": false,
+    "required": [ "recid", "title" ],
+    "type": "object",
+    "properties": {
+        "recid": {
+            "title": "RERO21 minimal PID",
+            "description": "RERO21 minimal persistent identifier",
+            "type": "string"
+        },
+        "title": {
+            "title": "Title of the bib record",
+            "description": "Title of the bib record",
+            "type": "string",
+            "minLength": "3"
+        },
+        "author": {
+            "title": "Author of the bib record",
+            "description": "Name of the bib record's author",
+            "type": "string",
+            "minLength": "3"
+        }
+    }
+}

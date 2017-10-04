@@ -92,6 +92,9 @@ setup(
         'invenio_i18n.translations': [
             'messages = reroils_data',
         ],
+        'invenio_jsonschemas.schemas': [
+            'record = reroils_data.jsonschemas'
+        ],
         # TODO: Edit these entry points to fit your needs.
         # 'invenio_access.actions': [],
         # 'invenio_admin.actions': [],
