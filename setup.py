@@ -105,6 +105,9 @@ setup(
             'marc21tojson ='
             'reroils_data.dojson.contrib.marc21_rero2json:marc21_rero2json',
         ],
+        'invenio_search.mappings': [
+            'records = reroils_data.mappings'
+        ],
         # TODO: Edit these entry points to fit your needs.
         # 'invenio_access.actions': [],
         # 'invenio_admin.actions': [],

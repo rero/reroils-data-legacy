@@ -62,6 +62,18 @@ def test_jsonschema():
         validate({'recid': 123, 'title': 'my title'}, schema)
 
 
+def test_record_mappings():
+    """Test elasticsearch mappings for records."""
+
+    from json import loads
+    from pkg_resources import resource_string
+
+    mappings_in_bytes = resource_string('reroils_data.mappings',
+                                        'records/record-v0.0.1.json')
+    mappings = loads(mappings_in_bytes.decode('utf8'))
+    assert mappings.get('mappings').get('record-v1.0.0')
+
+
 def test_init():
     """Test extension initialization."""
     app = Flask('testapp')
