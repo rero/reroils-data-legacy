@@ -50,28 +50,46 @@ Further documentation is available on
 https://reroils-data.readthedocs.io/
 
 
-# DOJSON
+DOJSON
+======
 
-## MARC21 to JSON
+MARC21 to JSON
+-------------- 
 
-### MARC21 to MARCXML
+MARC21 to MARCXML
+.................
 
-`yaz-marcdump -o marcxml MARC21.mrc > MARCXML.xml`
+.. code:: console
 
-### MARCXML to JSON
+    yaz-marcdump -o marcxml MARC21.mrc > MARCXML.xml
 
-#### dojson help
+MARCXML to JSON
+...............
 
-`dojson --help`
+dojson help
+~~~~~~~~~~~
 
-#### create json file
+.. code:: console
 
-`dojson -l marcxml -i MARCXML.xml do marc21tojson > REROILS.json`
+    dojson --help
 
-#### show missing tags
+create json file
+~~~~~~~~~~~~~~~~
 
-`dojson -l marcxml -i MARCXML.xml missing marc21to2json`
+.. code:: console
 
-#### validate with json schema
+   dojson -l marcxml -i MARCXML.xml do marc21tojson > REROILS.json
 
-`dojson -l marcxml -i MARCXML.xml validate ./reroils_data/jsonschemas/records/record-v0.0.1.json`
+show missing tags
+~~~~~~~~~~~~~~~~~
+
+.. code:: console 
+
+    dojson -l marcxml -i MARCXML.xml missing marc21to2json
+
+validate with json schema
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: console 
+
+    dojson -l marcxml -i MARCXML.xml validate ./reroils_data/jsonschemas/records/record-v0.0.1.json
