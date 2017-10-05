@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+
+    environment {
+        GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+    }
+
+    stages {
+        stage('Clone source') {
+            steps {
+                git 'https://gitlab.rero.ch/rero21/reroils-data.git'
+            }
+        }
+       
+        stage('Build Test Docker Image') {
+                steps {
+                    echo 'Building..'
+                    script {
+                        app_dev = docker.build('rero/reroils-data:test', '--rm  -f development/Dockerfile .')
+                    }
+                }
+        }
+        stage('Run Test') {
+            steps {
+                script {
+                   sh "docker run --rm rero/reroils-data:test"
+                }
+            }
+        }
+
+        stage('Cleaning') {
+                steps {
+                    echo 'Cleaning....'
+                    script {
+                        sh "docker rmi rero/reroils-data:test"
+                    }
+                }
+         }
+    }
+}
