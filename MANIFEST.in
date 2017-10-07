@@ -35,7 +35,7 @@ include .editorconfig
 include .tx/config
 prune docs/_build
 prune development
-recursive-include reroils_data *.po *.pot *.mo
+#recursive-include reroils_data *.po *.pot *.mo
 
 include *.rst
 include *.sh
@@ -53,3 +53,10 @@ recursive-include examples *.sh
 recursive-include reroils_data *.html
 recursive-include reroils_data *.json
 recursive-include tests *.py
+
+# added by check_manifest.py
+recursive-include data *.ids
+recursive-include data *.json
+recursive-include data *.marc
+recursive-include data *.mrc
+recursive-include data *.xml
