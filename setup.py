@@ -103,7 +103,7 @@ setup(
         ],
         'dojson.cli.rule': [
             'marc21tojson ='
-            'reroils_data.dojson.contrib.marc21_rero2json:marc21_rero2json',
+            'reroils_data.dojson.contrib.marc21tojson:marc21tojson',
         ],
         'invenio_search.mappings': [
             'records = reroils_data.mappings'
