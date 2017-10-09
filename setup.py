@@ -123,6 +123,9 @@ setup(
         'invenio_pidstore.minters': [
             'bibid = reroils_data.minters:bibid_minter',
         ],
+        'invenio_pidstore.fetchers': [
+            'bibid = reroils_data.fetchers:bibid_fetcher',
+        ],
         # 'invenio_records.jsonresolver': [],
     },
     extras_require=extras_require,
