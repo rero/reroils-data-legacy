@@ -6,9 +6,10 @@ pipeline {
     }
 
     stages {
-        stage('Clone source') {
+        stage('Get Dockerfile') {
             steps {
-                git 'https://gitlab.rero.ch/rero21/reroils-data.git'
+                sh "curl -O https://gitlab.rero.ch/rero21/reroils-data/raw/master/development/Dockerfile"
+                sh "curl -O https://gitlab.rero.ch/rero21/reroils-data/raw/master/development/build_app.sh"
             }
         }
        
@@ -16,7 +17,7 @@ pipeline {
                 steps {
                     echo 'Building..'
                     script {
-                        app_dev = docker.build('rero/reroils-data:test', '--rm  -f development/Dockerfile .')
+                        app_dev = docker.build('rero/reroils-data:test', '--rm  -f Dockerfile .')
                     }
                 }
         }
