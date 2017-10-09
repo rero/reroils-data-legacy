@@ -34,6 +34,7 @@ history = open('CHANGES.rst').read()
 tests_require = [
     'check-manifest>=0.25',
     'coverage>=4.0',
+    'invenio-pidstore[sqlite]>=1.0.0b2',
     'isort>=4.2.2',
     'jsonschema>=2.5.1',
     'pydocstyle>=1.0.0',
@@ -62,6 +63,7 @@ setup_requires = [
 install_requires = [
     'Flask-BabelEx>=0.9.2',
     'dojson>=1.3.2',
+    'invenio-pidstore>=1.0.0b2',
     'jsonschema>=2.5.1',
 ]
 
@@ -117,7 +119,9 @@ setup(
         # 'invenio_base.blueprints': [],
         # 'invenio_celery.tasks': [],
         # 'invenio_db.models': [],
-        # 'invenio_pidstore.minters': [],
+        'invenio_pidstore.minters': [
+            'bibid = reroils_data.minters:bibid_minter',
+        ],
         # 'invenio_records.jsonresolver': [],
     },
     extras_require=extras_require,

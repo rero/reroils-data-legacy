@@ -26,12 +26,16 @@
 
 from __future__ import absolute_import, print_function
 
+import os
 import shutil
 import tempfile
 
 import pytest
 from flask import Flask
 from flask_babelex import Babel
+from invenio_db import InvenioDB
+from invenio_pidstore import InvenioPIDStore
+from sqlalchemy_utils.functions import create_database, database_exists
 
 
 @pytest.yield_fixture()
@@ -42,20 +46,41 @@ def instance_path():
     shutil.rmtree(path)
 
 
-@pytest.fixture()
-def base_app(instance_path):
+@pytest.yield_fixture()
+def app(request):
     """Flask application fixture."""
-    app_ = Flask('testapp', instance_path=instance_path)
-    app_.config.update(
-        SECRET_KEY='SECRET_KEY',
+    # Set temporary instance path for sqlite
+    instance_path = tempfile.mkdtemp()
+    app = Flask('testapp', instance_path=instance_path)
+
+    app.config.update(
+        SQLALCHEMY_DATABASE_URI=os.environ.get(
+            'SQLALCHEMY_DATABASE_URI', 'sqlite:///test.db'
+        ),
         TESTING=True,
+        SQLALCHEMY_TRACK_MODIFICATIONS=False,
     )
-    Babel(app_)
-    return app_
+
+    InvenioDB(app)
+    InvenioPIDStore(app)
+    Babel(app)
+
+    with app.app_context():
+        yield app
+
+    # Teardown instance path.
+    shutil.rmtree(instance_path)
 
 
 @pytest.yield_fixture()
-def app(base_app):
-    """Flask application fixture."""
-    with base_app.app_context():
-        yield base_app
+def db(app):
+    """Database fixture."""
+    from invenio_db import db as db_
+    if not database_exists(str(db_.engine.url)):
+        create_database(str(db_.engine.url))
+    db_.create_all()
+
+    yield db_
+
+    db_.session.remove()
+    db_.drop_all()
