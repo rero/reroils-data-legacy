@@ -10,11 +10,12 @@ RUN pip install -U setuptools pip &&\
 
 #Add reroils-data sources to `code` and work there:
 WORKDIR  /reroils/reroils/src
-COPY build_app.sh /tmp/build_app.sh
+COPY build_app.sh /reroils/build_app.sh
 # Run container as user `invenio` with UID `1000`, which should match
 # current host user in most situations:
 RUN adduser --uid 1000 --disabled-password --gecos '' invenio && \
-     chown -R invenio:invenio /reroils
+     chown -R invenio:invenio /reroils && \
+     chmod 755 /reroils/build_app.sh
 
 USER invenio
 
@@ -22,6 +23,6 @@ SHELL ["/bin/bash", "-c"]
 WORKDIR /reroils
 RUN virtualenv reroils
 
-RUN /tmp/build_app.sh
+RUN /reroils/build_app.sh
 
 CMD  /reroils/reroils/src/reroils-data/development/test.sh
