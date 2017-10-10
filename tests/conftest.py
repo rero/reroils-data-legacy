@@ -29,13 +29,36 @@ from __future__ import absolute_import, print_function
 import os
 import shutil
 import tempfile
+from json import loads
 
 import pytest
 from flask import Flask
 from flask_babelex import Babel
 from invenio_db import InvenioDB
 from invenio_pidstore import InvenioPIDStore
+from pkg_resources import resource_string
 from sqlalchemy_utils.functions import create_database, database_exists
+
+
+@pytest.yield_fixture()
+def minimal_record():
+    """Minimal record."""
+    yield {
+        '$schema': 'ils.test.rero.ch/schemas/records/record-v0.0.1.json',
+        'bibid': '2',
+        'title': 'RERO21 pour les nuls : les premiers pas',
+        'languages': ['fre'],
+        'identifiers': {'reroID': 'R004567655'}
+    }
+
+
+@pytest.fixture()
+def schema():
+    """Jsonschema for records."""
+    schema_in_bytes = resource_string('reroils_data.jsonschemas',
+                                      'records/record-v0.0.1.json')
+    schema = loads(schema_in_bytes.decode('utf8'))
+    return schema
 
 
 @pytest.yield_fixture()

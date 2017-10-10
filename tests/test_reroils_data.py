@@ -38,45 +38,6 @@ def test_version():
     assert __version__
 
 
-def test_jsonschema():
-    """Test jsonschema for records."""
-
-    from json import loads
-    from jsonschema import validate
-    from jsonschema.exceptions import ValidationError
-    from pkg_resources import resource_string
-
-    schema_in_bytes = resource_string('reroils_data.jsonschemas',
-                                      'records/record-v0.0.1.json')
-    schema = loads(schema_in_bytes.decode('utf8'))
-
-    validate({
-        '$schema': 'http://ils.rero.ch/schema/records/record-v0.0.1.json',
-        'bibid': '123',
-        'title': 'my title'
-    }, schema)
-
-    with pytest.raises(ValidationError):
-        validate({
-            '$schema': 'http://ils.rero.ch/schema/records/record-v0.0.1.json',
-            'bibid': '123',
-            'title': 'my'
-        }, schema)
-
-    with pytest.raises(ValidationError):
-        validate({
-            '$schema': 'http://ils.rero.ch/schema/records/record-v0.0.1.json',
-            'bibid': '123'
-        }, schema)
-
-    with pytest.raises(ValidationError):
-        validate({
-            '$schema': 'http://ils.rero.ch/schema/records/record-v0.0.1.json',
-            'bibid': 123,
-            'title': 'my title'
-        }, schema)
-
-
 def test_record_mappings():
     """Test elasticsearch mappings for records."""
 
