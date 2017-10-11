@@ -54,7 +54,7 @@ DOJSON
 ======
 
 MARC21 to JSON
--------------- 
+--------------
 
 MARC21 to MARCXML
 .................
@@ -83,13 +83,13 @@ create json file
 show missing tags
 ~~~~~~~~~~~~~~~~~
 
-.. code:: console 
+.. code:: console
 
-    dojson -l marcxml -i MARCXML.xml missing marc21to2json
+    dojson -l marcxml -i MARCXML.xml missing marc21tojson
 
 validate with json schema
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: console 
+.. code:: console
 
-    dojson -l marcxml -i MARCXML.xml validate ./reroils_data/jsonschemas/records/record-v0.0.1.json
+    dojson -l marcxml -i MARCXML.xml do marc21tojson validate ./reroils_data/jsonschemas/records/record-v0.0.1.json
