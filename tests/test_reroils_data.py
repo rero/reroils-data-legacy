@@ -102,10 +102,10 @@ def test_init():
     assert 'reroils-data' in app.extensions
 
 
-def test_view(app):
-    """Test view."""
-    REROILSDATA(app)
-    with app.test_client() as client:
-        res = client.get("/")
-        assert res.status_code == 200
-        assert 'Welcome to REROILS-DATA' in str(res.data)
+# def test_view(app):
+#     """Test view."""
+#     REROILSDATA(app)
+#     with app.test_client() as client:
+#         res = client.get("/")
+#         assert res.status_code == 200
+#         assert 'Welcome to REROILS-DATA' in str(res.data)
