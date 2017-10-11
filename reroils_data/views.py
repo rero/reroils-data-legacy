@@ -40,9 +40,9 @@ blueprint = Blueprint(
 )
 
 
-@blueprint.route("/")
-def index():
-    """Render a basic view."""
-    return render_template(
-        "reroils_data/index.html",
-        module_name=_('REROILS-DATA'))
+# @blueprint.route("/")
+# def index():
+#     """Render a basic view."""
+#     return render_template(
+#         "reroils_data/index.html",
+#         module_name=_('REROILS-DATA'))
