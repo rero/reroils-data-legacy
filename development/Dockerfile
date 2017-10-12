@@ -3,6 +3,8 @@ FROM python:3.5-slim
 LABEL maintainer="software@rero.ch"
 LABEL description="ILS Data Model by RERO."
 
+ARG GIT_COMMIT
+
 RUN apt-get update && apt-get install -y git curl
 
 RUN pip install -U setuptools pip &&\
@@ -23,6 +25,6 @@ SHELL ["/bin/bash", "-c"]
 WORKDIR /reroils
 RUN virtualenv reroils
 
-RUN /reroils/build_app.sh
+RUN /reroils/build_app.sh $GIT_COMMIT
 
 CMD  /reroils/reroils/src/reroils-data/development/test.sh

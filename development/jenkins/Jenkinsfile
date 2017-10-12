@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+        GIT_COMMIT = sh(returnStdout: true, script: 'git ls-remote https://gitlab.rero.ch/rero21/reroils-data.git refs/heads/master | cut -c1-10 ').trim()
     }
 
     stages {
@@ -15,9 +15,9 @@ pipeline {
        
         stage('Build Test Docker Image') {
                 steps {
-                    echo 'Building..'
+                    println('Building GIT_COMMIT:'+GIT_COMMIT+ ' ...')
                     script {
-                        app_dev = docker.build('rero/reroils-data:test', '--rm  -f Dockerfile .')
+                        app_dev = docker.build('rero/reroils-data:test', '--build-arg GIT_COMMIT=$GIT_COMMIT --rm  -f Dockerfile .')
                     }
                 }
         }
