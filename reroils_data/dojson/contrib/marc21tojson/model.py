@@ -51,15 +51,13 @@ def marc21totitle(self, key, value):
     title: 245$a
     without the punctuaction. If there's a $b, then 245$a : $b without the " /"
     """
-    main_title = value.get('a')
+    main_title = remove_punctuation(value.get('a'))
     sub_title = value.get('b')
     # responsability = value.get('c')
     if sub_title:
-        if type(sub_title) == str:
-            main_title += ' ' + remove_punctuation(sub_title)
-        else:
-            for item in sub_title:
-                main_title += ' ' + remove_punctuation(item)
+        main_title += ' : ' + ' : '.join(
+            utils.force_list(remove_punctuation(sub_title))
+        )
     return main_title
 
 
@@ -184,20 +182,19 @@ def marc21description(self, key, value):
     """
     if value.get('a'):
         if not self.get('extent', None):
-            self['extent'] = value.get('a')
+            self['extent'] = remove_punctuation(
+                utils.force_list(value.get('a'))[0]
+            )
     if value.get('b'):
         if self.get('otherMaterialCharacteristics', []) == []:
-            self['otherMaterialCharacteristics'] = value.get('b')
+            self['otherMaterialCharacteristics'] = remove_punctuation(
+                utils.force_list(value.get('b'))[0]
+            )
     if value.get('c'):
-        formats = self.get('formats', [])
-        if formats == []:
+        formats = self.get('formats', None)
+        if not formats:
             data = value.get('c')
-            if data:
-                if type(value.get('c')) == str:
-                    formats.append(data)
-                else:
-                    for item in data:
-                        formats.append(item)
+            formats = list(utils.force_list(data))
         return formats
     else:
         return None
