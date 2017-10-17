@@ -1,6 +1,6 @@
 {
   "mappings": {
-    "record-v1.0.0": {
+    "record-v0.0.1": {
       "date_detection": false,
       "numeric_detection": false,
       "properties": {
