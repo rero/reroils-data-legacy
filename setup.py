@@ -122,9 +122,11 @@ setup(
         # 'invenio_db.models': [],
         'invenio_pidstore.minters': [
             'bibid = reroils_data.minters:bibid_minter',
+            'itemid = reroils_data.minters:circulation_itemid_minter',
         ],
         'invenio_pidstore.fetchers': [
             'bibid = reroils_data.fetchers:bibid_fetcher',
+            'itemid = reroils_data.fetchers:circulation_itemid_fetcher',
         ],
         # 'invenio_records.jsonresolver': [],
     },

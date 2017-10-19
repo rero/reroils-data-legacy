@@ -28,8 +28,10 @@ from __future__ import absolute_import, print_function
 
 from uuid import uuid4
 
-from reroils_data.fetchers import bibid_fetcher
-from reroils_data.minters import bibid_minter
+from invenio_circulation.api import Item
+
+from reroils_data.fetchers import bibid_fetcher, circulation_itemid_fetcher
+from reroils_data.minters import bibid_minter, circulation_itemid_minter
 
 
 def test_bibid_fetcher(app, db):
@@ -44,3 +46,16 @@ def test_bibid_fetcher(app, db):
         assert minted_pid.pid_value == fetched_pid.pid_value
         assert fetched_pid.pid_type == fetched_pid.provider.pid_type
         assert fetched_pid.pid_type == 'recid'
+
+
+def test_circulation_itemid_fetcher(db):
+    """Test circulation_item_fetcher functionality."""
+    item = Item.create({'foo': 'bar'})
+    pid = circulation_itemid_minter(item.id, item)
+
+    item.commit()
+    db.session.commit()
+
+    fetched = circulation_itemid_fetcher(item.id, item)
+
+    assert pid.pid_value == fetched.pid_value

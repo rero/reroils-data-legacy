@@ -43,3 +43,17 @@ def test_bibid_minter(app, db):
         assert data['bibid'] == pid.pid_value
         assert pid.object_type == 'rec'
         assert pid.object_uuid == rec_uuid
+
+
+def test_circulation_itemid_minter(app, db):
+    """Test circulation itemid minter."""
+
+    with app.app_context():
+        data = {}
+        # first record
+        rec_uuid = uuid4()
+        pid = minters.circulation_itemid_minter(rec_uuid, data)
+        assert pid
+        assert data['itemid'] == pid.pid_value
+        assert pid.object_type == 'rec'
+        assert pid.object_uuid == rec_uuid

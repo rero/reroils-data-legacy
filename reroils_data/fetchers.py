@@ -29,6 +29,7 @@ from __future__ import absolute_import, print_function
 
 from collections import namedtuple
 
+from invenio_circulation.providers import CirculationItemProvider
 from invenio_pidstore.providers.recordid import RecordIdProvider
 
 FetchedPID = namedtuple('FetchedPID', ['provider', 'pid_type', 'pid_value'])
@@ -46,4 +47,19 @@ def bibid_fetcher(record_uuid, data):
         provider=RecordIdProvider,
         pid_type=RecordIdProvider.pid_type,
         pid_value=data['bibid']
+    )
+
+
+def circulation_itemid_fetcher(record_uuid, data):
+    """Fetch a circulation itemid identifier.
+
+    :param record_uuid: Record UUID.
+    :param data: Record content.
+    :returns: A :class:``invenio_pidstore.fetchers.FetchedPID`` that contains
+        ``data['itemid']`` as pid_value.
+    """
+    return FetchedPID(
+        provider=CirculationItemProvider,
+        pid_type=CirculationItemProvider.pid_type,
+        pid_value=str(data['itemid']),
     )
