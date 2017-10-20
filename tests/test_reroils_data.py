@@ -47,7 +47,7 @@ def test_record_mappings():
     mappings_in_bytes = resource_string('reroils_data.mappings',
                                         'records/record-v0.0.1.json')
     mappings = loads(mappings_in_bytes.decode('utf8'))
-    assert mappings.get('mappings').get('record-v1.0.0')
+    assert mappings.get('mappings').get('record-v0.0.1')
 
 
 def test_init():
