@@ -1,0 +1,43 @@
+{
+    "type": "object",
+    "title": "Item",
+    "description": "JSON schema for an item",
+    "properties": {
+        "$schema": {
+            "title": "Schema",
+            "description": "Schema to validate item records against",
+            "type": "string",
+            "minLength": 9
+        },
+        "itemid": {
+            "title": "Item ID",
+            "description": "Persistent Identifier for the item",
+            "type": "string",
+            "minLength": 1
+        },
+        "barcode": {
+            "title": "Barcode",
+            "description": "Barecode of the item",
+            "type": "integer",
+            "minimum": 10000000000
+        },
+        "callNumber": {
+            "title": "Call number",
+            "description": "Call number of the item",
+            "type": "string",
+            "pattern": "^(PA|SR|RR)-\\d{5}$"
+        },
+        "localisation": {
+            "title": "Localisation",
+            "description": "Localisation of the item",
+            "type": "string",
+            "enum": [
+                "publicAccess",
+                "storeroom",
+                "readingRoom"
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "required": [ "$schema", "itemid", "barcode", "callNumber", "localisation" ]
+}
