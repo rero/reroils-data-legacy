@@ -111,6 +111,9 @@ setup(
         'invenio_search.mappings': [
             'records = reroils_data.mappings'
         ],
+        'flask.commands': [
+            'fixtures = reroils_data.cli:fixtures',
+        ],
         # TODO: Edit these entry points to fit your needs.
         # 'invenio_access.actions': [],
         # 'invenio_admin.actions': [],
