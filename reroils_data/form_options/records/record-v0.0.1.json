@@ -1,0 +1,246 @@
+[
+    {
+        "type": "fieldset",
+        "title": "Identifiers",
+        "items": [
+            {
+                "key": "bibid",
+                "readonly": true,
+                "description": "Should be automatically generated."
+            },  
+            {
+                "key": "identifiers.reroID",
+                "title": "RERO Number"
+            },
+            "identifiers.isbn"
+
+        ]
+    },
+    {
+        "type": "fieldset",
+        "title": "Languages",
+        "items": [
+            {
+                "key": "languages",
+                "add": "Add a new language",
+                "style": {
+                    "add": "btn-success"
+                },
+                "type": "array",
+                "items": [
+                    {
+                        "key": "languages[]",
+                        "notitle": true
+                    }
+                ]
+            },
+            {
+                "key": "translatedFrom",
+                "title": "Original document's language",
+                "add": "Add a new original document's language(s)",
+                "style": {
+                    "add": "btn-success"
+                },
+                "type": "array",
+                "items": [
+                    {
+                        "key": "translatedFrom[]",
+                        "notitle": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "fieldset",
+        "title": "Author(s)",
+        "items": [
+            {
+                "key": "authors",
+                "add": "Add a new author",
+                "style": {
+                    "add": "btn-success"
+                },
+                "type": "array",
+                "items": [
+                    "authors[]type",
+                    "authors[]name",
+                    "authors[]date",
+                    "authors[]qualifier"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "fieldset",
+        "title": "Title",
+        "items": [
+            {
+                "type": "help",
+                "helpvalue": "<strong>WE NEED ANOTHER HELP MESSAGE THERE!</strong>"
+            },
+            {
+                "key": "title"
+            },
+            {
+                "key": "titlesProper",
+                "add": "Add a new Title Proper",
+                "style": {
+                    "add": "btn-success"
+                },
+                "type": "array",
+                "items": [
+                    {
+                        "key": "titlesProper[]",
+                        "notitle": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "fieldset",
+        "title": "Publication statement",
+        "items": [
+            {
+                "key": "publishers",
+                "add": "Add a new couple publisher/name",
+                "style": {
+                    "add": "btn-success"
+                },
+                "type": "array",
+                "items": [
+                    {
+                        "key": "publishers[]name",
+                        "add": "Add a new publisher",
+                        "style": {
+                            "add": "btn-success"
+                        }
+                    },
+                    {
+                        "key": "publishers[]place",
+                        "add": "Add a new place",
+                        "style": {
+                            "add": "btn-success"
+                        }
+                    }
+                ]
+            },
+            "publicationDate"
+        ]
+    },
+    {
+        "type": "fieldset",
+        "title": "Material Characteristics",
+        "items": [
+            "extent",
+            "otherMaterialCharacteristics",
+            {
+                "key": "formats",
+                "add": "Add a new format",
+                "style": {
+                    "add": "btn-success"
+                },
+                "type": "array",
+                "items": [
+                    {
+                        "key": "formats[]",
+                        "notitle": true
+                    }
+                ]
+            },
+            "additionalMaterials"
+        ]
+    },
+    {
+        "type": "fieldset",
+        "title": "Series",
+        "items": [
+            {
+                "key": "series",
+                "notitle": true,
+                "add": "Add a new serie",
+                "style": {
+                    "add": "btn-success"
+                },
+                "type": "array",
+                "items": [
+                    "series[]name",
+                    "series[]number"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "fieldset",
+        "title": "Notes",
+        "items": [
+            {
+                "key": "notes",
+                "title": "General note",
+                "add": "Add a new note",
+                "style": {
+                    "add": "btn-success"
+                },
+                "type": "array",
+                "items": [
+                    {
+                        "key": "notes[]",
+                        "notitle": true,
+                        "type": "textarea"
+                    }
+                ]
+            },
+            {
+                "key": "abstracts",
+                "add": "Add a new abstract",
+                "style": {
+                    "add": "btn-success"
+                },
+                "type": "array",
+                "items": [
+                    {
+                        "key": "abstracts[]",
+                        "notitle": true,
+                        "type": "textarea"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "fieldset",
+        "title": "Subjects",
+        "items": [
+            {
+                "key": "subjects",
+                "type": "array",
+                "add": "Add a new subject",
+                "style": {
+                    "add": "btn-success"
+                },
+                "items": [
+                    {
+                        "key": "subjects[]",
+                        "notitle": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "actions",
+        "items": [
+            {
+                "type": "submit",
+                "style": "btn-success",
+                "title": "Submit"
+            },
+            {
+                "type": "button",
+                "title": "Cancel",
+                "style": "btn-danger",
+                "onClick": "goBack()" }
+        ]
+    }
+]

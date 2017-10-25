@@ -21,7 +21,7 @@
             "type": "string",
             "minLength": 1
         },
-        "titlesProper":{
+        "titlesProper": {
             "title": "Proper or uniformed title",
             "description": "Proper or uniformed title of the bibliographic record",
             "type": "array",
@@ -39,7 +39,8 @@
                 "type": "string",
                 "minLength": 3,
                 "minItems": 1
-            }
+            },
+            "required": [ "languages" ]
         },
         "translatedFrom": {
             "title": "Translated from",
@@ -130,7 +131,7 @@
         },
         "extent": {
             "title": "Extent",
-            "description": "Extent of the biliographic record, ie number of pages or volumes",
+            "description": "Extent of the bibliographic record, ie number of pages or volumes",
             "type": "string",
             "minLength": 1
         },
