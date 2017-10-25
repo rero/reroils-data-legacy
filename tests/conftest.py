@@ -39,6 +39,17 @@ from invenio_pidstore import InvenioPIDStore
 from pkg_resources import resource_string
 from sqlalchemy_utils.functions import create_database, database_exists
 
+@pytest.yield_fixture()
+def item_minimal_record():
+    """Item Minimal record."""
+    yield {
+        '$schema': 'ils.test.rero.ch/schemas/records/item-v0.0.1.json',
+        'itemid': '2',
+        'barcode': 10000000001,
+        'callNumber': 'PA-10001',
+        'localisation': ['publicAccess']
+    }
+
 
 @pytest.yield_fixture()
 def minimal_record():
@@ -50,6 +61,15 @@ def minimal_record():
         'languages': ['fre'],
         'identifiers': {'reroID': 'R004567655'}
     }
+
+
+@pytest.fixture()
+def item_schema():
+    """Item Jsonschema for records."""
+    schema_in_bytes = resource_string('reroils_data.jsonschemas',
+                                      'records/item-v0.0.1.json')
+    schema = loads(schema_in_bytes.decode('utf8'))
+    return schema
 
 
 @pytest.fixture()
