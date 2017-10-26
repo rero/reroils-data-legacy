@@ -47,7 +47,7 @@ def test_itemid(item_schema, item_minimal_record):
     validate(item_minimal_record, item_schema)
 
     with pytest.raises(ValidationError):
-        minimal_record['itemid'] = 25
+        item_minimal_record['itemid'] = 25
         validate(item_minimal_record, item_schema)
 
 
@@ -56,7 +56,7 @@ def test_barcode(item_schema, item_minimal_record):
     validate(item_minimal_record, item_schema)
 
     with pytest.raises(ValidationError):
-        minimal_record['barcode'] = '2'
+        item_minimal_record['barcode'] = '2'
         validate(item_minimal_record, item_schema)
 
 
@@ -65,7 +65,7 @@ def test_callNumber(item_schema, item_minimal_record):
     validate(item_minimal_record, item_schema)
 
     with pytest.raises(ValidationError):
-        minimal_record['callNumber'] = 25
+        item_minimal_record['callNumber'] = 25
         validate(item_minimal_record, item_schema)
 
 
@@ -74,5 +74,5 @@ def test_localisation(item_schema, item_minimal_record):
     validate(item_minimal_record, item_schema)
 
     with pytest.raises(ValidationError):
-        minimal_record['localisation'] = 25
+        item_minimal_record['localisation'] = 25
         validate(item_minimal_record, item_schema)

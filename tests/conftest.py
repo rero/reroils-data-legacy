@@ -39,6 +39,7 @@ from invenio_pidstore import InvenioPIDStore
 from pkg_resources import resource_string
 from sqlalchemy_utils.functions import create_database, database_exists
 
+
 @pytest.yield_fixture()
 def item_minimal_record():
     """Item Minimal record."""
@@ -47,7 +48,7 @@ def item_minimal_record():
         'itemid': '2',
         'barcode': 10000000001,
         'callNumber': 'PA-10001',
-        'localisation': ['publicAccess']
+        'localisation': 'publicAccess'
     }
 
 
