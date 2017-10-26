@@ -1,23 +1,6 @@
 [
     {
         "type": "fieldset",
-        "title": "Identifiers",
-        "items": [
-            {
-                "key": "bibid",
-                "readonly": true,
-                "description": "Should be automatically generated."
-            },  
-            {
-                "key": "identifiers.reroID",
-                "title": "RERO Number"
-            },
-            "identifiers.isbn"
-
-        ]
-    },
-    {
-        "type": "fieldset",
         "title": "Languages",
         "items": [
             {
