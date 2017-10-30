@@ -26,6 +26,7 @@
 
 from __future__ import absolute_import, print_function
 
+import uuid
 from random import randint
 
 import click
@@ -54,24 +55,28 @@ def createitems(verbose, count):
 
     from invenio_circulation.api import Item
     from reroils_data.minters import circulation_itemid_minter
-
+    click.secho(
+        'Starting generating {0} items...'.format(count),
+        fg='green')
     prefixes = ['PA', 'SR', 'RR']
     locations = ['publicAccess', 'storeroom', 'readingRoom']
     for x in range(count):
+        id_ = uuid.uuid4()
         call_number = prefixes[randint(0, 2)] + '-' + str(x + 1).zfill(5)
         location = locations[randint(0, 2)]
-        item = Item.create({
-            "barcode": 10000000 + x,
+        data = {
+            "barcode": 10000000000 + x,
             "callNumber": call_number,
             "localisation": location
-        })
-        circulation_itemid_minter(item.id, item)
+        }
+        circulation_itemid_minter(id_, data)
+        item = Item.create(data, id_=id_)
         if randint(0, 5) == 0:
             item.loan_item()
         elif randint(0, 20) == 0:
             item.lose_item()
         if verbose:
-            print(item.id, item)
+            click.echo(item.id, item)
         item.commit()
         record_indexer = RecordIndexer()
         record_indexer.index(item)

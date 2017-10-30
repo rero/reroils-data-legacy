@@ -37,7 +37,25 @@
                 "storeroom",
                 "readingRoom"
             ]
-        }
+        },
+        "_circulation":{
+            "type":"object",
+            "properties":{
+               "status":{
+                  "enum":[
+                     "on_shelf",
+                     "on_loan",
+                     "missing"
+                  ]
+               },
+               "holdings":{
+                  "type":"array",
+                  "items":{
+                     "$ref":"../circulation/loan-cycle-v1.0.0.json"
+                  }
+               }
+            }
+         }
     },
     "additionalProperties": false,
     "required": [ "$schema", "itemid", "barcode", "callNumber", "localisation" ]

@@ -110,6 +110,12 @@
         },
         "subjects": {
             "type": "string"
+        },
+        "_created" : {
+          "type" : "date"
+        },
+        "_updated" : {
+          "type" : "date"
         }
       }
     }

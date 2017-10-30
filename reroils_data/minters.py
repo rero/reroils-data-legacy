@@ -47,7 +47,9 @@ def circulation_itemid_minter(record_uuid, data):
     """Mint a circulation itemid identifier."""
     assert 'itemid' not in data
     provider = CirculationItemProvider.create(
-        object_type='rec', object_uuid=record_uuid)
+        object_type='rec',
+        object_uuid=record_uuid
+    )
     data['itemid'] = provider.pid.pid_value
 
     return provider.pid
