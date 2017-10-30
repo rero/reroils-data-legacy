@@ -5,25 +5,25 @@
     "properties": {
         "$schema": {
             "title": "Schema",
-            "description": "Schema to validate book records against",
+            "description": "Schema to validate book records against.",
             "type": "string",
             "minLength": 7
         },
         "bibid": {
             "title": "Bibid",
-            "description": "rero21 persistent identifiers for bibliographic records",
+            "description": "rero21 persistent identifiers for bibliographic records.",
             "type": "string",
             "minLength": 1
         },
         "title": {
             "title": "Title",
-            "description": "Title of the bibliographic record",
+            "description": "Required. Entire title without statement of responsibility.",
             "type": "string",
             "minLength": 1
         },
         "titlesProper": {
             "title": "Proper or uniformed title",
-            "description": "Proper or uniformed title of the bibliographic record",
+            "description": "Uniform title, a related or an analytical title that is controlled by an authority file or list, used as an added entry.",
             "type": "array",
             "items": {
                 "type": "string",
@@ -33,40 +33,42 @@
         },
         "languages": {
             "title": "Language(s)",
-            "description": "Language(s) of the bibliographic record can either be its primary language or all the existing languages of the document",
+            "description": "Required. Language(s) of the bibliographic record can either be its primary language or all the existing languages of the document.",
             "type": "array",
             "items": {
                 "type": "string",
                 "minLength": 3,
-                "minItems": 1
+                "minItems": 1,
+                "validationMessage": "Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for English."
             },
             "required": [ "languages" ]
         },
         "translatedFrom": {
             "title": "Translated from",
-            "description": "Language from which a bibliographic record is translated",
+            "description": "Language from which a bibliographic record is translated.",
             "type": "array",
             "items": {
                 "type": "string",
-                "minLength": 2
+                "minLength": 2,
+                "validationMessage": "Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for English."
             },
             "minItems": 1
         },
         "authors": {
             "title": "Authors",
-            "description": "Author(s) of the bibliographic record. Can be either persons or organisations",
+            "description": "Author(s) of the bibliographic record. Can be either persons or organisations.",
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
                     "name": {
                         "title": "Name",
-                        "description": "Person's or organisation's name",
+                        "description": "Person's or organisation's name.",
                         "type": "string"
                     },
                     "type": {
                         "title": "Type",
-                        "description": "Identify if the author is a person or an organisation",
+                        "description": "Identify if the author is a person or an organisation.",
                         "type": "string",
                         "enum": [
                             "person",
@@ -75,12 +77,12 @@
                     },
                     "date": {
                         "title": "Date",
-                        "description": "Information about the birth and the death of a person. Usefull to disambiguate people",
+                        "description": "Information about the birth and the death of a person. Helpful to disambiguate people.",
                         "type": "string"
                     },
                     "qualifier": {
                         "title": "Qualifier",
-                        "description": "Information about the person, ie her profession",
+                        "description": "Information about the person, ie her profession. Helpful to disambiguate people.",
                         "type": "string"
                     }
                 }
@@ -91,14 +93,14 @@
         },
         "publishers": {
             "title": "Publishers",
-            "description": "Publisher(s) of the bibliographic record",
+            "description": "Publisher(s) of the bibliographic record.",
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
                     "name": {
                         "title": "Name",
-                        "description": "Publisher's name",
+                        "description": "Publisher's name.",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -109,7 +111,7 @@
                     },
                     "place": {
                         "title": "Place of publication",
-                        "description": "Publisher's place of publication",
+                        "description": "Publisher's place of publication.",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -125,25 +127,25 @@
         },
         "publicationDate": {
             "title": "Date of publication",
-            "description": "Date of the publication",
+            "description": "Date of the publication.",
             "type": "string",
             "minLength": 1
         },
         "extent": {
             "title": "Extent",
-            "description": "Extent of the bibliographic record, ie number of pages or volumes",
+            "description": "Extent of the bibliographic record, ie number of pages or volumes.",
             "type": "string",
             "minLength": 1
         },
         "otherMaterialCharacteristics": {
             "title": "Other Material Characteristics",
-            "description": "Other Material Characteristics ie illustrations, black and with or coloured",
+            "description": "Other Material Characteristics, ie illustrations, black and with or coloured.",
             "type": "string",
             "minLength": 1
         },
         "formats": {
             "title": "Format",
-            "description": "Format of the record",
+            "description": "Format of the record, ie dimensions in cm.",
             "type": "array",
             "items": {
                 "type": "string",
@@ -154,25 +156,25 @@
         },
         "additionalMaterials": {
             "title": "Additional materials",
-            "description": "Additional materials existing with the bibliographical object and forming with it the whole record, ie maps",
+            "description": "Accompagnying material of the bibliographic record, ie maps.",
             "type": "string",
             "minLength": 1
         },
         "series": {
             "title": "Series",
-            "description": "Series to which belongs the record",
+            "description": "Series to which belongs the record.",
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
                     "name": {
-                        "title": "Name",
-                        "description": "Name of the series",
+                        "title": "Title",
+                        "description": "Title of the serie.",
                         "type": "string"
                     },
                     "number": {
                         "title": "Number",
-                        "description": "Number of the series",
+                        "description": "Number of the bibliographic record in the serie.",
                         "type": "string"
                     }
                 }
@@ -183,7 +185,7 @@
         },
         "notes": {
             "title": "Note",
-            "description": "Note on the record",
+            "description": "Note on the record.",
             "type": "array",
             "items": {
                 "type": "string",
@@ -194,7 +196,7 @@
         },
         "abstracts": {
             "title": "Abstract",
-            "description": "Abstract of the record",
+            "description": "Abstract of the record.",
             "type": "array",
             "items": {
                 "type": "string",
@@ -205,18 +207,18 @@
         },
         "identifiers": {
             "title": "Identifiers",
-            "description": "Persistent identifiers of the record, ie reroID and ISBN",
+            "description": "Persistent identifiers of the record, ie reroID and ISBN.",
             "type": "object",
             "properties": {
                 "reroID": {
                     "title": "reroID",
-                    "description": "Corresponding reroID of the original RERO record",
+                    "description": "Corresponding reroID of the original RERO record.",
                     "type": "string",
                     "minLength": 1
                 },
                 "isbn": {
                     "title": "ISBN",
-                    "description": "ISBN of the record",
+                    "description": "ISBN of the record.",
                     "type": "string",
                     "minLength": 1
                 }
@@ -226,7 +228,7 @@
         },
         "subjects": {
             "title": "Subject",
-            "description": "Subject of the record",
+            "description": "Subject of the record.",
             "type": "array",
             "items": {
                 "type": "string",

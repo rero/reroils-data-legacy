@@ -40,14 +40,33 @@
         "items": [
             {
                 "key": "authors",
+                "notitle": true,
+                "description": "",
                 "add": "Add a new author",
                 "style": {
                     "add": "btn-success"
                 },
                 "type": "array",
                 "items": [
-                    "authors[]type",
-                    "authors[]name",
+                    {
+                        "key": "authors[]type",
+                        "type": "radios",
+                        "notitle": true,
+                        "titleMap": [
+                            {
+                                "value": "person",
+                                "name": "Person."
+                            },
+                            {
+                                "value": "organisation",
+                                "name": "Organisation."
+                            }
+                        ]
+                    },
+                    {
+                        "key": "authors[]name",
+                        "placeholder": "Lastname, Name"
+                    },
                     "authors[]date",
                     "authors[]qualifier"
                 ]
@@ -58,13 +77,7 @@
         "type": "fieldset",
         "title": "Title",
         "items": [
-            {
-                "type": "help",
-                "helpvalue": "<strong>WE NEED ANOTHER HELP MESSAGE THERE!</strong>"
-            },
-            {
-                "key": "title"
-            },
+            "title",
             {
                 "key": "titlesProper",
                 "add": "Add a new Title Proper",
@@ -86,7 +99,12 @@
         "title": "Publication statement",
         "items": [
             {
+                "type": "help",
+                "helpvalue": "Try to keep the logic of the relationships between publishers and place of publication."
+            },
+            {
                 "key": "publishers",
+                "description": "",
                 "add": "Add a new couple publisher/name",
                 "style": {
                     "add": "btn-success"
@@ -140,8 +158,13 @@
         "title": "Series",
         "items": [
             {
+                "type": "help",
+                "helpvalue": "Series or multipart monographs title."
+            },
+            {
                 "key": "series",
                 "notitle": true,
+                "description": "",
                 "add": "Add a new serie",
                 "style": {
                     "add": "btn-success"
@@ -161,6 +184,7 @@
             {
                 "key": "notes",
                 "title": "General note",
+                "description": "",
                 "add": "Add a new note",
                 "style": {
                     "add": "btn-success"
@@ -177,6 +201,7 @@
             {
                 "key": "abstracts",
                 "add": "Add a new abstract",
+                "description": "",
                 "style": {
                     "add": "btn-success"
                 },
@@ -198,6 +223,7 @@
             {
                 "key": "subjects",
                 "type": "array",
+                "description": "",
                 "add": "Add a new subject",
                 "style": {
                     "add": "btn-success"
