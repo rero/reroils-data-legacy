@@ -4,6 +4,6 @@ echo "Building version: $1"
 source /reroils/reroils/bin/activate && \
 cd reroils/src && \
 git clone https://gitlab.rero.ch/rero21/reroils-data.git && \
-cd reroils-data; pip install .[all]
+cd reroils-data; pip install .[all]; pip install git+https://github.com/rero/invenio-circulation.git#egg=invenio-circulation
 
 
