@@ -35,16 +35,20 @@ import pytest
 from flask import Flask
 from flask_babelex import Babel
 from invenio_db import InvenioDB
+from invenio_jsonschemas import InvenioJSONSchemas
 from invenio_pidstore import InvenioPIDStore
+from invenio_records import InvenioRecords
 from pkg_resources import resource_string
 from sqlalchemy_utils.functions import create_database, database_exists
+
+import reroils_data
 
 
 @pytest.yield_fixture()
 def item_minimal_record():
     """Item Minimal record."""
     yield {
-        '$schema': 'ils.test.rero.ch/schemas/records/item-v0.0.1.json',
+        '$schema': 'http://ils.test.rero.ch/schema/records/item-v0.0.1.json',
         'itemid': '2',
         'barcode': 10000000001,
         'callNumber': 'PA-10001',
@@ -56,7 +60,7 @@ def item_minimal_record():
 def minimal_record():
     """Minimal record."""
     yield {
-        '$schema': 'ils.test.rero.ch/schemas/records/record-v0.0.1.json',
+        '$schema': 'http://ils.test.rero.ch/schema/records/record-v0.0.1.json',
         'bibid': '2',
         'title': 'RERO21 pour les nuls : les premiers pas',
         'languages': ['fre'],
@@ -103,10 +107,16 @@ def app(request):
         ),
         TESTING=True,
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
+        JSONSCHEMAS_ENDPOINT='/schema',
+        JSONSCHEMAS_HOST='ils.test.rero.ch'
     )
 
     InvenioDB(app)
     InvenioPIDStore(app)
+    InvenioRecords(app)
+    ext = InvenioJSONSchemas(app)
+    # directory = os.path.dirname(reroils_data.jsonschemas.__file__)
+    # ext.register_schemas_dir(directory)
     Babel(app)
 
     with app.app_context():

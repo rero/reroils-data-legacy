@@ -26,16 +26,22 @@
 
 from __future__ import absolute_import, print_function
 
+import json
 import uuid
 from random import randint
 
 import click
 from flask.cli import with_appcontext
+from invenio_circulation.api import Item
+from invenio_db import db
+from invenio_indexer.api import RecordIndexer
+from invenio_pidstore.models import PersistentIdentifier
+
+from reroils_data.minters import circulation_itemid_minter
+
+from .api import Record
 
 
-#
-# Item management commands
-#
 @click.group()
 def fixtures():
     """Item management commands."""
@@ -50,35 +56,55 @@ def fixtures():
 @with_appcontext
 def createitems(verbose, count):
     """Create circulation items."""
-    from invenio_db import db
-    from invenio_indexer.api import RecordIndexer
-
-    from invenio_circulation.api import Item
-    from reroils_data.minters import circulation_itemid_minter
     click.secho(
         'Starting generating {0} items...'.format(count),
         fg='green')
-    prefixes = ['PA', 'SR', 'RR']
-    locations = ['publicAccess', 'storeroom', 'readingRoom']
-    for x in range(count):
-        id_ = uuid.uuid4()
-        call_number = prefixes[randint(0, 2)] + '-' + str(x + 1).zfill(5)
-        location = locations[randint(0, 2)]
-        data = {
-            "barcode": 10000000000 + x,
-            "callNumber": call_number,
-            "localisation": location
-        }
-        circulation_itemid_minter(id_, data)
-        item = Item.create(data, id_=id_)
-        if randint(0, 5) == 0:
-            item.loan_item()
-        elif randint(0, 20) == 0:
-            item.lose_item()
-        if verbose:
-            click.echo(item.id, item)
-        item.commit()
-        record_indexer = RecordIndexer()
-        record_indexer.index(item)
+    records = PersistentIdentifier.query.filter_by(pid_type='recid')
+    record_indexer = RecordIndexer()
 
-    db.session.commit()
+    for rec in records:
+        recitem = Record.get_record(rec.object_uuid)
+        recitem.add_citem(create_random_item(verbose))
+
+        # TODO optimize with bulk commit/indexing
+        db.session.commit()
+        record_indexer.index(recitem)
+
+
+@fixtures.command()
+@click.argument('pid_value', nargs=1)
+@with_appcontext
+def show(pid_value):
+    """Create circulation items."""
+    record = PersistentIdentifier.query.filter_by(pid_type='recid',
+                                                  pid_value=pid_value).first()
+    recitem = Record.get_record(record.object_uuid)
+    click.echo(json.dumps(recitem.dumps(), indent=2))
+
+
+def create_random_item(
+        verbose=False,
+        prefixes=['PA', 'SR', 'RR'],
+        locations=['publicAccess', 'storeroom', 'readingRoom']):
+    """Return a fixture Item."""
+    id_ = uuid.uuid4()
+    location = locations[randint(0, 2)]
+    data = {
+        "localisation": location
+    }
+    circulation_itemid_minter(id_, data)
+
+    n = int(data['itemid'])
+    data['barcode'] = 10000000000 + n
+    call_number = prefixes[randint(0, 2)] + '-' + str(n).zfill(5)
+    data['callNumber'] = call_number
+
+    item = Item.create(data, id_=id_)
+    if randint(0, 5) == 0:
+        item.loan_item()
+    elif randint(0, 20) == 0:
+        item.lose_item()
+    if verbose:
+        click.echo(item.id)
+    item.commit()
+    return item
