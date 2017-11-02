@@ -29,27 +29,24 @@ from __future__ import absolute_import, print_function
 import copy
 
 
-def clean_dict_keys(dict_):
+def clean_dict_keys(data):
     """Remove key having useless values."""
-    dict_copy = copy.deepcopy(dict_)
+    # retrun a new list with defined value only
+    if isinstance(data, list):
+        to_return = []
+        for item in data:
+            tmp = clean_dict_keys(item)
+            if tmp:
+                to_return.append(tmp)
+        return to_return
 
-    for key, value in dict_copy.items():
-        if isinstance(value, dict):
-            value = clean_dict_keys(dict_[key])
+    # retrun a new dict with defined value only
+    if isinstance(data, dict):
+        to_return = {}
+        for k, v in data.items():
+            tmp = clean_dict_keys(v)
+            if tmp:
+                to_return[k] = tmp
+        return to_return
 
-        # TODO: refactor
-        if value in ([None], [''], [{}], None, '', {}):
-            del dict_[key]
-
-        elif isinstance(value, list):
-            to_return = []
-            for n, item in enumerate(value):
-                if isinstance(item, dict):
-                    clean_dict_keys(dict_[key][n])
-            dict_[key] = [v for v in dict_[key] if v]
-            value = dict_[key]
-            # TODO: refactor
-            if value in ([None], [''], [{}], None, '', {}, []):
-                del dict_[key]
-
-    return dict_
+    return data

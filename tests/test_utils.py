@@ -30,6 +30,7 @@ from reroils_data.utils import clean_dict_keys
 
 
 def test_clean_dict_keys():
+    """Test undifined value pruning in several data structures."""
     data = {'languages': [None]}
     assert clean_dict_keys(data) == {}
     data = {
