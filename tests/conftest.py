@@ -52,7 +52,7 @@ def item_minimal_record():
         'itemid': '2',
         'barcode': 10000000001,
         'callNumber': 'PA-10001',
-        'localisation': 'publicAccess'
+        'location': 'publicAccess'
     }
 
 
@@ -63,8 +63,7 @@ def minimal_record():
         '$schema': 'http://ils.test.rero.ch/schema/records/record-v0.0.1.json',
         'bibid': '2',
         'title': 'RERO21 pour les nuls : les premiers pas',
-        'languages': ['fre'],
-        'identifiers': {'reroID': 'R004567655'}
+        'languages': [{'language': 'fre'}],
     }
 
 

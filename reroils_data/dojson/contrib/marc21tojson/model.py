@@ -9,6 +9,8 @@
 
 """Bibliomedia MARC21 model definition."""
 
+import re
+
 from dojson import Overdo, utils
 from dojson.utils import force_list
 
@@ -80,7 +82,8 @@ def marc21languages(self, key, value):
     languages: 008 and 041 [$a, repetitive]
     """
     language = value.strip()[35:38]
-    return [language]
+    to_return = [{'language': language}]
+    return to_return
 
 
 @marc21tojson.over('translatedFrom', '^041..')
@@ -92,10 +95,21 @@ def marc21translatedFrom(self, key, value):
     languages: 008 and 041 [$a, repetitive]
     """
     languages = self.get('languages', [])
+    unique_lang = []
+    if languages != []:
+        unique_lang.append(languages[0]['language'])
+
     language = value.get('a')
     if language:
         for lang in utils.force_list(language):
-            languages.append(lang)
+            if lang not in unique_lang:
+                unique_lang.append(lang)
+
+    languages = []
+    for lang in unique_lang:
+        languages.append({'language': lang})
+
+    self['languages'] = languages
     translated = value.get('h')
     if translated:
         return list(utils.force_list(translated))
@@ -164,7 +178,14 @@ def marc21publishers_publicationDate(self, key, value):
             name.append(remove_punctuation(data))
             publisher['name'] = name
         elif tag == 'c' and index == 0:
-            self['publicationDate'] = data
+
+            # 4 digits
+            date = re.match(r'.*?(\d{4})', data).group(1)
+            self['publicationYear'] = int(date)
+
+            # create free form if different
+            if data != str(self['publicationYear']):
+                self['freeFormedPublicationDate'] = data
         indexes[tag] = index + 1
         lasttag = tag
     publishers.append(publisher)

@@ -50,3 +50,19 @@ def clean_dict_keys(data):
         return to_return
 
     return data
+
+
+def remove_pid(editor_options):
+    """Remove PID in the editor option for new record."""
+    for option in editor_options:
+        if isinstance(option, dict):
+            if option.get('title') == 'Identifiers':
+                ids_options = option.get('items', [])[0].get('items', [])
+                n = 0
+                for ids_option in ids_options:
+                    if isinstance(ids_option, dict):
+                        title = ids_option.get('items', [])[0].get('title')
+                        if title == 'bibid':
+                            break
+                    n += 1
+                ids_options.pop(n)

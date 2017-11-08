@@ -76,7 +76,11 @@ def test_languages(schema, minimal_record):
     validate(minimal_record, schema)
 
     with pytest.raises(ValidationError):
-        minimal_record['languages'] = [2]
+        minimal_record['languages'][0]['language'] = [2]
+        validate(minimal_record, schema)
+
+    with pytest.raises(ValidationError):
+        minimal_record['languages'][0]['language'] = ['gre']
         validate(minimal_record, schema)
 
 
@@ -153,14 +157,25 @@ def test_publishers(schema, minimal_record):
         validate(minimal_record, schema)
 
 
-def test_publicationDate(schema, minimal_record):
-    """Test publicationDate for jsonschema."""
-    minimal_record['publicationDate'] = '2017'
+def test_publicationYear(schema, minimal_record):
+    """Test publicationYear for jsonschema."""
+    minimal_record['publicationYear'] = 2017
 
     validate(minimal_record, schema)
 
     with pytest.raises(ValidationError):
-        minimal_record['publicationDate'] = [2]
+        minimal_record['publicationYear'] = ['2017']
+        validate(minimal_record, schema)
+
+
+def test_freeFormedPublicationDate(schema, minimal_record):
+    """Test freeFormedPublicationDate for jsonschema."""
+    minimal_record['freeFormedPublicationDate'] = '2017'
+
+    validate(minimal_record, schema)
+
+    with pytest.raises(ValidationError):
+        minimal_record['freeFormedPublicationDate'] = [2]
         validate(minimal_record, schema)
 
 

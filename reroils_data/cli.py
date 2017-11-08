@@ -119,7 +119,7 @@ def create_random_item(
     id_ = uuid.uuid4()
     location = locations[randint(0, 2)]
     data = {
-        "localisation": location
+        "location": location
     }
     circulation_itemid_minter(id_, data)
 

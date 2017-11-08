@@ -122,7 +122,7 @@ def test_marc21languages():
     """
     marc21json = create_record(marc21xml)
     data = marc21tojson.do(marc21json)
-    assert data.get('languages') == ['ara', 'eng']
+    assert data.get('languages') == [{'language': 'ara'}, {'language': 'eng'}]
     assert data.get('translatedFrom') == ['ita']
 
     marc21xml = """
@@ -132,7 +132,7 @@ def test_marc21languages():
       <controlfield>
       <datafield tag="041" ind1=" " ind2=" ">
         <subfield code="a">eng</subfield>
-        <subfield code="a">fra</subfield>
+        <subfield code="a">fre</subfield>
         <subfield code="h">ita</subfield>
         <subfield code="h">ger</subfield>
       </datafield>
@@ -140,7 +140,11 @@ def test_marc21languages():
     """
     marc21json = create_record(marc21xml)
     data = marc21tojson.do(marc21json)
-    assert data.get('languages') == ['ara', 'eng', 'fra']
+    assert data.get('languages') == [
+        {'language': 'ara'},
+        {'language': 'eng'},
+        {'language': 'fre'}
+    ]
     assert data.get('translatedFrom') == ['ita', 'ger']
 
     marc21xml = """
@@ -155,7 +159,7 @@ def test_marc21languages():
     """
     marc21json = create_record(marc21xml)
     data = marc21tojson.do(marc21json)
-    assert data.get('languages') == ['ara', 'eng']
+    assert data.get('languages') == [{'language': 'ara'}, {'language': 'eng'}]
     assert 'translatedFrom' not in data
 
 
@@ -233,7 +237,7 @@ def test_marc21publishers_publicationDate():
             'name': ['Payot'],
         }
     ]
-    assert data.get('publicationDate') == '2015'
+    assert data.get('publicationYear') == 2015
 
     marc21xml = """
     <record>
@@ -253,7 +257,7 @@ def test_marc21publishers_publicationDate():
             'name': ['Payot'],
         }
     ]
-    assert data.get('publicationDate') == '1920'
+    assert data.get('publicationYear') == 1920
 
     marc21xml = """
     <record>
@@ -278,7 +282,8 @@ def test_marc21publishers_publicationDate():
             'name': ['Droz']
         }
     ]
-    assert data.get('publicationDate') == '1912-1955'
+    assert data.get('freeFormedPublicationDate') == '1912-1955'
+    assert data.get('publicationYear') == 1912
 
 
 # extent: 300$a (the first one if many)
@@ -381,7 +386,7 @@ def test_marc21identifiers():
         <subfield code="a">R123456789</subfield>
       </datafield>
       <datafield tag="020" ind1=" " ind2=" ">
-        <subfield code="a">ISBN123456789</subfield>
+        <subfield code="a">9782370550163</subfield>
       </datafield>
     </record>
     """
@@ -389,7 +394,7 @@ def test_marc21identifiers():
     data = marc21tojson.do(marc21json)
     assert data.get('identifiers') == {
         'reroID': 'R123456789',
-        'isbn': 'ISBN123456789'
+        'isbn': '9782370550163'
     }
 
 

@@ -26,7 +26,34 @@
 
 from __future__ import absolute_import, print_function
 
-from reroils_data.utils import clean_dict_keys
+import copy
+from json import loads
+
+from pkg_resources import resource_string
+
+from reroils_data.utils import clean_dict_keys, remove_pid
+
+
+def test_remove_pid():
+    """Test pid removal."""
+    # load editor options
+    options_in_bytes = resource_string(
+        'reroils_data.form_options',
+        'records/record-v0.0.1.json'
+    )
+    editor_options = loads(options_in_bytes.decode('utf8'))
+    assert editor_options
+
+    # keep original options
+    orig_options = copy.deepcopy(editor_options)
+    # should be equivalent
+    assert orig_options == editor_options
+
+    # remove the pid options
+    remove_pid(editor_options)
+
+    # original options should be modified
+    assert orig_options != editor_options
 
 
 def test_clean_dict_keys():

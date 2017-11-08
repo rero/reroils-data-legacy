@@ -69,10 +69,10 @@ def test_callNumber(item_schema, item_minimal_record):
         validate(item_minimal_record, item_schema)
 
 
-def test_localisation(item_schema, item_minimal_record):
+def test_location(item_schema, item_minimal_record):
     """Test location for item jsonschema."""
     validate(item_minimal_record, item_schema)
 
     with pytest.raises(ValidationError):
-        item_minimal_record['localisation'] = 25
+        item_minimal_record['location'] = 25
         validate(item_minimal_record, item_schema)

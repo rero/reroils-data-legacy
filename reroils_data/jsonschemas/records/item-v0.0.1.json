@@ -28,9 +28,9 @@
             "type": "string",
             "pattern": "^(PA|SR|RR)-\\d{5}$"
         },
-        "localisation": {
-            "title": "Localisation",
-            "description": "Localisation of the item",
+        "location": {
+            "title": "location",
+            "description": "location of the item",
             "type": "string",
             "enum": [
                 "publicAccess",
@@ -58,5 +58,5 @@
          }
     },
     "additionalProperties": false,
-    "required": [ "$schema", "itemid", "barcode", "callNumber", "localisation" ]
+    "required": [ "$schema", "itemid", "barcode", "callNumber", "location" ]
 }

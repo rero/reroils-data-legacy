@@ -1,255 +1,181 @@
 [
     {
         "type": "fieldset",
-        "title": "Languages",
-        "items": [
-            {
-                "key": "languages",
-                "add": "Add a new language",
-                "style": {
-                    "add": "btn-success"
-                },
-                "type": "array",
-                "items": [
-                    {
-                        "key": "languages[]",
-                        "notitle": true
-                    }
-                ]
-            },
-            {
-                "key": "translatedFrom",
-                "title": "Original document's language",
-                "add": "Add a new original document's language(s)",
-                "style": {
-                    "add": "btn-success"
-                },
-                "type": "array",
-                "items": [
-                    {
-                        "key": "translatedFrom[]",
-                        "notitle": true
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "type": "fieldset",
-        "title": "Author(s)",
-        "items": [
-            {
-                "key": "authors",
-                "notitle": true,
-                "description": "",
-                "add": "Add a new author",
-                "style": {
-                    "add": "btn-success"
-                },
-                "type": "array",
-                "items": [
-                    {
-                        "key": "authors[]type",
-                        "type": "radios",
-                        "notitle": true,
-                        "titleMap": [
-                            {
-                                "value": "person",
-                                "name": "Person."
-                            },
-                            {
-                                "value": "organisation",
-                                "name": "Organisation."
-                            }
-                        ]
-                    },
-                    {
-                        "key": "authors[]name",
-                        "placeholder": "Lastname, Name"
-                    },
-                    "authors[]date",
-                    "authors[]qualifier"
-                ]
-            }
-        ]
-    },
-    {
-        "type": "fieldset",
-        "title": "Title",
-        "items": [
-            "title",
-            {
-                "key": "titlesProper",
-                "add": "Add a new Title Proper",
-                "style": {
-                    "add": "btn-success"
-                },
-                "type": "array",
-                "items": [
-                    {
-                        "key": "titlesProper[]",
-                        "notitle": true
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "type": "fieldset",
-        "title": "Publication statement",
-        "items": [
-            {
-                "type": "help",
-                "helpvalue": "Try to keep the logic of the relationships between publishers and place of publication."
-            },
-            {
-                "key": "publishers",
-                "description": "",
-                "add": "Add a new couple publisher/name",
-                "style": {
-                    "add": "btn-success"
-                },
-                "type": "array",
-                "items": [
-                    {
-                        "key": "publishers[]name",
-                        "add": "Add a new publisher",
-                        "style": {
-                            "add": "btn-success"
-                        }
-                    },
-                    {
-                        "key": "publishers[]place",
-                        "add": "Add a new place",
-                        "style": {
-                            "add": "btn-success"
-                        }
-                    }
-                ]
-            },
-            "publicationDate"
-        ]
-    },
-    {
-        "type": "fieldset",
-        "title": "Material Characteristics",
-        "items": [
-            "extent",
-            "otherMaterialCharacteristics",
-            {
-                "key": "formats",
-                "add": "Add a new format",
-                "style": {
-                    "add": "btn-success"
-                },
-                "type": "array",
-                "items": [
-                    {
-                        "key": "formats[]",
-                        "notitle": true
-                    }
-                ]
-            },
-            "additionalMaterials"
-        ]
-    },
-    {
-        "type": "fieldset",
-        "title": "Series",
-        "items": [
-            {
-                "type": "help",
-                "helpvalue": "Series or multipart monographs title."
-            },
-            {
-                "key": "series",
-                "notitle": true,
-                "description": "",
-                "add": "Add a new serie",
-                "style": {
-                    "add": "btn-success"
-                },
-                "type": "array",
-                "items": [
-                    "series[]name",
-                    "series[]number"
-                ]
-            }
-        ]
-    },
-    {
-        "type": "fieldset",
-        "title": "Notes",
-        "items": [
-            {
-                "key": "notes",
-                "title": "General note",
-                "description": "",
-                "add": "Add a new note",
-                "style": {
-                    "add": "btn-success"
-                },
-                "type": "array",
-                "items": [
-                    {
-                        "key": "notes[]",
-                        "notitle": true,
-                        "type": "textarea"
-                    }
-                ]
-            },
-            {
-                "key": "abstracts",
-                "add": "Add a new abstract",
-                "description": "",
-                "style": {
-                    "add": "btn-success"
-                },
-                "type": "array",
-                "items": [
-                    {
-                        "key": "abstracts[]",
-                        "notitle": true,
-                        "type": "textarea"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "type": "fieldset",
-        "title": "Subjects",
-        "items": [
-            {
-                "key": "subjects",
-                "type": "array",
-                "description": "",
-                "add": "Add a new subject",
-                "style": {
-                    "add": "btn-success"
-                },
-                "items": [
-                    {
-                        "key": "subjects[]",
-                        "notitle": true
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "type": "actions",
-        "items": [
-            {
+        "items": [{
+            "type": "actions",
+            "htmlClass": "rero21-submit pull-right",
+            "items": [{
                 "type": "submit",
                 "style": "btn-success",
                 "title": "Submit"
-            },
+            }]
+        }]
+    },{
+        "type": "fieldset",
+        "title": "Identifiers",
+        "items": [
             {
-                "type": "button",
-                "title": "Cancel",
-                "style": "btn-danger",
-                "onClick": "goBack()" }
+                "type": "section",
+                "htmlClass": "row",
+                "items": [
+                    {
+                        "type": "section",
+                        "htmlClass": "col-xs-4",
+                        "items": [
+                            {
+                                "key": "identifiers.isbn",
+                                "title": "isbn"
+                            },
+                            {
+                                "type": "actions",
+                                "items": [{
+                                    "type": "button",
+                                    "style": "btn-info",
+                                    "title": "Import",
+                                    "htmlClass": "rero21-import"
+                                }]
+                            }
+                        ]
+                    },{
+                        "type": "section",
+                        "htmlClass": "col-xs-4",
+                        "items": [{
+                            "key": "bibid",
+                            "title": "bibid",
+                            "description": "Persistent identifier, automatically generated.",
+                            "readonly": true
+                        }]
+                    },{
+                        "type": "section",
+                        "htmlClass": "col-xs-4",
+                        "items": [{
+                            "key": "identifiers.reroID",
+                            "title": "reroID",
+                            "description": "ID of the original RERO record, when imported. Does not exist for new bibliographic record."
+                        }]
+                    }
+                ]
+            }
         ]
+    },{
+        "type": "fieldset",
+        "title": "Title",
+        "items": [
+            {
+                "key": "title",
+                "notitle": true,
+                "htmlClass": "rero21-required"
+            }
+        ]
+    },{
+        "type": "fieldset",
+        "title": "Author(s)",
+        "items": [{
+            "key": "authors",
+            "notitle": true,
+            "description": "",
+            "add": "new author",
+            "style": {
+                "add": "btn-link"
+            },
+            "type": "array",
+            "items": [
+                {
+                    "key": "authors[].type",
+                    "type": "radiobuttons",
+                    "notitle": true,
+                    "titleMap": [
+                        {
+                            "value": "person",
+                            "name": "Person"
+                        },
+                        {
+                            "value": "organisation",
+                            "name": "Organisation"
+                        }
+                    ],
+                    "style": {
+                        "selected": "btn-success",
+                        "unselected": "btn-default"
+                    }
+                },{
+                    "key": "authors[].name"
+                },{
+                    "key": "authors[].date",
+                    "condition": "model.authors[arrayIndex].type == 'person'"
+                },{
+                    "key": "authors[].qualifier",
+                    "condition": "model.authors[arrayIndex].type == 'person'"
+                }
+            ]
+        }]
+    },{
+        "type": "fieldset",
+        "title": "Language(s) of the document",
+        "items": [{
+            "key": "languages",
+            "notitle": true,
+            "add": "new language",
+            "style": {
+                "add": "btn-link"
+            },
+            "startEmpty": false,
+            "type": "array",
+            "items": [{
+                "key": "languages[].language",
+                "notitle": true,
+                "description": "",
+                "htmlClass": "rero21-required",
+                "titleMap": [
+                    { "value": "ara", "name": "Arabic" },
+                    { "value": "chi", "name": "Chinese" },
+                    { "value": "eng", "name": "English" },
+                    { "value": "fre", "name": "French" },
+                    { "value": "ger", "name": "German" },
+                    { "value": "heb", "name": "Hebrew" },
+                    { "value": "ita", "name": "Italian" },
+                    { "value": "jpn", "name": "Japanese" },
+                    { "value": "lat", "name": "Latin" },
+                    { "value": "por", "name": "Portuguese" },
+                    { "value": "rus", "name": "Russian" },
+                    { "value": "spa", "name": "Spanish" }
+                ]
+            }]
+        }]
+    },{
+        "type": "fieldset",
+        "title": "Date of publication",
+        "items": [{
+            "type": "section",
+            "htmlClass": "row",
+            "items": [
+                {
+                    "type": "section",
+                    "htmlClass": "col-xs-6",
+                    "items": [
+                        "publicationYear"
+                    ]
+                },
+                {
+                    "type": "section",
+                    "htmlClass": "col-xs-6",
+                    "items": [{
+                        "key": "freeFormedPublicationDate",
+                        "condition": "model.publicationYear"
+                    }]
+                }
+            ]
+        }]
+    },{
+        "type": "fieldset",
+        "items": [{
+            "type": "actions",
+            "htmlClass": "rero21-submit pull-right",
+            "items": [{
+                    "type": "submit",
+                    "style": "btn-success",
+                    "title": "Submit"
+            }]
+        }]
     }
 ]

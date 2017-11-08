@@ -32,16 +32,36 @@
             "minItems": 1
         },
         "languages": {
-            "title": "Language(s)",
-            "description": "Required. Language(s) of the bibliographic record can either be its primary language or all the existing languages of the document.",
+            "title": "Languages",
+            "description": "List of languages for the bibliographic record.",
             "type": "array",
+            "uniqueItems": true,
+            "minItems": 1,
             "items": {
-                "type": "string",
-                "minLength": 3,
-                "minItems": 1,
-                "validationMessage": "Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for English."
+                "type": "object",
+                "properties": {
+                    "language": {
+                        "title" : "Language",
+                        "description": "Required. Language of the bibliographic record, primary or not.",
+                        "type": "string",
+                        "enum": [
+                            "fre",
+                            "ger",
+                            "eng",
+                            "ita",
+                            "spa",
+                            "ara",
+                            "chi",
+                            "lat",
+                            "heb",
+                            "jpn",
+                            "por",
+                            "rus"
+                        ]
+                    }
+                }
             },
-            "required": [ "languages" ]
+            "required": [ "language" ]
         },
         "translatedFrom": {
             "title": "Translated from",
@@ -73,7 +93,8 @@
                         "enum": [
                             "person",
                             "organisation"
-                        ]
+                        ],
+                        "default": "person"
                     },
                     "date": {
                         "title": "Date",
@@ -125,11 +146,19 @@
             "additionalProperties": false,
             "minItems": 1
         },
-        "publicationDate": {
-            "title": "Date of publication",
-            "description": "Date of the publication.",
+        "publicationYear": {
+            "title": "Publication's Year",
+            "description": "Year of the publication. This must be an integer, ie 1989, 453, -50. Used to sort search results. Once this field is set, a free formed date of publication can be added in the next field.",
+            "type": "integer",
+            "minimum": -9999,
+            "maximum": 2050,
+            "validationMessage": "Have to be an integer, from -9999 to +9999. Zero prefixes aren't needed."
+        },
+        "freeFormedPublicationDate": {
+            "title": "Date of publication (free formed)",
+            "description": "Date of the publication in a free form. If there's a normalized date of publication, then a free formed date can be added to be displayed.",
             "type": "string",
-            "minLength": 1
+            "minLength": 3
         },
         "extent": {
             "title": "Extent",
@@ -179,7 +208,7 @@
                     }
                 }
             },
-            "required": [ "name" ],
+            "required": ["name"],
             "additionalProperties": false,
             "minItems": 1
         },
@@ -189,7 +218,7 @@
             "type": "array",
             "items": {
                 "type": "string",
-                "minLength": 3
+                "minLength": 1
             },
             "additionalProperties": false,
             "minItems": 1
@@ -220,11 +249,11 @@
                     "title": "ISBN",
                     "description": "ISBN of the record.",
                     "type": "string",
-                    "minLength": 1
+                    "pattern": "^978[0-9]{10}$",
+                    "validationMessage": "Should be a valid ISBN-13 without dashes."
                 }
             },
-            "additionalProperties": false,
-            "required": [ "reroID" ]
+            "additionalProperties": false
         },
         "subjects": {
             "title": "Subject",
@@ -239,5 +268,5 @@
         }
     },
     "additionalProperties": false,
-    "required": [ "$schema", "bibid", "title", "languages", "identifiers" ]
+    "required": [ "$schema", "bibid", "title", "languages" ]
 }
