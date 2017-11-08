@@ -53,8 +53,12 @@ def fixtures():
     '-c', '--count', 'count', type=click.INT, default=10000,
     help='default=10000'
 )
+@click.option(
+    '-i', '--itemscount', 'itemscount', type=click.INT, default=1,
+    help='default=1'
+)
 @with_appcontext
-def createitems(verbose, count):
+def createitems(verbose, count, itemscount):
     """Create circulation items."""
     click.secho(
         'Starting generating {0} items...'.format(count),
@@ -62,11 +66,13 @@ def createitems(verbose, count):
     records = PersistentIdentifier.query.filter_by(pid_type='recid')
     record_indexer = RecordIndexer()
 
-    for rec in records:
+    for rec in records[:count]:
         recitem = Record.get_record(rec.object_uuid)
-        recitem.add_citem(create_random_item(verbose))
 
-        # TODO optimize with bulk commit/indexing
+        for i in range(0, randint(0, itemscount)):
+            recitem.add_citem(create_random_item(verbose))
+            # TODO optimize with bulk commit/indexing
+
         db.session.commit()
         record_indexer.index(recitem)
 
