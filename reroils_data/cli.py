@@ -50,31 +50,36 @@ def fixtures():
 @fixtures.command()
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @click.option(
-    '-c', '--count', 'count', type=click.INT, default=10000,
-    help='default=10000'
+    '-c', '--count', 'count', type=click.INT, default=-1,
+    help='default=for all records'
 )
 @click.option(
-    '-i', '--itemscount', 'itemscount', type=click.INT, default=1,
+    '-i', '--itemscount', 'itemscount', type=click.INT, default=5,
     help='default=1'
 )
 @with_appcontext
 def createitems(verbose, count, itemscount):
     """Create circulation items."""
-    click.secho(
-        'Starting generating {0} items...'.format(count),
-        fg='green')
     records = PersistentIdentifier.query.filter_by(pid_type='recid')
+    if count == -1:
+        count = records.count()
     record_indexer = RecordIndexer()
 
-    for rec in records[:count]:
-        recitem = Record.get_record(rec.object_uuid)
+    click.secho(
+        'Starting generating {0} items, random {1} ...'.format(
+            count, itemscount),
+        fg='green')
 
-        for i in range(0, randint(0, itemscount)):
-            recitem.add_citem(create_random_item(verbose))
-            # TODO optimize with bulk commit/indexing
+    with click.progressbar(records[:count], length=count) as bar:
+        for rec in bar:
+            recitem = Record.get_record(rec.object_uuid)
 
-        db.session.commit()
-        record_indexer.index(recitem)
+            for i in range(0, randint(1, itemscount)):
+                recitem.add_citem(create_random_item(verbose))
+                # TODO optimize with bulk commit/indexing
+
+            db.session.commit()
+            record_indexer.index(recitem)
 
 
 @fixtures.command()
@@ -86,6 +91,24 @@ def show(pid_value):
                                                   pid_value=pid_value).first()
     recitem = Record.get_record(record.object_uuid)
     click.echo(json.dumps(recitem.dumps(), indent=2))
+
+
+@fixtures.command()
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@with_appcontext
+def reindex(verbose):
+    """Reindex records."""
+    click.secho(
+        'Starting reindexing ...',
+        fg='green')
+    record_indexer = RecordIndexer()
+    records = PersistentIdentifier.query.filter_by(pid_type='recid')
+    with click.progressbar(records, length=records.count()) as bar:
+        for rec in bar:
+            recitem = Record.get_record(rec.object_uuid)
+            if verbose:
+                click.echo('Reindexing {0}'.format(recitem.id))
+            record_indexer.index(recitem)
 
 
 def create_random_item(
