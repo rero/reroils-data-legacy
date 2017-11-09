@@ -75,7 +75,7 @@ def createitems(verbose, count, itemscount):
             recitem = Record.get_record(rec.object_uuid)
 
             for i in range(0, randint(1, itemscount)):
-                recitem.add_citem(create_random_item(verbose))
+                recitem.add_citem(create_random_item())
                 # TODO optimize with bulk commit/indexing
 
             db.session.commit()
