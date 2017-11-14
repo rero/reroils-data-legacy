@@ -48,7 +48,7 @@ import reroils_data
 def item_minimal_record():
     """Item Minimal record."""
     yield {
-        '$schema': 'http://ils.test.rero.ch/schema/records/item-v0.0.1.json',
+        '$schema': 'http://ils.test.rero.ch/schema/items/item-v0.0.1.json',
         'itemid': '2',
         'barcode': 10000000001,
         'callNumber': 'PA-10001',
@@ -71,7 +71,7 @@ def minimal_record():
 def item_schema():
     """Item Jsonschema for records."""
     schema_in_bytes = resource_string('reroils_data.jsonschemas',
-                                      'records/item-v0.0.1.json')
+                                      'items/item-v0.0.1.json')
     schema = loads(schema_in_bytes.decode('utf8'))
     return schema
 

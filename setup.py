@@ -112,7 +112,9 @@ setup(
             'reroils_data.dojson.contrib.marc21tojson:marc21tojson',
         ],
         'invenio_search.mappings': [
-            'records = reroils_data.mappings'
+            'records = reroils_data.mappings',
+            'items = reroils_data.mappings'
+
         ],
         'flask.commands': [
             'fixtures = reroils_data.cli:fixtures',
