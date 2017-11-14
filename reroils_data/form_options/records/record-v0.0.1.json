@@ -32,7 +32,8 @@
                                     "type": "button",
                                     "style": "btn-info",
                                     "title": "Import",
-                                    "htmlClass": "rero21-import"
+                                    "htmlClass": "rero21-import",
+                                    "onClick": "importEanFromBnf()"
                                 }]
                             }
                         ]
