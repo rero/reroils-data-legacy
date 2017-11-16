@@ -136,6 +136,22 @@ def test_marc21languages():
     ]
     assert data.get('translatedFrom') == ['ita']
 
+    marc21xml = """
+    <record>
+      <datafield tag="101" ind1=" " ind2=" ">
+        <subfield code="a">eng</subfield>
+        <subfield code="a">???</subfield>
+        <subfield code="c">ita</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = unimarctojson.do(marc21json)
+    assert data.get('languages') == [
+        {'language': 'eng'},
+    ]
+    assert data.get('translatedFrom') == ['ita']
+
 
 # authors: loop:
 # 700 Nom de personne – Responsabilité principale

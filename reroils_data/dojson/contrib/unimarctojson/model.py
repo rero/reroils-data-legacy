@@ -10,9 +10,11 @@
 """Bibliomedia UNIMARC model definition."""
 
 import re
+from json import loads
 
 from dojson import Overdo, utils
-from dojson.utils import force_list
+# from dojson.utils import force_list
+from pkg_resources import resource_string
 
 unimarctojson = Overdo()
 
@@ -70,8 +72,14 @@ def unimarclanguages(self, key, value):
     """
     languages = utils.force_list(value.get('a'))
     to_return = []
+    schema_in_bytes = resource_string('reroils_data.jsonschemas',
+                                      'records/record-v0.0.1.json')
+    schema = loads(schema_in_bytes.decode('utf8'))
+    langs = schema[
+        'properties']['languages']['items']['properties']['language']['enum']
     for language in languages:
-        to_return.append({'language': language})
+        if language in langs:
+            to_return.append({'language': language})
 
     translatedsfrom = utils.force_list(value.get('c'))
     if translatedsfrom:
