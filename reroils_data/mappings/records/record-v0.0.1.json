@@ -57,6 +57,10 @@
                 }
             }
         },
+        "item_status": {
+            "type": "string",
+            "index": "not_analyzed"
+        },
         "facet_authors": {
             "type": "string",
             "index": "not_analyzed"
@@ -148,7 +152,8 @@
                 },
                 "status" : {
                   "type" : "string",
-                  "index": "not_analyzed"
+                  "index": "not_analyzed",
+                  "copy_to": "item_status"
                 }
               }
             },
