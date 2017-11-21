@@ -24,7 +24,7 @@
                         "items": [
                             {
                                 "key": "identifiers.isbn",
-                                "title": "isbn"
+                                "title": "ISBN"
                             },
                             {
                                 "type": "actions",
@@ -45,14 +45,6 @@
                             "title": "bibid",
                             "description": "Persistent identifier, automatically generated.",
                             "readonly": true
-                        }]
-                    },{
-                        "type": "section",
-                        "htmlClass": "col-xs-4",
-                        "items": [{
-                            "key": "identifiers.reroID",
-                            "title": "reroID",
-                            "description": "ID of the original RERO record, when imported. Does not exist for new bibliographic record."
                         }]
                     }
                 ]
@@ -80,6 +72,7 @@
                 "add": "btn-link"
             },
             "type": "array",
+            "startEmpty": true,
             "items": [
                 {
                     "key": "authors[].type",
@@ -115,17 +108,19 @@
         "title": "Language(s) of the document",
         "items": [{
             "key": "languages",
-            "notitle": true,
+            "notitle": false,
+            "title": "Language(s) name",
             "add": "new language",
             "style": {
                 "add": "btn-link"
             },
-            "startEmpty": false,
+            "startEmpty": true,
             "type": "array",
             "items": [{
                 "key": "languages[].language",
                 "notitle": true,
                 "description": "",
+                "default": "fre",
                 "htmlClass": "rero21-required",
                 "titleMap": [
                     { "value": "ara", "name": "Arabic" },

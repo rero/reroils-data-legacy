@@ -286,6 +286,10 @@ def test_identifiers(schema, minimal_record):
         minimal_record['identifiers']['isbn'] = 2
         validate(minimal_record, schema)
 
+    with pytest.raises(ValidationError):
+        minimal_record['identifiers'] = {}
+        validate(minimal_record, schema)
+
 
 def test_subjects(schema, minimal_record):
     """Test subjects for jsonschema."""
