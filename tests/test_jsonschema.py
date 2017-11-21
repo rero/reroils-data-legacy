@@ -273,7 +273,8 @@ def test_identifiers(schema, minimal_record):
     """Test identifiers for jsonschema."""
     minimal_record['identifiers'] = {
         "reroID": "R004567655",
-        "isbn": "9782082015769"
+        "isbn": "9782082015769",
+        "bnfID": "cb350330441"
     }
 
     validate(minimal_record, schema)
@@ -288,6 +289,16 @@ def test_identifiers(schema, minimal_record):
 
     with pytest.raises(ValidationError):
         minimal_record['identifiers'] = {}
+        validate(minimal_record, schema)
+
+    minimal_record['identifiers'] = {
+        "bnfID": "cb350330441"
+    }
+
+    validate(minimal_record, schema)
+
+    with pytest.raises(ValidationError):
+        minimal_record['identifiers']['bnfID'] = 2
         validate(minimal_record, schema)
 
 

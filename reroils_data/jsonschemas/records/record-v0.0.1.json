@@ -248,6 +248,12 @@
                     "type": "string",
                     "minLength": 1
                 },
+                "bnfID": {
+                    "title": "bnfID",
+                    "description": "Corresponding bnfID of the original BNF record.",
+                    "type": "string",
+                    "minLength": 1
+                },
                 "isbn": {
                     "title": "ISBN",
                     "description": "ISBN of the record.",

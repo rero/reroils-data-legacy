@@ -396,6 +396,8 @@ def test_marc21identifiers():
 
     marc21xml = """
     <record>
+      <controlfield tag="003">
+        http://catalogue.bnf.fr/ark:/12148/cb350330441<controlfield>
       <datafield tag="073" ind1=" " ind2=" ">
         <subfield code="a">9782370550163</subfield>
       </datafield>
@@ -404,6 +406,7 @@ def test_marc21identifiers():
     marc21json = create_record(marc21xml)
     data = unimarctojson.do(marc21json)
     assert data.get('identifiers') == {
+        'bnfID': 'cb350330441',
         'isbn': '9782370550163'
     }
 

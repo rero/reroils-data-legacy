@@ -34,6 +34,19 @@ unimarctojson = Overdo()
 #     return order
 
 
+@unimarctojson.over('identifiers', '^003')
+@utils.ignore_value
+def unimarcbnfid(self, key, value):
+    """Get ID.
+
+    identifier bnfID 003
+    """
+    values = value.split('/')
+    identifiers = self.get('identifiers', {})
+    identifiers['bnfID'] = values[-1]
+    return identifiers
+
+
 @unimarctojson.over('title', '^200..')
 @utils.ignore_value
 def unimarctitle(self, key, value):
@@ -237,12 +250,10 @@ def unimarcidentifier_isbn(self, key, value):
 
     identifiers:isbn: 010$a
     """
+    identifiers = self.get('identifiers', {})
     if value.get('a'):
-        identifiers = {}
         identifiers['isbn'] = value.get('a')
-        return identifiers
-    else:
-        return None
+    return identifiers
 
 
 @unimarctojson.over('notes', '^300..')
