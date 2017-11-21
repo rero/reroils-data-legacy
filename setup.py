@@ -104,6 +104,10 @@ setup(
         'invenio_jsonschemas.schemas': [
             'record = reroils_data.jsonschemas'
         ],
+        'dojson.cli': [
+            'reverse = reroils_data.cli:reverse',
+            'head = reroils_data.cli:head'
+        ],
         'dojson.cli.dump': [
             'pjson = reroils_data.dojson.utils:dump'
         ],

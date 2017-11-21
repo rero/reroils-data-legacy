@@ -42,6 +42,34 @@ from reroils_data.minters import circulation_itemid_minter
 from .api import Record
 
 
+@click.command('reverse')
+def reverse():
+    """Reverse the order of the data."""
+    def processor(iterator):
+        items = []
+        for item in iterator:
+            items.append(item)
+        items.reverse()
+        return items
+
+    return processor
+
+
+@click.command('head')
+@click.argument('max', type=click.INT,)
+def head(max):
+    """Take only the first max items."""
+    def processor(iterator):
+        n = 0
+        for item in iterator:
+            if n >= max:
+                raise StopIteration
+            n += 1
+            yield item
+
+    return processor
+
+
 @click.group()
 def fixtures():
     """Item management commands."""
