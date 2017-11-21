@@ -7,12 +7,12 @@
             "items": [{
                 "type": "submit",
                 "style": "btn-success",
-                "title": "Submit"
+                "title": "Speichern"
             }]
         }]
     },{
         "type": "fieldset",
-        "title": "Identifiers",
+        "title": "Identifikatoren",
         "items": [
             {
                 "type": "section",
@@ -24,7 +24,7 @@
                         "items": [{
                             "key": "bibid",
                             "title": "bibid",
-                            "description": "Persistent identifier, automatically generated.",
+                            "description": "Permanenter und automatisch generierter Identifikator.",
                             "readonly": true
                         }]
                     },
@@ -43,7 +43,7 @@
                             "items": [{
                                 "type": "button",
                                 "style": "btn-info rero21-import",
-                                "title": "Import",
+                                "title": "Importieren",
                                 "onClick": "importEanFromBnf()"
                             }]
                         }]
@@ -53,7 +53,7 @@
         ]
     },{
         "type": "fieldset",
-        "title": "Title",
+        "title": "Titel",
         "items": [
             {
                 "key": "title",
@@ -63,12 +63,12 @@
         ]
     },{
         "type": "fieldset",
-        "title": "Author(s)",
+        "title": "Autor(en)",
         "items": [{
             "key": "authors",
             "notitle": true,
             "description": "",
-            "add": "new author",
+            "add": "neuer Autor",
             "style": {
                 "add": "btn-link"
             },
@@ -106,12 +106,12 @@
         }]
     },{
         "type": "fieldset",
-        "title": "Language(s) of the resource",
+        "title": "Sprache(n) der Ressource",
         "items": [{
             "key": "languages",
             "notitle": false,
-            "title": "Language(s) name",
-            "add": "new language",
+            "title": "Sprache Name",
+            "add": "neue Sprache",
             "style": {
                 "add": "btn-link"
             },
@@ -127,24 +127,24 @@
                 "default": "fre",
                 "htmlClass": "rero21-required",
                 "titleMap": [
-                    { "value": "ara", "name": "Arabic" },
-                    { "value": "chi", "name": "Chinese" },
-                    { "value": "eng", "name": "English" },
-                    { "value": "fre", "name": "French" },
-                    { "value": "ger", "name": "German" },
-                    { "value": "heb", "name": "Hebrew" },
-                    { "value": "ita", "name": "Italian" },
-                    { "value": "jpn", "name": "Japanese" },
-                    { "value": "lat", "name": "Latin" },
-                    { "value": "por", "name": "Portuguese" },
-                    { "value": "rus", "name": "Russian" },
-                    { "value": "spa", "name": "Spanish" }
+                    { "value": "ara", "name": "Arabisch" },
+                    { "value": "chi", "name": "Chinesisch" },
+                    { "value": "eng", "name": "Englisch" },
+                    { "value": "fre", "name": "Französisch" },
+                    { "value": "ger", "name": "Deutsch" },
+                    { "value": "heb", "name": "Hebräisch" },
+                    { "value": "ita", "name": "Italienisch" },
+                    { "value": "jpn", "name": "Japanisch" },
+                    { "value": "lat", "name": "Lateinisch" },
+                    { "value": "por", "name": "Portugiesisch" },
+                    { "value": "rus", "name": "Russisch" },
+                    { "value": "spa", "name": "Spanisch" }
                 ]
             }]
         }]
     },{
         "type": "fieldset",
-        "title": "Date of publication",
+        "title": "Erscheinungsdatum",
         "items": [{
             "type": "section",
             "htmlClass": "row",
@@ -174,7 +174,7 @@
             "items": [{
                     "type": "submit",
                     "style": "btn-success",
-                    "title": "Submit"
+                    "title": "Speichern"
             }]
         }]
     }

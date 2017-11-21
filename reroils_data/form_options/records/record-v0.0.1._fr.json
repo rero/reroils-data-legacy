@@ -7,12 +7,12 @@
             "items": [{
                 "type": "submit",
                 "style": "btn-success",
-                "title": "Submit"
+                "title": "Soumettre"
             }]
         }]
     },{
         "type": "fieldset",
-        "title": "Identifiers",
+        "title": "Identifiants",
         "items": [
             {
                 "type": "section",
@@ -24,7 +24,7 @@
                         "items": [{
                             "key": "bibid",
                             "title": "bibid",
-                            "description": "Persistent identifier, automatically generated.",
+                            "description": "Identifiant pérenne, généré automatiquement.",
                             "readonly": true
                         }]
                     },
@@ -43,7 +43,7 @@
                             "items": [{
                                 "type": "button",
                                 "style": "btn-info rero21-import",
-                                "title": "Import",
+                                "title": "Importer",
                                 "onClick": "importEanFromBnf()"
                             }]
                         }]
@@ -63,12 +63,12 @@
         ]
     },{
         "type": "fieldset",
-        "title": "Author(s)",
+        "title": "Auteur(s)",
         "items": [{
             "key": "authors",
             "notitle": true,
             "description": "",
-            "add": "new author",
+            "add": "nouvel auteur",
             "style": {
                 "add": "btn-link"
             },
@@ -82,11 +82,11 @@
                     "titleMap": [
                         {
                             "value": "person",
-                            "name": "Person"
+                            "name": "Personne"
                         },
                         {
                             "value": "organisation",
-                            "name": "Organisation"
+                            "name": "Collectivité"
                         }
                     ],
                     "style": {
@@ -106,19 +106,19 @@
         }]
     },{
         "type": "fieldset",
-        "title": "Language(s) of the resource",
+        "title": "Langue(s) de la ressource",
         "items": [{
             "key": "languages",
             "notitle": false,
-            "title": "Language(s) name",
-            "add": "new language",
+            "title": "Nom de la langue",
+            "add": "nouvelle langue",
             "style": {
                 "add": "btn-link"
             },
             "startEmpty": true,
             "type": "array",
             "validationMessage": {
-                "402": "<span class=\"text-danger\">Language value should be unique!</span>"
+                "402": "<span class=\"text-danger\">La langue doit être unique!</span>"
             },
             "items": [{
                 "key": "languages[].language",
@@ -127,24 +127,24 @@
                 "default": "fre",
                 "htmlClass": "rero21-required",
                 "titleMap": [
-                    { "value": "ara", "name": "Arabic" },
-                    { "value": "chi", "name": "Chinese" },
-                    { "value": "eng", "name": "English" },
-                    { "value": "fre", "name": "French" },
-                    { "value": "ger", "name": "German" },
-                    { "value": "heb", "name": "Hebrew" },
-                    { "value": "ita", "name": "Italian" },
-                    { "value": "jpn", "name": "Japanese" },
+                    { "value": "ara", "name": "Arabe" },
+                    { "value": "chi", "name": "Chinois" },
+                    { "value": "eng", "name": "Anglais" },
+                    { "value": "fre", "name": "Français" },
+                    { "value": "ger", "name": "Allemand" },
+                    { "value": "heb", "name": "Hébreux" },
+                    { "value": "ita", "name": "Italien" },
+                    { "value": "jpn", "name": "Japonais" },
                     { "value": "lat", "name": "Latin" },
-                    { "value": "por", "name": "Portuguese" },
-                    { "value": "rus", "name": "Russian" },
-                    { "value": "spa", "name": "Spanish" }
+                    { "value": "por", "name": "Portugais" },
+                    { "value": "rus", "name": "Russe" },
+                    { "value": "spa", "name": "Espagnol" }
                 ]
             }]
         }]
     },{
         "type": "fieldset",
-        "title": "Date of publication",
+        "title": "Date de publication",
         "items": [{
             "type": "section",
             "htmlClass": "row",
@@ -174,7 +174,7 @@
             "items": [{
                     "type": "submit",
                     "style": "btn-success",
-                    "title": "Submit"
+                    "title": "Sauver"
             }]
         }]
     }

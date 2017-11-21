@@ -56,7 +56,7 @@ def remove_pid(editor_options):
     """Remove PID in the editor option for new record."""
     for option in editor_options:
         if isinstance(option, dict):
-            if option.get('title') == 'Identifiers':
+            if option.get('title', '').startswith('Ident'):
                 ids_options = option.get('items', [])[0].get('items', [])
                 n = 0
                 for ids_option in ids_options:

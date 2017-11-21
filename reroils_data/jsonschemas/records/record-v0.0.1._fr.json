@@ -1,31 +1,31 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Schema for bibliographic records",
+    "title": "Schéma pour les notices bibliographiques",
     "type": "object",
     "required": ["$schema", "bibid", "title", "languages"],
     "additionalProperties": false,
     "properties": {
         "$schema": {
-            "title": "Schema",
-            "description": "Schema to validate book records against.",
+            "title": "Schéma",
+            "description": "Schéma de validation des notices bibliographiques de type monographies.",
             "type": "string",
             "minLength": 7
         },
         "bibid": {
             "title": "Bibid",
-            "description": "rero21 persistent identifiers for bibliographic records.",
+            "description": "Identifiants rero21 pérennes pour les notices bibliographiques.",
             "type": "string",
             "minLength": 1
         },
         "title": {
-            "title": "Title",
-            "description": "Required. Entire title without statement of responsibility.",
+            "title": "Titre",
+            "description": "Requis. Titre complet sans mention de responsabilité.",
             "type": "string",
             "minLength": 1
         },
         "titlesProper": {
-            "title": "Proper or uniformed title",
-            "description": "Uniform title, a related or an analytical title that is controlled by an authority file or list, used as an added access point.",
+            "title": "Titre uniforme",
+            "description": "Titre uniforme, un titre associé ou analytique, contrôlé par un fichier ou une liste d'autorités, et utilisé comme point d'accès supplémentaire.",
             "type": "array",
             "minItems": 1,
             "items": {
@@ -34,22 +34,22 @@
             }
         },
         "languages": {
-            "title": "Languages",
-            "description": "List of languages for the resource.",
+            "title": "Langues",
+            "description": "Listes des langues de la ressource.",
             "type": "array",
             "uniqueItems": true,
             "minItems": 1,
-            "validationMessage": "Needs at least one value.",
+            "validationMessage": "Au moins une valeur est requise.",
             "items": {
                 "type": "object",
                 "required": ["language"],
-                "validationMessage": "Needs a defined value.",
+                "validationMessage": "Exige une valeur acceptée.",
                 "properties": {
                     "language": {
-                        "title" : "Language",
-                        "description": "Required. Language of the resource, primary or not.",
+                        "title" : "Langue",
+                        "description": "Requis. Langue de la ressource, principale ou secondaire.",
                         "type": "string",
-                        "validationMessage": "Needs a valid value.",
+                        "validationMessage": "Exige une valeur valide.",
                         "enum": [
                             "fre",
                             "ger",
@@ -69,19 +69,19 @@
             }
         },
         "translatedFrom": {
-            "title": "Translated from",
-            "description": "Language from which a resource is translated.",
+            "title": "Traduit de",
+            "description": "Langue de laquelle la ressource a été traduite.",
             "type": "array",
             "minItems": 1,
             "items": {
                 "type": "string",
                 "minLength": 2,
-                "validationMessage": "Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for English."
+                "validationMessage": "Doit être dans le format ISO 639, en 3 caractères, par exemple <code>eng</code> pour l'anglais."
             }
         },
         "authors": {
-            "title": "Authors",
-            "description": "Author(s) of the resource. Can be either persons or organisations.",
+            "title": "Auteurs",
+            "description": "Auteur(s) de la ressource. Peut être soit une personne soit une collectivité.",
             "type": "array",
             "minItems": 1,
             "items": {
@@ -90,36 +90,36 @@
                 "additionalProperties": false,
                 "properties": {
                     "name": {
-                        "title": "Name",
-                        "description": "Person's or organisation's name.",
+                        "title": "Nom",
+                        "description": "Nom de la personne ou de la collectivité.",
                         "type": "string"
                     },
                     "type": {
                         "title": "Type",
-                        "description": "Identify if the author is a person or an organisation.",
+                        "description": "Identifie si l'auteur est une personne ou une collectivité.",
                         "type": "string",
                         "enum": [
                             "person",
                             "organisation"
                         ],
-                        "default": "person"
+                        "default": "Personne"
                     },
                     "date": {
                         "title": "Date",
-                        "description": "Information about the birth and the death of a person. Helpful to disambiguate people.",
+                        "description": "Informations sur les dates de naissance et de décès d'une personne. Utile pour distinguer les homonymes.",
                         "type": "string"
                     },
                     "qualifier": {
-                        "title": "Qualifier",
-                        "description": "Information about the person, ie her profession. Helpful to disambiguate people.",
+                        "title": "Qualificatif",
+                        "description": "Informations qualifiant la personne, par exemple sa profession. Utile pour distinguer les homonymes.",
                         "type": "string"
                     }
                 }
             }
         },
         "publishers": {
-            "title": "Publishers",
-            "description": "Publisher(s) of the resource.",
+            "title": "Editeurs",
+            "description": "Editeur(s) de la ressource.",
             "type": "array",
             "minItems": 1,
             "items": {
@@ -127,8 +127,8 @@
                 "additionalProperties": false,
                 "properties": {
                     "name": {
-                        "title": "Name",
-                        "description": "Publisher's name.",
+                        "title": "Nom",
+                        "description": "Nom de l'éditeur.",
                         "type": "array",
                         "minItems": 1,
                         "items": {
@@ -137,8 +137,8 @@
                         }
                     },
                     "place": {
-                        "title": "Place of publication",
-                        "description": "Publisher's place of publication.",
+                        "title": "Lieu de publication",
+                        "description": "Lieu de publication de l'éditeur.",
                         "type": "array",
                         "minItems": 1,
                         "items": {
@@ -151,34 +151,34 @@
 
         },
         "publicationYear": {
-            "title": "Date of publication",
-            "description": "Date of the publication. This must be an integer, ie 1989, 453, -50. Used to sort search results. Once this field is set, a free formed date of publication can be added in the next field.",
+            "title": "Date de publication",
+            "description": "Date de publication. Doit être un chiffre, par exemple 1989, 453, -50. Utilisée pour filtrer les résultats de recherche. Une fois le champ renseigné, une date de publication sous forme libre peut être ajoutée dans le champ suivant.",
             "type": "integer",
             "minimum": -9999,
             "maximum": 2050,
-            "validationMessage": "Have to be an integer, from -9999 to +9999. Zero prefixes aren't needed."
+            "validationMessage": "Doit être un chiffre, de -9999 à +9999. Aucun préfixe n'est nécessaire."
         },
         "freeFormedPublicationDate": {
-            "title": "Date of publication (free formed)",
-            "description": "Date of the publication in a free form. If there's a normalized date of publication, then a free formed date can be added to be displayed.",
+            "title": "Date de publication (forme libre)",
+            "description": "Date de publication sous forme libre. S'il existe une date de publication sous forme normalisée, une date sous forme libre peut être ajoutée et affichée.",
             "type": "string",
             "minLength": 3
         },
         "extent": {
-            "title": "Extent",
-            "description": "Extent of the resource, ie number of pages or volumes.",
+            "title": "Importance matérielle",
+            "description": "Importance matérielle de la ressource, par exemple le nombre de pages ou de volumes.",
             "type": "string",
             "minLength": 1
         },
         "otherMaterialCharacteristics": {
-            "title": "Other Material Characteristics",
-            "description": "Other Material Characteristics, ie illustrations, black and with or coloured.",
+            "title": "Autres caractéristiques matérielles",
+            "description": "Autres caractéristiques matérielles, par exemple des illustrations, noir et blanc ou en couleurs.",
             "type": "string",
             "minLength": 1
         },
         "formats": {
             "title": "Format",
-            "description": "Format of the resource, ie dimensions in cm.",
+            "description": "Format de la ressource, par exemple les dimensions en cm.",
             "type": "array",
             "minItems": 1,
             "items": {
@@ -187,14 +187,14 @@
             }
         },
         "additionalMaterials": {
-            "title": "Additional materials",
-            "description": "Accompanying material of the resource, ie maps.",
+            "title": "Matériel d'accompagnement",
+            "description": "Matériel d'accompagnement de la ressource, par exemple des cartes géographiques.",
             "type": "string",
             "minLength": 1
         },
         "series": {
-            "title": "Series",
-            "description": "Series to which belongs the resource.",
+            "title": "Collection",
+            "description": "Collection à laquelle appartient la ressource.",
             "type": "array",
             "minItems": 1,
             "items": {
@@ -203,13 +203,13 @@
                 "additionalProperties": false,
                 "properties": {
                     "name": {
-                        "title": "Title",
-                        "description": "Title of the series.",
+                        "title": "Titre",
+                        "description": "Titre de la collection.",
                         "type": "string"
                     },
                     "number": {
-                        "title": "Numbering",
-                        "description": "Numbering of the resource within the series.",
+                        "title": "Numérotation",
+                        "description": "Numérotation de la ressource au sein de la collection.",
                         "type": "string"
                     }
                 }
@@ -217,7 +217,7 @@
         },
         "notes": {
             "title": "Note",
-            "description": "Note on the resource.",
+            "description": "Note sur la ressource.",
             "type": "array",
             "minItems": 1,
             "items": {
@@ -226,8 +226,8 @@
             }
         },
         "abstracts": {
-            "title": "Abstract",
-            "description": "Abstract of the resource.",
+            "title": "Résumé",
+            "description": "Résumé de la ressource.",
             "type": "array",
             "minItems": 1,
             "items": {
@@ -236,36 +236,36 @@
             }
         },
         "identifiers": {
-            "title": "Identifiers",
-            "description": "Persistent identifiers of the resource, ie reroID and ISBN.",
+            "title": "Identifiants",
+            "description": "Identifiants pérennes de la ressource, par exemple le reroID et l'ISBN.",
             "type": "object",
             "additionalProperties": false,
             "minProperties": 1,
             "properties": {
                 "reroID": {
                     "title": "reroID",
-                    "description": "Corresponding reroID of the original RERO record.",
+                    "description": "reroID correspondant de la notice bibliographique RERO d'origine.",
                     "type": "string",
                     "minLength": 1
                 },
                 "bnfID": {
                     "title": "bnfID",
-                    "description": "Corresponding bnfID of the original BNF record.",
+                    "description": "bnfID correspondant de la notice bibliographique BNF d'origine.",
                     "type": "string",
                     "minLength": 1
                 },
                 "isbn": {
                     "title": "ISBN",
-                    "description": "ISBN of the resource.",
+                    "description": "ISBN de la ressource.",
                     "type": "string",
                     "pattern": "^978[0-9]{10}$",
-                    "validationMessage": "Should be a valid ISBN-13 without dashes."
+                    "validationMessage": "Doit être un ISBN-13 valide sans traits d'union."
                 }
             }
         },
         "subjects": {
-            "title": "Subject",
-            "description": "Subject of the resource.",
+            "title": "Sujet",
+            "description": "Sujet de la ressource.",
             "type": "array",
             "minItems": 1,
             "items": {
