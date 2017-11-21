@@ -21,30 +21,31 @@
                     {
                         "type": "section",
                         "htmlClass": "col-xs-4",
-                        "items": [
-                            {
-                                "key": "identifiers.isbn",
-                                "title": "ISBN"
-                            },
-                            {
-                                "type": "actions",
-                                "items": [{
-                                    "type": "button",
-                                    "style": "btn-info",
-                                    "title": "Import",
-                                    "htmlClass": "rero21-import",
-                                    "onClick": "importEanFromBnf()"
-                                }]
-                            }
-                        ]
-                    },{
-                        "type": "section",
-                        "htmlClass": "col-xs-4",
                         "items": [{
                             "key": "bibid",
                             "title": "bibid",
                             "description": "Persistent identifier, automatically generated.",
                             "readonly": true
+                        }]
+                    },
+                    {
+                        "type": "section",
+                        "htmlClass": "col-xs-4",
+                        "items": [{
+                                "key": "identifiers.isbn",
+                                "title": "ISBN"
+                        }]
+                    },{
+                        "type": "section",
+                        "htmlClass": "col-xs-4",
+                        "items": [{
+                            "type": "actions",
+                            "items": [{
+                                "type": "button",
+                                "style": "btn-info rero21-import",
+                                "title": "Import",
+                                "onClick": "importEanFromBnf()"
+                            }]
                         }]
                     }
                 ]
@@ -116,6 +117,9 @@
             },
             "startEmpty": true,
             "type": "array",
+            "validationMessage": {
+                "402": "<span class=\"text-danger\">Language value should be unique!</span>"
+            },
             "items": [{
                 "key": "languages[].language",
                 "notitle": true,
