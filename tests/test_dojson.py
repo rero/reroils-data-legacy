@@ -179,12 +179,12 @@ def test_marc21toauthors():
         <subfield code="a">Jean-Paul</subfield>
         <subfield code="b">II</subfield>
         <subfield code="c">Pape</subfield>
-        <subfield code="d">1954 -</subfield>
+        <subfield code="d">1954-</subfield>
       </datafield>
       <datafield tag="700" ind1=" " ind2=" ">
         <subfield code="a">Dumont, Jean</subfield>
         <subfield code="c">Historien</subfield>
-        <subfield code="d">1921 - 2014</subfield>
+        <subfield code="d">1921-2014</subfield>
       </datafield>
       <datafield tag="710" ind1=" " ind2=" ">
         <subfield code="a">RERO</subfield>
@@ -198,14 +198,48 @@ def test_marc21toauthors():
         {
             'name': 'Jean-Paul II',
             'type': 'person',
-            'date': '1954 -',
+            'date': '1954-',
             'qualifier': 'Pape'
         },
         {
             'name': 'Dumont, Jean',
             'type': 'person',
-            'date': '1921 - 2014',
+            'date': '1921-2014',
             'qualifier': 'Historien'
+        },
+        {
+            'name': 'RERO',
+            'type': 'organisation'
+        }
+    ]
+    marc21xml = """
+    <record>
+      <datafield tag="100" ind1=" " ind2=" ">
+        <subfield code="a">Jean-Paul</subfield>
+        <subfield code="b">II</subfield>
+        <subfield code="c">Pape</subfield>
+        <subfield code="d">1954-</subfield>
+      </datafield>
+      <datafield tag="700" ind1=" " ind2="2">
+        <subfield code="a">Dumont, Jean</subfield>
+        <subfield code="c">Historien</subfield>
+        <subfield code="d">1921-2014</subfield>
+      </datafield>
+      <datafield tag="710" ind1=" " ind2=" ">
+        <subfield code="a">RERO</subfield>
+        <subfield code="c">Martigny</subfield>
+        <subfield code="d">1971</subfield>
+      </datafield>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    authors = data.get('authors')
+    assert authors == [
+        {
+            'name': 'Jean-Paul II',
+            'type': 'person',
+            'date': '1954-',
+            'qualifier': 'Pape'
         },
         {
             'name': 'RERO',

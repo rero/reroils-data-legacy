@@ -19,14 +19,19 @@ marc21tojson = Overdo()
 
 def remove_punctuation(data):
     """Remove punctuation from data."""
-    if data[-1:] == ',':
-        data = data[:-1]
-    if data[-2:] == ' :':
-        data = data[:-2]
-    if data[-2:] == ' ;':
-        data = data[:-2]
-    if data[-2:] == ' /':
-        data = data[:-2]
+    try:
+        if data[-1:] == ',':
+            data = data[:-1]
+        if data[-2:] == ' :':
+            data = data[:-2]
+        if data[-2:] == ' ;':
+            data = data[:-2]
+        if data[-2:] == ' /':
+            data = data[:-2]
+        if data[-2:] == ' -':
+            data = data[:-2]
+    except Exception:
+        pass
     return data
 
 
@@ -131,19 +136,24 @@ def marc21toauthor(self, key, value):
     authors.qualifier: 100 $c or 700 $c (facultatif)
     authors.type: if 100 or 700 then person, if 710 then organisation
     """
-    author = {}
-    author['name'] = value.get('a')
-    author_sub = value.get('b')
-    if author_sub:
-        author['name'] += ' ' + ' '.join(utils.force_list(author_sub))
-    author['type'] = 'person'
-    if key[:3] == '710':
-        author['type'] = 'organisation'
-    if value.get('c'):
-        author['qualifier'] = value.get('c')
-    if value.get('d'):
-        author['date'] = value.get('d')
-    return author
+    if not (key[4] == '2' and (key[:3] == '710' or key[:3] == '700')):
+        author = {}
+        author['type'] = 'person'
+        author['name'] = remove_punctuation(value.get('a'))
+        author_subs = utils.force_list(value.get('b'))
+        if author_subs:
+            for author_sub in author_subs:
+                author['name'] += ' ' + remove_punctuation(author_sub)
+        if key[:3] == '710':
+            author['type'] = 'organisation'
+        else:
+            if value.get('c'):
+                author['qualifier'] = remove_punctuation(value.get('c'))
+            if value.get('d'):
+                author['date'] = remove_punctuation(value.get('d'))
+        return author
+    else:
+        return None
 
 
 @marc21tojson.over('publishers', '^260..')
@@ -167,7 +177,7 @@ def marc21publishers_publicationDate(self, key, value):
         if type(data) == tuple:
             data = data[index]
         if tag == 'a' and index > 0 and lasttag != 'a':
-            publishers.append(publisher)
+            publishers.append(remove_punctuation(publisher))
             publisher = {}
         if tag == 'a':
             place = publisher.get('place', [])
