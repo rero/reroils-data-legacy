@@ -102,7 +102,7 @@
                             "person",
                             "organisation"
                         ],
-                        "default": "Person"
+                        "default": "person"
                     },
                     "date": {
                         "title": "Datum",
