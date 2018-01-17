@@ -1,0 +1,181 @@
+[
+  {
+      "type": "fieldset",
+      "items": [{
+          "type": "actions",
+          "htmlClass": "rero21-submit pull-right",
+          "items": [{
+              "type": "submit",
+              "style": "btn-success",
+              "title": "Soumettre"
+          }]
+      }]
+  },{
+      "type": "fieldset",
+      "title": "Identificatori",
+      "items": [
+          {
+              "type": "section",
+              "htmlClass": "row",
+              "items": [
+                  {
+                      "type": "section",
+                      "htmlClass": "col-xs-4",
+                      "items": [{
+                          "key": "bibid",
+                          "title": "bibid",
+                          "description": "Identifiant perenne generato automaticamente.",
+                          "readonly": true
+                      }]
+                  },
+                  {
+                      "type": "section",
+                      "htmlClass": "col-xs-4",
+                      "items": [{
+                              "key": "identifiers.isbn",
+                              "title": "ISBN"
+                      }]
+                  },{
+                      "type": "section",
+                      "htmlClass": "col-xs-4",
+                      "items": [{
+                          "type": "actions",
+                          "items": [{
+                              "type": "button",
+                              "style": "btn-info rero21-import",
+                              "title": "Importare",
+                              "onClick": "importEanFromBnf()"
+                          }]
+                      }]
+                  }
+              ]
+          }
+      ]
+  },{
+      "type": "fieldset",
+      "title": "Titolo",
+      "items": [
+          {
+              "key": "title",
+              "notitle": true,
+              "htmlClass": "rero21-required"
+          }
+      ]
+  },{
+      "type": "fieldset",
+      "title": "Autore/i",
+      "items": [{
+          "key": "authors",
+          "notitle": true,
+          "description": "",
+          "add": "nuovo autore",
+          "style": {
+              "add": "btn-link"
+          },
+          "type": "array",
+          "startEmpty": true,
+          "items": [
+              {
+                  "key": "authors[].type",
+                  "type": "radiobuttons",
+                  "notitle": true,
+                  "titleMap": [
+                      {
+                          "value": "person",
+                          "name": "Persona"
+                      },
+                      {
+                          "value": "organisation",
+                          "name": "Comunità"
+                      }
+                  ],
+                  "style": {
+                      "selected": "btn-success",
+                      "unselected": "btn-default"
+                  }
+              },{
+                  "key": "authors[].name"
+              },{
+                  "key": "authors[].date",
+                  "condition": "model.authors[arrayIndex].type == 'person'"
+              },{
+                  "key": "authors[].qualifier",
+                  "condition": "model.authors[arrayIndex].type == 'person'"
+              }
+          ]
+      }]
+  },{
+      "type": "fieldset",
+      "title": "Lingua o lingue della risorsa",
+      "items": [{
+          "key": "languages",
+          "notitle": false,
+          "title": "Nome della lingua",
+          "add": "nuova lingua",
+          "style": {
+              "add": "btn-link"
+          },
+          "startEmpty": true,
+          "type": "array",
+          "validationMessage": {
+              "402": "<span class=\"text-danger\">La lingua deve essere unica!</span>"
+          },
+          "items": [{
+              "key": "languages[].language",
+              "notitle": true,
+              "description": "",
+              "default": "fre",
+              "htmlClass": "rero21-required",
+              "titleMap": [
+                  { "value": "ara", "name": "Arabo" },
+                  { "value": "chi", "name": "Cinese" },
+                  { "value": "eng", "name": "Inglese" },
+                  { "value": "fre", "name": "Francese" },
+                  { "value": "ger", "name": "Tedesco" },
+                  { "value": "heb", "name": "Ebraico" },
+                  { "value": "ita", "name": "Italiano" },
+                  { "value": "jpn", "name": "Giapponese" },
+                  { "value": "lat", "name": "Latino" },
+                  { "value": "por", "name": "Portoghese" },
+                  { "value": "rus", "name": "Russo" },
+                  { "value": "spa", "name": "Spagnolo" }
+              ]
+          }]
+      }]
+  },{
+      "type": "fieldset",
+      "title": "Data di pubblicazione",
+      "items": [{
+          "type": "section",
+          "htmlClass": "row",
+          "items": [
+              {
+                  "type": "section",
+                  "htmlClass": "col-xs-6",
+                  "items": [
+                      "publicationYear"
+                  ]
+              },
+              {
+                  "type": "section",
+                  "htmlClass": "col-xs-6",
+                  "items": [{
+                      "key": "freeFormedPublicationDate",
+                      "condition": "model.publicationYear"
+                  }]
+              }
+          ]
+      }]
+  },{
+      "type": "fieldset",
+      "items": [{
+          "type": "actions",
+          "htmlClass": "rero21-submit pull-right",
+          "items": [{
+                  "type": "submit",
+                  "style": "btn-success",
+                  "title": "Salvare"
+          }]
+      }]
+  }
+]
