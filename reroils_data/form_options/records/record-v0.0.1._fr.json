@@ -174,7 +174,7 @@
             "items": [{
                     "type": "submit",
                     "style": "btn-success",
-                    "title": "Sauver"
+                    "title": "Soumettre"
             }]
         }]
     }

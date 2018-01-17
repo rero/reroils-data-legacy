@@ -7,7 +7,7 @@
           "items": [{
               "type": "submit",
               "style": "btn-success",
-              "title": "Soumettre"
+              "title": "Sottoporre"
           }]
       }]
   },{
@@ -86,7 +86,7 @@
                       },
                       {
                           "value": "organisation",
-                          "name": "Comunità"
+                          "name": "Ente"
                       }
                   ],
                   "style": {
@@ -106,7 +106,7 @@
       }]
   },{
       "type": "fieldset",
-      "title": "Lingua o lingue della risorsa",
+      "title": "Lingua/e dell'opera",
       "items": [{
           "key": "languages",
           "notitle": false,
@@ -174,7 +174,7 @@
           "items": [{
                   "type": "submit",
                   "style": "btn-success",
-                  "title": "Salvare"
+                  "title": "Sottoporre"
           }]
       }]
   }
