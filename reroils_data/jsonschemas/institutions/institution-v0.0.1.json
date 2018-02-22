@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "title": "Institution",
+    "description": "JSON schema for an institution",
+    "properties": {
+        "$schema": {
+            "title": "Schema",
+            "description": "Schema to validate institution records against.",
+            "type": "string",
+            "minLength": 9
+        },
+        "institutionid": {
+            "title": "InstitutionID",
+            "description": "ID of the institution.",
+            "type": "integer"
+        },
+        "name": {
+            "title": "Name",
+            "description": "Name of the institution.",
+            "type": "string",
+            "minLength": 1
+        },
+        "address": {
+            "title": "Address",
+            "description": "Address of the institution.",
+            "type": "string",
+            "minLength": 1
+        }
+    },
+    "additionalProperties": false,
+    "required": [ "$schema", "institutionid", "name" ]
+}

@@ -41,7 +41,17 @@ from invenio_records import InvenioRecords
 from pkg_resources import resource_string
 from sqlalchemy_utils.functions import create_database, database_exists
 
-import reroils_data
+
+@pytest.yield_fixture()
+def institution_minimal_record():
+    """Institution Minimal record."""
+    yield {
+        '$schema': 'http://ils.test.rero.ch/schema\
+            /institutions/institution-v0.0.1.json',
+        'institutionid': 1,
+        'name': 'MV Sion',
+        'address': 'address'
+    }
 
 
 @pytest.yield_fixture()
@@ -72,6 +82,15 @@ def item_schema():
     """Item Jsonschema for records."""
     schema_in_bytes = resource_string('reroils_data.jsonschemas',
                                       'items/item-v0.0.1.json')
+    schema = loads(schema_in_bytes.decode('utf8'))
+    return schema
+
+
+@pytest.fixture()
+def institution_schema():
+    """Institution Jsonschema for records."""
+    schema_in_bytes = resource_string('reroils_data.jsonschemas',
+                                      'institutions/institution-v0.0.1.json')
     schema = loads(schema_in_bytes.decode('utf8'))
     return schema
 
