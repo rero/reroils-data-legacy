@@ -119,8 +119,8 @@ setup(
         ],
         'invenio_search.mappings': [
             'records = reroils_data.mappings',
-            'items = reroils_data.mappings'
-
+            'items = reroils_data.mappings',
+            'institutions = reroils_data.mappings'
         ],
         'flask.commands': [
             'fixtures = reroils_data.cli:fixtures',
