@@ -31,15 +31,21 @@ import uuid
 from random import randint
 
 import click
+from flask import current_app
 from flask.cli import with_appcontext
+from flask_security.confirmable import confirm_user
+from invenio_accounts.cli import commit, users
 from invenio_circulation.api import Item
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.models import PersistentIdentifier
+from werkzeug.local import LocalProxy
 
 from reroils_data.minters import circulation_itemid_minter
 
 from .api import Record
+
+_datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
 
 @click.command('reverse')
@@ -137,6 +143,21 @@ def reindex(verbose):
             if verbose:
                 click.echo('Reindexing {0}'.format(recitem.id))
             record_indexer.index(recitem)
+
+
+@users.command('confirm')
+@click.argument('user')
+@with_appcontext
+@commit
+def manual_confirm_user(user):
+    """Confirm a user."""
+    user_obj = _datastore.get_user(user)
+    if user_obj is None:
+        raise click.UsageError('ERROR: User not found.')
+    if confirm_user(user_obj):
+        click.secho('User "%s" has been confirmed.' % user, fg='green')
+    else:
+        click.secho('User "%s" was already confirmed.' % user, fg='yellow')
 
 
 def create_random_item(
