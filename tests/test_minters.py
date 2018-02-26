@@ -66,8 +66,15 @@ def test_institutionid_minter(app, db):
         data = {}
         # first record
         rec_uuid = uuid4()
-        pid = minters.institutionid_minter(rec_uuid, data)
-        assert pid
-        assert data['institutionid'] == pid.pid_value
-        assert pid.object_type == 'rec'
-        assert pid.object_uuid == rec_uuid
+        pid1 = minters.institutionid_minter(rec_uuid, data)
+        assert pid1
+        assert data['institutionid'] == pid1.pid_value
+        assert data['institutionid'] == '1'
+        assert pid1.object_type == 'rec'
+        assert pid1.object_uuid == rec_uuid
+
+        # second record
+        data = {}
+        rec_uuid = uuid4()
+        pid2 = minters.institutionid_minter(rec_uuid, data)
+        assert data['institutionid'] == '2'

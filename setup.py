@@ -126,7 +126,7 @@ setup(
             'fixtures = reroils_data.cli:fixtures',
         ],
         'invenio_db.models': [
-            'reroils_records_items = reroils_data.models',
+            'reroils_data = reroils_data.models'
         ],
         # TODO: Edit these entry points to fit your needs.
         # 'invenio_access.actions': [],

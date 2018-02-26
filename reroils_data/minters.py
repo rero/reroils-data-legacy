@@ -29,6 +29,9 @@ from __future__ import absolute_import, print_function, unicode_literals
 from invenio_circulation.providers import CirculationItemProvider
 from invenio_pidstore.providers.recordid import RecordIdProvider
 
+from .models import InstitutionIdentifier
+from .providers import InstitutionProvider
+
 
 def bibid_minter(record_uuid, data):
     """RERIOLS bibid minter."""
@@ -58,7 +61,7 @@ def circulation_itemid_minter(record_uuid, data):
 def institutionid_minter(record_uuid, data):
     """RERIOLS institutionid minter."""
     assert 'institutionid' not in data
-    provider = RecordIdProvider.create(
+    provider = InstitutionProvider.create(
         object_type='rec',
         object_uuid=record_uuid
     )

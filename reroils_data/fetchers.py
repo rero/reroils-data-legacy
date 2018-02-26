@@ -32,6 +32,8 @@ from collections import namedtuple
 from invenio_circulation.providers import CirculationItemProvider
 from invenio_pidstore.providers.recordid import RecordIdProvider
 
+from .providers import InstitutionProvider
+
 FetchedPID = namedtuple('FetchedPID', ['provider', 'pid_type', 'pid_value'])
 """A pid fetcher."""
 
@@ -73,7 +75,7 @@ def institutionid_fetcher(record_uuid, data):
     :returns: A :data:`reroils_data.fetchers.FetchedPID` instance.
     """
     return FetchedPID(
-        provider=RecordIdProvider,
-        pid_type=RecordIdProvider.pid_type,
+        provider=InstitutionProvider,
+        pid_type=InstitutionProvider.pid_type,
         pid_value=data['institutionid']
     )
