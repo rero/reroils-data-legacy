@@ -63,3 +63,17 @@ def circulation_itemid_fetcher(record_uuid, data):
         pid_type=CirculationItemProvider.pid_type,
         pid_value=str(data['itemid']),
     )
+
+
+def institutionid_fetcher(record_uuid, data):
+    """Fetch a institution record's identifiers.
+
+    :param record_uuid: The record UUID.
+    :param data: The record metadata.
+    :returns: A :data:`reroils_data.fetchers.FetchedPID` instance.
+    """
+    return FetchedPID(
+        provider=RecordIdProvider,
+        pid_type=RecordIdProvider.pid_type,
+        pid_value=data['institutionid']
+    )

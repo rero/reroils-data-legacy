@@ -30,8 +30,10 @@ from uuid import uuid4
 
 from invenio_circulation.api import Item
 
-from reroils_data.fetchers import bibid_fetcher, circulation_itemid_fetcher
-from reroils_data.minters import bibid_minter, circulation_itemid_minter
+from reroils_data.fetchers import bibid_fetcher, circulation_itemid_fetcher, \
+    institutionid_fetcher
+from reroils_data.minters import bibid_minter, circulation_itemid_minter, \
+    institutionid_minter
 
 
 def test_bibid_fetcher(app, db):
@@ -59,3 +61,17 @@ def test_circulation_itemid_fetcher(db):
     fetched = circulation_itemid_fetcher(item.id, item)
 
     assert pid.pid_value == fetched.pid_value
+
+
+def test_institutionid_fetcher(app, db):
+    """Test institutionid fetcher."""
+
+    with app.app_context():
+        data = {}
+        rec_uuid = uuid4()
+        minted_pid = institutionid_minter(rec_uuid, data)
+        fetched_pid = institutionid_fetcher(rec_uuid, data)
+
+        assert minted_pid.pid_value == fetched_pid.pid_value
+        assert fetched_pid.pid_type == fetched_pid.provider.pid_type
+        assert fetched_pid.pid_type == 'recid'

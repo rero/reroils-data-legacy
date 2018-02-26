@@ -53,3 +53,16 @@ def circulation_itemid_minter(record_uuid, data):
     data['itemid'] = provider.pid.pid_value
 
     return provider.pid
+
+
+def institutionid_minter(record_uuid, data):
+    """RERIOLS institutionid minter."""
+    assert 'institutionid' not in data
+    provider = RecordIdProvider.create(
+        object_type='rec',
+        object_uuid=record_uuid
+    )
+    pid = provider.pid
+    data['institutionid'] = pid.pid_value
+
+    return pid
