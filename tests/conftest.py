@@ -50,7 +50,21 @@ def institution_minimal_record():
             /institutions/institution-v0.0.1.json',
         'institutionid': '1',
         'name': 'MV Sion',
-        'address': 'address'
+        'address': 'address',
+        'libraries': [
+            {
+                'code': 1,
+                'name': 'MV Sion bibliothèque des jeunes',
+                'address': 'Place de la Gare 18, 1950 Sion',
+                'email': 'info@bibliosionjeunes.ch'
+            },
+            {
+                'code': 2,
+                'name': 'MV Sion bibliothèque des adultes',
+                'address': 'Place de la Gare 18, 1950 Sion',
+                'email': 'info@bibliosionadultes.ch'
+            }
+        ]
     }
 
 
