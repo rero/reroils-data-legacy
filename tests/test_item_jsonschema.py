@@ -26,15 +26,12 @@
 
 from __future__ import absolute_import, print_function
 
-from json import loads
-
 import pytest
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
-from pkg_resources import resource_string
 
 
-def item_test_required(item_schema, item_minimal_record):
+def test_item_required(item_schema, item_minimal_record):
     """Test required for item jsonschema."""
     validate(item_minimal_record, item_schema)
 
