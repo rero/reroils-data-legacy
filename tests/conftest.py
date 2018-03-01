@@ -48,7 +48,7 @@ def institution_minimal_record():
     yield {
         '$schema': 'http://ils.test.rero.ch/schema\
             /institutions/institution-v0.0.1.json',
-        'institutionid': 1,
+        'institutionid': '1',
         'name': 'MV Sion',
         'address': 'address'
     }

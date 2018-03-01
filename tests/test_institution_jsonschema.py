@@ -44,7 +44,7 @@ def test_institutionid(institution_schema, institution_minimal_record):
     validate(institution_minimal_record, institution_schema)
 
     with pytest.raises(ValidationError):
-        institution_minimal_record['institutionid'] = '25'
+        institution_minimal_record['institutionid'] = 25
         validate(institution_minimal_record, institution_schema)
 
 
