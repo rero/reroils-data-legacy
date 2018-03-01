@@ -27,9 +27,24 @@
 import os
 
 from setuptools import find_packages, setup
+from setuptools.command.egg_info import egg_info
 
 readme = open('README.rst').read()
 history = open('CHANGES.rst').read()
+
+class EggInfoWithCompile(egg_info):
+    def run(self):
+        from babel.messages.frontend import compile_catalog
+        compiler = compile_catalog()
+        option_dict = self.distribution.get_option_dict('compile_catalog')
+        if option_dict.get('domain'):
+            compiler.domain = [option_dict['domain'][1]]
+        else:
+            compiler.domain = ['messages']
+        compiler.use_fuzzy = True
+        compiler.directory = option_dict['directory'][1]
+        compiler.run()
+        super().run()
 
 tests_require = [
     'check-manifest>=0.25',
@@ -81,6 +96,9 @@ with open(os.path.join('reroils_data', 'version.py'), 'rt') as fp:
     version = g['__version__']
 
 setup(
+    cmdclass={
+        'egg_info': EggInfoWithCompile
+    },
     name='reroils-data',
     version=version,
     description=__doc__,

@@ -53,6 +53,7 @@ recursive-include examples *.sh
 recursive-include reroils_data *.html
 recursive-include reroils_data *.json
 recursive-include tests *.py
+recursive-include reroils_data *.po *.pot *.mo
 
 # added by check_manifest.py
 recursive-include data *.ids

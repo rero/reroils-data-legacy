@@ -24,7 +24,17 @@
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
 pydocstyle reroils_data tests docs && \
-isort -rc -c -df && \
+isort -rc -c -df
+
+set +e
+grep -r fuzzy */translations
+if [ $? -eq 0 ]
+then
+    echo "Error: fuzzy tranlations!"
+    exit 1
+fi
+set -e
+
 check-manifest --ignore ".travis-*" && \
 sphinx-build -qnNW docs docs/_build/html && \
 python setup.py test

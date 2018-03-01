@@ -1,0 +1,586 @@
+# English translations for reroils-data.
+# Copyright (C) 2018 RERO
+# This file is distributed under the same license as the reroils-data
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: reroils-data 0.1.0a9\n"
+"Report-Msgid-Bugs-To: software@rero.ch\n"
+"POT-Creation-Date: 2018-03-08 08:26+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: English (https://www.transifex.com/rero/teams/77935/en/)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.3\n"
+
+#. NOTE: This is a note to a translator.
+#: reroils_data/ext.py:43
+msgid "A translation string"
+msgstr ""
+
+#: reroils_data/views.py:79
+msgid "The record has been imported."
+msgstr ""
+
+#: reroils_data/views.py:80
+msgid "Success:"
+msgstr ""
+
+#: reroils_data/views.py:88
+#, python-format
+msgid "EAN (%(ean)s) not found on the BNF server."
+msgstr ""
+
+#: reroils_data/views.py:90
+msgid "Warning:"
+msgstr ""
+
+#: reroils_data/views.py:101
+msgid "An error occured on the BNF server."
+msgstr ""
+
+#: reroils_data/views.py:102
+msgid "Error:"
+msgstr ""
+
+#: reroils_data/form_options/institutions/institution-v0.0.1.json:10
+#: reroils_data/form_options/records/record-v0.0.1.json:10
+#: reroils_data/form_options/records/record-v0.0.1.json:177
+msgid "Submit"
+msgstr ""
+
+#: reroils_data/form_options/institutions/institution-v0.0.1.json:16
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:4
+msgid "Institution"
+msgstr ""
+
+#: reroils_data/form_options/institutions/institution-v0.0.1.json:28
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:33
+msgid "Libraries"
+msgstr ""
+
+#: reroils_data/form_options/institutions/institution-v0.0.1.json:31
+msgid "New library"
+msgstr ""
+
+#: reroils_data/form_options/institutions/institution-v0.0.1.json:49
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:67
+msgid "Locations"
+msgstr ""
+
+#: reroils_data/form_options/institutions/institution-v0.0.1.json:52
+msgid "New location"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:15
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:239
+msgid "Identifiers"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:26
+msgid "bibid"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:27
+msgid "Persistent identifier, automatically generated."
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:36
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:258
+msgid "ISBN"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:46
+msgid "Import"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:56
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:21
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:206
+msgid "Title"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:66
+msgid "Author(s)"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:71
+msgid "new author"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:73
+#: reroils_data/form_options/records/record-v0.0.1.json:116
+msgid "btn-link"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:85
+msgid "Person"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:89
+msgid "Organisation"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:109
+msgid "Language(s) of the resource"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:113
+msgid "Language(s) name"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:114
+msgid "new language"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:130
+msgid "Arabic"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:131
+msgid "Chinese"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:132
+msgid "English"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:133
+msgid "French"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:134
+msgid "German"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:135
+msgid "Hebrew"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:136
+msgid "Italian"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:137
+msgid "Japanese"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:138
+msgid "Latin"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:139
+msgid "Portuguese"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:140
+msgid "Russian"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:141
+msgid "Spanish"
+msgstr ""
+
+#: reroils_data/form_options/records/record-v0.0.1.json:147
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:154
+msgid "Date of publication"
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:5
+msgid "JSON schema for an institution"
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:10
+#: reroils_data/jsonschemas/items/item-v0.0.1.json:10
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:9
+msgid "Schema"
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:11
+msgid "Schema to validate institution records against."
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:16
+msgid "InstitutionID"
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:17
+msgid "ID of the institution."
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:21
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:47
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:81
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:93
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:130
+msgid "Name"
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:22
+msgid "Name of the institution."
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:27
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:53
+msgid "Address"
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:28
+msgid "Address of the institution."
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:34
+msgid "Libraries of the institution."
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:42
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:76
+msgid "Code"
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:43
+msgid "Code of the library."
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:48
+msgid "Name of the library"
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:54
+msgid "Address of the library."
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:59
+msgid "Email"
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:60
+msgid "Email of the library."
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:68
+msgid "Locations of the library."
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:77
+msgid "Code of the location."
+msgstr ""
+
+#: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:82
+msgid "Name of the location."
+msgstr ""
+
+#: reroils_data/jsonschemas/items/item-v0.0.1.json:4
+msgid "Item"
+msgstr ""
+
+#: reroils_data/jsonschemas/items/item-v0.0.1.json:5
+msgid "JSON schema for an item."
+msgstr ""
+
+#: reroils_data/jsonschemas/items/item-v0.0.1.json:11
+msgid "Schema to validate item records against."
+msgstr ""
+
+#: reroils_data/jsonschemas/items/item-v0.0.1.json:16
+msgid "Item ID"
+msgstr ""
+
+#: reroils_data/jsonschemas/items/item-v0.0.1.json:17
+msgid "Persistent Identifier for the item."
+msgstr ""
+
+#: reroils_data/jsonschemas/items/item-v0.0.1.json:22
+msgid "Barcode"
+msgstr ""
+
+#: reroils_data/jsonschemas/items/item-v0.0.1.json:23
+msgid "Barecode of the item."
+msgstr ""
+
+#: reroils_data/jsonschemas/items/item-v0.0.1.json:28
+msgid "Call number"
+msgstr ""
+
+#: reroils_data/jsonschemas/items/item-v0.0.1.json:29
+msgid "Call number of the item."
+msgstr ""
+
+#: reroils_data/jsonschemas/items/item-v0.0.1.json:34
+msgid "location"
+msgstr ""
+
+#: reroils_data/jsonschemas/items/item-v0.0.1.json:35
+msgid "Location of the item."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:3
+msgid "Schema for bibliographic records"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:10
+msgid "Schema to validate book records against."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:15
+msgid "Bibid"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:16
+msgid "rero21 persistent identifiers for bibliographic records."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:22
+msgid "Required. Entire title without statement of responsibility."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:27
+msgid "Proper or uniformed title"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:28
+msgid ""
+"Uniform title, a related or an analytical title that is controlled by an "
+"authority file or list, used as an added access point."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:37
+msgid "Languages"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:38
+msgid "List of languages for the resource."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:42
+msgid "Needs at least one value."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:46
+msgid "Needs a defined value."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:49
+msgid "Language"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:50
+msgid "Required. Language of the resource, primary or not."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:52
+msgid "Needs a valid value."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:72
+msgid "Translated from"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:73
+msgid "Language from which a resource is translated."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:79
+msgid ""
+"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> "
+"for English."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:83
+msgid "Authors"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:84
+msgid "Author(s) of the resource. Can be either persons or organisations."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:94
+msgid "Person's or organisation's name."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:98
+msgid "Type"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:99
+msgid "Identify if the author is a person or an organisation."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:108
+msgid "Date"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:109
+msgid ""
+"Information about the birth and the death of a person. Helpful to "
+"disambiguate people."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:113
+msgid "Qualifier"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:114
+msgid ""
+"Information about the person, ie her profession. Helpful to disambiguate "
+"people."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:121
+msgid "Publishers"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:122
+msgid "Publisher(s) of the resource."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:131
+msgid "Publisher's name."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:140
+msgid "Place of publication"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:141
+msgid "Publisher's place of publication."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:155
+msgid ""
+"Date of the publication. This must be an integer, ie 1989, 453, -50. Used"
+" to sort search results. Once this field is set, a free formed date of "
+"publication can be added in the next field."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:159
+msgid "Have to be an integer, from -9999 to +9999. Zero prefixes aren't needed."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:162
+msgid "Date of publication (free formed)"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:163
+msgid ""
+"Date of the publication in a free form. If there's a normalized date of "
+"publication, then a free formed date can be added to be displayed."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:168
+msgid "Extent"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:169
+msgid "Extent of the resource, ie number of pages or volumes."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:174
+msgid "Other Material Characteristics"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:175
+msgid ""
+"Other Material Characteristics, ie illustrations, black and with or "
+"coloured."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:180
+msgid "Format"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:181
+msgid "Format of the resource, ie dimensions in cm."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:190
+msgid "Additional materials"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:191
+msgid "Accompanying material of the resource, ie maps."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:196
+msgid "Series"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:197
+msgid "Series to which belongs the resource."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:207
+msgid "Title of the series."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:211
+msgid "Numbering"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:212
+msgid "Numbering of the resource within the series."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:219
+msgid "Note"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:220
+msgid "Note on the resource."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:229
+msgid "Abstract"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:230
+msgid "Abstract of the resource."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:240
+msgid "Persistent identifiers of the resource, ie reroID and ISBN."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:246
+msgid "reroID"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:247
+msgid "Corresponding reroID of the original RERO record."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:252
+msgid "bnfID"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:253
+msgid "Corresponding bnfID of the original BNF record."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:259
+msgid "ISBN of the resource."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:262
+msgid "Should be a valid ISBN-13 without dashes."
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:267
+msgid "Subject"
+msgstr ""
+
+#: reroils_data/jsonschemas/records/record-v0.0.1.json:268
+msgid "Subject of the resource."
+msgstr ""
+
+#: reroils_data/templates/reroils_data/index.html:29
+#, python-format
+msgid "Welcome to %(module_name)s"
+msgstr ""
+

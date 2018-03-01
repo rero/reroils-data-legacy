@@ -53,7 +53,47 @@
         "holdings":{
           "type":"array",
           "items":{
-            "$ref":"../circulation/loan-cycle-v1.0.0.json"
+            "type":"object",
+            "properties":{
+              "user":{
+                "type":"object"
+              },
+              "delivery":{
+                "enum":[
+                  "mail",
+                  "pickup"
+                ]
+              },
+              "group_uuid":{
+                "type":[
+                  "string",
+                  "null"
+                ]
+              },
+              "start_date":{
+                "type":"string",
+                "format":"date-time"
+              },
+              "end_date":{
+                "type":"string",
+                "format":"date-time"
+              },
+              "desired_start_date":{
+                "type":"string",
+                "format":"date-time"
+              },
+              "desired_end_date":{
+                "type":"string",
+                "format":"date-time"
+              },
+              "requested_extension_end_date": {
+                "type":[
+                  "string",
+                  "null"
+                ],
+                "format":"date-time"
+              }
+            }
           }
         }
       }

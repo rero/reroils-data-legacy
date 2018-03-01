@@ -33,9 +33,9 @@
             "style": {
                 "remove": "btn-danger"
             },
-            "type": "tabarray",
-            "title": "{{ value.name || 'Tab '+$index }}",
-            "startEmpty": true,
+            "type": "array",
+            "notitle": true,
+            "startEmpty": false,
             "items": [{
                 "key": "libraries[].code"
                 },{
@@ -54,9 +54,9 @@
                     "style": {
                         "remove": "btn-danger"
                     },
-                    "type": "tabarray",
-                    "startEmpty": true,
-                    "title": "{{ value.name || 'Tab '+$index }}",
+                    "type": "array",
+                    "startEmpty": false,
+                    "notitle": true,
                     "items": [{
                         "key": "libraries[]locations[]code"
                         },{
