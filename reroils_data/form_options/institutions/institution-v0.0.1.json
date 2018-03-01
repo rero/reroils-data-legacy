@@ -1,0 +1,69 @@
+[
+    {
+        "type": "fieldset",
+        "items": [{
+            "type": "actions",
+            "htmlClass": "rero21-submit pull-right",
+            "items": [{
+                "type": "submit",
+                "style": "btn-success",
+                "title": "Submit"
+            }]
+        }]
+    },
+    {
+        "type": "fieldset",
+        "title": "Institution",
+        "items": [{
+            "key": "institutionid",
+            "readonly": true
+            },{
+            "key": "name"
+            },{
+            "key": "address"
+        }]
+    },
+    {
+        "type": "fieldset",
+        "title": "Libraries",
+        "items": [{
+            "key": "libraries",
+            "add": "New library",
+            "remove": "Delete this library",
+            "style": {
+                "remove": "btn-danger"
+            },
+            "type": "tabarray",
+            "title": "{{ value.name || 'Tab '+$index }}",
+            "startEmpty": true,
+            "items": [{
+                "key": "libraries[].code"
+                },{
+                "key": "libraries[].name"
+                },{
+                "key": "libraries[].address"
+                },{
+                "key": "libraries[].email"
+                },{
+                "type": "fieldset",
+                "title": "Locations",
+                "items": [{
+                    "key": "libraries[].locations",
+                    "add": "New location",
+                    "remove": "Delete this location",
+                    "style": {
+                        "remove": "btn-danger"
+                    },
+                    "type": "tabarray",
+                    "startEmpty": true,
+                    "title": "{{ value.name || 'Tab '+$index }}",
+                    "items": [{
+                        "key": "libraries[]locations[]code"
+                        },{
+                        "key": "libraries[]locations[]name"
+                        }]
+                    }]
+                }]
+        }]
+    }
+]
