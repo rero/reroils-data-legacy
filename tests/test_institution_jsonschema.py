@@ -37,6 +37,7 @@ def test_institution_required(institution_schema, institution_minimal_record):
 
     with pytest.raises(ValidationError):
         validate({}, institution_schema)
+        validate(institution_minimal_record, institution_schema)
 
 
 def test_institutionid(institution_schema, institution_minimal_record):
@@ -71,7 +72,7 @@ def test_libraries_code(institution_schema, institution_minimal_record):
     validate(institution_minimal_record, institution_schema)
 
     with pytest.raises(ValidationError):
-        institution_minimal_record['libraries.code'] = '25'
+        institution_minimal_record['libraries.code'] = 25
         validate(institution_minimal_record, institution_schema)
 
 
@@ -80,7 +81,7 @@ def test_libraries_name(institution_schema, institution_minimal_record):
     validate(institution_minimal_record, institution_schema)
 
     with pytest.raises(ValidationError):
-        institution_minimal_record['libraries.name'] = 25
+        institution_minimal_record['libraries'][0]['name'] = 25
         validate(institution_minimal_record, institution_schema)
 
 
@@ -89,7 +90,7 @@ def test_libraries_address(institution_schema, institution_minimal_record):
     validate(institution_minimal_record, institution_schema)
 
     with pytest.raises(ValidationError):
-        institution_minimal_record['libraries.address'] = 25
+        institution_minimal_record['libraries'][0]['address'] = 25
         validate(institution_minimal_record, institution_schema)
 
 
@@ -111,5 +112,36 @@ def test_existing_libraries(institution_schema, institution_minimal_record):
     validate(institution_minimal_record, institution_schema)
 
     with pytest.raises(ValidationError):
+        del(institution_minimal_record['libraries'])
+        validate(institution_minimal_record, institution_schema)
         institution_minimal_record['libraries'] = []
+        validate(institution_minimal_record, institution_schema)
+
+
+def test_locations_code(institution_schema, institution_minimal_record):
+    """Test code of locations for institution jsonschema."""
+    validate(institution_minimal_record, institution_schema)
+
+    with pytest.raises(ValidationError):
+        institution_minimal_record['libraries'][0]['locations'][0]['code'] = 25
+        validate(institution_minimal_record, institution_schema)
+
+
+def test_locations_name(institution_schema, institution_minimal_record):
+    """Test name of locations for institution jsonschema."""
+    validate(institution_minimal_record, institution_schema)
+
+    with pytest.raises(ValidationError):
+        institution_minimal_record['libraries'][0]['locations'][0]['name'] = 25
+        validate(institution_minimal_record, institution_schema)
+
+
+def test_existing_locations(institution_schema, institution_minimal_record):
+    """Test if any locations exists for library jsonschema."""
+    validate(institution_minimal_record, institution_schema)
+
+    with pytest.raises(ValidationError):
+        institution_minimal_record['libraries'][0]['locations'] = []
+        validate(institution_minimal_record, institution_schema)
+        del(institution_minimal_record['libraries'][0]['locations'])
         validate(institution_minimal_record, institution_schema)
