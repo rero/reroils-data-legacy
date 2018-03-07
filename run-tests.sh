@@ -23,6 +23,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
+invenio checks json
 pydocstyle reroils_data tests docs && \
 isort -rc -c -df
 

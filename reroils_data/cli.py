@@ -27,7 +27,9 @@
 from __future__ import absolute_import, print_function
 
 import json
+import re
 import uuid
+from pathlib import Path
 from random import randint
 
 import click
@@ -120,7 +122,7 @@ def createitems(verbose, count, itemscount):
 @click.argument('pid_value', nargs=1)
 @with_appcontext
 def show(pid_value):
-    """Create circulation items."""
+    """Show circulation items."""
     record = PersistentIdentifier.query.filter_by(pid_type='recid',
                                                   pid_value=pid_value).first()
     recitem = Record.get_record(record.object_uuid)
@@ -186,3 +188,51 @@ def create_random_item(
         click.echo(item.id)
     item.commit()
     return item
+
+
+@click.group()
+def checks():
+    """Checks management commands."""
+
+
+@checks.command()
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@click.option(
+    '-f', '--file', 'fname', type=click.STRING, default='',
+    help='default=for all files in project'
+)
+@with_appcontext
+def json(verbose, fname):
+    """Check json files."""
+    file_list = []
+    if not fname:
+        path = Path('.')
+        file_list = list(path.glob('**/*.json'))
+    else:
+        path = Path(fname)
+        file_list = [path]
+#     print(p_list)
+    re_sub = re.compile('\s{4}')
+    re_match = re.compile('^\s+')
+    tot_error_cnt = 0
+    for path_file in file_list:
+        fname = str(path_file)
+        opened_file = path_file.open()
+        row_cnt = 0
+        error_cnt = 0
+        for row in opened_file:
+            stripped_row = row.rstrip()
+            new_row = re_sub.sub('', stripped_row)
+            if re_match.match(new_row):
+                if verbose:
+                    click.echo(fname + ':' + str(row_cnt) + ': ', nl=False)
+                    click.secho(stripped_row, fg='red')
+                error_cnt += 1
+            row_cnt += 1
+        click.echo(fname + ': ', nl=False)
+        if error_cnt == 0:
+            click.secho('OK', fg='green')
+        else:
+            click.secho('NOT Ok', fg='red')
+        tot_error_cnt += error_cnt
+    return tot_error_cnt

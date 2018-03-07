@@ -142,6 +142,7 @@ setup(
         ],
         'flask.commands': [
             'fixtures = reroils_data.cli:fixtures',
+            'checks = reroils_data.cli:checks'
         ],
         'invenio_db.models': [
             'reroils_data = reroils_data.models'
