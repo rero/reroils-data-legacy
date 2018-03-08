@@ -1,9 +1,9 @@
-# Translations template for reroils-data.
+# Italian translations for reroils-data.
 # Copyright (C) 2018 RERO
 # This file is distributed under the same license as the reroils-data
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
-# 
+#
 # Translators:
 # iGor milhit <igor.milhit@rero.ch>, 2018
 # Nicolas Prongué <n.prongue@outlook.com>, 2018
@@ -12,16 +12,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reroils-data 0.1.0a9\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-03-08 08:26+0100\n"
+"POT-Creation-Date: 2018-03-08 20:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2018\n"
+"Language: it\n"
 "Language-Team: Italian (https://www.transifex.com/rero/teams/77935/it/)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
-"Language: it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. NOTE: This is a note to a translator.
 #: reroils_data/ext.py:43
@@ -354,8 +354,8 @@ msgid ""
 "authority file or list, used as an added access point."
 msgstr ""
 "Titolo uniforme, un titolo associato o analitico, controllato da un "
-"fascicolo o da un elenco di autorità e utilizzato come ulteriore punto di "
-"accesso."
+"fascicolo o da un elenco di autorità e utilizzato come ulteriore punto di"
+" accesso."
 
 #: reroils_data/jsonschemas/records/record-v0.0.1.json:37
 msgid "Languages"
@@ -395,11 +395,11 @@ msgstr "Lingua da cui l'opera è stata tradotta."
 
 #: reroils_data/jsonschemas/records/record-v0.0.1.json:79
 msgid ""
-"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for "
-"English."
+"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> "
+"for English."
 msgstr ""
-"Deve essere in formato ISO 639, in 3 caratteri, ad esempio <code>eng</code> "
-"per l'inglese."
+"Deve essere in formato ISO 639, in 3 caratteri, ad esempio "
+"<code>eng</code> per l'inglese."
 
 #: reroils_data/jsonschemas/records/record-v0.0.1.json:83
 msgid "Authors"
@@ -430,8 +430,8 @@ msgid ""
 "Information about the birth and the death of a person. Helpful to "
 "disambiguate people."
 msgstr ""
-"Informazioni sulla data di nascita e di decesso di una persona. Utile per "
-"distinguere gli omonimi."
+"Informazioni sulla data di nascita e di decesso di una persona. Utile per"
+" distinguere gli omonimi."
 
 #: reroils_data/jsonschemas/records/record-v0.0.1.json:113
 msgid "Qualifier"
@@ -442,8 +442,8 @@ msgid ""
 "Information about the person, ie her profession. Helpful to disambiguate "
 "people."
 msgstr ""
-"Informazioni che qualificano la persona, come la sua occupazione. Utile per "
-"distinguere gli omonimi."
+"Informazioni che qualificano la persona, come la sua occupazione. Utile "
+"per distinguere gli omonimi."
 
 #: reroils_data/jsonschemas/records/record-v0.0.1.json:121
 msgid "Publishers"
@@ -467,18 +467,17 @@ msgstr "Luogo di pubblicazione dell'editore."
 
 #: reroils_data/jsonschemas/records/record-v0.0.1.json:155
 msgid ""
-"Date of the publication. This must be an integer, ie 1989, 453, -50. Used to"
-" sort search results. Once this field is set, a free formed date of "
+"Date of the publication. This must be an integer, ie 1989, 453, -50. Used"
+" to sort search results. Once this field is set, a free formed date of "
 "publication can be added in the next field."
 msgstr ""
-"Data di pubblicazione. Deve essere una cifra, per esempio 1989, 453, -50, "
-"utilizzata per filtrare i risultati della ricerca. Una volta compilato il "
-"campo, è possibile aggiungere una data di pubblicazione in forma libera nel "
-"campo successivo."
+"Data di pubblicazione. Deve essere una cifra, per esempio 1989, 453, -50,"
+" utilizzata per filtrare i risultati della ricerca. Una volta compilato "
+"il campo, è possibile aggiungere una data di pubblicazione in forma "
+"libera nel campo successivo."
 
 #: reroils_data/jsonschemas/records/record-v0.0.1.json:159
-msgid ""
-"Have to be an integer, from -9999 to +9999. Zero prefixes aren't needed."
+msgid "Have to be an integer, from -9999 to +9999. Zero prefixes aren't needed."
 msgstr "Deve essere un numero, da -999999 a +2050. Nessun prefisso richiesto."
 
 #: reroils_data/jsonschemas/records/record-v0.0.1.json:162
@@ -490,8 +489,9 @@ msgid ""
 "Date of the publication in a free form. If there's a normalized date of "
 "publication, then a free formed date can be added to be displayed."
 msgstr ""
-"Data di pubblicazione (visualizzata). Se esiste una data di pubblicazione in"
-" forma standard, è possibile aggiungere e visualizzare una data libera."
+"Data di pubblicazione (visualizzata). Se esiste una data di pubblicazione"
+" in forma standard, è possibile aggiungere e visualizzare una data "
+"libera."
 
 #: reroils_data/jsonschemas/records/record-v0.0.1.json:168
 msgid "Extent"
@@ -499,8 +499,7 @@ msgstr "Importanza materiale"
 
 #: reroils_data/jsonschemas/records/record-v0.0.1.json:169
 msgid "Extent of the resource, ie number of pages or volumes."
-msgstr ""
-"Importanza materiale della risorsa, ad esempio numero di pagine o volumi."
+msgstr "Importanza materiale della risorsa, ad esempio numero di pagine o volumi."
 
 #: reroils_data/jsonschemas/records/record-v0.0.1.json:174
 msgid "Other Material Characteristics"
@@ -511,8 +510,8 @@ msgid ""
 "Other Material Characteristics, ie illustrations, black and with or "
 "coloured."
 msgstr ""
-"Altre caratteristiche dei materiali, ad esempio illustrazioni, in bianco e "
-"nero o a colori."
+"Altre caratteristiche dei materiali, ad esempio illustrazioni, in bianco "
+"e nero o a colori."
 
 #: reroils_data/jsonschemas/records/record-v0.0.1.json:180
 msgid "Format"
@@ -576,8 +575,7 @@ msgstr ""
 
 #: reroils_data/jsonschemas/records/record-v0.0.1.json:247
 msgid "Corresponding reroID of the original RERO record."
-msgstr ""
-"reroID corrispondente risvolto del record bibliografico RERO originale."
+msgstr "reroID corrispondente risvolto del record bibliografico RERO originale."
 
 #: reroils_data/jsonschemas/records/record-v0.0.1.json:252
 msgid "bnfID"
@@ -607,3 +605,4 @@ msgstr "Oggetto della risorsa."
 #, python-format
 msgid "Welcome to %(module_name)s"
 msgstr ""
+
