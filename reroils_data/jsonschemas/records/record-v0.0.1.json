@@ -156,7 +156,7 @@
             "type": "integer",
             "minimum": -9999,
             "maximum": 2050,
-            "validationMessage": "Have to be an integer, from -9999 to +9999. Zero prefixes aren't needed."
+            "validationMessage": "Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
         },
         "freeFormedPublicationDate": {
             "title": "Date of publication (free formed)",
