@@ -13,7 +13,7 @@
             "minLength": 9
         },
         "institutionid": {
-            "title": "InstitutionID",
+            "title": "Institution ID",
             "description": "ID of the institution.",
             "type": "string"
         },

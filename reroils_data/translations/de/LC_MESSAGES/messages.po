@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reroils-data 0.1.0a9\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-03-08 20:05+0100\n"
+"POT-Creation-Date: 2018-03-12 12:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2018\n"
 "Language: de\n"
@@ -211,12 +211,12 @@ msgid "Schema to validate institution records against."
 msgstr "Schema zur Validierung von Datensätzen von Einrichtungen."
 
 #: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:16
-msgid "InstitutionID"
+msgid "Institution ID"
 msgstr "ID der Einrichtung"
 
 #: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:17
 msgid "ID of the institution."
-msgstr "EinrichtungsID"
+msgstr "ID der Einrichtung"
 
 #: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:21
 #: reroils_data/jsonschemas/institutions/institution-v0.0.1.json:47
@@ -609,3 +609,5 @@ msgstr "Schlagwort der Ressource."
 msgid "Welcome to %(module_name)s"
 msgstr "Willkommen bei %(module_name)s"
 
+#~ msgid "InstitutionID"
+#~ msgstr "ID der Einrichtung"
