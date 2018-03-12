@@ -13,7 +13,7 @@
         },
         "bibid": {
             "title": "Bibid",
-            "description": "rero21 persistent identifiers for bibliographic records.",
+            "description": "Persistent identifiers for bibliographic records.",
             "type": "string",
             "minLength": 1
         },
