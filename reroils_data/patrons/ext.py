@@ -22,18 +22,19 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""REROILS invenio module declaration."""
+"""rero21 ils data module."""
 
 from __future__ import absolute_import, print_function
 
 from flask_babelex import gettext as _
+from invenio_indexer.signals import before_record_index
 
 from . import config
-from .jinja2 import format_date_filter
+from .receivers import patron_receiver
 
 
-class REROILSDATA(object):
-    """REROILS-DATA extension."""
+class REROILSPATRON(object):
+    """REROILS-PATRON extension."""
 
     def __init__(self, app=None):
         """Extension initialization."""
@@ -43,21 +44,20 @@ class REROILSDATA(object):
         _('A translation string')
         if app:
             self.init_app(app)
-            app.add_template_filter(format_date_filter, name='format_date')
+            self.register_signals(app)
 
     def init_app(self, app):
         """Flask application initialization."""
         self.init_config(app)
-        app.extensions['reroils-data'] = self
+        app.extensions['reroils-patron'] = self
 
     def init_config(self, app):
         """Initialize configuration."""
-        # Use theme's base template if theme is installed
-        if 'BASE_TEMPLATE' in app.config:
-            app.config.setdefault(
-                'REROILS_DATA_BASE_TEMPLATE',
-                app.config['BASE_TEMPLATE'],
-            )
         for k in dir(config):
-            if k.startswith('REROILS_DATA_'):
+            if k.startswith('REROILS_PATRON_'):
                 app.config.setdefault(k, getattr(config, k))
+
+    @staticmethod
+    def register_signals(app):
+        """Register Invenio indexer signals."""
+        before_record_index.connect(patron_receiver, weak=False)

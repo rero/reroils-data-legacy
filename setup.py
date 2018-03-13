@@ -115,6 +115,7 @@ setup(
     entry_points={
         'invenio_base.apps': [
             'reroils_data = reroils_data:REROILSDATA',
+            'reroils_patron = reroils_data.patrons:REROILSPATRON',
         ],
         'invenio_i18n.translations': [
             'messages = reroils_data',
@@ -141,33 +142,39 @@ setup(
             'documents_items = reroils_data.documents_items.views:blueprint',
             'documents = reroils_data.documents.views:blueprint',
             'items = reroils_data.items.views:blueprint',
+            'patrons = reroils_data.patrons.views:blueprint',
         ],
         'invenio_db.models': [
             'organisations = reroils_data.organisations.models',
             'documents_items = reroils_data.documents_items.models',
             'items = reroils_data.items.models',
             'documents = reroils_data.documents.models',
+            'patrons = reroils_data.patrons.models',
         ],
         'invenio_pidstore.minters': [
             'organisation_id = reroils_data.organisations.minters:organisation_id_minter',
             'item_id = reroils_data.items.minters:item_id_minter',
             'document_id = reroils_data.documents.minters:document_id_minter',
+            'patron_id = reroils_data.patrons.minters:patron_id_minter',
         ],
         'invenio_pidstore.fetchers': [
             'organisation_id = reroils_data.organisations.fetchers:organisation_id_fetcher',
             'item_id = reroils_data.items.fetchers:item_id_fetcher',
             'document_id = reroils_data.documents.fetchers:document_id_fetcher',
+            'patron_id = reroils_data.patrons.fetchers:patron_id_fetcher',
         ],
         'invenio_jsonschemas.schemas': [
             'organisations = reroils_data.organisations.jsonschemas',
             'items = reroils_data.items.jsonschemas',
             'documents = reroils_data.documents.jsonschemas',
+            'patrons = reroils_data.patrons.jsonschemas',
         ],
         'invenio_search.mappings': [
             'organisations = reroils_data.organisations.mappings',
             # 'documents_toto = reroils_data.documents_items.mappings',
             'items = reroils_data.items.mappings',
             'documents = reroils_data.documents.mappings',
+            'patrons = reroils_data.patrons.mappings',
         ]
     },
     extras_require=extras_require,

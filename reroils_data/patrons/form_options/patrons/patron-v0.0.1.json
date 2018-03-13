@@ -1,0 +1,80 @@
+[
+    {
+        "type": "fieldset",
+        "items": [{
+            "type": "actions",
+            "htmlClass": "rero21-submit pull-right",
+            "items": [{
+                "type": "submit",
+                "style": "btn-success",
+                "title": "Submit"
+            }]
+        }]
+    },
+    {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [{
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": ["barcode"]
+        }]
+    },
+    {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [{
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": ["last_name"]
+        },{
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": ["first_name"]
+        }]
+    },
+    {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [{
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": ["birth_date"]
+        }]
+    },
+    {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [{
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": ["street"]
+        }]
+    },
+    {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [{
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": ["postal_code"]
+        },{
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": ["city"]
+        }]
+    },
+    {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [{
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": ["email"]
+        },{
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": ["phone"]
+        }]
+    }
+]
