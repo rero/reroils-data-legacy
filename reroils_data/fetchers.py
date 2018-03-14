@@ -29,53 +29,19 @@ from __future__ import absolute_import, print_function
 
 from collections import namedtuple
 
-from invenio_circulation.providers import CirculationItemProvider
-from invenio_pidstore.providers.recordid import RecordIdProvider
-
-from .providers import InstitutionProvider
-
 FetchedPID = namedtuple('FetchedPID', ['provider', 'pid_type', 'pid_value'])
 """A pid fetcher."""
 
 
-def bibid_fetcher(record_uuid, data):
-    """Fetch a record's identifiers.
+def id_fetcher(record_uuid, data, provider, pid_key='pid'):
+    """Fetch a Organisation record's identifiers.
 
     :param record_uuid: The record UUID.
     :param data: The record metadata.
     :returns: A :data:`reroils_data.fetchers.FetchedPID` instance.
     """
     return FetchedPID(
-        provider=RecordIdProvider,
-        pid_type=RecordIdProvider.pid_type,
-        pid_value=data['bibid']
-    )
-
-
-def circulation_itemid_fetcher(record_uuid, data):
-    """Fetch a circulation itemid identifier.
-
-    :param record_uuid: Record UUID.
-    :param data: Record content.
-    :returns: A :class:``invenio_pidstore.fetchers.FetchedPID`` that contains
-        ``data['itemid']`` as pid_value.
-    """
-    return FetchedPID(
-        provider=CirculationItemProvider,
-        pid_type=CirculationItemProvider.pid_type,
-        pid_value=str(data['itemid']),
-    )
-
-
-def institutionid_fetcher(record_uuid, data):
-    """Fetch a institution record's identifiers.
-
-    :param record_uuid: The record UUID.
-    :param data: The record metadata.
-    :returns: A :data:`reroils_data.fetchers.FetchedPID` instance.
-    """
-    return FetchedPID(
-        provider=InstitutionProvider,
-        pid_type=InstitutionProvider.pid_type,
-        pid_value=data['institutionid']
+        provider=provider,
+        pid_type=provider.pid_type,
+        pid_value=data[pid_key]
     )

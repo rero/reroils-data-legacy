@@ -1,0 +1,26 @@
+[
+    {
+        "type": "fieldset",
+        "items": [{
+            "type": "actions",
+            "htmlClass": "rero21-submit pull-right",
+            "items": [{
+                "type": "submit",
+                "style": "btn-success",
+                "title": "Submit"
+            }]
+        }]
+    },
+    {
+        "type": "fieldset",
+        "title": "Organisation",
+        "items": [{
+            "key": "pid",
+            "readonly": true
+            },{
+            "key": "name"
+            },{
+            "key": "address"
+        }]
+    }
+]

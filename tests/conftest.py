@@ -43,99 +43,26 @@ from sqlalchemy_utils.functions import create_database, database_exists
 
 
 @pytest.yield_fixture()
-def institution_minimal_record():
-    """Institution Minimal record."""
+def minimal_book_record():
+    """Minimal book."""
     yield {
-        '$schema': 'http://ils.test.rero.ch/schema\
-            /institutions/institution-v0.0.1.json',
-        'institutionid': '1',
-        'name': 'MV Sion',
-        'address': 'address',
-        'libraries': [
-            {
-                'code': '1',
-                'name': 'MV Sion bibliothèque des jeunes',
-                'address': 'Place de la Gare 18, 1950 Sion',
-                'email': 'info@bibliosionjeunes.ch',
-                'locations': [
-                    {
-                        'code': '1',
-                        'name': 'Espaces publics'
-                    },
-                    {
-                        'code': '2',
-                        'name': 'Magasins'
-                    }
-                ]
-            },
-            {
-                'code': '2',
-                'name': 'MV Sion bibliothèque des adultes',
-                'address': 'Place de la Gare 18, 1950 Sion',
-                'email': 'info@bibliosionadultes.ch',
-                'locations': [
-                    {
-                        'code': '3',
-                        'name': 'Espaces publics'
-                    },
-                    {
-                        'code': '4',
-                        'name': 'Magasins'
-                    }
-                ]
-            }
-        ]
-    }
-
-
-@pytest.yield_fixture()
-def item_minimal_record():
-    """Item Minimal record."""
-    yield {
-        '$schema': 'http://ils.test.rero.ch/schema/items/item-v0.0.1.json',
-        'itemid': '2',
-        'barcode': 10000000001,
-        'callNumber': 'PA-10001',
-        'location': 'publicAccess'
-    }
-
-
-@pytest.yield_fixture()
-def minimal_record():
-    """Minimal record."""
-    yield {
-        '$schema': 'http://ils.test.rero.ch/schema/records/record-v0.0.1.json',
-        'bibid': '2',
+        '$schema': 'http://ils.test.rero.ch/schema/documents/book-v0.0.1.json',
+        'pid': '2',
         'title': 'RERO21 pour les nuls : les premiers pas',
         'languages': [{'language': 'fre'}],
     }
 
 
-@pytest.fixture()
-def item_schema():
-    """Item Jsonschema for records."""
-    schema_in_bytes = resource_string('reroils_data.jsonschemas',
-                                      'items/item-v0.0.1.json')
-    schema = loads(schema_in_bytes.decode('utf8'))
-    return schema
-
-
-@pytest.fixture()
-def institution_schema():
-    """Institution Jsonschema for records."""
-    schema_in_bytes = resource_string('reroils_data.jsonschemas',
-                                      'institutions/institution-v0.0.1.json')
-    schema = loads(schema_in_bytes.decode('utf8'))
-    return schema
-
-
-@pytest.fixture()
-def schema():
-    """Jsonschema for records."""
-    schema_in_bytes = resource_string('reroils_data.jsonschemas',
-                                      'records/record-v0.0.1.json')
-    schema = loads(schema_in_bytes.decode('utf8'))
-    return schema
+@pytest.yield_fixture()
+def minimal_item_record():
+    """Item Minimal record."""
+    yield {
+        '$schema': 'http://ils.test.rero.ch/schema/items/item-v0.0.1.json',
+        'pid': '2',
+        'barcode': 10000000001,
+        'callNumber': 'PA-10001',
+        'location': 'publicAccess'
+    }
 
 
 @pytest.yield_fixture()

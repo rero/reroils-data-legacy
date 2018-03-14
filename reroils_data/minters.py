@@ -26,46 +26,15 @@
 
 from __future__ import absolute_import, print_function, unicode_literals
 
-from invenio_circulation.providers import CirculationItemProvider
-from invenio_pidstore.providers.recordid import RecordIdProvider
 
-from .models import InstitutionIdentifier
-from .providers import InstitutionProvider
-
-
-def bibid_minter(record_uuid, data):
-    """RERIOLS bibid minter."""
-    assert 'bibid' not in data
-    provider = RecordIdProvider.create(
-        object_type='rec',
+def id_minter(record_uuid, data, provider, pid_key='pid', object_type='rec'):
+    """RERIOLS Organisationid minter."""
+    assert pid_key not in data
+    provider = provider.create(
+        object_type=object_type,
         object_uuid=record_uuid
     )
     pid = provider.pid
-    data['bibid'] = pid.pid_value
-
-    return pid
-
-
-def circulation_itemid_minter(record_uuid, data):
-    """Mint a circulation itemid identifier."""
-    assert 'itemid' not in data
-    provider = CirculationItemProvider.create(
-        object_type='rec',
-        object_uuid=record_uuid
-    )
-    data['itemid'] = provider.pid.pid_value
-
-    return provider.pid
-
-
-def institutionid_minter(record_uuid, data):
-    """RERIOLS institutionid minter."""
-    assert 'institutionid' not in data
-    provider = InstitutionProvider.create(
-        object_type='rec',
-        object_uuid=record_uuid
-    )
-    pid = provider.pid
-    data['institutionid'] = pid.pid_value
+    data[pid_key] = pid.pid_value
 
     return pid

@@ -28,8 +28,26 @@ API Docs
 .. automodule:: reroils_data.ext
    :members:
 
-Views
------
+Documents Views
+---------------
 
-.. automodule:: reroils_data.views
+.. automodule:: reroils_data.documents.views
    :members:
+
+Documents Items Views
+---------------------
+
+.. automodule:: reroils_data.documents_items.views
+   :members:
+
+Items Views
+-----------
+
+.. automodule:: reroils_data.items.views
+  :members:
+
+Organisations Views
+-------------------
+
+.. automodule:: reroils_data.organisations.views
+  :members:

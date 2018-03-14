@@ -24,15 +24,6 @@
 
 """rero21 ils data module."""
 
-# TODO: This is an example file. Remove it if your package does not use any
-# extra configuration variables.
-
-REROILS_DATA_DEFAULT_VALUE = 'foobar'
-"""Default value for the application."""
-
-REROILS_DATA_BASE_TEMPLATE = 'reroils_data/base.html'
-"""Default base template for the demo page."""
-
 REROILS_DATA_IMPORT_BNF_EAN = 'http://catalogue.bnf.fr/api/SRU?'\
     'version=1.2&operation=searchRetrieve'\
     '&recordSchema=unimarcxchange&maximumRecords=1'\

@@ -119,54 +119,55 @@ setup(
         'invenio_i18n.translations': [
             'messages = reroils_data',
         ],
-        'invenio_jsonschemas.schemas': [
-            'record = reroils_data.jsonschemas'
-        ],
         'dojson.cli': [
             'reverse = reroils_data.cli:reverse',
-            'head = reroils_data.cli:head'
+            'head = reroils_data.cli:head',
         ],
         'dojson.cli.dump': [
-            'pjson = reroils_data.dojson.utils:dump'
+            'pjson = reroils_data.dojson.dump:pretty_json_dump',
         ],
         'dojson.cli.rule': [
             'marc21tojson ='
-            'reroils_data.dojson.contrib.marc21tojson:marc21tojson',
+            'reroils_data.documents.dojson.contrib.marc21tojson:marc21tojson',
             'unimarctojson ='
-            'reroils_data.dojson.contrib.unimarctojson:unimarctojson',
-        ],
-        'invenio_search.mappings': [
-            'records = reroils_data.mappings',
-            'items = reroils_data.mappings',
-            'institutions = reroils_data.mappings'
+            'reroils_data.documents.dojson.contrib.unimarctojson:unimarctojson',
         ],
         'flask.commands': [
-            'fixtures = reroils_data.cli:fixtures',
-            'checks = reroils_data.cli:checks'
+            'fixtures = reroils_data.documents_items.cli:fixtures',
+            'utils = reroils_data.cli:utils',
+        ],
+        'invenio_base.blueprints': [
+            'organisations = reroils_data.organisations.views:blueprint',
+            'documents_items = reroils_data.documents_items.views:blueprint',
+            'documents = reroils_data.documents.views:blueprint',
         ],
         'invenio_db.models': [
-            'reroils_data = reroils_data.models'
+            'organisations = reroils_data.organisations.models',
+            'documents_items = reroils_data.documents_items.models',
+            'items = reroils_data.items.models',
+            'documents = reroils_data.documents.models',
         ],
-        # TODO: Edit these entry points to fit your needs.
-        # 'invenio_access.actions': [],
-        # 'invenio_admin.actions': [],
-        # 'invenio_assets.bundles': [],
-        # 'invenio_base.api_apps': [],
-        # 'invenio_base.api_blueprints': [],
-        # 'invenio_base.blueprints': [],
-        # 'invenio_celery.tasks': [],
-        # 'invenio_db.models': [],
         'invenio_pidstore.minters': [
-            'bibid = reroils_data.minters:bibid_minter',
-            'itemid = reroils_data.minters:circulation_itemid_minter',
-            'institutionid = reroils_data.minters:institutionid_minter'
+            'organisation_id = reroils_data.organisations.minters:organisation_id_minter',
+            'item_id = reroils_data.items.minters:item_id_minter',
+            'document_id = reroils_data.documents.minters:document_id_minter',
         ],
         'invenio_pidstore.fetchers': [
-            'bibid = reroils_data.fetchers:bibid_fetcher',
-            'itemid = reroils_data.fetchers:circulation_itemid_fetcher',
-            'institutionid = reroils_data.fetchers:institutionid_fetcher'
+            'organisation_id = reroils_data.organisations.fetchers:organisation_id_fetcher',
+            'item_id = reroils_data.items.fetchers:item_id_fetcher',
+            'document_id = reroils_data.documents.fetchers:document_id_fetcher',
         ],
-        # 'invenio_records.jsonresolver': [],
+        'invenio_jsonschemas.schemas': [
+            'organisations = reroils_data.organisations.jsonschemas',
+            'items = reroils_data.items.jsonschemas',
+            'documents = reroils_data.documents.jsonschemas',
+        ],
+        'invenio_search.mappings': [
+            'organisations = reroils_data.organisations.mappings',
+            # 'documents_toto = reroils_data.documents_items.mappings',
+            'items = reroils_data.items.mappings',
+            'documents = reroils_data.documents.mappings',
+        ]
     },
     extras_require=extras_require,
     install_requires=install_requires,

@@ -38,18 +38,6 @@ def test_version():
     assert __version__
 
 
-def test_record_mappings():
-    """Test elasticsearch mappings for records."""
-
-    from json import loads
-    from pkg_resources import resource_string
-
-    mappings_in_bytes = resource_string('reroils_data.mappings',
-                                        'records/record-v0.0.1.json')
-    mappings = loads(mappings_in_bytes.decode('utf8'))
-    assert mappings.get('mappings').get('record-v0.0.1')
-
-
 def test_init():
     """Test extension initialization."""
     app = Flask('testapp')
