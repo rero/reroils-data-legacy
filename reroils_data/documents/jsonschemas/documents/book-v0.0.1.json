@@ -19,6 +19,7 @@
         "title": {
             "title": "Title",
             "description": "Required. Entire title without statement of responsibility.",
+            "validationMessage": "Required. Entire title without statement of responsibility.",
             "type": "string",
             "minLength": 1
         },
@@ -38,17 +39,15 @@
             "type": "array",
             "uniqueItems": true,
             "minItems": 1,
-            "validationMessage": "Needs at least one value.",
             "items": {
                 "type": "object",
                 "required": ["language"],
-                "validationMessage": "Needs a defined value.",
                 "properties": {
                     "language": {
                         "title" : "Language",
                         "description": "Required. Language of the resource, primary or not.",
                         "type": "string",
-                        "validationMessage": "Needs a valid value.",
+                        "validationMessage": "Required. Language of the resource, primary or not.",
                         "enum": [
                             "fre",
                             "ger",

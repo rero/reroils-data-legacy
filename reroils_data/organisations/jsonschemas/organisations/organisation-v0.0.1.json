@@ -18,7 +18,8 @@
         },
         "name": {
             "title": "Name",
-            "description": "Name of the organisation.",
+            "description": "Required. Name of the organisation.",
+            "validationMessage": "Required. Name of the organisation.",
             "type": "string",
             "minLength": 1
         },

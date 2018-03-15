@@ -115,7 +115,7 @@
             "style": {
                 "add": "btn-link"
             },
-            "startEmpty": true,
+            "startEmpty": false,
             "type": "array",
             "validationMessage": {
                 "402": "<span class=\"text-danger\">Language value should be unique!</span>"
@@ -124,7 +124,6 @@
                 "key": "languages[].language",
                 "notitle": true,
                 "description": "",
-                "default": "fre",
                 "htmlClass": "rero21-required",
                 "titleMap": [
                     { "value": "ara", "name": "Arabic" },
