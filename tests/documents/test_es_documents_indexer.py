@@ -34,4 +34,4 @@ def test_mappings_book():
     mappings_in_bytes = resource_string('reroils_data.documents.mappings',
                                         'documents/book-v0.0.1.json')
     mappings = loads(mappings_in_bytes.decode('utf8'))
-    assert mappings.get('mappings').get('document-book-v0.0.1')
+    assert mappings.get('mappings').get('book-v0.0.1')
