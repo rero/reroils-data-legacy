@@ -150,24 +150,28 @@ setup(
             'items = reroils_data.items.models',
             'documents = reroils_data.documents.models',
             'patrons = reroils_data.patrons.models',
+            'members = reroils_data.members.models',
         ],
         'invenio_pidstore.minters': [
             'organisation_id = reroils_data.organisations.minters:organisation_id_minter',
             'item_id = reroils_data.items.minters:item_id_minter',
             'document_id = reroils_data.documents.minters:document_id_minter',
             'patron_id = reroils_data.patrons.minters:patron_id_minter',
+            'member_id = reroils_data.members.minters:member_id_minter',
         ],
         'invenio_pidstore.fetchers': [
             'organisation_id = reroils_data.organisations.fetchers:organisation_id_fetcher',
             'item_id = reroils_data.items.fetchers:item_id_fetcher',
             'document_id = reroils_data.documents.fetchers:document_id_fetcher',
             'patron_id = reroils_data.patrons.fetchers:patron_id_fetcher',
+            'member_id = reroils_data.members.fetchers:member_id_fetcher',
         ],
         'invenio_jsonschemas.schemas': [
             'organisations = reroils_data.organisations.jsonschemas',
             'items = reroils_data.items.jsonschemas',
             'documents = reroils_data.documents.jsonschemas',
             'patrons = reroils_data.patrons.jsonschemas',
+            'members = reroils_data.members.jsonschemas',
         ],
         'invenio_search.mappings': [
             'organisations = reroils_data.organisations.mappings',
@@ -175,6 +179,7 @@ setup(
             'items = reroils_data.items.mappings',
             'documents = reroils_data.documents.mappings',
             'patrons = reroils_data.patrons.mappings',
+            'members = reroils_data.members.mappings',
         ],
         'invenio_assets.bundles': [
             'reroils_data_item_editor_js = reroils_data.items.bundles:editor_js',
