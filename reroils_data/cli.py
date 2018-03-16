@@ -38,7 +38,18 @@ from invenio_accounts.cli import commit, users
 from invenio_pidstore.models import PersistentIdentifier
 from werkzeug.local import LocalProxy
 
+from .documents_items.cli import create_items
+from .organisations_members.cli import import_organisations
+
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
+
+
+@click.group()
+def fixtures():
+    """Fixtures management commands."""
+
+fixtures.add_command(import_organisations)
+fixtures.add_command(create_items)
 
 
 @click.command('reverse')

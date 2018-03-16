@@ -29,7 +29,6 @@ from __future__ import absolute_import, print_function
 import os
 import shutil
 import tempfile
-from json import loads
 
 import pytest
 from flask import Flask
@@ -38,15 +37,16 @@ from invenio_db import InvenioDB
 from invenio_jsonschemas import InvenioJSONSchemas
 from invenio_pidstore import InvenioPIDStore
 from invenio_records import InvenioRecords
-from pkg_resources import resource_string
 from sqlalchemy_utils.functions import create_database, database_exists
+
+url_schema = 'http://ils.test.rero.ch/schema'
 
 
 @pytest.yield_fixture()
 def minimal_book_record():
     """Minimal book."""
     yield {
-        '$schema': 'http://ils.test.rero.ch/schema/documents/book-v0.0.1.json',
+        '$schema': url_schema + '/documents/book-v0.0.1.json',
         'pid': '2',
         'title': 'RERO21 pour les nuls : les premiers pas',
         'languages': [{'language': 'fre'}],
@@ -57,11 +57,35 @@ def minimal_book_record():
 def minimal_item_record():
     """Item Minimal record."""
     yield {
-        '$schema': 'http://ils.test.rero.ch/schema/items/item-v0.0.1.json',
+        '$schema': url_schema + '/items/item-v0.0.1.json',
         'pid': '2',
         'barcode': 10000000001,
         'callNumber': 'PA-10001',
         'location': 'publicAccess'
+    }
+
+
+@pytest.yield_fixture()
+def minimal_organisation_record():
+    """Simple organisation record."""
+    yield {
+        '$schema': url_schema + '/organisations/organisation-v0.0.1.json',
+        'pid': '1',
+        'name': 'MV Sion',
+        'address': 'address'
+    }
+
+
+@pytest.yield_fixture()
+def minimal_member_record():
+    """Simple member record."""
+    yield {
+        '$schema': url_schema + '/members/member-v0.0.1.json',
+        'pid': '1',
+        'code': 'vsmvvs',
+        'name': 'MV Sion',
+        'address': 'Rue Pratifori',
+        'email': 'info@mv.ch'
     }
 
 

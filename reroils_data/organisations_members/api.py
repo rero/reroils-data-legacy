@@ -22,11 +22,10 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""API for manipulating items associated to a document."""
+"""API for manipulating members associated to a organisation."""
 
 from copy import deepcopy
 
-from invenio_circulation.api import Item
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
@@ -34,24 +33,28 @@ from invenio_records.api import Record
 from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
 
-from .models import DocumentsItemsMetadata
+from ..organisations.api import Organisation
+from .models import OrganisationsMembersMetadata
 
 
-class ItemsMixin(object):
-    """Implement items attribute for Document models.
+class MembersMixin(object):
+    """Implement members attribute for organisation models.
 
     .. note::
        This is a prototype.
     """
 
-    def add_item(self, item):
-        """Add an Item."""
-        DocumentsItemsMetadata.create(document=self.model, item=item.model)
+    def add_member(self, member):
+        """Add an Member."""
+        OrganisationsMembersMetadata.create(
+            organisation=self.model,
+            member=member.model
+        )
 
-    def remove_item(self, item, force=False):
-        """Remove an Item."""
-        sql_model = DocumentsItemsMetadata.query.filter_by(
-            item_id=item.id, document_id=self.id).first()
+    def remove_member(self, member, force=False):
+        """Remove an Member."""
+        sql_model = OrganisationsMembersMetadata.query.filter_by(
+            member_id=member.id, organisation_id=self.id).first()
         with db.session.begin_nested():
             db.session.delete(sql_model)
 
@@ -59,41 +62,51 @@ class ItemsMixin(object):
             sys.stdout.flush()
             try:
                 pid = PersistentIdentifier.get_by_object(
-                    'item', 'rec', item.id)
+                    'memb', 'rec', member.id)
                 pid.delete()
             except PIDDoesNotExistError:
                 pass
-            item.delete(force)
+            member.delete(force)
 
     @property
-    def itemslist(self):
-        """Return an array of Item."""
+    def members(self):
+        """Return an array of Members."""
         if self.model is None:
             raise MissingModelError()
-        # retrive all items in the relation table
-        # sorted by item creation date
-        documents_items = DocumentsItemsMetadata.query\
-            .filter_by(document_id=self.id)\
-            .join(DocumentsItemsMetadata.item)\
+
+        # retrive all members in the relation table
+        # sorted by members creation date
+        organisations_members = OrganisationsMembersMetadata.query\
+            .filter_by(organisation_id=self.id)\
+            .join(OrganisationsMembersMetadata.member)\
             .order_by(RecordMetadata.created)
         to_return = []
-        for doc_item in documents_items:
-            item = Item.get_record(doc_item.item.id)
-            to_return.append(item)
+        for org_memb in organisations_members:
+            member = Record.get_record(org_memb.member.id)
+            to_return.append(member)
         return to_return
 
+    @classmethod
+    def get_pid(cls, data):
+        """Get organisation with member pid."""
+        try:
+            pid_value = cls.fetcher(None, data).pid_value
+        except KeyError:
+            return None
+        return pid_value
 
-class DocumentsWithItems(Record, ItemsMixin):
-    """Define API for files manipulation using ``ItemsMixin``."""
+
+class OrganisationWithMembers(Organisation, MembersMixin):
+    """Define API for files manipulation using ``MembersMixin``."""
 
     def dumps(self, **kwargs):
         """Return pure Python dictionary with record metadata."""
         data = deepcopy(dict(self))
-        data['itemslist'] = self.itemslist
+        data['members'] = self.members
         return data
 
     def delete(self, force=False):
-        """Delete the document and all the related items."""
-        for item in self.itemslist:
-            self.remove_item(item, force)
-        super(DocumentsWithItems, self).delete(force)
+        """Delete the organisation and all the related members."""
+        for member in self.members:
+            self.remove_member(member, force)
+        super(OrganisationWithMembers, self).delete(force)

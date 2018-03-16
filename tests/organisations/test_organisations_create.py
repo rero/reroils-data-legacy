@@ -22,30 +22,30 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Pytest configuration."""
+"""Minters module tests."""
 
 from __future__ import absolute_import, print_function
 
-import shutil
-import tempfile
-from json import loads
-
-import pytest
-from pkg_resources import resource_string
+from reroils_data.organisations.api import Organisation
 
 
-@pytest.fixture()
-def member_schema():
-    """Member Jsonschema for records."""
-    schema_in_bytes = resource_string('reroils_data.members.jsonschemas',
-                                      'members/member-v0.0.1.json')
-    schema = loads(schema_in_bytes.decode('utf8'))
-    return schema
+def test_organisation_create(app, db, minimal_organisation_record):
+    """Test organisation creat."""
+
+    with app.app_context():
+        from copy import deepcopy
+        del minimal_organisation_record['pid']
+        del minimal_organisation_record['$schema']
+        org_rec = deepcopy(minimal_organisation_record)
+        org = Organisation.create(minimal_organisation_record)
+        assert org_rec == org
 
 
-@pytest.yield_fixture()
-def instance_path():
-    """Temporary instance path."""
-    path = tempfile.mkdtemp()
-    yield path
-    shutil.rmtree(path)
+def test_organisation_create_pid(app, db, minimal_organisation_record):
+    """Test organisation creat with pid."""
+
+    with app.app_context():
+        del minimal_organisation_record['pid']
+        del minimal_organisation_record['$schema']
+        org = Organisation.create(minimal_organisation_record, pid=True)
+        assert org['pid'] == '1'

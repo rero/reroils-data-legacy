@@ -22,30 +22,20 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Pytest configuration."""
+"""Blueprint used for loading templates.
+
+The sole purpose of this blueprint is to ensure that Invenio can find the
+templates and static files located in the folders of the same names next to
+this file.
+"""
 
 from __future__ import absolute_import, print_function
 
-import shutil
-import tempfile
-from json import loads
+from flask import Blueprint
 
-import pytest
-from pkg_resources import resource_string
-
-
-@pytest.fixture()
-def member_schema():
-    """Member Jsonschema for records."""
-    schema_in_bytes = resource_string('reroils_data.members.jsonschemas',
-                                      'members/member-v0.0.1.json')
-    schema = loads(schema_in_bytes.decode('utf8'))
-    return schema
-
-
-@pytest.yield_fixture()
-def instance_path():
-    """Temporary instance path."""
-    path = tempfile.mkdtemp()
-    yield path
-    shutil.rmtree(path)
+blueprint = Blueprint(
+    'reroils_data_organisations_members',
+    __name__,
+    template_folder='templates',
+    static_folder='static',
+)

@@ -20,32 +20,35 @@
 #
 # In applying this license, RERO does not
 # waive the privileges and immunities granted to it by virtue of its status
-# as an Intergovernmental Organization or submit itself to any jurisdiction.
+# as an Intergovernmental membanization or submit itself to any jurisdiction.
 
-"""Pytest configuration."""
+"""Minters module tests."""
 
 from __future__ import absolute_import, print_function
 
-import shutil
-import tempfile
-from json import loads
-
-import pytest
-from pkg_resources import resource_string
+from reroils_data.members.api import Member
 
 
-@pytest.fixture()
-def member_schema():
-    """Member Jsonschema for records."""
-    schema_in_bytes = resource_string('reroils_data.members.jsonschemas',
-                                      'members/member-v0.0.1.json')
-    schema = loads(schema_in_bytes.decode('utf8'))
-    return schema
+def test_members_create(app, db, minimal_member_record):
+    """Test member creat."""
+
+    with app.app_context():
+        from copy import deepcopy
+        del minimal_member_record['pid']
+        del minimal_member_record['$schema']
+        memb_rec = deepcopy(minimal_member_record)
+        memb = Member.create(minimal_member_record)
+        assert memb_rec == memb
 
 
-@pytest.yield_fixture()
-def instance_path():
-    """Temporary instance path."""
-    path = tempfile.mkdtemp()
-    yield path
-    shutil.rmtree(path)
+def test_memebers_create_pid(app, db, minimal_member_record):
+    """Test member creat with pid."""
+
+    with app.app_context():
+        from copy import deepcopy
+        del minimal_member_record['pid']
+        del minimal_member_record['$schema']
+        memb_rec = deepcopy(minimal_member_record)
+        memb = Member.create(minimal_member_record, pid=True)
+        memb_rec['pid'] = '1'
+        assert memb_rec == memb

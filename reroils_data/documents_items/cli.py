@@ -26,33 +26,21 @@
 
 from __future__ import absolute_import, print_function
 
-import json
-import re
 import uuid
-from pathlib import Path
 from random import randint
 
 import click
-from flask import current_app
 from flask.cli import with_appcontext
-from flask_security.confirmable import confirm_user
-from invenio_accounts.cli import commit, users
 from invenio_circulation.api import Item
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.models import PersistentIdentifier
-from werkzeug.local import LocalProxy
 
 from ..items.minters import item_id_minter
 from .api import DocumentsWithItems
 
 
-@click.group()
-def fixtures():
-    """Fixtures management commands."""
-
-
-@fixtures.command()
+@click.command('createitems')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @click.option(
     '-c', '--count', 'count', type=click.INT, default=-1,
@@ -63,7 +51,7 @@ def fixtures():
     help='default=1'
 )
 @with_appcontext
-def createitems(verbose, count, itemscount):
+def create_items(verbose, count, itemscount):
     """Create circulation items."""
     records = PersistentIdentifier.query.filter_by(pid_type='doc')
     if count == -1:

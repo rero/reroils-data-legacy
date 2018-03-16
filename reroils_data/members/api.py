@@ -22,30 +22,37 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Pytest configuration."""
+"""API for manipulating organisation."""
 
-from __future__ import absolute_import, print_function
+from uuid import uuid4
 
-import shutil
-import tempfile
-from json import loads
+from invenio_records.api import Record
 
-import pytest
-from pkg_resources import resource_string
+from .fetchers import member_id_fetcher
+from .minters import member_id_minter
 
 
-@pytest.fixture()
-def member_schema():
-    """Member Jsonschema for records."""
-    schema_in_bytes = resource_string('reroils_data.members.jsonschemas',
-                                      'members/member-v0.0.1.json')
-    schema = loads(schema_in_bytes.decode('utf8'))
-    return schema
+class Member(Record):
+    """Member class."""
 
+    minter = member_id_minter
+    fetcher = member_id_fetcher
+    record_type = 'memb'
 
-@pytest.yield_fixture()
-def instance_path():
-    """Temporary instance path."""
-    path = tempfile.mkdtemp()
-    yield path
-    shutil.rmtree(path)
+    @classmethod
+    def create(cls, data, id_=None, pid=False, **kwargs):
+        """Create a new Member record."""
+        if not id_:
+            id_ = uuid4()
+        if pid and not cls.get_pid(data):
+            cls.minter(id_, data)
+        return super(Member, cls).create(data=data, id_=id_, **kwargs)
+
+    @classmethod
+    def get_pid(cls, data):
+        """Get member pid."""
+        try:
+            pid_value = cls.fetcher(None, data).pid_value
+        except KeyError:
+            return None
+        return pid_value

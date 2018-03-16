@@ -134,11 +134,11 @@ setup(
             'reroils_data.documents.dojson.contrib.unimarctojson:unimarctojson',
         ],
         'flask.commands': [
-            'fixtures = reroils_data.documents_items.cli:fixtures',
+            'fixtures = reroils_data.cli:fixtures',
             'utils = reroils_data.cli:utils',
         ],
         'invenio_base.blueprints': [
-            'organisations = reroils_data.organisations.views:blueprint',
+            'organisations = reroils_data.organisations_members.views:blueprint',
             'documents_items = reroils_data.documents_items.views:blueprint',
             'documents = reroils_data.documents.views:blueprint',
             'items = reroils_data.items.views:blueprint',
@@ -151,6 +151,7 @@ setup(
             'documents = reroils_data.documents.models',
             'patrons = reroils_data.patrons.models',
             'members = reroils_data.members.models',
+            'organisations_members = reroils_data.organisations_members.models',
             'locations = reroils_data.locations.models',
         ],
         'invenio_pidstore.minters': [

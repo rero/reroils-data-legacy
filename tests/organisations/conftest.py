@@ -34,18 +34,6 @@ import pytest
 from pkg_resources import resource_string
 
 
-@pytest.yield_fixture()
-def minimal_organisation_record():
-    """Simple organisation record."""
-    yield {
-        '$schema': 'http://ils.test.rero.ch/schema\
-            /organisations/organisation-v0.0.1.json',
-        'pid': '1',
-        'name': 'MV Sion',
-        'address': 'address'
-    }
-
-
 @pytest.fixture()
 def organisation_schema():
     """Organisation Jsonschema for records."""

@@ -1,0 +1,26 @@
+<ul class="re-list">
+    <li ng-controller="recordController" ng-init="rec=record" ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
+        <h3><a target="_self" ng-href="/organisations/{{ record.id }}">{{ record.metadata.name }}</a></h3>
+        {{ record.metadata.adress }}
+<!--
+    <div class="reroils-organisations">
+        <a ng-href="/members/{{ record.id }}" ng-show='numberOfMembersAvailable() === 1'>
+            <i class="fa fa-circle text-success" aria-hidden="true"></i>
+            <span class="">{{numberOfMembersAvailable()}}</span>
+            <span translate>member available</span>
+        </a>
+        <a ng-href="/members/{{ record.id }}" ng-show='numberOfMembersAvailable() > 1'>
+            <i class="fa fa-circle text-success" aria-hidden="true"></i>
+            <span class="">{{numberOfMembersAvailable()}}</span>
+            <span translate>members available</span>
+        </a>
+        <span ng-show='numberOfMembersAvailable() === 0'>
+            <i class="fa fa-circle text-danger" aria-hidden="true"></i>
+            <span translate>no member available</span>
+        </span>
+    </div>
+
+-->
+        <hr />
+    </li>
+</ul>

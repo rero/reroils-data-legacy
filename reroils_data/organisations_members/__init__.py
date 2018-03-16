@@ -22,30 +22,6 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Pytest configuration."""
+"""Organisations with Members Record."""
 
 from __future__ import absolute_import, print_function
-
-import shutil
-import tempfile
-from json import loads
-
-import pytest
-from pkg_resources import resource_string
-
-
-@pytest.fixture()
-def member_schema():
-    """Member Jsonschema for records."""
-    schema_in_bytes = resource_string('reroils_data.members.jsonschemas',
-                                      'members/member-v0.0.1.json')
-    schema = loads(schema_in_bytes.decode('utf8'))
-    return schema
-
-
-@pytest.yield_fixture()
-def instance_path():
-    """Temporary instance path."""
-    path = tempfile.mkdtemp()
-    yield path
-    shutil.rmtree(path)
