@@ -26,20 +26,12 @@
 
 from __future__ import absolute_import, print_function
 
-import os
 import shutil
 import tempfile
 from json import loads
 
 import pytest
-from flask import Flask
-from flask_babelex import Babel
-from invenio_db import InvenioDB
-from invenio_jsonschemas import InvenioJSONSchemas
-from invenio_pidstore import InvenioPIDStore
-from invenio_records import InvenioRecords
 from pkg_resources import resource_string
-from sqlalchemy_utils.functions import create_database, database_exists
 
 
 @pytest.yield_fixture()
@@ -47,7 +39,7 @@ def minimal_organisation_record():
     """Simple organisation record."""
     yield {
         '$schema': 'http://ils.test.rero.ch/schema\
-            /institutions/institution-v0.0.1.json',
+            /organisations/organisation-v0.0.1.json',
         'pid': '1',
         'name': 'MV Sion',
         'address': 'address'
