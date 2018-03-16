@@ -151,6 +151,7 @@ setup(
             'documents = reroils_data.documents.models',
             'patrons = reroils_data.patrons.models',
             'members = reroils_data.members.models',
+            'locations = reroils_data.locations.models',
         ],
         'invenio_pidstore.minters': [
             'organisation_id = reroils_data.organisations.minters:organisation_id_minter',
@@ -158,6 +159,7 @@ setup(
             'document_id = reroils_data.documents.minters:document_id_minter',
             'patron_id = reroils_data.patrons.minters:patron_id_minter',
             'member_id = reroils_data.members.minters:member_id_minter',
+            'location_id = reroils_data.locations.minters:location_id_minter',
         ],
         'invenio_pidstore.fetchers': [
             'organisation_id = reroils_data.organisations.fetchers:organisation_id_fetcher',
@@ -165,6 +167,7 @@ setup(
             'document_id = reroils_data.documents.fetchers:document_id_fetcher',
             'patron_id = reroils_data.patrons.fetchers:patron_id_fetcher',
             'member_id = reroils_data.members.fetchers:member_id_fetcher',
+            'location_id = reroils_data.locations.fetchers:location_id_fetcher',
         ],
         'invenio_jsonschemas.schemas': [
             'organisations = reroils_data.organisations.jsonschemas',
@@ -172,6 +175,7 @@ setup(
             'documents = reroils_data.documents.jsonschemas',
             'patrons = reroils_data.patrons.jsonschemas',
             'members = reroils_data.members.jsonschemas',
+            'locations = reroils_data.locations.jsonschemas',
         ],
         'invenio_search.mappings': [
             'organisations = reroils_data.organisations.mappings',
@@ -180,6 +184,7 @@ setup(
             'documents = reroils_data.documents.mappings',
             'patrons = reroils_data.patrons.mappings',
             'members = reroils_data.members.mappings',
+            'locations = reroils_data.locations.mappings',
         ],
         'invenio_assets.bundles': [
             'reroils_data_item_editor_js = reroils_data.items.bundles:editor_js',
