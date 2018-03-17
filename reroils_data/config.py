@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""rero21 ils data module."""
+"""REROILS specific configurations."""
 
 REROILS_DATA_IMPORT_BNF_EAN = 'http://catalogue.bnf.fr/api/SRU?'\
     'version=1.2&operation=searchRetrieve'\

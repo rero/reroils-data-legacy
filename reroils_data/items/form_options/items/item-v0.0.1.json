@@ -1,0 +1,50 @@
+[
+    {
+        "type": "fieldset",
+        "items": [{
+            "type": "actions",
+            "htmlClass": "rero21-submit pull-right",
+            "items": [{
+                "type": "submit",
+                "style": "btn-success",
+                "title": "Submit"
+            }]
+        }]
+    },
+    {
+        "key": "pid",
+        "readonly": true
+    },
+    "barcode",
+    "callNumber", 
+    {
+        "key": "location",
+        "title": "Location",
+        "titleMap": [
+            { "value": "publicAccess", "name": "Public Access" },
+            { "value": "storeroom", "name": "Store Room" },
+            { "value": "readingRoom", "name": "Reading Room" }
+        ]
+    },
+    {
+        "key": "_circulation.status",
+        "title": "Status",
+        "titleMap": [
+            { "value": "on_loan", "name": "On Loan" },
+            { "value": "on_shelf", "name": "On Shelf" },
+            { "value": "missing", "name": "Not For Loan" }
+        ]
+    },
+    {
+        "type": "fieldset",
+        "items": [{
+            "type": "actions",
+            "htmlClass": "rero21-submit pull-right",
+            "items": [{
+                "type": "submit",
+                "style": "btn-success",
+                "title": "Submit"
+            }]
+        }]
+    }
+]

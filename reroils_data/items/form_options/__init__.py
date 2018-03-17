@@ -22,24 +22,6 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Minters module tests."""
+"""Editor configuration options."""
 
 from __future__ import absolute_import, print_function
-
-from invenio_circulation.api import Item
-
-from reroils_data.documents_items.api import DocumentsWithItems
-
-
-def test_create(app, db, minimal_book_record, minimal_item_record):
-    """Test RecordsItems creation."""
-
-    with app.app_context():
-        doc = DocumentsWithItems.create(minimal_book_record)
-        item = Item.create(minimal_item_record)
-
-        doc.add_item(item)
-        assert doc.itemslist[0] == item
-
-        dump = doc.dumps()
-        assert dump['itemslist'][0] == item.dumps()

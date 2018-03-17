@@ -22,5 +22,17 @@
             },{
             "key": "address"
         }]
+    },
+    {
+        "type": "fieldset",
+        "items": [{
+            "type": "actions",
+            "htmlClass": "rero21-submit pull-right",
+            "items": [{
+                "type": "submit",
+                "style": "btn-success",
+                "title": "Submit"
+            }]
+        }]
     }
 ]

@@ -27,7 +27,11 @@
 from copy import deepcopy
 
 from invenio_circulation.api import Item
+from invenio_db import db
+from invenio_pidstore.errors import PIDDoesNotExistError
+from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.api import Record
+from invenio_records.models import RecordMetadata
 
 from .models import DocumentsItemsMetadata
 
@@ -43,14 +47,34 @@ class ItemsMixin(object):
         """Add an Item."""
         DocumentsItemsMetadata.create(document=self.model, item=item.model)
 
+    def remove_item(self, item, force=False):
+        """Remove an Item."""
+        sql_model = DocumentsItemsMetadata.query.filter_by(
+            item_id=item.id, document_id=self.id).first()
+        with db.session.begin_nested():
+            db.session.delete(sql_model)
+
+            import sys
+            sys.stdout.flush()
+            try:
+                pid = PersistentIdentifier.get_by_object(
+                    'item', 'rec', item.id)
+                pid.delete()
+            except PIDDoesNotExistError:
+                pass
+            item.delete(force)
+
     @property
     def itemslist(self):
         """Return an array of Item."""
         if self.model is None:
             raise MissingModelError()
-
-        documents_items = DocumentsItemsMetadata.query.filter_by(
-            document_id=self.id)
+        # retrive all items in the relation table
+        # sorted by item creation date
+        documents_items = DocumentsItemsMetadata.query\
+            .filter_by(document_id=self.id)\
+            .join(DocumentsItemsMetadata.item)\
+            .order_by(RecordMetadata.created)
         to_return = []
         for doc_item in documents_items:
             item = Item.get_record(doc_item.item.id)
@@ -66,3 +90,9 @@ class DocumentsWithItems(Record, ItemsMixin):
         data = deepcopy(dict(self))
         data['itemslist'] = self.itemslist
         return data
+
+    def delete(self, force=False):
+        """Delete the document and all the related items."""
+        for item in self.itemslist:
+            self.remove_item(item, force)
+        super(DocumentsWithItems, self).delete(force)

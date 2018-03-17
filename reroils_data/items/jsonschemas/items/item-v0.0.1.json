@@ -33,6 +33,7 @@
             "title": "location",
             "description": "Location of the item.",
             "type": "string",
+            "default": "publicAccess",
             "enum": [
                 "publicAccess",
                 "storeroom",
@@ -43,6 +44,8 @@
             "type": "object",
             "properties":{
                 "status":{
+                    "type": "string",
+                    "default": "on_shelf",
                     "enum":[
                         "on_shelf",
                         "on_loan",
@@ -55,7 +58,7 @@
                         "type": "object",
                         "properties":{
                             "user":{
-                                "type": "object"
+                                "type": "string"
                             },
                             "delivery":{
                                 "enum":[

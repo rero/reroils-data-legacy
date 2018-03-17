@@ -71,5 +71,6 @@ class DocumentsItemsMetadata(db.Model):
             object created.
         """
         rb = cls(document=document, item=item)
-        db.session.add(rb)
+        with db.session.begin_nested():
+            db.session.add(rb)
         return rb

@@ -140,6 +140,7 @@ setup(
             'organisations = reroils_data.organisations.views:blueprint',
             'documents_items = reroils_data.documents_items.views:blueprint',
             'documents = reroils_data.documents.views:blueprint',
+            'items = reroils_data.items.views:blueprint',
         ],
         'invenio_db.models': [
             'organisations = reroils_data.organisations.models',

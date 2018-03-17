@@ -214,13 +214,21 @@
     {% endif %}
 
     <!-- Items -->
-    {% if record.citems %}
+    
     <div class='reroils-items row'>
         <div class="col-sm-12">
-            <h3>{{_('Items')}}</h3>
+            <h3>{{_('Items')}}
+                {%- if current_user | can_edit %}
+                <a href="{{ url_for('reroils_record_editor.create_item',
+                parent_pid=record.pid) }}" type="button" class="btn btn-sm btn-success">
+                    <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Add')}}
+                </a>
+                {% endif %}
+            </h3>
         </div>
     </div>
-    {% for item in record.citems %}
+    {% if record.itemslist %}
+    {% for item in record.itemslist %}
     {% if item.location %}
     <div class="row">
         <div class="col-xs-3 col-sm-2">
@@ -267,6 +275,20 @@
             {% else %}
             <i class="fa fa-circle" aria-hidden="true"></i> {{ _(item._circulation.status) }}
             {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    {%- if current_user | can_edit %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                <a href="{{ url_for('reroils_record_editor.update_item', pid=item.pid, parent_pid=record.pid) }}" type="button" class="btn btn-success">
+                    <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Edit')}}
+                </a>
+                <a href="{{ url_for('reroils_record_editor.delete_item', pid=item.pid, parent_pid=record.pid) }}" type="button" class="btn btn-danger">
+                    <i class="fa fa-trash-o fa-fw"></i> {{_('Delete')}}
+                </a>
+            </div>
         </div>
     </div>
     {% endif %}
