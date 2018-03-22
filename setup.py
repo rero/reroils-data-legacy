@@ -175,7 +175,11 @@ setup(
             'items = reroils_data.items.mappings',
             'documents = reroils_data.documents.mappings',
             'patrons = reroils_data.patrons.mappings',
-        ]
+        ],
+        'invenio_assets.bundles': [
+            'reroils_data_item_editor_js = reroils_data.items.bundles:editor_js',
+            'reroils_data_document_editor_js = reroils_data.documents.bundles:editor_js'
+        ],
     },
     extras_require=extras_require,
     install_requires=install_requires,

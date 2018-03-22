@@ -15,8 +15,14 @@
         "key": "pid",
         "readonly": true
     },
-    "barcode",
-    "callNumber", 
+    {
+        "key": "barcode",
+        "validationMessage": {
+            "barcodeAlreadyTaken": "The barcode is already taken",
+            "barcodeCannotBeVerified": "The server cannot verify the barcode"
+        }
+    },
+    "callNumber",
     {
         "key": "location",
         "title": "Location",
