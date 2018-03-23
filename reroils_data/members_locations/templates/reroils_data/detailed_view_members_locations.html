@@ -3,11 +3,34 @@
 {%- block page_body %}
 <div class="container search-page">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-md-12">
             <h1>{{record.name}}</h1>
         </div>
     </div>
-    {%- block record_body %}
+
+<!--g
+    {% if record.pid %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Member ID')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.pid}}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.code %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Member code')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.code}}
+        </div>
+    </div>
+    {% endif %}
+
     {% if record.address %}
     <div class="row">
         <div class="col-xs-3 col-sm-2">
@@ -19,28 +42,39 @@
     </div>
     {% endif %}
 
+    {% if record.email %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Email')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.email}}
+        </div>
+    </div>
+    {% endif %}
+
     {%- if current_user | can_edit %}
     <div class="row">
         <div class="col-sm-12">
             <div class="btn-group  pull-right" role="group" aria-label="...">
-                <a href="{{ url_for('reroils_record_editor.update_org', pid=record.pid) }}" type="button" class="btn btn-success">
+                <a href="{{ url_for('reroils_record_editor.update_memb', pid=record.pid) }}" type="button" class="btn btn-success">
                     <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Edit')}}
                 </a>
-                <a href="{{ url_for('reroils_record_editor.delete_org', pid=record.pid) }}" type="button" class="btn btn-danger">
+                <a href="{{ url_for('reroils_record_editor.delete_memb', pid=record.pid) }}" type="button" class="btn btn-danger">
                     <i class="fa fa-trash-o fa-fw"></i> {{_('Delete')}}
                 </a>
             </div>
         </div>
     </div>
     {% endif %}
+-->
+    <!-- Locations -->
 
-    <!-- Members -->
-
-    <div class='reroils-members row'>
+    <div class='reroils-locations row'>
         <div class="col-sm-12">
-            <h3>{{_('Members')}}
+            <h3>{{_('Locations')}}
                 {%- if current_user | can_edit %}
-                <a href="{{ url_for('reroils_record_editor.create_memb',
+                <a href="{{ url_for('reroils_record_editor.create_loc',
                 parent_pid=record.pid) }}" type="button" class="btn btn-sm btn-success">
                     <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Add')}}
                 </a>
@@ -48,45 +82,20 @@
             </h3>
         </div>
     </div>
-    {% if record.members %}
-    {% for member in record.members %}
+    {% if record.locations %}
+    {% for location in record.locations %}
     <div class="row">
         <div class="col-xs-3 col-sm-10">
-            <h2>
-            <a target="_self" href="/members/{{ member.pid }}">{{ member.name }}</a>
-            </a>
-            </h2>
+            <h2>{{ location.name }}</h2>
         </div>
     </div>
-    {% if member.code %}
+    {% if location.code %}
     <div class="row">
         <div class="col-xs-3 col-sm-2">
             {{_('Code')}}:
         </div>
         <div class="col-xs-9 col-sm-10">
-            {{ _(member.code) }}
-        </div>
-    </div>
-    {% endif %}
-
-    {% if member.address %}
-    <div class="row">
-        <div class="col-xs-3 col-sm-2">
-            {{_('Address')}}:
-        </div>
-        <div class="col-xs-9 col-sm-10">
-            {{ member.address }}
-        </div>
-    </div>
-    {% endif %}
-
-    {% if member.email %}
-    <div class="row">
-        <div class="col-xs-3 col-sm-2">
-            {{_('Email')}}:
-        </div>
-        <div class="col-xs-9 col-sm-10">
-            {{ member.email }}
+            {{ _(location.code) }}
         </div>
     </div>
     {% endif %}
@@ -95,10 +104,10 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                <a href="{{ url_for('reroils_record_editor.update_memb', pid=member.pid, parent_pid=record.pid) }}" type="button" class="btn btn-success">
+                <a href="{{ url_for('reroils_record_editor.update_loc', pid=location.pid, parent_pid=record.pid) }}" type="button" class="btn btn-success">
                     <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Edit')}}
                 </a>
-                <a href="{{ url_for('reroils_record_editor.delete_memb', pid=member.pid, parent_pid=record.pid) }}" type="button" class="btn btn-danger">
+                <a href="{{ url_for('reroils_record_editor.delete_loc', pid=location.pid, parent_pid=record.pid) }}" type="button" class="btn btn-danger">
                     <i class="fa fa-trash-o fa-fw"></i> {{_('Delete')}}
                 </a>
             </div>
@@ -109,6 +118,5 @@
     {% endfor %}
     {% endif %}
 
-  {%- endblock %}
 </div>
 {%- endblock %}

@@ -32,41 +32,41 @@ from invenio_db import db
 from invenio_pidstore.resolver import Resolver
 from reroils_record_editor.utils import clean_dict_keys, resolve
 
-from reroils_data.organisations_members.api import OrganisationWithMembers
+from reroils_data.members_locations.api import MemberWithLocations
 
 
-def delete_member(record_type, pid, record_indexer, parent_pid):
-    """Remove an member from an organisation.
+def delete_location(record_type, pid, record_indexer, parent_pid):
+    """Remove an location from an member.
 
-    The member is marked as deleted in the db, his pid as well.
-    The organisation is reindexed.
+    The location is marked as deleted in the db, his pid as well.
+    The member is reindexed.
     """
-    org_resolver = Resolver(
-        pid_type='org',
+    memb_resolver = Resolver(
+        pid_type='memb',
         object_type='rec',
-        getter=OrganisationWithMembers.get_record
+        getter=MemberWithLocations.get_record
     )
-    pid_org, organisation = org_resolver.resolve(str(parent_pid))
-    pid, member = resolve(record_type, pid)
-    organisation.remove_member(member)
+    pid_memb, member = memb_resolver.resolve(str(parent_pid))
+    pid, location = resolve(record_type, pid)
+    member.remove_location(location)
     db.session.commit()
-    record_indexer().index(organisation)
+    record_indexer().index(member)
     record_indexer().client.indices.flush()
     try:
-        _next = url_for('invenio_records_ui.org', pid_value=parent_pid)
+        _next = url_for('invenio_records_ui.memb', pid_value=parent_pid)
     except Exception:
         _next = None
     return _next, pid
 
 
-def save_member(
+def save_location(
             data, record_type, fetcher, minter,
             record_indexer, record_class, parent_pid
         ):
     """Save a record into the db and index it.
 
-    If the member does not exists, it well be created
-    and attached to the parent organisation.
+    If the location does not exists, it well be created
+    and attached to the parent member.
     """
     def get_pid(record_type, record, fetcher):
         try:
@@ -78,12 +78,12 @@ def save_member(
     # load and clean dirty data provided by angular-schema-form
     record = clean_dict_keys(data)
     pid_value = get_pid(record_type, record, fetcher)
-    org_resolver = Resolver(
-        pid_type='org',
+    memb_resolver = Resolver(
+        pid_type='memb',
         object_type='rec',
-        getter=OrganisationWithMembers.get_record
+        getter=MemberWithLocations.get_record
     )
-    pid_org, organisation = org_resolver.resolve(str(parent_pid))
+    pid_memb, member = memb_resolver.resolve(str(parent_pid))
     # update an existing record
     if pid_value:
         pid, rec = resolve(record_type, pid_value)
@@ -96,12 +96,12 @@ def save_member(
         pid = minter(uid, record)
         # create a new record
         rec = record_class.create(record, id_=uid)
-        organisation.add_member(rec)
+        member.add_location(rec)
     db.session.commit()
-    record_indexer().index(organisation)
+    record_indexer().index(member)
     record_indexer().client.indices.flush()
     try:
-        _next = url_for('invenio_records_ui.org', pid_value=parent_pid)
+        _next = url_for('invenio_records_ui.memb', pid_value=parent_pid)
     except Exception:
         _next = None
     return _next, pid

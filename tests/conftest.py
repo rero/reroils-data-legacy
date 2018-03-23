@@ -90,6 +90,17 @@ def minimal_member_record():
 
 
 @pytest.yield_fixture()
+def minimal_location_record():
+    """Simple location record."""
+    yield {
+        '$schema': url_schema + '/locations/location-v0.0.1.json',
+        'pid': '1',
+        'code': 'net-store-base',
+        'name': 'Store Base',
+    }
+
+
+@pytest.yield_fixture()
 def instance_path():
     """Temporary instance path."""
     path = tempfile.mkdtemp()

@@ -39,7 +39,7 @@ from invenio_pidstore.models import PersistentIdentifier
 from werkzeug.local import LocalProxy
 
 from .documents_items.cli import create_items
-from .organisations_members.cli import import_organisations
+from .members_locations.cli import import_organisations
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -129,7 +129,6 @@ def check_json(verbose, fname):
     else:
         path = Path(fname)
         file_list = [path]
-#     print(p_list)
     re_sub = re.compile('\s{4}')
     re_match = re.compile('^\s+')
     tot_error_cnt = 0

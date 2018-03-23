@@ -22,35 +22,35 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""API for manipulating members."""
+"""API for manipulating locations."""
 
 from uuid import uuid4
 
 from invenio_records.api import Record
 
-from .fetchers import member_id_fetcher
-from .minters import member_id_minter
+from .fetchers import location_id_fetcher
+from .minters import location_id_minter
 
 
-class Member(Record):
-    """Member class."""
+class Location(Record):
+    """Location class."""
 
-    minter = member_id_minter
-    fetcher = member_id_fetcher
-    record_type = 'memb'
+    minter = location_id_minter
+    fetcher = location_id_fetcher
+    record_type = 'loc'
 
     @classmethod
     def create(cls, data, id_=None, pid=False, **kwargs):
-        """Create a new Member record."""
+        """Create a new location record."""
         if not id_:
             id_ = uuid4()
         if pid and not cls.get_pid(data):
             cls.minter(id_, data)
-        return super(Member, cls).create(data=data, id_=id_, **kwargs)
+        return super(Location, cls).create(data=data, id_=id_, **kwargs)
 
     @classmethod
     def get_pid(cls, data):
-        """Get member pid."""
+        """Get location pid."""
         try:
             pid_value = cls.fetcher(None, data).pid_value
         except KeyError:

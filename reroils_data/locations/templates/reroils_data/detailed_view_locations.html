@@ -8,26 +8,31 @@
         </div>
     </div>
 
-    {% if record.pid %}
-    <div class="row">
-        <div class="col-xs-3 col-sm-2">
-            {{_('Location ID')}}:
-        </div>
-        <div class="col-xs-9 col-sm-10">
-            {{record.pid}}
-        </div>
-    </div>
-    {% endif %}
-
     {% if record.code %}
     <div class="row">
         <div class="col-xs-3 col-sm-2">
-            {{_('Member code')}}:
+            {{_('Code:')}}:
         </div>
         <div class="col-xs-9 col-sm-10">
             {{record.code}}
         </div>
     </div>
+    {% endif %}
+
+    {%- if current_user | can_edit %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group  pull-right" role="group" aria-label="...">
+                <a href="{{ url_for('reroils_record_editor.update_org', pid=record.pid) }}" type="button" class="btn btn-success">
+                    <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Edit')}}
+                </a>
+                <a href="{{ url_for('reroils_record_editor.delete_org', pid=record.pid) }}" type="button" class="btn btn-danger">
+                    <i class="fa fa-trash-o fa-fw"></i> {{_('Delete')}}
+                </a>
+            </div>
+        </div>
+    </div>
+
     {% endif %}
 </div>
 {%- endblock %}
