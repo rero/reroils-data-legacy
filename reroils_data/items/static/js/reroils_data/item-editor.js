@@ -15,15 +15,15 @@ angular.module('itemEditor', ['reroilsEditor'])
                 .then(
                     function successCallback(response) {
                         if(response.data.hits.total > 0) {
-                            $scope.$broadcast('schemaForm.error.barcode','barcodeAlreadyTaken');
+                            $scope.$broadcast('schemaForm.error.barcode','alreadyTakenMessage');
                         }
                     },
                     function errorCallback(response) {
-                        $scope.$broadcast('schemaForm.error.barcode', 'barcodeCannotBeVerified');
+                        $scope.$broadcast('schemaForm.error.barcode', 'cannotBeVerifiedMessage');
                     }
                 );
             } else {
-              $scope.$broadcast('schemaForm.error.barcode','barcodeAlreadyTaken', true);
+              $scope.$broadcast('schemaForm.error.barcode','alreadyTakenMessage', true);
             }
         };
     }

@@ -55,13 +55,14 @@ def minimal_book_record():
 
 @pytest.yield_fixture()
 def minimal_item_record():
-    """Item Minimal record."""
+    """Simple item record."""
     yield {
         '$schema': url_schema + '/items/item-v0.0.1.json',
-        'pid': '2',
-        'barcode': 10000000001,
-        'callNumber': 'PA-10001',
-        'location': 'publicAccess'
+        'pid': '1',
+        'barcode': '10000000000',
+        'callNumber': 'PA-41234',
+        'location': 'publicAccess',
+        'item_type': 'standard_loan'
     }
 
 

@@ -12,33 +12,98 @@
         }]
     },
     {
-        "key": "pid",
-        "readonly": true
-    },
-    {
-        "key": "barcode",
-        "validationMessage": {
-            "barcodeAlreadyTaken": "The barcode is already taken",
-            "barcodeCannotBeVerified": "The server cannot verify the barcode"
-        }
-    },
-    "callNumber",
-    {
-        "key": "location",
-        "title": "Location",
-        "titleMap": [
-            { "value": "publicAccess", "name": "Public Access" },
-            { "value": "storeroom", "name": "Store Room" },
-            { "value": "readingRoom", "name": "Reading Room" }
+        "type": "section",
+        "htmlClass": "row",
+        "items": [
+            {
+                "type": "section",
+                "htmlClass": "col-xs-6",
+                "items": [
+                    {
+                        "key": "pid",
+                        "readonly": true
+                    }
+                ]
+            },
+            {
+                "type": "section",
+                "htmlClass": "col-xs-6",
+                "items": [
+                    {
+                        "key": "barcode",
+                        "validationMessage": {
+                            "alreadyTakenMessage": "The barcode is already taken",
+                            "cannotBeVerifiedMessage": "The server cannot verify the barcode"
+                        }
+                    }
+                ]
+            }
         ]
     },
     {
-        "key": "_circulation.status",
-        "title": "Status",
-        "titleMap": [
-            { "value": "on_loan", "name": "On Loan" },
-            { "value": "on_shelf", "name": "On Shelf" },
-            { "value": "missing", "name": "Not For Loan" }
+        "type": "section",
+        "htmlClass": "row",
+        "items": [
+            {
+                "type": "section",
+                "htmlClass": "col-xs-6",
+                "items": [
+                    "callNumber"
+                ]
+            }
+        ]
+    },
+    {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [
+            {
+                "type": "section",
+                "htmlClass": "col-xs-6",
+                "items": [
+                    {"key": "location",
+                        "title": "Location",
+                        "titleMap": [
+                            { "value": "publicAccess", "name": "Public Access" },
+                            { "value": "storeroom", "name": "Store Room" },
+                            { "value": "readingRoom", "name": "Reading Room" }
+                        ]
+                    }
+                ]
+
+            }
+        ]
+    },
+    {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [
+            {
+                "type": "section",
+                "htmlClass": "col-xs-6",
+                "items": [
+                    {
+                        "key": "item_type",
+                        "title": "Type",
+                        "titleMap": [
+                            { "value": "standard_loan", "name": "Standard Loan" },
+                            { "value": "short_loan", "name": "Short Loan" },
+                            { "value": "no_loan", "name": "Not for Loan" }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "section",
+                "htmlClass": "col-xs-6",
+                "items": [
+                    {
+                        "key": "_circulation.status",
+                        "readonly": true,
+                        "title": "Status"
+                    }
+                ]
+            }
         ]
     },
     {

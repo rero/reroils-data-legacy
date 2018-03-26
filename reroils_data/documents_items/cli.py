@@ -105,9 +105,10 @@ def create_random_item(
     item_id_minter(id_, data)
 
     n = int(data['pid'])
-    data['barcode'] = 10000000000 + n
+    data['barcode'] = str(10000000000 + n)
     call_number = prefixes[randint(0, 2)] + '-' + str(n).zfill(5)
     data['callNumber'] = call_number
+    data['item_type'] = 'standard loan'
 
     item = Item.create(data, id_=id_)
     if randint(0, 5) == 0:

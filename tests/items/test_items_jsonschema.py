@@ -53,7 +53,7 @@ def test_barcode(item_schema, minimal_item_record):
     validate(minimal_item_record, item_schema)
 
     with pytest.raises(ValidationError):
-        minimal_item_record['barcode'] = '2'
+        minimal_item_record['barcode'] = 2
         validate(minimal_item_record, item_schema)
 
 
@@ -72,4 +72,13 @@ def test_location(item_schema, minimal_item_record):
 
     with pytest.raises(ValidationError):
         minimal_item_record['location'] = 25
+        validate(minimal_item_record, item_schema)
+
+
+def test_item_type(item_schema, minimal_item_record):
+    """Test location for item jsonschema."""
+    validate(minimal_item_record, item_schema)
+
+    with pytest.raises(ValidationError):
+        minimal_item_record['item_type'] = 25
         validate(minimal_item_record, item_schema)

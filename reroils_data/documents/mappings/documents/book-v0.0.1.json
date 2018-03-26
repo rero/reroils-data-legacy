@@ -162,18 +162,22 @@
                             }
                         },
                         "barcode" : {
-                            "type" : "long",
+                            "type" : "string",
                             "index": "not_analyzed"
                         },
                         "callNumber" : {
                             "type" : "string",
                             "index": "not_analyzed"
                         },
-                        "itemid" : {
+                        "pid" : {
                             "type" : "string",
                             "index": "not_analyzed"
                         },
                         "location" : {
+                            "type" : "string",
+                            "index": "not_analyzed"
+                        },
+                        "item_type" : {
                             "type" : "string",
                             "index": "not_analyzed"
                         }
