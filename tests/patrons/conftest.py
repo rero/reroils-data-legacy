@@ -26,28 +26,17 @@
 
 from __future__ import absolute_import, print_function
 
-import os
-import shutil
-import tempfile
 from json import loads
 
 import pytest
-from flask import Flask
-from flask_babelex import Babel
-from invenio_db import InvenioDB
-from invenio_jsonschemas import InvenioJSONSchemas
-from invenio_pidstore import InvenioPIDStore
-from invenio_records import InvenioRecords
 from pkg_resources import resource_string
-from sqlalchemy_utils.functions import create_database, database_exists
 
 
 @pytest.yield_fixture()
 def minimal_patron_record():
     """Simple patron record."""
     yield {
-        '$schema': 'http://ils.test.rero.ch/schema\
-            /patrons/patron-v0.0.1.json',
+        '$schema': 'http://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json',
         'pid': '1',
         'first_name': 'Simonetta',
         'last_name': 'Casalini',
@@ -69,11 +58,3 @@ def patron_schema():
                                       'patrons/patron-v0.0.1.json')
     schema = loads(schema_in_bytes.decode('utf8'))
     return schema
-
-
-@pytest.yield_fixture()
-def instance_path():
-    """Temporary instance path."""
-    path = tempfile.mkdtemp()
-    yield path
-    shutil.rmtree(path)
