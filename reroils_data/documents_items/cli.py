@@ -26,6 +26,7 @@
 
 from __future__ import absolute_import, print_function
 
+import random
 import uuid
 from random import randint
 
@@ -37,6 +38,7 @@ from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.models import PersistentIdentifier
 
 from ..items.minters import item_id_minter
+from ..locations.api import Location
 from .api import DocumentsWithItems
 
 
@@ -92,23 +94,22 @@ def create_items(verbose, count, itemscount):
 #                 click.echo('Reindexing {0}'.format(recitem.id))
 #             record_indexer.index(recitem)
 
-def create_random_item(
-        verbose=False,
-        prefixes=['PA', 'SR', 'RR'],
-        locations=['publicAccess', 'storeroom', 'readingRoom']):
-    """Return a fixture Item."""
+
+def create_random_item(verbose=False):
+    """Create items with randomised values."""
+    item_types = ['standard_loan', 'short_loan', 'no_loan']
+    locations_pids = Location.get_all_pids()
+
     id_ = uuid.uuid4()
-    location = locations[randint(0, 2)]
-    data = {
-        "location": location
-    }
+    data = {}
     item_id_minter(id_, data)
 
     n = int(data['pid'])
     data['barcode'] = str(10000000000 + n)
-    call_number = prefixes[randint(0, 2)] + '-' + str(n).zfill(5)
-    data['callNumber'] = call_number
-    data['item_type'] = 'standard loan'
+    data['item_type'] = random.choice(item_types)
+    data['location_pid'] = random.choice(locations_pids)
+
+    data['callNumber'] = str(n).zfill(5)
 
     item = Item.create(data, id_=id_)
     if randint(0, 5) == 0:

@@ -138,7 +138,7 @@
                 "subjects": {
                     "type": "string"
                 },
-                "items" : {
+                "itemslist" : {
                     "properties" : {
                         "$schema" : {
                             "type" : "string",
@@ -173,7 +173,7 @@
                             "type" : "string",
                             "index": "not_analyzed"
                         },
-                        "location" : {
+                        "location_name" : {
                             "type" : "string",
                             "index": "not_analyzed"
                         },

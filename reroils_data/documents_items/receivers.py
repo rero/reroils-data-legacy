@@ -22,10 +22,14 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Item Records."""
+"""REROILS documents items receivers."""
 
-from __future__ import absolute_import, print_function
+from reroils_data.locations.api import Location
 
-from .ext import REROILSITEM
 
-__all__ = ('REROILSITEM')
+def documents_items_receiver(sender, json, doc_type, index, record):
+    """To add the location name according to the location pid."""
+    if doc_type == 'book-v0.0.1' and json.get('itemslist'):
+        for item in json.get('itemslist'):
+            pid, location = Location.get_location(item.get('location_pid'))
+            item['location_name'] = location.get('name')

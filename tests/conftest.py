@@ -61,7 +61,7 @@ def minimal_item_record():
         'pid': '1',
         'barcode': '10000000000',
         'callNumber': 'PA-41234',
-        'location': 'publicAccess',
+        'location_pid': '1',
         'item_type': 'standard_loan'
     }
 

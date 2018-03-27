@@ -61,13 +61,9 @@
                 "type": "section",
                 "htmlClass": "col-xs-6",
                 "items": [
-                    {"key": "location",
-                        "title": "Location",
-                        "titleMap": [
-                            { "value": "publicAccess", "name": "Public Access" },
-                            { "value": "storeroom", "name": "Store Room" },
-                            { "value": "readingRoom", "name": "Reading Room" }
-                        ]
+                    {
+                        "key": "location_pid",
+                        "title": "Location"
                     }
                 ]
 

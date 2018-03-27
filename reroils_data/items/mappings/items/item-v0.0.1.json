@@ -25,7 +25,11 @@
                     "type": "string",
                     "index": "not_analyzed"
                 },
-                "localisation": {
+                "location_pid": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "location_name": {
                     "type": "string",
                     "index": "not_analyzed"
                 },

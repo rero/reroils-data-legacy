@@ -26,7 +26,11 @@
 
 from uuid import uuid4
 
+from invenio_pidstore.ext import PersistentIdentifier
+from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
+
+from reroils_data.members_locations.models import MembersLocationsMetadata
 
 from .fetchers import location_id_fetcher
 from .minters import location_id_minter
@@ -56,3 +60,28 @@ class Location(Record):
         except KeyError:
             return None
         return pid_value
+
+    @classmethod
+    def get_all_pids(cls):
+        """Get all location pids."""
+        members_locations = MembersLocationsMetadata.query.all()
+
+        locs_id = []
+
+        for member_location in members_locations:
+            loc_id = member_location.location_id
+            pid = PersistentIdentifier.get_by_object('loc', 'rec', loc_id)
+            locs_id.append(pid.pid_value)
+
+        return locs_id
+
+    @classmethod
+    def get_location(cls, pid_value):
+        """Get location record with pids."""
+        resolver = Resolver(
+            pid_type='loc',
+            object_type='rec',
+            getter=Record.get_record
+        )
+        pid, location = resolver.resolve(pid_value)
+        return pid, location

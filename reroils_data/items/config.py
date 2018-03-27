@@ -22,10 +22,4 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Item Records."""
-
-from __future__ import absolute_import, print_function
-
-from .ext import REROILSITEM
-
-__all__ = ('REROILSITEM')
+"""Specific configuration for REROILS-ITEM."""

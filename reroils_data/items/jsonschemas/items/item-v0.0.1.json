@@ -4,7 +4,7 @@
     "title": "Item",
     "description": "JSON schema for an item.",
     "additionalProperties": false,
-    "required": ["$schema", "pid", "barcode", "callNumber", "location", "item_type"],
+    "required": ["$schema", "pid", "barcode", "callNumber", "location_pid", "item_type"],
     "properties": {
         "$schema": {
             "title": "Schema",
@@ -27,18 +27,13 @@
             "title": "Call number",
             "description": "Call number of the item.",
             "type": "string",
-            "pattern": "^(PA|SR|RR)-\\d{5}$"
+            "minLength": 4
         },
-        "location": {
-            "title": "location",
-            "description": "Location of the item.",
+        "location_pid": {
+            "title": "Location PID",
+            "description": "Location PID of the item.",
             "type": "string",
-            "default": "publicAccess",
-            "enum": [
-                "publicAccess",
-                "storeroom",
-                "readingRoom"
-            ]
+            "minLength": 1
         },
         "item_type": {
             "title": "Item type",
