@@ -89,7 +89,7 @@ def save_item(data, record_type, fetcher, minter,
                 'holdings': [],
                 'status': 'on_shelf'
             }
-
+        record['_circulation'].setdefault('holdings', [])
         pid = minter(uid, record)
         # create a new record
         rec = record_class.create(record, id_=uid)

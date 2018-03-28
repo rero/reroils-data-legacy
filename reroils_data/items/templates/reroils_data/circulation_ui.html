@@ -1,0 +1,14 @@
+{%- extends config.BASE_TEMPLATE %}
+
+{%- block page_body %}
+<div class="container">
+    <reroils-circulation-root></reroils-circulation-root>
+</div>
+{%- endblock page_body %}
+
+{%- block javascript %}
+    {% assets "reroils_data_item_circulation_ui_js" %}
+        <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    {{super()}}
+{%- endblock javascript %}

@@ -82,6 +82,20 @@ class ItemsMixin(object):
             to_return.append(item)
         return to_return
 
+    @classmethod
+    def get_record_by_itemid(cls, id_, with_deleted=False):
+        """Retrieve the record by id.
+
+        Raise a database exception if the record does not exist.
+
+        :param id_: record ID.
+        :param with_deleted: If `True` then it includes deleted records.
+        :returns: The :class:`Record` instance.
+        """
+        doc_item = DocumentsItemsMetadata.query.filter_by(item_id=id_).one()
+        doc_id = doc_item.document_id
+        return DocumentsWithItems.get_record(doc_id)
+
 
 class DocumentsWithItems(Record, ItemsMixin):
     """Define API for files manipulation using ``ItemsMixin``."""

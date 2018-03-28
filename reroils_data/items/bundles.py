@@ -37,3 +37,11 @@ editor_js = Bundle(
     filters='jsmin',
     output='gen/reroils_data.item-editor_js.%(version)s.js',
 )
+
+circulation_ui_js = Bundle(
+    'js/reroils_data/circulation_ui/inline.bundle.js',
+    'js/reroils_data/circulation_ui/polyfills.bundle.js',
+    'js/reroils_data/circulation_ui/styles.bundle.js',
+    'js/reroils_data/circulation_ui/main.bundle.js',
+    output='gen/reroils_data.circulation_ui_js.%(version)s.js'
+)
