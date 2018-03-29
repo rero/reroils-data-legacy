@@ -37,6 +37,7 @@ def loan():
     """HTTP request for Item loan action."""
     try:
         data = request.get_json()
+        print(data)
         pid_value = data.pop('pid')
         item_resolver = Resolver(pid_type='item',
                                  object_type='rec',
@@ -46,11 +47,13 @@ def loan():
         item.loan_item(**data)
         item.commit()
         db.session.commit()
-        RecordIndexer().index(item)
+        # TODO
+        # RecordIndexer().index(item)
         RecordIndexer().index(doc)
         RecordIndexer().client.indices.flush()
         return jsonify({'status': 'ok'})
     except Exception as e:
+        raise(e)
         return jsonify({'status': 'error: %s' % e})
 
 

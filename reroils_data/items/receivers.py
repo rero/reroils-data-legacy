@@ -30,7 +30,5 @@ from reroils_data.locations.api import Location
 def item_receiver(sender, json, doc_type, index, record):
     """To add the location name according to the location pid."""
     if doc_type == 'item-v0.0.1':
-        pid, location = Location.get_location(
-            json.get('itemslist', {}).get('pid')
-            )
+        pid, location = Location.get_location(json.get('location_pid'))
         json['location_name'] = location.get('name')
