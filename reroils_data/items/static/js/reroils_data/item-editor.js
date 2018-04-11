@@ -15,7 +15,9 @@ angular.module('itemEditor', ['reroilsEditor'])
                 .then(
                     function successCallback(response) {
                         if(response.data.hits.total > 0) {
-                            $scope.$broadcast('schemaForm.error.barcode','alreadyTakenMessage');
+                            if(scope.item.pid != response.data.hits.hits[0].metadata.itemslist[0].pid) {
+                                $scope.$broadcast('schemaForm.error.barcode','alreadyTakenMessage');
+                            }
                         }
                     },
                     function errorCallback(response) {
@@ -23,7 +25,7 @@ angular.module('itemEditor', ['reroilsEditor'])
                     }
                 );
             } else {
-              $scope.$broadcast('schemaForm.error.barcode','alreadyTakenMessage', true);
+                $scope.$broadcast('schemaForm.error.barcode','alreadyTakenMessage', true);
             }
         };
     }
