@@ -30,6 +30,7 @@ from invenio_circulation.api import Item
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
+from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
 from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
@@ -111,3 +112,14 @@ class DocumentsWithItems(Record, ItemsMixin):
         for item in self.itemslist:
             self.remove_item(item, force)
         super(DocumentsWithItems, self).delete(force)
+
+    @classmethod
+    def get_record_by_pid(cls, pid_value):
+        """Get record by pid value."""
+        resolver = Resolver(
+            pid_type='doc',
+            object_type='rec',
+            getter=DocumentsWithItems.get_record
+        )
+        pid, record = resolver.resolve(pid_value)
+        return record

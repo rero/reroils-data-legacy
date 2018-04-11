@@ -39,4 +39,6 @@ def format_date_filter(date_str, format='medium', locale='en'):
         format = "EE dd.MM.y"
     elif format == 'medium_date':
         format = "dd MMMM y"
+    elif format == 'short_date':
+        format = "dd.MM.y"
     return babel.dates.format_datetime(date, format, locale=locale)

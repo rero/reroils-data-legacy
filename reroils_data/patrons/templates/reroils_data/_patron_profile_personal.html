@@ -1,0 +1,106 @@
+<div class="container" style="margin-top: 10px">
+    <div class="col-md-6 col-sm">
+        <div class="panel panel-defaut">
+            <div class="panel-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-2">
+                            {{ _('Last name') }}:
+                        </div>
+                        <div class="col-md-10">
+                            {{ record.last_name }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            {{ _('First name') }}:
+                        </div>
+                        <div class="col-md-10">
+                            {{ record.first_name }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            {{ _('Birth Date') }}:
+                        </div>
+                        <div class="col-md-10">
+                            {{ record.birth_date|format_date(
+                                format='medium_date',
+                                locale=current_i18n.locale.language
+                            ) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm">
+        <div class="panel panel-defaut">
+            <div class="panel-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-2">
+                            {{ _('Library') }}:
+                        </div>
+                        <div class="col-md-10">
+                            -
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            {{ _('Barcode') }}:
+                        </div>
+                        <div class="col-md-10">
+                            {{ record.barcode }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            {{ _('Type') }}:
+                        </div>
+                        <div class="col-md-10">
+                            {{ record.patron_type }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 10px">
+    <div class="col-md-6 col-sm">
+        <div class="panel panel-defaut">
+            <div class="panel-body">
+                <div class="container">
+                    <b>{{ _('Main address') }}</b>
+                    <div class="row">
+                        <div class="col-md-2">
+                            {{ _('Street') }}:
+                        </div>
+                        <div class="col-md-10">
+                            {{ record.street }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            {{ _('City') }}:
+                        </div>
+                        <div class="col-md-10">
+                            {{ record.postal_code }} {{ record.city }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm">
+        <div class="panel panel-defaut">
+            <div class="panel-body">
+                <div class="container">
+                    <b>{{ _('Secondary address') }}</b>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

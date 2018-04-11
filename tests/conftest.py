@@ -62,7 +62,19 @@ def minimal_item_record():
         'barcode': '10000000000',
         'callNumber': 'PA-41234',
         'location_pid': '1',
-        'item_type': 'standard_loan'
+        'item_type': 'standard_loan',
+        '_circulation': {
+            'holdings': [{
+                'patron_barcode': '123456',
+                'start_date': '2018-01-01',
+                'end_date': '2018-01-01'
+            }, {
+                'patron_barcode': '123456',
+                'start_date': '2018-01-01',
+                'end_date': '2018-01-01'
+            }],
+            'status': 'on_loan'
+        }
     }
 
 

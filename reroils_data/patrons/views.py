@@ -29,10 +29,16 @@ templates and static files located in the folders of the same names next to
 this file.
 """
 
-
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint
+from flask import Blueprint, render_template
+from flask_babelex import gettext as _
+from flask_login import current_user, login_required
+from flask_menu import register_menu
+from werkzeug.exceptions import NotFound
+
+from .api import Patrons
+from .utils import structure_document, user_has_patron
 
 blueprint = Blueprint(
     'reroils_data_patrons',
@@ -40,3 +46,27 @@ blueprint = Blueprint(
     template_folder='templates',
     static_folder='static',
 )
+
+
+@blueprint.route("/profile")
+@login_required
+@register_menu(
+    blueprint,
+    'main.profile',
+    _('%(icon)s Profile', icon='<i class="fa fa-user fa-fw"></i>'),
+    visible_when=user_has_patron
+)
+def profile():
+    """Patron Profile Page."""
+    patron = Patrons.get_patron_by_user(current_user)
+    if patron is None:
+        raise NotFound()
+    documents = patron.get_borrowed_documents()
+    loans, pendings = structure_document(documents, patron.get('barcode'))
+
+    return render_template(
+        'reroils_data/patron_profile.html',
+        record=patron,
+        loans=loans,
+        pendings=pendings
+    )

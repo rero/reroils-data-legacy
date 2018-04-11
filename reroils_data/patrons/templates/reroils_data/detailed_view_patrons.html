@@ -7,7 +7,6 @@
             <h1>{{record.last_name}}, {{record.first_name}}</h1>
         </div>
     </div>
-    {%- block record_body %}
         <!-- {{record | tojson}} -->
     {% if record.barcode %}
     <div class="row">
@@ -98,8 +97,6 @@
     </div>
     {% endif %}
 
-
-    {%- endblock %}
     <!-- remove the "and False" to display the edit/delete buttons -->
     {%- if (current_user | can_edit) %}
     <div class="row">

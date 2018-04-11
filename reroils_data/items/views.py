@@ -14,6 +14,7 @@ this file.
 from __future__ import absolute_import, print_function
 
 from flask import Blueprint, jsonify, render_template, request
+from flask_babelex import gettext as _
 from flask_menu import register_menu
 from invenio_circulation.api import Item
 from invenio_db import db
@@ -59,7 +60,12 @@ def loan():
 
 @blueprint.route("/items/circulation")
 @record_edit_permission.require()
-@register_menu(blueprint, 'main.manage.circulation', 'Circulation', order=-1)
+@register_menu(
+    blueprint,
+    'main.manage.circulation',
+    _('%(icon)s Circulation', icon='<i class="fa fa-barcode fa-fw"></i>'),
+    order=-1
+)
 def circulation_ui():
     """Angular circulation application."""
     return render_template('reroils_data/circulation_ui.html')

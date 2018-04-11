@@ -26,16 +26,19 @@
 
 from __future__ import absolute_import, print_function
 
+from uuid import uuid4
+
 import mock
-from flask_security.utils import hash_password
 from invenio_accounts import InvenioAccounts
-from invenio_accounts.models import User
 from invenio_records.api import Record
 from werkzeug.local import LocalProxy
 
+from reroils_data.documents import minters
+from reroils_data.documents_items.api import DocumentsWithItems
+from reroils_data.patrons.api import Patrons
 from reroils_data.patrons.fetchers import patron_id_fetcher as fetcher
 from reroils_data.patrons.minters import patron_id_minter as minter
-from reroils_data.patrons.utils import save_patron, structure_document
+from reroils_data.patrons.utils import save_patron
 
 
 @mock.patch('reroils_data.patrons.utils.confirm_user')
@@ -43,11 +46,13 @@ from reroils_data.patrons.utils import save_patron, structure_document
 @mock.patch('reroils_data.patrons.utils.url_for')
 @mock.patch('reroils_record_editor.utils.url_for')
 @mock.patch('invenio_indexer.api.RecordIndexer')
-def test_save_patron(
-            record_indexer, url_for1, url_for2, send_email, confirm_user,
-            app, db, minimal_patron_record
-        ):
-    """Test save patron"""
+@mock.patch('reroils_data.patrons.api.Patrons._get_uuid_pid_by_email')
+@mock.patch('reroils_data.patrons.api.Patrons.get_borrowed_documents_pids')
+def test_patron(get_borrowed_documents_pids, get_uuid_pid_by_email,
+                record_indexer, url_for1, url_for2, send_email, confirm_user,
+                app, db, minimal_patron_record, minimal_book_record,
+                minimal_item_record):
+    """Test patron"""
     InvenioAccounts(app)
 
     # Convenient references
@@ -56,21 +61,8 @@ def test_save_patron(
 
     with app.app_context():
 
-        email = 'test@rero.ch'
-        u1 = datastore.create_user(
-            email=email,
-            active=False,
-            password=hash_password('aafaf4as5fa')
-        )
-        datastore.commit()
-        u2 = datastore.find_user(email=email)
-        assert u1 == u2
-        assert 1 == User.query.filter_by(email=email).count()
-        email = minimal_patron_record.get('email')
-        assert datastore.get_user(email) is None
-
         del minimal_patron_record['pid']
-        save_patron(
+        next, pid = save_patron(
             minimal_patron_record,
             'ptrn',
             fetcher,
@@ -82,25 +74,23 @@ def test_save_patron(
         email = minimal_patron_record.get('email')
 
         # Verify that user exists in app's datastore
-        user_ds = datastore.get_user(email)
-        assert user_ds
-        assert user_ds.email == email
+        user = datastore.get_user(email)
+        assert user
 
-    # user = create_test_user(email='foo@bar.com')
+        # hack the return value
+        get_uuid_pid_by_email.return_value = pid.object_uuid, pid.id
+        patron = Patrons.get_patron_by_email(email)
+        assert patron.get('email') == email
 
+        patron = Patrons.get_patron_by_user(user)
+        assert patron.get('email') == email
 
-def test_structure_document(minimal_item_record):
-    """Test structure document"""
-    class Doc:
-        def dumps(self):
-            return {
-                'itemslist': [
-                    minimal_item_record
-                ]
-            }
-
-    docs = [Doc()]
-    loans, pendings = structure_document(docs, '123456')
-
-    assert len(loans) == 1
-    assert len(pendings) == 1
+        del(minimal_book_record['pid'])
+        rec_uuid = uuid4()
+        minters.document_id_minter(rec_uuid, minimal_book_record)
+        doc = DocumentsWithItems.create(minimal_book_record, rec_uuid)
+        db.session.commit()
+        # hack the return value
+        get_borrowed_documents_pids.return_value = [doc.get('pid')]
+        docs = patron.get_borrowed_documents()
+        assert docs[0] == doc

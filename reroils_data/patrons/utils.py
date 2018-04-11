@@ -24,20 +24,23 @@
 
 """Utilities functions for reroils-data."""
 
+from copy import deepcopy
+
 from flask import current_app, url_for
+from flask_login import current_user
 from flask_security.confirmable import confirm_user
 from flask_security.recoverable import send_reset_password_instructions
 from invenio_accounts.ext import hash_password
 from reroils_record_editor.utils import save_record
 from werkzeug.local import LocalProxy
 
+from .api import Patrons
+
 datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
 
-def save_patron(
-            data, record_type, fetcher, minter,
-            record_indexer, record_class, parent_pid
-        ):
+def save_patron(data, record_type, fetcher, minter,
+                record_indexer, record_class, parent_pid):
     """Save a record into the db and index it.
 
     If the user does not exists, it well be created
@@ -73,3 +76,39 @@ def save_patron(
 
     _next = url_for('invenio_records_ui.ptrn', pid_value=pid.pid_value)
     return _next, pid
+
+
+def structure_document(documents, barcode):
+    """Structure document for view."""
+    loans = []
+    pendings = []
+    for document in documents:
+        doc_items = document.dumps()
+        doc = deepcopy(doc_items)
+        del doc['itemslist']
+        items = doc_items.get('itemslist')
+        for item in items:
+            holdings = item.get('_circulation').get('holdings')
+            if holdings:
+                del item['_circulation']['holdings']
+                if holdings[0].get('patron_barcode') == barcode:
+                    item['holding'] = holdings[0]
+                    doc['item'] = item
+                    loans.append(doc)
+                for holding in holdings[1:]:
+                    if holding.get('patron_barcode') == barcode:
+                        item['holding'] = holding
+                        doc['item'] = item
+                        pendings.append(doc)
+    return loans, pendings
+
+
+def user_has_patron(user=current_user):
+    """Test if user has a patron."""
+    try:
+        patron = Patrons.get_patron_by_email(email=user.email)
+        if patron:
+            return True
+    except Exception:
+        pass
+    return False
