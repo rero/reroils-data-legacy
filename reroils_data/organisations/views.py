@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of organisations.
-# Copyright (C) 2018 CERN.
+# Copyright (C) 2018 RERO.
 #
 
 """Blueprint used for loading templates.
