@@ -10,5 +10,6 @@
     {% assets "reroils_data_item_circulation_ui_js" %}
         <script src="{{ ASSET_URL }}"></script>
     {% endassets %}
+    <script src="{{ url_for('static', filename='js/reroils_data/circulation_ui/main.bundle_%s.js' % current_i18n.language)}}"></script>
     {{super()}}
 {%- endblock javascript %}
