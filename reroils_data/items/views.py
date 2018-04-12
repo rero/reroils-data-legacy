@@ -38,7 +38,6 @@ def loan():
     """HTTP request for Item loan action."""
     try:
         data = request.get_json()
-        print(data)
         pid_value = data.pop('pid')
         item_resolver = Resolver(pid_type='item',
                                  object_type='rec',
@@ -54,7 +53,30 @@ def loan():
         RecordIndexer().client.indices.flush()
         return jsonify({'status': 'ok'})
     except Exception as e:
-        raise(e)
+        return jsonify({'status': 'error: %s' % e})
+
+
+@blueprint.route("/items/return", methods=['POST'])
+@record_edit_permission.require()
+def return_item():
+    """HTTP request for Item return action."""
+    try:
+        data = request.get_json()
+        pid_value = data.pop('pid')
+        item_resolver = Resolver(pid_type='item',
+                                 object_type='rec',
+                                 getter=Item.get_record)
+        pid, item = item_resolver.resolve(pid_value)
+        doc = DocumentsWithItems.get_record_by_itemid(item.id)
+        item.return_item()
+        item.commit()
+        db.session.commit()
+        # TODO
+        # RecordIndexer().index(item)
+        RecordIndexer().index(doc)
+        RecordIndexer().client.indices.flush()
+        return jsonify({'status': 'ok'})
+    except Exception as e:
         return jsonify({'status': 'error: %s' % e})
 
 
