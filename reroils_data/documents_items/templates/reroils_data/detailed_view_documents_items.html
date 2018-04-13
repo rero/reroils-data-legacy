@@ -214,7 +214,6 @@
     {% endif %}
 
     <!-- Items -->
-    
     <div class='reroils-items row'>
         <div class="col-sm-12">
             <h3>{{_('Items')}}
@@ -278,20 +277,33 @@
         </div>
     </div>
     {% endif %}
-    {%- if current_user | can_edit %}
     <div class="row">
         <div class="col-sm-12">
             <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                <a href="{{ url_for('reroils_record_editor.update_item', pid=item.pid, parent_pid=record.pid) }}" type="button" class="btn btn-success">
-                    <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Edit')}}
-                </a>
-                <a href="{{ url_for('reroils_record_editor.delete_item', pid=item.pid, parent_pid=record.pid) }}" type="button" class="btn btn-danger">
-                    <i class="fa fa-trash-o fa-fw"></i> {{_('Delete')}}
-                </a>
+                {%- if current_user | can_edit %}
+                    <a href="{{ url_for('reroils_record_editor.update_item', pid=item.pid,  parent_pid=record.pid) }}" type="button" class="btn btn-success">
+                        <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Edit')}}
+                    </a>
+                    <a href="{{ url_for('reroils_record_editor.delete_item', pid=item.pid,  parent_pid=record.pid) }}" type="button" class="btn btn-danger">
+                        <i class="fa fa-trash-o fa-fw"></i> {{_('Delete')}}
+                    </a>
+                {% endif %}
+                {% if item | can_request %}
+                   <!-- TODO: to create a dropdown button with a list of all members -->
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{_('Request')}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a>{{_('Available Pickup Locations')}}</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">{{_('Location 1')}}</a></li>
+                        <li><a href="#">{{_('Location 2')}}</a></li>
+                        <li><a href="#">{{_('Location 3')}}</a></li>
+                    </ul>  
+                {% endif %}
             </div>
         </div>
     </div>
-    {% endif %}
     <hr/>
     {% endfor %}
     {% endif %}
