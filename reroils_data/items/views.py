@@ -22,6 +22,8 @@ from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.resolver import Resolver
 from reroils_record_editor.permissions import record_edit_permission
 
+from reroils_data.transactions.models import CircTransactions
+
 from ..documents_items.api import DocumentsWithItems
 
 blueprint = Blueprint(

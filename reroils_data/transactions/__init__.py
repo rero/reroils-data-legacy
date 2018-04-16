@@ -22,31 +22,4 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Blueprint used for loading templates.
-
-The sole purpose of this blueprint is to ensure that Invenio can find the
-templates and static files located in the folders of the same names next to
-this file.
-"""
-
-from __future__ import absolute_import, print_function
-
-from flask import Blueprint
-from flask_login import current_user
-
-blueprint = Blueprint(
-    'reroils_data_documents_items',
-    __name__,
-    template_folder='templates',
-    static_folder='static',
-)
-
-
-@blueprint.app_template_filter()
-def can_request(item):
-    """Check if the current user can request a given item."""
-    if current_user.is_authenticated:
-        for holding in item.get('_circulation', {}).get('holdings', []):
-            if item.get('_circulation').get('status') == 'on_loan':
-                return True
-    return False
+"""Transaction Record."""

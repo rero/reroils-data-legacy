@@ -43,6 +43,25 @@ url_schema = 'http://ils.test.rero.ch/schema'
 
 
 @pytest.yield_fixture()
+def minimal_patron_record():
+    """Simple patron record."""
+    yield {
+        '$schema': 'http://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json',
+        'pid': '1',
+        'first_name': 'Simonetta',
+        'last_name': 'Casalini',
+        'street': 'Avenue Leopold-Robert, 132',
+        'postal_code': '2300',
+        'city': 'La Chaux-de-Fonds',
+        'barcode': '2050124311',
+        'birth_date': '1967-06-07',
+        'email': 'simolibri07@gmail.com',
+        'phone': '+41324993585',
+        'patron_type': 'standard_user'
+    }
+
+
+@pytest.yield_fixture()
 def minimal_book_record():
     """Minimal book."""
     yield {

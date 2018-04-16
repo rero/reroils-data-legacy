@@ -22,31 +22,29 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Blueprint used for loading templates.
-
-The sole purpose of this blueprint is to ensure that Invenio can find the
-templates and static files located in the folders of the same names next to
-this file.
-"""
+"""Utils tests."""
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint
-from flask_login import current_user
+from invenio_accounts import InvenioAccounts
+from invenio_circulation.api import Item
+from invenio_db import db
 
-blueprint = Blueprint(
-    'reroils_data_documents_items',
-    __name__,
-    template_folder='templates',
-    static_folder='static',
-)
+from reroils_data.items.api import Item as Citem
 
 
-@blueprint.app_template_filter()
-def can_request(item):
-    """Check if the current user can request a given item."""
-    if current_user.is_authenticated:
-        for holding in item.get('_circulation', {}).get('holdings', []):
-            if item.get('_circulation').get('status') == 'on_loan':
-                return True
-    return False
+def test_item_circulation(app, db, minimal_item_record, minimal_patron_record):
+    """Test item loan, return and request."""
+    assert minimal_patron_record['barcode']
+    patron_barcode = minimal_patron_record['barcode']
+    with app.app_context():
+        item = Item.create(minimal_item_record)
+        item.loan_item(patron_barcode=patron_barcode)
+        assert item['_circulation']['status'] == 'on_loan'
+        loan_id = str(item['_circulation']['holdings'][0]['id'])
+        item.return_item()
+        assert item['_circulation']['status'] != 'on_loan'
+        item.request_item(patron_barcode=patron_barcode)
+        record = item['_circulation']['holdings'][0]['patron_barcode']
+        assert record == patron_barcode
+        db.session.commit()

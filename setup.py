@@ -159,6 +159,7 @@ setup(
             'documents_items = reroils_data.documents_items.models',
             'items = reroils_data.items.models',
             'patrons = reroils_data.patrons.models',
+            'transactions = reroils_data.transactions.models',
         ],
         'invenio_pidstore.minters': [
             'organisation_id = reroils_data.organisations.minters:organisation_id_minter',
