@@ -1,5 +1,12 @@
 {%- extends config.RECORDS_UI_BASE_TEMPLATE %}
 
+{%- block css %}
+    {{ super () }}
+    {%- assets "reroils_data_patron_profile_css" %}
+        <link href="{{ ASSET_URL }}" rel="stylesheet">
+    {% endassets %}
+{%- endblock css %}
+
 {%- block page_body %}
 {% include('reroils_data/_patron_profile_head.html') %}
 
@@ -20,14 +27,14 @@
             {% if loans|length > 0 %}
                 {{ build_table(loans) }}
             {% else %}
-                <p style="margin-top: 10px; font-weight: bold">{{ _('No loan') }}</p>
+                <p">{{ _('No loan') }}</p>
             {% endif %}
         </div>
         <div role="tabpanel" class="tab-pane" id="pending">
             {% if pendings|length > 0 %}
                 {{ build_table(pendings) }}
             {% else %}
-                <p style="margin-top: 10px; font-weight: bold">{{ _('No pending') }}</p>
+                <p>{{ _('No pending') }}</p>
             {% endif %}
         </div>
         <div role="tabpanel" class="tab-pane" id="user">

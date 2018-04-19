@@ -62,3 +62,6 @@ recursive-include data *.json
 recursive-include data *.marc
 recursive-include data *.mrc
 recursive-include data *.xml
+
+# added by check_manifest.py
+recursive-include reroils_data *.scss
