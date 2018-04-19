@@ -124,8 +124,8 @@ setup(
             'messages = reroils_data',
         ],
         'dojson.cli': [
-            'reverse = reroils_data.cli:reverse',
-            'head = reroils_data.cli:head',
+            'reverse = reroils_data.dojson.cli:reverse',
+            'head = reroils_data.dojson.cli:head',
         ],
         'dojson.cli.dump': [
             'pjson = reroils_data.dojson.dump:pretty_json_dump',

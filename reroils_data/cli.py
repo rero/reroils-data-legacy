@@ -52,34 +52,6 @@ fixtures.add_command(import_organisations)
 fixtures.add_command(create_items)
 
 
-@click.command('reverse')
-def reverse():
-    """Reverse the order of the data."""
-    def processor(iterator):
-        items = []
-        for item in iterator:
-            items.append(item)
-        items.reverse()
-        return items
-
-    return processor
-
-
-@click.command('head')
-@click.argument('max', type=click.INT,)
-def head(max):
-    """Take only the first max items."""
-    def processor(iterator):
-        n = 0
-        for item in iterator:
-            if n >= max:
-                raise StopIteration
-            n += 1
-            yield item
-
-    return processor
-
-
 @users.command('confirm')
 @click.argument('user')
 @with_appcontext
