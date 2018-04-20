@@ -34,6 +34,9 @@ from __future__ import absolute_import, print_function
 from flask import Blueprint
 from flask_login import current_user
 
+from reroils_data.items.api import Item
+from reroils_data.patrons.api import Patrons
+
 blueprint = Blueprint(
     'reroils_data_documents_items',
     __name__,
@@ -46,7 +49,14 @@ blueprint = Blueprint(
 def can_request(item):
     """Check if the current user can request a given item."""
     if current_user.is_authenticated:
-        for holding in item.get('_circulation', {}).get('holdings', []):
-            if item.get('_circulation').get('status') == 'on_loan':
-                return True
+        patron = Patrons.get_patron_by_user(current_user)
+        if patron:
+            patron_barcode = patron.get('barcode')
+            for holding in item.get(
+                    '_circulation', {}).get('holdings', []):
+                if item.get('_circulation').get('status') == 'on_loan':
+                    loan = Item.loaned_to_patron(item, patron_barcode)
+                    request = Item.requested_by_patron(item, patron_barcode)
+                    if not (request or loan):
+                        return True
     return False

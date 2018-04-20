@@ -32,6 +32,7 @@ from setuptools.command.egg_info import egg_info
 readme = open('README.rst').read()
 history = open('CHANGES.rst').read()
 
+
 class EggInfoWithCompile(egg_info):
     def run(self):
         from babel.messages.frontend import compile_catalog
