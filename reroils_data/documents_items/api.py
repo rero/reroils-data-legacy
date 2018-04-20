@@ -34,6 +34,7 @@ from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
 from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
+from invenio_search.api import RecordsSearch
 
 from .models import DocumentsItemsMetadata
 

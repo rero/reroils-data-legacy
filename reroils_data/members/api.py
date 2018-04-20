@@ -27,9 +27,19 @@
 from uuid import uuid4
 
 from invenio_records.api import Record
+from invenio_search.api import RecordsSearch
 
 from .fetchers import member_id_fetcher
 from .minters import member_id_minter
+
+
+class MembersSearch(RecordsSearch):
+    """Members search."""
+
+    class Meta():
+        """Meta class."""
+
+        index = 'members'
 
 
 class Member(Record):
@@ -56,3 +66,9 @@ class Member(Record):
         except KeyError:
             return None
         return pid_value
+
+    @classmethod
+    def get_all_member_names(cls):
+        """Get all member names."""
+        return [n.name for n in MembersSearch().filter(
+                "match_all").source(includes=['name']).scan()]

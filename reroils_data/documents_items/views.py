@@ -31,10 +31,13 @@ this file.
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint
+from flask import Blueprint, abort, current_app, redirect, render_template, \
+    request, url_for
 from flask_login import current_user
+from invenio_records_ui.signals import record_viewed
 
 from reroils_data.items.api import Item
+from reroils_data.members.api import Member
 from reroils_data.patrons.api import Patrons
 
 blueprint = Blueprint(
@@ -60,3 +63,28 @@ def can_request(item):
                     if not (request or loan):
                         return True
     return False
+
+
+def doc_item_view_method(pid, record, template=None, **kwargs):
+    r"""Display default view.
+
+    Sends record_viewed signal and renders template.
+
+    :param pid: PID object.
+    :param record: Record object.
+    :param template: Template to render.
+    :param \*\*kwargs: Additional view arguments based on URL rule.
+    :returns: The rendered template.
+    """
+    record_viewed.send(
+        current_app._get_current_object(),
+        pid=pid,
+        record=record,
+    )
+    members = Member.get_all_member_names()
+    return render_template(
+        template,
+        pid=pid,
+        record=record,
+        members=members
+    )

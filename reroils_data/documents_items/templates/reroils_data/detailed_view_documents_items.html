@@ -289,16 +289,15 @@
                     </a>
                 {% endif %}
                 {% if item | can_request %}
-                   <!-- TODO: to create a dropdown button with a list of all members -->
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{_('Request')}} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li><a>{{_('Available Pickup Locations')}}</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">{{_('Location 1')}}</a></li>
-                        <li><a href="#">{{_('Location 2')}}</a></li>
-                        <li><a href="#">{{_('Location 3')}}</a></li>
+                        {%- for member in members %}
+                            <li><a href="#">{{member}}</a></li>
+                        {%- endfor %}
                     </ul>  
                 {% endif %}
             </div>
