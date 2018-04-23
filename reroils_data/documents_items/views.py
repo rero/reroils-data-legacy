@@ -64,6 +64,12 @@ def can_request(item):
     return False
 
 
+@blueprint.app_template_filter()
+def number_of_requests(item):
+    """Get number of requests for a given item."""
+    return Item.number_of_item_requests(item)
+
+
 def doc_item_view_method(pid, record, template=None, **kwargs):
     r"""Display default view.
 
@@ -80,7 +86,6 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
         pid=pid,
         record=record,
     )
-    # members = Member.get_all_member_names()
     members = Member.get_all_members()
     return render_template(
         template,

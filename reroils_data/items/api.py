@@ -34,6 +34,19 @@ from reroils_data.transactions.api import CircTransaction
 class Item(CirculationItem):
     """Data model to store circulation item informations."""
 
+    def number_of_item_requests(self):
+        """Get number of requests for a given item."""
+        circulation = self.get('_circulation', {})
+        number_requests = 0
+        if circulation:
+            holdings = circulation.get('holdings', [])
+            if holdings:
+                if self.get('_circulation', {}).get('status', '') == 'on_loan':
+                        number_requests = len(holdings) - 1
+                else:
+                    number_requests = len(holdings)
+        return number_requests
+
     def requested_by_patron(self, patron_barcode):
         """Check if the item is requested by a given patron."""
         for holding in self.get('_circulation', {}).get('holdings', []):

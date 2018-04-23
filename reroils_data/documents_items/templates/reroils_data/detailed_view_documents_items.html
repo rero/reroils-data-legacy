@@ -277,6 +277,16 @@
         </div>
     </div>
     {% endif %}
+    {% if item | number_of_requests > 0 %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Number Of Requests')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{item | number_of_requests}}
+        </div>
+    </div>
+    {% endif %}
     <div class="row">
         <div class="col-sm-12">
             <div class="btn-group btn-group-sm" role="group" aria-label="...">

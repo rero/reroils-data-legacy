@@ -33,17 +33,14 @@ from invenio_db import db
 from reroils_data.items.api import Item as Citem
 
 
-def test_item_circulation(app, db, minimal_item_record, minimal_patron_record):
-    """Test item loan, return and request."""
+def test_nb_item_requests(app, db, minimal_item_record, minimal_patron_record):
+    """Test number of item requests."""
     assert minimal_patron_record['barcode']
     patron_barcode = minimal_patron_record['barcode']
     with app.app_context():
         item = Item.create(minimal_item_record)
-        item.loan_item(patron_barcode=patron_barcode)
-        assert item['_circulation']['status'] == 'on_loan'
-        loan_id = str(item['_circulation']['holdings'][0]['id'])
-        item.return_item()
-        assert item['_circulation']['status'] != 'on_loan'
         item.request_item(patron_barcode=patron_barcode)
-        record = item['_circulation']['holdings'][0]['patron_barcode']
-        assert record == patron_barcode
+        tr_barcode = item['_circulation']['holdings'][0]['patron_barcode']
+        assert tr_barcode == patron_barcode
+        number_requests = item.number_of_item_requests()
+        assert number_requests == 1
