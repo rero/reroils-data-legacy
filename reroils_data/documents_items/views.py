@@ -31,14 +31,13 @@ this file.
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, abort, current_app, redirect, render_template, \
-    request, url_for
+from flask import Blueprint, current_app, render_template
 from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
-from reroils_data.items.api import Item
-from reroils_data.members.api import Member
-from reroils_data.patrons.api import Patrons
+from ..items.api import Item
+from ..members.api import Member
+from ..patrons.api import Patron
 
 blueprint = Blueprint(
     'reroils_data_documents_items',
@@ -52,7 +51,7 @@ blueprint = Blueprint(
 def can_request(item):
     """Check if the current user can request a given item."""
     if current_user.is_authenticated:
-        patron = Patrons.get_patron_by_user(current_user)
+        patron = Patron.get_patron_by_user(current_user)
         if patron:
             patron_barcode = patron.get('barcode')
             item_status = item.get('_circulation', {}).get('status')

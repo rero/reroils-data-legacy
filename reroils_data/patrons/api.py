@@ -24,10 +24,13 @@
 
 """API for manipulating patrons."""
 
-from invenio_records.api import Record
 from invenio_search.api import RecordsSearch
 
-from reroils_data.documents_items.api import DocumentsWithItems
+from ..api import IlsRecord
+from ..documents_items.api import DocumentsWithItems
+from .fetchers import patron_id_fetcher
+from .minters import patron_id_minter
+from .providers import PatronProvider
 
 
 class BorrowedDocumentsSearch(RecordsSearch):
@@ -48,8 +51,12 @@ class PatronsSearch(RecordsSearch):
         index = 'patrons'
 
 
-class Patrons(Record):
+class Patron(IlsRecord):
     """Define API for patrons mixing."""
+
+    minter = patron_id_minter
+    fetcher = patron_id_fetcher
+    provider = PatronProvider
 
     @classmethod
     def get_patron_by_user(cls, user):

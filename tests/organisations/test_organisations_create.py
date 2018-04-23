@@ -34,8 +34,6 @@ def test_organisation_create(app, db, minimal_organisation_record):
 
     with app.app_context():
         from copy import deepcopy
-        del minimal_organisation_record['pid']
-        del minimal_organisation_record['$schema']
         org_rec = deepcopy(minimal_organisation_record)
         org = Organisation.create(minimal_organisation_record)
         assert org_rec == org
@@ -45,7 +43,5 @@ def test_organisation_create_pid(app, db, minimal_organisation_record):
     """Test organisation creat with pid."""
 
     with app.app_context():
-        del minimal_organisation_record['pid']
-        del minimal_organisation_record['$schema']
-        org = Organisation.create(minimal_organisation_record, pid=True)
+        org = Organisation.create(minimal_organisation_record)
         assert org['pid'] == '1'

@@ -36,14 +36,6 @@ class OrganisationsMembersMetadata(db.Model):
 
     __tablename__ = 'organisations_members'
 
-    organisation_id = db.Column(
-        UUIDType,
-        db.ForeignKey(RecordMetadata.id),
-        primary_key=True,
-        nullable=False
-    )
-    """Organisation related with the member."""
-
     member_id = db.Column(
         UUIDType,
         db.ForeignKey(RecordMetadata.id),
@@ -55,6 +47,14 @@ class OrganisationsMembersMetadata(db.Model):
 
     member = db.relationship(RecordMetadata, foreign_keys=[member_id])
     """Relationship to the member."""
+
+    organisation_id = db.Column(
+        UUIDType,
+        db.ForeignKey(RecordMetadata.id),
+        primary_key=True,
+        nullable=False
+    )
+    """Organisation related with the member."""
 
     organisation = db.relationship(
         RecordMetadata, foreign_keys=[organisation_id]
@@ -76,3 +76,23 @@ class OrganisationsMembersMetadata(db.Model):
         with db.session.begin_nested():
             db.session.add(rb)
         return rb
+
+    @property
+    def parent_id(self):
+        """Parent id."""
+        return self.organisation_id
+
+    @classmethod
+    def get_parent(cls):
+        """Parent id."""
+        return cls.organisation
+
+    @property
+    def child_id(self):
+        """Parent id."""
+        return self.member_id
+
+    @classmethod
+    def get_child(cls):
+        """Parent id."""
+        return cls.member

@@ -26,11 +26,7 @@
 
 from __future__ import absolute_import, print_function
 
-import os
-
 from flask_assets import Bundle
-from invenio_assets import AngularGettextFilter, GlobBundle, NpmBundle
-from pkg_resources import resource_filename
 
 editor_js = Bundle(
     'js/reroils_data/document-editor.js',

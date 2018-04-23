@@ -27,18 +27,16 @@
 from __future__ import absolute_import, print_function
 
 import random
-import uuid
 from random import randint
 
 import click
 from flask.cli import with_appcontext
-from invenio_circulation.api import Item
-from invenio_db import db
 from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.models import PersistentIdentifier
 
-from ..items.minters import item_id_minter
-from ..locations.api import Location
+from reroils_data.items.api import Item
+from reroils_data.locations.api import Location
+
 from .api import DocumentsWithItems
 
 
@@ -58,65 +56,48 @@ def create_items(verbose, count, itemscount):
     records = PersistentIdentifier.query.filter_by(pid_type='doc')
     if count == -1:
         count = records.count()
-    record_indexer = RecordIndexer()
 
     click.secho(
         'Starting generating {0} items, random {1} ...'.format(
             count, itemscount),
         fg='green')
 
+    locations_pids = Location.get_all_pids()
     with click.progressbar(records[:count], length=count) as bar:
         for rec in bar:
-            recitem = DocumentsWithItems.get_record(rec.object_uuid)
-
+            document = DocumentsWithItems.get_record_by_id(rec.object_uuid)
             for i in range(0, randint(1, itemscount)):
-                recitem.add_item(create_random_item())
-                # TODO optimize with bulk commit/indexing
-
-            db.session.commit()
-            record_indexer.index(recitem)
-
-
-# @fixtures.command()
-# @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
-# @with_appcontext
-# def reindex(verbose):
-#     """Reindex records."""
-#     click.secho(
-#         'Starting reindexing ...',
-#         fg='green')
-#     record_indexer = RecordIndexer()
-#     records = PersistentIdentifier.query.filter_by(pid_type='recid')
-#     with click.progressbar(records, length=records.count()) as bar:
-#         for rec in bar:
-#             recitem = Record.get_record(rec.object_uuid)
-#             if verbose:
-#                 click.echo('Reindexing {0}'.format(recitem.id))
-#             record_indexer.index(recitem)
+                item = create_random_item(locations_pids)
+                document.add_item(item)
+            document.dbcommit(reindex=True)
+            RecordIndexer().client.indices.flush()
 
 
-def create_random_item(verbose=False):
+def create_random_item(locations_pids, verbose=False):
     """Create items with randomised values."""
     item_types = ['standard_loan', 'short_loan', 'no_loan']
-    locations_pids = Location.get_all_pids()
+    item_type = random.choice(item_types)
 
-    id_ = uuid.uuid4()
-    data = {}
-    item_id_minter(id_, data)
+    data = {
+        'barcode': '????',
+        'callNumber': '????',
+        'location_pid': random.choice(locations_pids),
+        'item_type': random.choice(item_types)
+    }
+    item = Item.create(data)
 
-    n = int(data['pid'])
+    n = int(item.pid)
     data['barcode'] = str(10000000000 + n)
-    data['item_type'] = random.choice(item_types)
-    data['location_pid'] = random.choice(locations_pids)
-
     data['callNumber'] = str(n).zfill(5)
+    item.update(data)
 
-    item = Item.create(data, id_=id_)
-    if randint(0, 5) == 0:
-        item.loan_item()
-    elif randint(0, 20) == 0:
+    if randint(0, 5) == 0 and item_type != 'no_loan':
+        # TODO task 509 patron barcodes to create
+        item.loan_item(patron_barcode='1234')
+    elif randint(0, 40) == 0:
         item.lose_item()
+    item.commit()
     if verbose:
         click.echo(item.id)
-    item.commit()
+    item.dbcommit()
     return item

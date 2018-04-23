@@ -26,23 +26,11 @@
 
 from __future__ import absolute_import, print_function
 
-from invenio_circulation.api import Item
-from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
 
 from reroils_data.documents_items.api import DocumentsWithItems
 from reroils_data.documents_items.models import DocumentsItemsMetadata
-
-
-def create_item(data):
-    """Item creation."""
-    from uuid import uuid4
-    from reroils_data.items import minters
-    if data.get('pid'):
-        del(data['pid'])
-    rec_uuid = uuid4()
-    minters.item_id_minter(rec_uuid, data)
-    return Item.create(data, rec_uuid)
+from reroils_data.items.api import Item
 
 
 def test_create(app, db, minimal_book_record, minimal_item_record):
@@ -53,7 +41,7 @@ def test_create(app, db, minimal_book_record, minimal_item_record):
         assert doc.itemslist == []
 
         doc.add_item(item)
-        db.session.commit()
+        doc.dbcommit()
         assert doc.itemslist[0] == item
 
         dump = doc.dumps()
@@ -64,54 +52,51 @@ def test_delete_item(app, db, minimal_book_record, minimal_item_record):
     """Test DocumentWithItems item deletion."""
     with app.app_context():
         doc = DocumentsWithItems.create(minimal_book_record)
-        item = create_item(minimal_item_record)
+        item = Item.create(minimal_item_record)
         doc.add_item(item)
-        db.session.commit()
-        pid = PersistentIdentifier.get_by_object('item', 'rec', item.id)
+        doc.dbcommit()
+        pid = item.persistent_identifier
         assert pid.is_registered()
-        doc.remove_item(item)
-        db.session.commit()
+        doc.remove_item(item, force=True)
+        doc.dbcommit()
+        assert True
         assert pid.is_deleted()
         assert doc.itemslist == []
 
-        minimal_item_record['pid'] = '1'
         item1 = Item.create(minimal_item_record)
         doc.add_item(item1)
-        minimal_item_record['pid'] = '2'
         item2 = Item.create(minimal_item_record)
         doc.add_item(item2)
-        minimal_item_record['pid'] = '3'
         item3 = Item.create(minimal_item_record)
         doc.add_item(item3)
-        db.session.commit()
-        doc.remove_item(item2)
-        db.session.commit()
+        doc.dbcommit()
+        doc.remove_item(item2, force=True)
+        doc.dbcommit()
         assert len(doc.itemslist) == 2
-        assert doc.itemslist[0]['pid'] == '1'
-        assert doc.itemslist[1]['pid'] == '3'
+        assert doc.itemslist[0]['pid'] == '2'
+        assert doc.itemslist[1]['pid'] == '4'
 
 
 def test_delete_document(app, db, minimal_book_record, minimal_item_record):
     """Test DocumentWithItems deletion."""
     with app.app_context():
         doc = DocumentsWithItems.create(minimal_book_record)
-        item1 = create_item(minimal_item_record)
-        pid1 = PersistentIdentifier.get_by_object('item', 'rec', item1.id)
-        item2 = create_item(minimal_item_record)
-        pid2 = PersistentIdentifier.get_by_object('item', 'rec', item2.id)
-        item3 = create_item(minimal_item_record)
-        pid3 = PersistentIdentifier.get_by_object('item', 'rec', item3.id)
+        item1 = Item.create(minimal_item_record, dbcommit=True)
+        pid1 = item1.persistent_identifier
         doc.add_item(item1)
+        item2 = Item.create(minimal_item_record, dbcommit=True)
+        pid2 = item2.persistent_identifier
         doc.add_item(item2)
+        item3 = Item.create(minimal_item_record, dbcommit=True)
+        pid3 = item3.persistent_identifier
         doc.add_item(item3)
-        db.session.commit()
+        doc.dbcommit()
         assert DocumentsItemsMetadata.query.count() == 3
         assert RecordMetadata.query.count() == 4
         assert pid1.is_registered()
         assert pid2.is_registered()
         assert pid3.is_registered()
         doc.delete(force=True)
-        db.session.commit()
         assert DocumentsItemsMetadata.query.count() == 0
         assert RecordMetadata.query.count() == 0
         assert pid1.is_deleted()

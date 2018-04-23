@@ -28,7 +28,6 @@ from __future__ import absolute_import, print_function
 
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.base import BaseProvider
-from slugify import slugify
 
 from .models import PatronIdentifier
 
@@ -38,6 +37,9 @@ class PatronProvider(BaseProvider):
 
     pid_type = 'ptrn'
     """Type of persistent identifier."""
+
+    pid_identifier = PatronIdentifier.__tablename__
+    """Identifier for table name"""
 
     pid_provider = None
     """Provider name.

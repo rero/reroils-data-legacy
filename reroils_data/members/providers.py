@@ -38,6 +38,9 @@ class MemberProvider(BaseProvider):
     pid_type = 'memb'
     """Type of persistent identifier."""
 
+    pid_identifier = MemberIdentifier.__tablename__
+    """Identifier for table name"""
+
     pid_provider = None
     """Provider name.
 

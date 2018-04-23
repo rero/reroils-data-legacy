@@ -24,14 +24,10 @@
 
 """Utilities functions for reroils-data."""
 
-import uuid
-
 from flask import url_for
-from invenio_db import db
-from invenio_pidstore.resolver import Resolver
-from reroils_record_editor.utils import clean_dict_keys, resolve
 
-from reroils_data.documents_items.api import DocumentsWithItems
+from ..documents_items.api import DocumentsWithItems
+from ..items.api import Item
 
 
 def delete_item(record_type, pid, record_indexer, parent_pid):
@@ -40,18 +36,13 @@ def delete_item(record_type, pid, record_indexer, parent_pid):
     The item is marked as deleted in the db, his pid as well.
     The document is reindexed.
     """
-    doc_resolver = Resolver(pid_type='doc',
-                            object_type='rec',
-                            getter=DocumentsWithItems.get_record)
-    pid_doc, document = doc_resolver.resolve(str(parent_pid))
+    document = DocumentsWithItems.get_record_by_pid(parent_pid)
+    item = Item.get_record_by_pid(pid)
+    persistent_identifier = item.persistent_identifier
+    document.remove_item(item, delindex=True)
 
-    pid, item = resolve(record_type, pid)
-    document.remove_item(item)
-    db.session.commit()
-    record_indexer().index(document)
-    record_indexer().client.indices.flush()
     _next = url_for('invenio_records_ui.doc', pid_value=parent_pid)
-    return _next, pid
+    return _next, persistent_identifier
 
 
 def save_item(data, record_type, fetcher, minter,
@@ -61,42 +52,13 @@ def save_item(data, record_type, fetcher, minter,
     If the item does not exists, it well be created
     and attached to the parent document.
     """
-    def get_pid(record_type, record, fetcher):
-        try:
-            pid_value = fetcher(None, record).pid_value
-        except KeyError:
-            return None
-        return pid_value
-
-    # load and clean dirty data provided by angular-schema-form
-    record = clean_dict_keys(data)
-    pid_value = get_pid(record_type, record, fetcher)
-    doc_resolver = Resolver(pid_type='doc',
-                            object_type='rec',
-                            getter=DocumentsWithItems.get_record)
-    pid_doc, document = doc_resolver.resolve(str(parent_pid))
-    # update an existing record
-    if pid_value:
-        pid, rec = resolve(record_type, pid_value)
-        rec.update(record)
-        rec.commit()
-    # create a new record
+    document = DocumentsWithItems.get_record_by_pid(parent_pid)
+    pid = data.get('pid')
+    if pid:
+        item = Item.get_record_by_pid(pid)
+        item.update(data, dbcommit=True, reindex=True)
     else:
-        # generate bibid
-        uid = uuid.uuid4()
-        if not record.get('_circulation'):
-            record['_circulation'] = {
-                'holdings': [],
-                'status': 'on_shelf'
-            }
-        record['_circulation'].setdefault('holdings', [])
-        pid = minter(uid, record)
-        # create a new record
-        rec = record_class.create(record, id_=uid)
-
-        document.add_item(rec)
-    db.session.commit()
-    record_indexer().index(document)
-    record_indexer().client.indices.flush()
+        item = Item.create(data, dbcommit=True, reindex=True)
+        document.add_item(item, dbcommit=True, reindex=True)
     _next = url_for('invenio_records_ui.doc', pid_value=parent_pid)
-    return _next, pid
+    return _next, item.persistent_identifier

@@ -24,13 +24,12 @@
 
 """API for manipulating members."""
 
-from uuid import uuid4
-
-from invenio_records.api import Record
 from invenio_search.api import RecordsSearch
 
+from ..api import IlsRecord
 from .fetchers import member_id_fetcher
 from .minters import member_id_minter
+from .providers import MemberProvider
 
 
 class MembersSearch(RecordsSearch):
@@ -42,30 +41,12 @@ class MembersSearch(RecordsSearch):
         index = 'members'
 
 
-class Member(Record):
+class Member(IlsRecord):
     """Member class."""
 
     minter = member_id_minter
     fetcher = member_id_fetcher
-    record_type = 'memb'
-
-    @classmethod
-    def create(cls, data, id_=None, pid=False, **kwargs):
-        """Create a new Member record."""
-        if not id_:
-            id_ = uuid4()
-        if pid and not cls.get_pid(data):
-            cls.minter(id_, data)
-        return super(Member, cls).create(data=data, id_=id_, **kwargs)
-
-    @classmethod
-    def get_pid(cls, data):
-        """Get member pid."""
-        try:
-            pid_value = cls.fetcher(None, data).pid_value
-        except KeyError:
-            return None
-        return pid_value
+    provider = MemberProvider
 
     @classmethod
     def get_all_member_names(cls):

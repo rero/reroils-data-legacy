@@ -37,7 +37,7 @@ from flask_login import current_user, login_required
 from flask_menu import register_menu
 from werkzeug.exceptions import NotFound
 
-from .api import Patrons
+from .api import Patron
 from .utils import structure_document, user_has_patron
 
 blueprint = Blueprint(
@@ -58,7 +58,7 @@ blueprint = Blueprint(
 )
 def profile():
     """Patron Profile Page."""
-    patron = Patrons.get_patron_by_user(current_user)
+    patron = Patron.get_patron_by_user(current_user)
     if patron is None:
         raise NotFound()
     documents = patron.get_borrowed_documents()

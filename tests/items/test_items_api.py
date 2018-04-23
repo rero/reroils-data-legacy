@@ -26,11 +26,7 @@
 
 from __future__ import absolute_import, print_function
 
-from invenio_accounts import InvenioAccounts
 from reroils_data.items.api import Item
-from invenio_db import db
-
-from reroils_data.items.api import Item as Citem
 
 
 def test_nb_item_requests(app, db, minimal_item_record, minimal_patron_record):

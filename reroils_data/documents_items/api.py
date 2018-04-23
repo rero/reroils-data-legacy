@@ -24,103 +24,71 @@
 
 """API for manipulating items associated to a document."""
 
-from copy import deepcopy
-
-from invenio_circulation.api import Item
-from invenio_db import db
-from invenio_pidstore.errors import PIDDoesNotExistError
-from invenio_pidstore.models import PersistentIdentifier
-from invenio_pidstore.resolver import Resolver
-from invenio_records.api import Record
 from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
-from invenio_search.api import RecordsSearch
 
+from ..api import RecordWithElements
+from ..documents.api import Document
+from ..documents.fetchers import document_id_fetcher
+from ..documents.minters import document_id_minter
+from ..documents.providers import DocumentProvider
+from ..items.api import Item
 from .models import DocumentsItemsMetadata
 
 
-class ItemsMixin(object):
-    """Implement items attribute for Document models.
+class DocumentsWithItems(RecordWithElements):
+    """Api for Documents with Items."""
 
-    .. note::
-       This is a prototype.
-    """
+    record = Document
+    element = Item
+    metadata = DocumentsItemsMetadata
+    elements_list_name = 'itemslist'
+    minter = document_id_minter
+    fetcher = document_id_fetcher
+    provider = DocumentProvider
 
-    def add_item(self, item):
-        """Add an Item."""
-        DocumentsItemsMetadata.create(document=self.model, item=item.model)
-
-    def remove_item(self, item, force=False):
-        """Remove an Item."""
-        sql_model = DocumentsItemsMetadata.query.filter_by(
-            item_id=item.id, document_id=self.id).first()
-        with db.session.begin_nested():
-            db.session.delete(sql_model)
-
-            import sys
-            sys.stdout.flush()
-            try:
-                pid = PersistentIdentifier.get_by_object(
-                    'item', 'rec', item.id)
-                pid.delete()
-            except PIDDoesNotExistError:
-                pass
-            item.delete(force)
+    # @property
+    # def elements(self):
+    #     """Return an array of Items."""
+    #     if self.model is None:
+    #         raise MissingModelError()
+    #     # retrive all items in the relation table
+    #     # sorted by item creation date
+    #     document_items = self.metadata.query\
+    #         .filter_by(document_id=self.id)\
+    #         .join(self.metadata.item)\
+    #         .order_by(RecordMetadata.created)
+    #     to_return = []
+    #     for doc_item in document_items:
+    #         item = Item.get_record_by_id(doc_item.item.id)
+    #         to_return.append(item)
+    #     return to_return
 
     @property
     def itemslist(self):
-        """Return an array of Item."""
-        if self.model is None:
-            raise MissingModelError()
-        # retrive all items in the relation table
-        # sorted by item creation date
-        documents_items = DocumentsItemsMetadata.query\
-            .filter_by(document_id=self.id)\
-            .join(DocumentsItemsMetadata.item)\
-            .order_by(RecordMetadata.created)
-        to_return = []
-        for doc_item in documents_items:
-            item = Item.get_record(doc_item.item.id)
-            to_return.append(item)
-        return to_return
+        """Itemslist."""
+        return self.elements
 
-    @classmethod
-    def get_record_by_itemid(cls, id_, with_deleted=False):
-        """Retrieve the record by id.
-
-        Raise a database exception if the record does not exist.
-
-        :param id_: record ID.
-        :param with_deleted: If `True` then it includes deleted records.
-        :returns: The :class:`Record` instance.
-        """
-        doc_item = DocumentsItemsMetadata.query.filter_by(item_id=id_).one()
-        doc_id = doc_item.document_id
-        return DocumentsWithItems.get_record(doc_id)
-
-
-class DocumentsWithItems(Record, ItemsMixin):
-    """Define API for files manipulation using ``ItemsMixin``."""
-
-    def dumps(self, **kwargs):
-        """Return pure Python dictionary with record metadata."""
-        data = deepcopy(dict(self))
-        data['itemslist'] = self.itemslist
-        return data
-
-    def delete(self, force=False):
-        """Delete the document and all the related items."""
-        for item in self.itemslist:
-            self.remove_item(item, force)
-        super(DocumentsWithItems, self).delete(force)
-
-    @classmethod
-    def get_record_by_pid(cls, pid_value):
-        """Get record by pid value."""
-        resolver = Resolver(
-            pid_type='doc',
-            object_type='rec',
-            getter=DocumentsWithItems.get_record
+    def add_item(self, item, dbcommit=False, reindex=False):
+        """Add an item."""
+        super(DocumentsWithItems, self).add_element(
+            item,
+            dbcommit=dbcommit,
+            reindex=reindex
         )
-        pid, record = resolver.resolve(pid_value)
-        return record
+
+    def remove_item(self, item, force=False, delindex=False):
+        """Remove an item."""
+        super(DocumentsWithItems, self).remove_element(
+            item,
+            force=force,
+            delindex=delindex
+        )
+
+    @classmethod
+    def get_document_by_itemid(cls, id_, with_deleted=False):
+        """Retrieve the record by id."""
+        doc_item = cls.metadata.query.filter_by(item_id=id_).one()
+        doc_id = doc_item.document_id
+        doc = DocumentsWithItems.get_record_by_id(doc_id)
+        return doc

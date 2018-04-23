@@ -31,10 +31,9 @@ from flask_login import current_user
 from flask_security.confirmable import confirm_user
 from flask_security.recoverable import send_reset_password_instructions
 from invenio_accounts.ext import hash_password
-from reroils_record_editor.utils import save_record
 from werkzeug.local import LocalProxy
 
-from .api import Patrons
+from .api import Patron
 
 datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -50,7 +49,7 @@ def save_patron(data, record_type, fetcher, minter,
 
     if email:
         find_user = datastore.find_user(email=email)
-        if not find_user:
+        if find_user is None:
             password = hash_password(email)
 
             datastore.create_user(
@@ -64,18 +63,16 @@ def save_patron(data, record_type, fetcher, minter,
                 send_reset_password_instructions(user)
                 confirm_user(user)
 
-        _next, pid = save_record(
-            data,
-            record_type,
-            fetcher,
-            minter,
-            record_indexer,
-            record_class,
-            parent_pid
-        )
+            patron = Patron.create(data, dbcommit=True, reindex=True)
+        else:
+            patron = Patron.get_patron_by_email(email)
+            if patron:
+                patron = patron.update(data, dbcommit=True, reindex=True)
+            else:
+                patron = Patron.create(data, dbcommit=True, reindex=True)
 
-    _next = url_for('invenio_records_ui.ptrn', pid_value=pid.pid_value)
-    return _next, pid
+    _next = url_for('invenio_records_ui.ptrn', pid_value=patron.pid)
+    return _next, patron.persistent_identifier
 
 
 def structure_document(documents, barcode):
@@ -113,7 +110,7 @@ def structure_document(documents, barcode):
 def user_has_patron(user=current_user):
     """Test if user has a patron."""
     try:
-        patron = Patrons.get_patron_by_email(email=user.email)
+        patron = Patron.get_patron_by_email(email=user.email)
         if patron:
             return True
     except Exception:

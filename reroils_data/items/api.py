@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""API for item."""
+"""API for manipulating items."""
 
 from uuid import uuid4
 
@@ -30,9 +30,31 @@ from invenio_circulation.api import Item as CirculationItem
 
 from reroils_data.transactions.api import CircTransaction
 
+from ..api import IlsRecord
+from .fetchers import item_id_fetcher
+from .minters import item_id_minter
+from .providers import ItemProvider
 
-class Item(CirculationItem):
-    """Data model to store circulation item informations."""
+
+class Item(IlsRecord, CirculationItem):
+    """Location class."""
+
+    minter = item_id_minter
+    fetcher = item_id_fetcher
+    provider = ItemProvider
+
+    @classmethod
+    def create(cls, data, id_=None, delete_pid=True, **kwargs):
+        """Create a new item record."""
+        if not data.get('_circulation'):
+            data['_circulation'] = {
+                'holdings': [],
+                'status': 'on_shelf'
+            }
+        data['_circulation'].setdefault('holdings', [])
+        return super(Item, cls).create(
+            data, id_=id_, delete_pid=delete_pid, **kwargs
+        )
 
     def number_of_item_requests(self):
         """Get number of requests for a given item."""

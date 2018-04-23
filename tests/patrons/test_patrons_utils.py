@@ -30,11 +30,9 @@ import mock
 from flask_security.utils import hash_password
 from invenio_accounts import InvenioAccounts
 from invenio_accounts.models import User
-from invenio_records.api import Record
 from werkzeug.local import LocalProxy
 
-from reroils_data.patrons.fetchers import patron_id_fetcher as fetcher
-from reroils_data.patrons.minters import patron_id_minter as minter
+from reroils_data.patrons.api import Patron
 from reroils_data.patrons.utils import save_patron, structure_document
 
 
@@ -43,10 +41,9 @@ from reroils_data.patrons.utils import save_patron, structure_document
 @mock.patch('reroils_data.patrons.utils.url_for')
 @mock.patch('reroils_record_editor.utils.url_for')
 @mock.patch('invenio_indexer.api.RecordIndexer')
-def test_save_patron(
-            record_indexer, url_for1, url_for2, send_email, confirm_user,
-            app, db, minimal_patron_record
-        ):
+@mock.patch('reroils_data.api.IlsRecord.reindex')
+def test_save_patron(reindex, record_indexer, url_for1, url_for2, send_email,
+                     confirm_user, app, db, minimal_patron_record):
     """Test save patron"""
     InvenioAccounts(app)
 
@@ -69,14 +66,13 @@ def test_save_patron(
         email = minimal_patron_record.get('email')
         assert datastore.get_user(email) is None
 
-        del minimal_patron_record['pid']
         save_patron(
             minimal_patron_record,
-            'ptrn',
-            fetcher,
-            minter,
+            Patron.provider.pid_type,
+            Patron.fetcher,
+            Patron.minter,
             record_indexer,
-            Record,
+            Patron,
             None
         )
         email = minimal_patron_record.get('email')

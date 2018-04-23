@@ -30,12 +30,10 @@ import json
 
 import click
 from flask.cli import with_appcontext
-from invenio_db import db
-from invenio_indexer.api import RecordIndexer
 
-from reroils_data.members.api import Member
-
-from .api import OrganisationWithMembers
+from ..locations.api import Location
+from ..members_locations.api import MemberWithLocations
+from ..organisations_members.api import OrganisationWithMembers
 
 
 @click.command('importorganisations')
@@ -49,18 +47,29 @@ def import_organisations(infile, verbose):
         fg='green'
     )
 
-    record_indexer = RecordIndexer()
     data = json.load(infile)
-    for organisation in data:
+    for organisation_data in data:
         if verbose:
-            click.echo('\tOrganisation: ' + organisation['name'])
-        members = organisation['members']
-        del organisation['members']
-        org = OrganisationWithMembers.create(organisation, pid=True)
-        for member in members:
+            click.echo('\tOrganisation: ' + organisation_data['name'])
+        members_data = organisation_data['members']
+        del(organisation_data['members'])
+        organisation = OrganisationWithMembers.create(organisation_data)
+        for member_data in members_data:
             if verbose:
-                click.echo('\t\tMember: ' + member['name'])
-            memb = Member.create(member, pid=True)
-            org.add_member(memb)
-        db.session.commit()
-        record_indexer.index(org)
+                click.echo('\t\tMember: ' + member_data['name'])
+            locations_data = member_data['locations']
+            del(member_data['locations'])
+            member = MemberWithLocations.create(
+                member_data,
+                dbcommit=True
+            )
+            for location_data in locations_data:
+                if verbose:
+                    click.echo('\t\t\tLocation: ' + location_data['name'])
+                location = Location.create(
+                    location_data,
+                    dbcommit=True
+                )
+                member.add_location(location)
+            organisation.add_member(member)
+        organisation.dbcommit(reindex=True)

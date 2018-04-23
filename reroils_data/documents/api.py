@@ -22,18 +22,17 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""API for manipulating organisation."""
-
+"""API for manipulating documents."""
 
 from ..api import IlsRecord
-from .fetchers import organisation_id_fetcher
-from .minters import organisation_id_minter
-from .providers import OrganisationProvider
+from .fetchers import document_id_fetcher
+from .minters import document_id_minter
+from .providers import DocumentProvider
 
 
-class Organisation(IlsRecord):
-    """Organisation class."""
+class Document(IlsRecord):
+    """Location class."""
 
-    minter = organisation_id_minter
-    fetcher = organisation_id_fetcher
-    provider = OrganisationProvider
+    minter = document_id_minter
+    fetcher = document_id_fetcher
+    provider = DocumentProvider

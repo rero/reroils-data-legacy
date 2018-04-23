@@ -17,7 +17,7 @@ from urllib.request import urlopen
 
 import six
 from dojson.contrib.marc21.utils import create_record, split_stream
-from flask import Blueprint, current_app, jsonify, render_template
+from flask import Blueprint, abort, current_app, jsonify
 from flask_babelex import gettext as _
 from reroils_record_editor.permissions import record_edit_permission
 

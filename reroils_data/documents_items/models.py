@@ -27,7 +27,6 @@
 from __future__ import absolute_import
 
 from invenio_db import db
-from invenio_pidstore.models import RecordIdentifier
 from invenio_records.models import RecordMetadata
 from sqlalchemy_utils.types import UUIDType
 
@@ -37,14 +36,6 @@ class DocumentsItemsMetadata(db.Model):
 
     __tablename__ = 'documents_items'
 
-    document_id = db.Column(
-        UUIDType,
-        db.ForeignKey(RecordMetadata.id),
-        primary_key=True,
-        nullable=False
-    )
-
-    """Document related with the item."""
     item_id = db.Column(
         UUIDType,
         db.ForeignKey(RecordMetadata.id),
@@ -56,6 +47,14 @@ class DocumentsItemsMetadata(db.Model):
 
     item = db.relationship(RecordMetadata, foreign_keys=[item_id])
     """Relationship to the item."""
+
+    document_id = db.Column(
+        UUIDType,
+        db.ForeignKey(RecordMetadata.id),
+        primary_key=True,
+        nullable=False
+    )
+    """Document related with the item."""
 
     document = db.relationship(RecordMetadata, foreign_keys=[document_id])
     """It is used by SQLAlchemy for optimistic concurrency control."""
@@ -74,3 +73,23 @@ class DocumentsItemsMetadata(db.Model):
         with db.session.begin_nested():
             db.session.add(rb)
         return rb
+
+    @property
+    def parent_id(self):
+        """Parent id."""
+        return self.document_id
+
+    @classmethod
+    def get_parent(cls):
+        """Parent id."""
+        return cls.document
+
+    @property
+    def child_id(self):
+        """Parent id."""
+        return self.item_id
+
+    @classmethod
+    def get_child(cls):
+        """Parent id."""
+        return cls.item

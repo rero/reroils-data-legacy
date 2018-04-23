@@ -26,11 +26,7 @@
 
 from __future__ import absolute_import, print_function
 
-from invenio_accounts import InvenioAccounts
 from reroils_data.items.api import Item
-from invenio_db import db
-
-from reroils_data.items.api import Item as Citem
 
 
 def test_item_circulation(app, db, minimal_item_record, minimal_patron_record):
@@ -41,7 +37,6 @@ def test_item_circulation(app, db, minimal_item_record, minimal_patron_record):
         item = Item.create(minimal_item_record)
         item.loan_item(patron_barcode=patron_barcode)
         assert item['_circulation']['status'] == 'on_loan'
-        loan_id = str(item['_circulation']['holdings'][0]['id'])
         item.return_item()
         assert item['_circulation']['status'] != 'on_loan'
         item.request_item(patron_barcode=patron_barcode)

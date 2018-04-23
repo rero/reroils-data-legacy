@@ -24,84 +24,41 @@
 
 """Utilities functions for reroils-data."""
 
-
-import uuid
-
 from flask import url_for
-from invenio_db import db
-from invenio_pidstore.resolver import Resolver
-from reroils_record_editor.utils import clean_dict_keys, resolve
 
-from reroils_data.organisations_members.api import OrganisationWithMembers
+from ..members_locations.api import MemberWithLocations
+from ..organisations_members.api import OrganisationWithMembers
 
 
 def delete_member(record_type, pid, record_indexer, parent_pid):
     """Remove an member from an organisation.
 
-    The member is marked as deleted in the db, his pid as well.
-    The organisation is reindexed.
+    If the location does not exists, it well be created
+    and attached to the parent member.
     """
-    org_resolver = Resolver(
-        pid_type='org',
-        object_type='rec',
-        getter=OrganisationWithMembers.get_record
-    )
-    pid_org, organisation = org_resolver.resolve(str(parent_pid))
-    pid, member = resolve(record_type, pid)
-    organisation.remove_member(member)
-    db.session.commit()
-    record_indexer().index(organisation)
-    record_indexer().client.indices.flush()
-    try:
-        _next = url_for('invenio_records_ui.org', pid_value=parent_pid)
-    except Exception:
-        _next = None
-    return _next, pid
+    organisation = OrganisationWithMembers.get_record_by_pid(parent_pid)
+    member = MemberWithLocations.get_record_by_pid(pid)
+    persistent_identifier = member.persistent_identifier
+    organisation.remove_member(member, delindex=True)
+
+    _next = url_for('invenio_records_ui.org', pid_value=parent_pid)
+    return _next, persistent_identifier
 
 
-def save_member(
-            data, record_type, fetcher, minter,
-            record_indexer, record_class, parent_pid
-        ):
+def save_member(data, record_type, fetcher, minter,
+                record_indexer, record_class, parent_pid):
     """Save a record into the db and index it.
 
-    If the member does not exists, it well be created
-    and attached to the parent organisation.
+    If the item does not exists, it well be created
+    and attached to the parent document.
     """
-    def get_pid(record_type, record, fetcher):
-        try:
-            pid_value = fetcher(None, record).pid_value
-        except KeyError:
-            return None
-        return pid_value
-
-    # load and clean dirty data provided by angular-schema-form
-    record = clean_dict_keys(data)
-    pid_value = get_pid(record_type, record, fetcher)
-    org_resolver = Resolver(
-        pid_type='org',
-        object_type='rec',
-        getter=OrganisationWithMembers.get_record
-    )
-    pid_org, organisation = org_resolver.resolve(str(parent_pid))
-    # update an existing record
-    if pid_value:
-        pid, rec = resolve(record_type, pid_value)
-        rec.update(record)
-        rec.commit()
-    # create a new record
+    organisation = OrganisationWithMembers.get_record_by_pid(parent_pid)
+    pid = data.get('pid')
+    if pid:
+        member = MemberWithLocations.get_record_by_pid(pid)
+        member.update(data, dbcommit=True, reindex=True)
     else:
-        # generate pid
-        uid = uuid.uuid4()
-        pid = minter(uid, record)
-        # create a new record
-        rec = record_class.create(record, id_=uid)
-        organisation.add_member(rec)
-    db.session.commit()
-    record_indexer().index(organisation)
-    record_indexer().client.indices.flush()
-    try:
-        _next = url_for('invenio_records_ui.org', pid_value=parent_pid)
-    except Exception:
-        _next = None
-    return _next, pid
+        member = MemberWithLocations.create(data, dbcommit=True, reindex=True)
+        organisation.add_member(member, dbcommit=True, reindex=True)
+    _next = url_for('invenio_records_ui.org', pid_value=parent_pid)
+    return _next, member.persistent_identifier

@@ -24,84 +24,51 @@
 
 """Utilities functions for reroils-data."""
 
-
-import uuid
-
 from flask import url_for
-from invenio_db import db
-from invenio_pidstore.resolver import Resolver
-from reroils_record_editor.utils import clean_dict_keys, resolve
 
-from reroils_data.members_locations.api import MemberWithLocations
+from ..locations.api import Location
+from ..members_locations.api import MemberWithLocations
+from ..organisations_members.api import OrganisationWithMembers
 
 
 def delete_location(record_type, pid, record_indexer, parent_pid):
-    """Remove an location from an member.
-
-    The location is marked as deleted in the db, his pid as well.
-    The member is reindexed.
-    """
-    memb_resolver = Resolver(
-        pid_type='memb',
-        object_type='rec',
-        getter=MemberWithLocations.get_record
-    )
-    pid_memb, member = memb_resolver.resolve(str(parent_pid))
-    pid, location = resolve(record_type, pid)
-    member.remove_location(location)
-    db.session.commit()
-    record_indexer().index(member)
-    record_indexer().client.indices.flush()
-    try:
-        _next = url_for('invenio_records_ui.memb', pid_value=parent_pid)
-    except Exception:
-        _next = None
-    return _next, pid
-
-
-def save_location(
-            data, record_type, fetcher, minter,
-            record_indexer, record_class, parent_pid
-        ):
     """Save a record into the db and index it.
 
     If the location does not exists, it well be created
     and attached to the parent member.
     """
-    def get_pid(record_type, record, fetcher):
-        try:
-            pid_value = fetcher(None, record).pid_value
-        except KeyError:
-            return None
-        return pid_value
-
-    # load and clean dirty data provided by angular-schema-form
-    record = clean_dict_keys(data)
-    pid_value = get_pid(record_type, record, fetcher)
-    memb_resolver = Resolver(
-        pid_type='memb',
-        object_type='rec',
-        getter=MemberWithLocations.get_record
+    location = Location.get_record_by_pid(pid)
+    persistent_identifier = location.persistent_identifier
+    member = MemberWithLocations.get_record_by_pid(parent_pid)
+    organisation = OrganisationWithMembers.get_organisation_by_memberid(
+        member.id
     )
-    pid_memb, member = memb_resolver.resolve(str(parent_pid))
-    # update an existing record
-    if pid_value:
-        pid, rec = resolve(record_type, pid_value)
-        rec.update(record)
-        rec.commit()
-    # create a new record
+    member.remove_location(location, delindex=True)
+    organisation.reindex()
+
+    _next = url_for('invenio_records_ui.memb', pid_value=parent_pid)
+    return _next, persistent_identifier
+
+
+def save_location(data, record_type, fetcher, minter,
+                  record_indexer, record_class, parent_pid):
+    """Save a record into the db and index it.
+
+    If the item does not exists, it well be created
+    and attached to the parent document.
+    """
+    member = MemberWithLocations.get_record_by_pid(parent_pid)
+    pid = data.get('pid')
+    if pid:
+        location = Location.get_record_by_pid(pid)
+        location.update(data, dbcommit=True, reindex=True)
     else:
-        # generate pid
-        uid = uuid.uuid4()
-        pid = minter(uid, record)
-        # create a new record
-        rec = record_class.create(record, id_=uid)
-        member.add_location(rec)
-    db.session.commit()
-    record_indexer().index(member)
-    record_indexer().client.indices.flush()
-    try:
-        _next = url_for('invenio_records_ui.memb', pid_value=parent_pid)
-    except Exception:
-        _next = None
-    return _next, pid
+        location = Location.create(data, dbcommit=True, reindex=True)
+        member.add_location(location, dbcommit=True, reindex=True)
+    organisation = OrganisationWithMembers.get_organisation_by_memberid(
+        member.id
+    )
+    organisation.reindex()
+
+    _next = url_for('invenio_records_ui.memb', pid_value=parent_pid)
+    return _next, location.persistent_identifier

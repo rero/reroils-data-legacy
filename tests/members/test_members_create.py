@@ -34,7 +34,6 @@ def test_members_create(app, db, minimal_member_record):
 
     with app.app_context():
         from copy import deepcopy
-        del minimal_member_record['pid']
         del minimal_member_record['$schema']
         memb_rec = deepcopy(minimal_member_record)
         memb = Member.create(minimal_member_record)
@@ -46,9 +45,8 @@ def test_memebers_create_pid(app, db, minimal_member_record):
 
     with app.app_context():
         from copy import deepcopy
-        del minimal_member_record['pid']
         del minimal_member_record['$schema']
         memb_rec = deepcopy(minimal_member_record)
-        memb = Member.create(minimal_member_record, pid=True)
+        memb = Member.create(minimal_member_record)
         memb_rec['pid'] = '1'
         assert memb_rec == memb

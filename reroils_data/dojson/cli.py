@@ -39,7 +39,7 @@ from invenio_pidstore.models import PersistentIdentifier
 from werkzeug.local import LocalProxy
 
 from reroils_data.documents_items.cli import create_items
-from reroils_data.members_locations.cli import import_organisations
+from reroils_data.organisations_members.cli import import_organisations
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 

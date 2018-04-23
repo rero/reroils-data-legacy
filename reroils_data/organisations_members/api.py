@@ -24,89 +24,71 @@
 
 """API for manipulating members associated to a organisation."""
 
-from copy import deepcopy
-
-from invenio_db import db
-from invenio_pidstore.errors import PIDDoesNotExistError
-from invenio_pidstore.models import PersistentIdentifier
-from invenio_records.api import Record
 from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
 
+from ..api import RecordWithElements
+from ..members_locations.api import MemberWithLocations
 from ..organisations.api import Organisation
+from ..organisations.fetchers import organisation_id_fetcher
+from ..organisations.minters import organisation_id_minter
+from ..organisations.providers import OrganisationProvider
 from .models import OrganisationsMembersMetadata
 
 
-class MembersMixin(object):
-    """Implement members attribute for organisation models.
+class OrganisationWithMembers(RecordWithElements):
+    """Api for Documents with Items."""
 
-    .. note::
-       This is a prototype.
-    """
+    record = Organisation
+    element = MemberWithLocations
+    metadata = OrganisationsMembersMetadata
+    elements_list_name = 'members'
+    minter = organisation_id_minter
+    fetcher = organisation_id_fetcher
+    provider = OrganisationProvider
 
-    def add_member(self, member):
-        """Add an Member."""
-        OrganisationsMembersMetadata.create(
-            organisation=self.model,
-            member=member.model
-        )
-
-    def remove_member(self, member, force=False):
-        """Remove an Member."""
-        sql_model = OrganisationsMembersMetadata.query.filter_by(
-            member_id=member.id, organisation_id=self.id).first()
-        with db.session.begin_nested():
-            db.session.delete(sql_model)
-
-            import sys
-            sys.stdout.flush()
-            try:
-                pid = PersistentIdentifier.get_by_object(
-                    'memb', 'rec', member.id)
-                pid.delete()
-            except PIDDoesNotExistError:
-                pass
-            member.delete(force)
+    # @property
+    # def elements(self):
+    #     """Return an array of Members."""
+    #     if self.model is None:
+    #         raise MissingModelError()
+    #
+    #     # retrive all members in the relation table
+    #     # sorted by members creation date
+    #     organisations_members = self.metadata.query\
+    #         .filter_by(organisation_id=self.id)\
+    #         .join(self.metadata.member)\
+    #         .order_by(RecordMetadata.created)
+    #     to_return = []
+    #     for org_memb in organisations_members:
+    #         member = MemberWithLocations.get_record_by_id(org_memb.member.id)
+    #         to_return.append(member)
+    #     return to_return
 
     @property
     def members(self):
-        """Return an array of Members."""
-        if self.model is None:
-            raise MissingModelError()
+        """Members."""
+        return self.elements
 
-        # retrive all members in the relation table
-        # sorted by members creation date
-        organisations_members = OrganisationsMembersMetadata.query\
-            .filter_by(organisation_id=self.id)\
-            .join(OrganisationsMembersMetadata.member)\
-            .order_by(RecordMetadata.created)
-        to_return = []
-        for org_memb in organisations_members:
-            member = Record.get_record(org_memb.member.id)
-            to_return.append(member)
-        return to_return
+    def add_member(self, member, dbcommit=False, reindex=False):
+        """Add an member."""
+        super(OrganisationWithMembers, self).add_element(
+            member,
+            dbcommit=dbcommit,
+            reindex=reindex
+        )
+
+    def remove_member(self, member, force=False, delindex=False):
+        """Remove an member."""
+        super(OrganisationWithMembers, self).remove_element(
+            member,
+            force=force,
+            delindex=delindex
+        )
 
     @classmethod
-    def get_pid(cls, data):
-        """Get organisation with member pid."""
-        try:
-            pid_value = cls.fetcher(None, data).pid_value
-        except KeyError:
-            return None
-        return pid_value
-
-
-class OrganisationWithMembers(Organisation, MembersMixin):
-    """Define API for files manipulation using ``MembersMixin``."""
-
-    def dumps(self, **kwargs):
-        """Return pure Python dictionary with record metadata."""
-        data = deepcopy(dict(self))
-        data['members'] = self.members
-        return data
-
-    def delete(self, force=False):
-        """Delete the organisation and all the related members."""
-        for member in self.members:
-            self.remove_member(member, force)
-        super(OrganisationWithMembers, self).delete(force)
+    def get_organisation_by_memberid(cls, id_, with_deleted=False):
+        """Retrieve the organisation by member id."""
+        return super(OrganisationWithMembers, cls).get_record_by_elementid(
+            id_, with_deleted
+        )

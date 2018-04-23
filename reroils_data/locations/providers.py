@@ -38,6 +38,9 @@ class LocationProvider(BaseProvider):
     pid_type = 'loc'
     """Type of persistent identifier."""
 
+    pid_identifier = LocationIdentifier.__tablename__
+    """Identifier for table name"""
+
     pid_provider = None
     """Provider name.
 

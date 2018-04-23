@@ -24,43 +24,29 @@
 
 """API for manipulating locations."""
 
-from uuid import uuid4
+from invenio_pidstore.models import PersistentIdentifier
 
-from invenio_pidstore.ext import PersistentIdentifier
-from invenio_pidstore.resolver import Resolver
-from invenio_records.api import Record
-
-from reroils_data.members_locations.models import MembersLocationsMetadata
-
+from ..api import IlsRecord
+from ..members_locations.models import MembersLocationsMetadata
 from .fetchers import location_id_fetcher
 from .minters import location_id_minter
+from .providers import LocationProvider
 
 
-class Location(Record):
+class Location(IlsRecord):
     """Location class."""
 
     minter = location_id_minter
     fetcher = location_id_fetcher
-    record_type = 'loc'
+    provider = LocationProvider
 
     @classmethod
-    def create(cls, data, id_=None, pid=False, **kwargs):
-        """Create a new location record."""
-        if not id_:
-            id_ = uuid4()
-        if pid and not cls.get_pid(data):
-            cls.minter(id_, data)
-        return super(Location, cls).create(data=data, id_=id_, **kwargs)
+    def get_location(cls, pid):
+        """Get location."""
+        location = cls.get_record_by_pid(pid)
+        return location, location
 
-    @classmethod
-    def get_pid(cls, data):
-        """Get location pid."""
-        try:
-            pid_value = cls.fetcher(None, data).pid_value
-        except KeyError:
-            return None
-        return pid_value
-
+    # TODO make global function
     @classmethod
     def get_all_pids(cls):
         """Get all location pids."""
@@ -74,14 +60,3 @@ class Location(Record):
             locs_id.append(pid.pid_value)
 
         return locs_id
-
-    @classmethod
-    def get_location(cls, pid_value):
-        """Get location record with pids."""
-        resolver = Resolver(
-            pid_type='loc',
-            object_type='rec',
-            getter=Record.get_record
-        )
-        pid, location = resolver.resolve(pid_value)
-        return pid, location
