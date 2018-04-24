@@ -86,11 +86,11 @@ def minimal_item_record():
             'holdings': [{
                 'patron_barcode': '123456',
                 'start_date': '2018-01-01',
-                'end_date': '2018-01-01'
+                'end_date': '2018-02-01'
             }, {
                 'patron_barcode': '123456',
-                'start_date': '2018-01-01',
-                'end_date': '2018-01-01'
+                'start_date': '2018-10-10',
+                'end_date': '2018-11-10'
             }],
             'status': 'on_loan'
         }

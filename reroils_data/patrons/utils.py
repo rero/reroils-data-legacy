@@ -84,22 +84,29 @@ def structure_document(documents, barcode):
     pendings = []
     for document in documents:
         doc_items = document.dumps()
+        items = doc_items.get('itemslist')
         doc = deepcopy(doc_items)
         del doc['itemslist']
-        items = doc_items.get('itemslist')
         for item in items:
-            holdings = item.get('_circulation').get('holdings')
+            circulation = item.get('_circulation')
+            status = circulation.get('status')
+            holdings = circulation.get('holdings')
             if holdings:
                 del item['_circulation']['holdings']
                 if holdings[0].get('patron_barcode') == barcode:
                     item['holding'] = holdings[0]
-                    doc['item'] = item
-                    loans.append(doc)
+                    d = deepcopy(doc)
+                    d['item'] = item
+                    if status == 'on_loan':
+                        loans.append(d)
+                    else:
+                        pendings.append(d)
                 for holding in holdings[1:]:
                     if holding.get('patron_barcode') == barcode:
                         item['holding'] = holding
-                        doc['item'] = item
-                        pendings.append(doc)
+                        d = deepcopy(doc)
+                        d['item'] = item
+                        pendings.append(d)
     return loans, pendings
 
 
