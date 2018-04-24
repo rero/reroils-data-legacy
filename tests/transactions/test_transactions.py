@@ -47,4 +47,3 @@ def test_item_circulation(app, db, minimal_item_record, minimal_patron_record):
         item.request_item(patron_barcode=patron_barcode)
         record = item['_circulation']['holdings'][0]['patron_barcode']
         assert record == patron_barcode
-        db.session.commit()

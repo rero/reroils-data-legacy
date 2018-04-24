@@ -296,7 +296,10 @@
                         <li><a>{{_('Available Pickup Locations')}}</a></li>
                         <li role="separator" class="divider"></li>
                         {%- for member in members %}
-                            <li><a href="#">{{member}}</a></li>
+                             <li> 
+                                <a href="{{ url_for('reroils_data_items.get_request_item', pid_value=item.pid,  member=member.pid)}}" >
+                                  {{member.name}}</a>
+                             </li>
                         {%- endfor %}
                     </ul>  
                 {% endif %}

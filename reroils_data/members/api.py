@@ -72,3 +72,8 @@ class Member(Record):
         """Get all member names."""
         return [n.name for n in MembersSearch().filter(
                 "match_all").source(includes=['name']).scan()]
+
+    @classmethod
+    def get_all_members(cls):
+        """Get all members."""
+        return list(MembersSearch().filter("match_all").source().scan())

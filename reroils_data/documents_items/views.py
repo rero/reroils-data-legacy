@@ -55,13 +55,12 @@ def can_request(item):
         patron = Patrons.get_patron_by_user(current_user)
         if patron:
             patron_barcode = patron.get('barcode')
-            for holding in item.get(
-                    '_circulation', {}).get('holdings', []):
-                if item.get('_circulation').get('status') == 'on_loan':
-                    loan = Item.loaned_to_patron(item, patron_barcode)
-                    request = Item.requested_by_patron(item, patron_barcode)
-                    if not (request or loan):
-                        return True
+            item_status = item.get('_circulation', {}).get('status')
+            if item_status != 'missing':
+                loan = Item.loaned_to_patron(item, patron_barcode)
+                request = Item.requested_by_patron(item, patron_barcode)
+                if not (request or loan):
+                    return True
     return False
 
 
@@ -81,7 +80,8 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
         pid=pid,
         record=record,
     )
-    members = Member.get_all_member_names()
+    # members = Member.get_all_member_names()
+    members = Member.get_all_members()
     return render_template(
         template,
         pid=pid,
