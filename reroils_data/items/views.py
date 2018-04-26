@@ -38,7 +38,7 @@ blueprint = Blueprint(
 )
 
 
-@blueprint.route("/items/loan", methods=['POST'])
+@blueprint.route("/items/loan", methods=['POST', 'PUT'])
 @record_edit_permission.require()
 def loan():
     """HTTP request for Item loan action."""
@@ -57,7 +57,7 @@ def loan():
         return jsonify({'status': 'error: %s' % e})
 
 
-@blueprint.route("/items/return", methods=['POST'])
+@blueprint.route("/items/return", methods=['POST', 'PUT'])
 @record_edit_permission.require()
 def return_item():
     """HTTP request for Item return action."""
@@ -68,6 +68,24 @@ def return_item():
         doc = DocumentsWithItems.get_document_by_itemid(item.id)
         # TODO return_item in class with commit
         item.return_item()
+        item.commit()
+        item.dbcommit()
+        doc.reindex()
+        return jsonify({'status': 'ok'})
+    except Exception as e:
+        return jsonify({'status': 'error: %s' % e})
+
+
+@blueprint.route("/items/return_missing", methods=['POST', 'PUT'])
+@record_edit_permission.require()
+def return_missing_item():
+    """HTTP request for Item return_missing action."""
+    try:
+        data = request.get_json()
+        pid = data.pop('pid')
+        item = Item.get_record_by_pid(pid)
+        doc = DocumentsWithItems.get_document_by_itemid(item.id)
+        item.return_missing_item()
         item.commit()
         item.dbcommit()
         doc.reindex()

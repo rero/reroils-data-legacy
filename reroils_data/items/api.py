@@ -120,6 +120,16 @@ class Item(IlsRecord, CirculationItem):
         super(Item, self).return_item()
         CircTransaction.create(data)
 
+    # TODO: need fix, transactions does not works without patron
+    # def return_missing_item(self, **kwargs):
+    #     """Return the missing item.
+
+    #     The item's status will be set to ItemStatus.ON_SHELF.
+    #     """
+    #     data = self.build_data(0, 'add_item_return_missing')
+    #     super(Item, self).return_missing_item()
+    #     CircTransaction.create(data)
+
     def build_data(self, record, _type):
         """Build transaction json data."""
         data = {
