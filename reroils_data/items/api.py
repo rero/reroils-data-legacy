@@ -69,6 +69,22 @@ class Item(IlsRecord, CirculationItem):
                     number_requests = len(holdings)
         return number_requests
 
+    def patron_request_rank(self, patron_barcode):
+        """Get the rank of patron in list of requests on this item."""
+        holdings = self.get('_circulation', {}).get('holdings', [])
+        if self.get('_circulation', {}).get('status', '') == 'on_loan':
+            start_pos = 1
+        else:
+            start_pos = 0
+        rank = 1
+        for i_holding in range(start_pos, len(holdings)):
+            holding = holdings[i_holding]
+            if holding and holding.get('patron_barcode'):
+                if holding['patron_barcode'] == patron_barcode:
+                    return rank
+            rank = rank+1
+        return False
+
     def requested_by_patron(self, patron_barcode):
         """Check if the item is requested by a given patron."""
         for holding in self.get('_circulation', {}).get('holdings', []):

@@ -278,14 +278,16 @@
     </div>
     {% endif %}
     {% if item | number_of_requests > 0 %}
-    <div class="row">
-        <div class="col-xs-3 col-sm-2">
-            {{_('Number Of Requests')}}:
+      {% if item | requested_this_item %}
+        <div class="row">
+          <div class="col-xs-3 col-sm-2">
+              {{_('Rank')}}:
+          </div>
+          <div class="col-xs-9 col-sm-10">
+              {{item | patron_request_rank}}
+          </div>
         </div>
-        <div class="col-xs-9 col-sm-10">
-            {{item | number_of_requests}}
-        </div>
-    </div>
+      {% endif %}
     {% endif %}
     <div class="row">
         <div class="col-sm-12">
@@ -306,12 +308,12 @@
                         <li><a>{{_('Available Pickup Locations')}}</a></li>
                         <li role="separator" class="divider"></li>
                         {%- for member in members %}
-                             <li> 
+                             <li>
                                 <a href="{{ url_for('reroils_data_items.get_request_item', pid_value=item.pid,  member=member.pid)}}" >
                                   {{member.name}}</a>
                              </li>
                         {%- endfor %}
-                    </ul>  
+                    </ul>
                 {% endif %}
             </div>
         </div>

@@ -64,9 +64,33 @@ def can_request(item):
 
 
 @blueprint.app_template_filter()
+def requested_this_item(item):
+    """Check if the current user has requested a given item."""
+    if current_user.is_authenticated:
+        patron = Patrons.get_patron_by_user(current_user)
+        if patron:
+            patron_barcode = patron.get('barcode')
+            request = Item.requested_by_patron(item, patron_barcode)
+            if request:
+                    return True
+    return False
+
+
+@blueprint.app_template_filter()
 def number_of_requests(item):
     """Get number of requests for a given item."""
     return Item.number_of_item_requests(item)
+
+
+@blueprint.app_template_filter()
+def patron_request_rank(item):
+    """Get the rank of patron in list of requests on this item."""
+    if current_user.is_authenticated:
+        patron = Patrons.get_patron_by_user(current_user)
+        if patron:
+            patron_barcode = patron.get('barcode')
+            return Item.patron_request_rank(item, patron_barcode)
+    return False
 
 
 def doc_item_view_method(pid, record, template=None, **kwargs):
