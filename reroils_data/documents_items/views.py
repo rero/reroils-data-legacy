@@ -67,7 +67,7 @@ def can_request(item):
 def requested_this_item(item):
     """Check if the current user has requested a given item."""
     if current_user.is_authenticated:
-        patron = Patrons.get_patron_by_user(current_user)
+        patron = Patron.get_patron_by_user(current_user)
         if patron:
             patron_barcode = patron.get('barcode')
             request = Item.requested_by_patron(item, patron_barcode)
@@ -86,7 +86,7 @@ def number_of_requests(item):
 def patron_request_rank(item):
     """Get the rank of patron in list of requests on this item."""
     if current_user.is_authenticated:
-        patron = Patrons.get_patron_by_user(current_user)
+        patron = Patron.get_patron_by_user(current_user)
         if patron:
             patron_barcode = patron.get('barcode')
             return Item.patron_request_rank(item, patron_barcode)
