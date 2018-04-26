@@ -26,16 +26,19 @@
 
 from __future__ import absolute_import, print_function
 
+import datetime
 import random
+from copy import deepcopy
 from random import randint
 
 import click
 from flask.cli import with_appcontext
 from invenio_indexer.api import RecordIndexer
-from invenio_pidstore.models import PersistentIdentifier
 
 from reroils_data.items.api import Item
 from reroils_data.locations.api import Location
+from reroils_data.members.api import Member
+from reroils_data.patrons.api import Patron
 
 from .api import DocumentsWithItems
 
@@ -48,12 +51,28 @@ from .api import DocumentsWithItems
 )
 @click.option(
     '-i', '--itemscount', 'itemscount', type=click.INT, default=5,
-    help='default=1'
+    help='default=5'
+)
+@click.option(
+    '-m', '--missing', 'missing', type=click.INT, default=5,
+    help='default=10'
+)
+@click.option(
+    '-l', '--loaned', 'loaned', type=click.INT, default=10,
+    help='default=20'
+)
+@click.option(
+    '-r', '--reserved', 'reserved', type=click.INT, default=10,
+    help='default=20'
+)
+@click.option(
+    '-R', '--reindex', 'reindex', is_flag=True, default=False
 )
 @with_appcontext
-def create_items(verbose, count, itemscount):
+def create_items(verbose, count, itemscount, missing, loaned, reserved,
+                 reindex):
     """Create circulation items."""
-    records = PersistentIdentifier.query.filter_by(pid_type='doc')
+    uids = DocumentsWithItems.get_all_ids()
     if count == -1:
         count = records.count()
 
@@ -63,20 +82,35 @@ def create_items(verbose, count, itemscount):
         fg='green')
 
     locations_pids = Location.get_all_pids()
-    with click.progressbar(records[:count], length=count) as bar:
-        for rec in bar:
-            document = DocumentsWithItems.get_record_by_id(rec.object_uuid)
+    patrons_barcodes = get_patrons_barcodes()
+    missing *= len(patrons_barcodes)
+    loaned *= len(patrons_barcodes)
+    reserved *= len(patrons_barcodes)
+    members_pids = Member.get_all_pids()
+    with click.progressbar(reversed(uids[:count]), length=count) as bar:
+        for id in bar:
+            document = DocumentsWithItems.get_record_by_id(id)
             for i in range(0, randint(1, itemscount)):
-                item = create_random_item(locations_pids)
-                document.add_item(item)
-            document.dbcommit(reindex=True)
+                missing, loaned, reserved, item = create_random_item(
+                    locations_pids=locations_pids,
+                    patrons_barcodes=patrons_barcodes,
+                    members_pids=members_pids,
+                    missing=missing,
+                    loaned=loaned,
+                    reserved=reserved,
+                    verbose=False
+                )
+                document.add_item(item, dbcommit=True, reindex=reindex)
+            document.dbcommit(reindex=reindex)
             RecordIndexer().client.indices.flush()
 
 
-def create_random_item(locations_pids, verbose=False):
+def create_random_item(locations_pids, patrons_barcodes, members_pids,
+                       missing, loaned, reserved, verbose=False):
     """Create items with randomised values."""
     item_types = ['standard_loan', 'short_loan', 'no_loan']
     item_type = random.choice(item_types)
+    barcodes = deepcopy(patrons_barcodes)
 
     data = {
         'barcode': '????',
@@ -91,13 +125,68 @@ def create_random_item(locations_pids, verbose=False):
     data['callNumber'] = str(n).zfill(5)
     item.update(data)
 
-    if randint(0, 5) == 0 and item_type != 'no_loan':
-        # TODO task 509 patron barcodes to create
-        item.loan_item(patron_barcode='1234')
-    elif randint(0, 40) == 0:
+    if randint(0, 5) == 0 and missing > 0:
         item.lose_item()
-    item.commit()
+        missing -= 1
+    else:
+        if randint(0, 5) == 0 and item_type != 'no_loan' and loaned > 0:
+            barcode = random.choice(barcodes)
+            barcodes.remove(barcode)
+            member_pid = random.choice(members_pids)
+            item.loan_item(
+                ** create_request(
+                    patron_barcode=barcode,
+                    member_pid=member_pid,
+                    short=item_type == 'short_loan'
+                )
+            )
+            loaned -= 1
+        if randint(0, 5) == 0 and item_type != 'no_loan' and reserved > 0:
+            request_count = randint(0, len(barcodes))
+            while request_count > 0 and len(barcodes) > 0:
+                barcode = random.choice(barcodes)
+                barcodes.remove(barcode)
+                member_pid = random.choice(members_pids)
+                item.request_item(
+                    ** create_request(
+                        patron_barcode=barcode,
+                        member_pid=member_pid,
+                        short=item_type == 'short_loan'
+                    )
+                )
+                request_count -= request_count
+            reserved -= 1
     if verbose:
         click.echo(item.id)
-    item.dbcommit()
-    return item
+    return missing, loaned, reserved, item
+
+
+def get_patrons_barcodes():
+    """Get all barcodes of patrons."""
+    ids = Patron.get_all_ids()
+    barcodes = []
+    for id in ids:
+        patron = Patron.get_record_by_id(id)
+        barcode = patron.get('barcode')
+        if barcode:
+            barcodes.append(barcode)
+    return barcodes
+
+
+def create_request(patron_barcode, member_pid, short):
+    """Create data dictionary for loan and request of item."""
+    n = randint(0, 60)
+    current_date = datetime.date.today()
+    start_date = (current_date + datetime.timedelta(days=-n)).isoformat()
+    if short:
+        end = 30-n
+    else:
+        end = 45-n
+    end_date = (current_date + datetime.timedelta(days=end)).isoformat()
+    request = {
+        'patron_barcode': patron_barcode,
+        'member_pid': member_pid,
+        'start_date': start_date,
+        'end_date': end_date
+    }
+    return request

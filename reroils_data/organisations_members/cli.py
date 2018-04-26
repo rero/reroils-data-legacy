@@ -72,6 +72,6 @@ def import_organisations(infile, verbose):
                     dbcommit=True,
                     reindex=True
                 )
-                member.add_location(location)
-            organisation.add_member(member)
+                member.add_location(location, dbcommit=True, reindex=True)
+            organisation.add_member(member, dbcommit=True, reindex=True)
         organisation.dbcommit(reindex=True)

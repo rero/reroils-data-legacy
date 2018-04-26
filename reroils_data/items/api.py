@@ -106,18 +106,26 @@ class Item(IlsRecord, CirculationItem):
         """Loan item to the user."""
         id = str(uuid4())
         super(Item, self).loan_item(id=id, **kwargs)
+        super(Item, self).commit()
         CircTransaction.create(self.build_data(0, 'add_item_loan'), id=id)
 
     def request_item(self, **kwargs):
         """Request item for the user."""
         id = str(uuid4())
         super(Item, self).request_item(id=id, **kwargs)
+        super(Item, self).commit()
         CircTransaction.create(self.build_data(-1, 'add_item_request'), id=id)
+
+    def lose_item(self):
+        """Lose item."""
+        super(Item, self).lose_item()
+        super(Item, self).commit()
 
     def return_item(self, **kwargs):
         """Return item."""
         data = self.build_data(0, 'add_item_return')
         super(Item, self).return_item()
+        super(Item, self).commit()
         CircTransaction.create(data)
 
     # TODO: need fix, transactions does not works without patron

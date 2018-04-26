@@ -36,10 +36,12 @@ from flask.cli import with_appcontext
 from flask_security.confirmable import confirm_user
 from invenio_accounts.cli import commit, users
 from invenio_pidstore.models import PersistentIdentifier
+from invenio_records.api import Record
 from werkzeug.local import LocalProxy
 
 from .documents_items.cli import create_items
 from .organisations_members.cli import import_organisations
+from .patrons.cli import import_patrons
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -48,7 +50,9 @@ _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 def fixtures():
     """Fixtures management commands."""
 
+
 fixtures.add_command(import_organisations)
+fixtures.add_command(import_patrons)
 fixtures.add_command(create_items)
 
 
@@ -101,8 +105,8 @@ def check_json(verbose, fname):
     else:
         path = Path(fname)
         file_list = [path]
-    re_sub = re.compile('\s{4}')
-    re_match = re.compile('^\s+')
+    re_sub = re.compile(r'\s{4}')
+    re_match = re.compile(r'^\s+')
     tot_error_cnt = 0
     for path_file in file_list:
         fname = str(path_file)

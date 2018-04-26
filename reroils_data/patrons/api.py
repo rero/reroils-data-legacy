@@ -24,7 +24,9 @@
 
 """API for manipulating patrons."""
 
+from flask import current_app
 from invenio_search.api import RecordsSearch
+from werkzeug.local import LocalProxy
 
 from ..api import IlsRecord
 from ..documents_items.api import DocumentsWithItems
@@ -85,6 +87,20 @@ class Patron(IlsRecord):
             return result['_id'], result['_source']['pid']
         except Exception:
             return None, None
+
+    @classmethod
+    def delete_by_email(cls, email, deluser=False, delindex=False):
+        """Delete user by email."""
+        patron = cls.get_patron_by_email(email)
+        if patron:
+            patron.delete(delindex)
+        datastore = LocalProxy(
+            lambda: current_app.extensions['security'].datastore
+        )
+        user = datastore.find_user(email=email)
+        if user:
+            datastore.delete_user(user)
+            datastore.commit()
 
     def get_borrowed_documents_pids(self):
         """Get pid values borrowed documents for given patron."""

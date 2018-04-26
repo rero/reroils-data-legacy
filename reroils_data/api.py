@@ -92,13 +92,21 @@ class IlsRecord(Record):
             id
         )
 
-    # @classmethod
-    # def get_all_pids(cls):
-    #     """Get all records pids."""
-    #     pids = [n.id for n in PersistentIdentifier.query.filter_by(
-    #         pid_type=cls.provider.pid_type
-    #     )]
-    #     return pids
+    @classmethod
+    def get_all_pids(cls):
+        """Get all records pids."""
+        pids = [n.pid_value for n in PersistentIdentifier.query.filter_by(
+            pid_type=cls.provider.pid_type
+        )]
+        return pids
+
+    @classmethod
+    def get_all_ids(cls):
+        """Get all records uuids."""
+        uuids = [n.object_uuid for n in PersistentIdentifier.query.filter_by(
+            pid_type=cls.provider.pid_type
+        )]
+        return uuids
 
     def delete(self, force=False, delindex=False):
         """Delete record and persistent identifier."""
@@ -197,11 +205,7 @@ class RecordWithElements(IlsRecord):
         db.session.delete(sql_model)
         db.session.commit()
         # delete element
-        # db.session.commit will be triggered by begin_nested
-        return element.delete(
-            force=force,
-            delindex=delindex
-            )
+        return element.delete(force=force, delindex=delindex)
 
     @property
     def elements(self):
