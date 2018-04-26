@@ -61,14 +61,16 @@ def import_organisations(infile, verbose):
             del(member_data['locations'])
             member = MemberWithLocations.create(
                 member_data,
-                dbcommit=True
+                dbcommit=True,
+                reindex=True
             )
             for location_data in locations_data:
                 if verbose:
                     click.echo('\t\t\tLocation: ' + location_data['name'])
                 location = Location.create(
                     location_data,
-                    dbcommit=True
+                    dbcommit=True,
+                    reindex=True
                 )
                 member.add_location(location)
             organisation.add_member(member)
