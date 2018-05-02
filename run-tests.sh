@@ -23,8 +23,9 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
+echo $VIRTUAL_ENV
 set -e
-invenio utils check_json
+flask utils check_json
 pydocstyle reroils_data tests docs
 isort -rc -c -df
 

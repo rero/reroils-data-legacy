@@ -95,7 +95,6 @@ def show(pid_value, pid_type):
     '-f', '--file', 'fname', type=click.STRING, default='',
     help='default=for all files in project'
 )
-@with_appcontext
 def check_json(verbose, fname):
     """Check json files."""
     file_list = []
