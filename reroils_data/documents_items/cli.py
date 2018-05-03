@@ -74,7 +74,7 @@ def create_items(verbose, count, itemscount, missing, loaned, reserved,
     """Create circulation items."""
     uids = DocumentsWithItems.get_all_ids()
     if count == -1:
-        count = records.count()
+        count = len(uids)
 
     click.secho(
         'Starting generating {0} items, random {1} ...'.format(
