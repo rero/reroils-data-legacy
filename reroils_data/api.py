@@ -125,15 +125,18 @@ class IlsRecord(Record):
             self.dbcommit(reindex)
         return self
 
-    def dbcommit(self, reindex=False):
+    def dbcommit(self, reindex=False, forceindex=False):
         """Commit changes to db."""
         db.session.commit()
         if reindex:
-            self.reindex()
+            self.reindex(forceindex=forceindex)
 
-    def reindex(self):
+    def reindex(self, forceindex=False):
         """Reindex record."""
-        RecordIndexer().index(self)
+        if forceindex:
+            RecordIndexer(version_type="external_gte").index(self)
+        else:
+            RecordIndexer().index(self)
 
     def delete_from_index(self):
         """Delete record from index."""
@@ -190,7 +193,9 @@ class RecordWithElements(IlsRecord):
         assert self.element
         self.metadata.create(self.model, element.model)
         if dbcommit:
-            self.record.dbcommit(reindex)
+            self.dbcommit()
+            if reindex:
+                self.reindex(forceindex=True)
 
     def remove_element(self, element, force=False, delindex=False):
         """Remove an element."""
@@ -206,7 +211,10 @@ class RecordWithElements(IlsRecord):
         db.session.delete(sql_model)
         db.session.commit()
         # delete element
-        return element.delete(force=force, delindex=delindex)
+        to_return = element.delete(force=force, delindex=delindex)
+        # reindex record
+        self.reindex(forceindex=True)
+        return to_return
 
     @property
     def elements(self):

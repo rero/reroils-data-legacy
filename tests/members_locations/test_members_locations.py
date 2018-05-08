@@ -26,6 +26,7 @@
 
 from __future__ import absolute_import, print_function
 
+import mock
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.api import Record
 from invenio_records.models import RecordMetadata
@@ -50,8 +51,9 @@ def test_members_locations_create(db, minimal_member_record,
     assert dump['locations'][0] == loc.dumps()
 
 
-def test_delete_location(db, minimal_member_record,
-                         minimal_location_record):
+@mock.patch('reroils_data.api.IlsRecord.reindex')
+def test_delete_location(reindex, db,
+                         minimal_member_record, minimal_location_record):
     """Test MembersLocations delete."""
     memb = MemberWithLocations.create(minimal_member_record, dbcommit=True)
     location = Location.create(minimal_location_record, dbcommit=True)
@@ -74,8 +76,9 @@ def test_delete_location(db, minimal_member_record,
     assert memb.locations[1]['pid'] == '4'
 
 
-def test_delete_member(db, minimal_member_record,
-                       minimal_location_record):
+@mock.patch('reroils_data.api.IlsRecord.reindex')
+def test_delete_member(reindex, db,
+                       minimal_member_record, minimal_location_record):
     """Test Member delete."""
     memb = MemberWithLocations.create(minimal_member_record)
     location1 = Location.create(minimal_location_record)

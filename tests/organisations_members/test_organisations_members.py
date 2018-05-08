@@ -26,6 +26,7 @@
 
 from __future__ import absolute_import, print_function
 
+import mock
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
 
@@ -53,7 +54,9 @@ def test_organisation_members_create(db, minimal_organisation_record,
     assert dump['members'][0] == memb.dumps()
 
 
-def test_delete_member(db, minimal_organisation_record,
+@mock.patch('reroils_data.api.IlsRecord.reindex')
+def test_delete_member(reindex, db,
+                       minimal_organisation_record,
                        minimal_member_record):
     """Test OrganisationsMembers delete."""
     org = OrganisationWithMembers.create(
@@ -92,7 +95,9 @@ def test_delete_member(db, minimal_organisation_record,
     assert org.members[1]['pid'] == '4'
 
 
-def test_delete_organisation(db, minimal_organisation_record,
+@mock.patch('reroils_data.api.IlsRecord.reindex')
+def test_delete_organisation(reindex, db,
+                             minimal_organisation_record,
                              minimal_member_record):
     """Test Organisation delete."""
     org = OrganisationWithMembers.create(

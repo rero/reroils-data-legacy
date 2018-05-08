@@ -100,7 +100,7 @@ def create_items(verbose, count, itemscount, missing, loaned, reserved,
                     reserved=reserved,
                     verbose=False
                 )
-                document.add_item(item, dbcommit=True, reindex=reindex)
+                document.add_item(item, dbcommit=True)
             document.dbcommit(reindex=reindex)
             RecordIndexer().client.indices.flush()
 
@@ -158,6 +158,7 @@ def create_random_item(locations_pids, patrons_barcodes, members_pids,
             reserved -= 1
     if verbose:
         click.echo(item.id)
+    item.update(data)
     return missing, loaned, reserved, item
 
 

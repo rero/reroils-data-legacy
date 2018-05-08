@@ -31,5 +31,8 @@ def documents_items_receiver(sender, json, doc_type, index, record):
     """To add the location name according to the location pid."""
     if doc_type == 'book-v0.0.1' and json.get('itemslist'):
         for item in json.get('itemslist'):
-            pid, location = Location.get_location(item.get('location_pid'))
-            item['location_name'] = location.get('name')
+            try:
+                pid, location = Location.get_location(item.get('location_pid'))
+                item['location_name'] = location.get('name')
+            except Exception:
+                pass

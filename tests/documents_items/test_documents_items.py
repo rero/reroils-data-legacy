@@ -26,6 +26,7 @@
 
 from __future__ import absolute_import, print_function
 
+import mock
 from invenio_records.models import RecordMetadata
 
 from reroils_data.documents_items.api import DocumentsWithItems
@@ -47,7 +48,9 @@ def test_create(app, db, minimal_book_record, minimal_item_record):
     assert dump['itemslist'][0] == item.dumps()
 
 
-def test_delete_item(app, db, minimal_book_record, minimal_item_record):
+@mock.patch('reroils_data.api.IlsRecord.reindex')
+def test_delete_item(reindex, app, db,
+                     minimal_book_record, minimal_item_record):
     """Test DocumentWithItems item deletion."""
     doc = DocumentsWithItems.create(minimal_book_record)
     item = Item.create(minimal_item_record)
@@ -75,7 +78,9 @@ def test_delete_item(app, db, minimal_book_record, minimal_item_record):
     assert doc.itemslist[1]['pid'] == '4'
 
 
-def test_delete_document(app, db, minimal_book_record, minimal_item_record):
+@mock.patch('reroils_data.api.IlsRecord.reindex')
+def test_delete_document(reindex, app, db,
+                         minimal_book_record, minimal_item_record):
     """Test DocumentWithItems deletion."""
     doc = DocumentsWithItems.create(minimal_book_record)
     item1 = Item.create(minimal_item_record, dbcommit=True)

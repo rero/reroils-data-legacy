@@ -56,9 +56,10 @@ def save_item(data, record_type, fetcher, minter,
     pid = data.get('pid')
     if pid:
         item = Item.get_record_by_pid(pid)
-        item.update(data, dbcommit=True, reindex=True)
+        item.update(data, dbcommit=True)
     else:
-        item = Item.create(data, dbcommit=True, reindex=True)
-        document.add_item(item, dbcommit=True, reindex=True)
+        item = Item.create(data, dbcommit=True)
+        document.add_item(item, dbcommit=True)
+    document.reindex()
     _next = url_for('invenio_records_ui.doc', pid_value=parent_pid)
     return _next, item.persistent_identifier
