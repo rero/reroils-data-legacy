@@ -197,7 +197,10 @@ setup(
             'reroils_data_item_editor_js = reroils_data.items.bundles:editor_js',
             'reroils_data_item_circulation_ui_js = reroils_data.items.bundles:circulation_ui_js',
             'reroils_data_document_editor_js = reroils_data.documents.bundles:editor_js',
-            'reroils_data_patron_profile_css = reroils_data.patrons.bundles:profile_css'
+            'reroils_data_patron_profile_css = reroils_data.patrons.bundles:profile_css',
+            'reroils_data_patron_editor_js = reroils_data.patrons.bundles:editor_js',
+            'reroils_data_member_editor_js = reroils_data.members_locations.bundles:editor_js',
+            'reroils_data_location_editor_js = reroils_data.locations.bundles:editor_js'
         ],
     },
     extras_require=extras_require,

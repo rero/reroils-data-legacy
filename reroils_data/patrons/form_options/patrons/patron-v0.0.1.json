@@ -12,32 +12,32 @@
         }]
     },
     {
-        "type": "fieldset",
-        "title": "Personal information",
-        "items": [
-            {
-                "type": "section",
-                "htmlClass": "row",
-                "items": [{
-                    "type": "section",
-                    "htmlClass": "col-xs-6",
-                    "items": ["last_name"]
-                },{
-                    "type": "section",
-                    "htmlClass": "col-xs-6",
-                    "items": ["first_name"]
-                }]
-            },
-            {
-                "type": "section",
-                "htmlClass": "row",
-                "items": [{
-                    "type": "section",
-                    "htmlClass": "col-xs-6",
-                    "items": ["birth_date"]
-                }]
-            }
-        ]
+        "type": "section",
+        "htmlClass": "row",
+        "items": [{
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": [{
+                "key": "barcode",
+                "validationMessage": {
+                    "alreadyTakenMessage": "The barcode is already taken",
+                    "cannotBeVerifiedMessage": "The server cannot verify the barcode"
+                }
+            }]
+        }]
+    },
+    {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [{
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": ["last_name"]
+        },{
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": ["first_name"]
+        }]
     },
     {
         "type": "fieldset",

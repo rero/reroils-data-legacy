@@ -37,17 +37,9 @@ bundle as an example):
 from __future__ import absolute_import, print_function
 
 from flask_assets import Bundle
-from invenio_assets import NpmBundle
-
-profile_css = NpmBundle(
-    'scss/reroils_data/patrons_profile.scss',
-    filters='node-scss,cleancssurl',
-    output='gen/style.patrons_profile.%(version)s.css',
-)
-"""Default style for partrons profile view."""
 
 editor_js = Bundle(
-    'js/reroils_data/patron-editor.js',
+    'js/reroils_data/location-editor.js',
     filters='jsmin',
-    output='gen/reroils_data.patron-editor_js.%(version)s.js',
+    output='gen/reroils_data.location-editor_js.%(version)s.js',
 )

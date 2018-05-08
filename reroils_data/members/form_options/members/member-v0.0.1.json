@@ -20,7 +20,11 @@
             },{
             "key": "name"
             },{
-            "key": "code"
+            "key": "code",
+            "validationMessage": {
+                "alreadyTakenMessage": "The code is already taken",
+                "cannotBeVerifiedMessage": "The server cannot verify the code"
+                }
             },{
             "key": "address"
             },{
