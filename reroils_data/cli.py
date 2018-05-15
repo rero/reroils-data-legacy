@@ -41,7 +41,7 @@ from werkzeug.local import LocalProxy
 
 from .documents_items.cli import create_items
 from .organisations_members.cli import import_organisations
-from .patrons.cli import import_patrons
+from .patrons.cli import import_users
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -52,7 +52,7 @@ def fixtures():
 
 
 fixtures.add_command(import_organisations)
-fixtures.add_command(import_patrons)
+fixtures.add_command(import_users)
 fixtures.add_command(create_items)
 
 

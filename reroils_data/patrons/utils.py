@@ -46,7 +46,7 @@ def save_patron(data, record_type, fetcher, minter,
     and attached to the patron.
     """
     email = data.get('email')
-
+    data = staff_patron_fields(data)
     if email:
         find_user = datastore.find_user(email=email)
         if find_user is None:
@@ -63,16 +63,42 @@ def save_patron(data, record_type, fetcher, minter,
                 send_reset_password_instructions(user)
                 confirm_user(user)
 
-            patron = Patron.create(data, dbcommit=True, reindex=True)
+        patron = Patron.get_patron_by_email(email)
+        if patron:
+            patron = Patron(data, model=patron.model)
+            patron.update(data, dbcommit=True, reindex=True)
         else:
-            patron = Patron.get_patron_by_email(email)
-            if patron:
-                patron = patron.update(data, dbcommit=True, reindex=True)
-            else:
-                patron = Patron.create(data, dbcommit=True, reindex=True)
+            patron = Patron.create(data, dbcommit=True, reindex=True)
+        if patron.get('is_patron', False):
+            patron.add_role('patrons')
+        else:
+            patron.remove_role('patrons')
+
+        if patron.get('is_staff', False):
+            patron.add_role('staff')
+            # TODO: cataloguer role
+            patron.add_role('cataloguer')
+        else:
+            patron.remove_role('cataloguer')
+            # TODO: cataloguer role
+            patron.remove_role('staff')
+        patron.reindex()
 
     _next = url_for('invenio_records_ui.ptrn', pid_value=patron.pid)
     return _next, patron.persistent_identifier
+
+
+def staff_patron_fields(data):
+    """Validate user fields based on user type (patorn or staff)."""
+    if not data.get('is_patron'):
+        if 'barcode' in data:
+            del(data['barcode'])
+        if 'patron_type' in data:
+            del(data['patron_type'])
+    if not data.get('is_staff', False):
+        if 'member_pid' in data:
+            del(data['member_pid'])
+    return data
 
 
 def structure_document(documents, barcode):

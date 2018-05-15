@@ -25,7 +25,3 @@
 """Patron Record."""
 
 from __future__ import absolute_import, print_function
-
-from .ext import REROILSPATRON
-
-__all__ = ('REROILSPATRON')

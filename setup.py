@@ -117,7 +117,6 @@ setup(
     entry_points={
         'invenio_base.apps': [
             'reroils_data = reroils_data:REROILSDATA',
-            'reroils_patron = reroils_data.patrons:REROILSPATRON',
             'reroils_item = reroils_data.items:REROILSITEM',
             'reroils_documents_items = reroils_data.documents_items:REROILSDOCUMENTSITEMS',
         ],

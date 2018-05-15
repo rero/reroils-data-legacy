@@ -40,31 +40,29 @@ from ..patrons.api import Patron
 datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
 
-@click.command('importpatrons')
+@click.command('importusers')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
-@click.option(
-    '-p', '--password', 'password', type=click.STRING, default='123456',
-    help='password for all patrons'
-)
 @click.argument('infile', 'Json patron file', type=click.File('r'))
 @with_appcontext
-def import_patrons(infile, password, verbose):
-    """Import patrons."""
-    click.secho('Import patrons:', fg='green')
+def import_users(infile, verbose):
+    """Import users."""
+    click.secho('Import users:', fg='green')
 
     data = json.load(infile)
     for patron_data in data:
         email = patron_data.get('email')
         if email is None:
-            click.secho('\tPatron email not defined!', fg='red')
+            click.secho('\tUser email not defined!', fg='red')
         else:
-            # create Patron
+            # create User
+            password = patron_data.get('password', '123456')
+            del(patron_data['password'])
             patron = Patron.get_patron_by_email(email)
             if patron:
-                click.secho('\tPatron exist: ' + email, fg='yellow')
+                click.secho('\tUser exist: ' + email, fg='yellow')
             else:
                 if verbose:
-                    click.echo('\tPatron: ' + email)
+                    click.echo('\tUser: ' + email)
                 patron = Patron.create(
                     patron_data,
                     dbcommit=True,
@@ -94,3 +92,12 @@ def import_patrons(infile, password, verbose):
                         )
                     # else:
                     #     click.secho('\tUser confirmed!', fg='green')
+                patron = Patron(patron, model=patron.model)
+                if patron_data.get('is_patron', False):
+                    patron.add_role(role_name='patrons')
+
+                if patron_data.get('is_staff', False):
+                    patron.add_role(role_name='staff')
+                    # TODO: staff role
+                    patron.add_role(role_name='cataloguer')
+                patron.reindex()

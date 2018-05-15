@@ -30,7 +30,6 @@ import mock
 from invenio_accounts import InvenioAccounts
 from werkzeug.local import LocalProxy
 
-from reroils_data.documents.api import Document
 from reroils_data.documents_items.api import DocumentsWithItems
 from reroils_data.patrons.api import Patron
 from reroils_data.patrons.utils import save_patron
@@ -54,6 +53,8 @@ def test_patron(reindex, get_borrowed_documents_pids, get_uuid_pid_by_email,
     # Convenient references
     security = LocalProxy(lambda: app.extensions['security'])
     datastore = LocalProxy(lambda: security.datastore)
+    # hack the return value
+    get_uuid_pid_by_email.return_value = None, None
 
     next, pid = save_patron(
         minimal_patron_record,

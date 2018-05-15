@@ -55,9 +55,73 @@ def minimal_patron_record():
         'city': 'La Chaux-de-Fonds',
         'barcode': '2050124311',
         'birth_date': '1967-06-07',
+        'member_pid': '1',
         'email': 'simolibri07@gmail.com',
         'phone': '+41324993585',
         'patron_type': 'standard_user'
+    }
+
+
+@pytest.yield_fixture()
+def minimal_patron_only_record():
+    """Simple patron record."""
+    yield {
+        '$schema': 'http://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json',
+        'pid': '2',
+        'first_name': 'Simonetta',
+        'last_name': 'Casalini',
+        'street': 'Avenue Leopold-Robert, 132',
+        'postal_code': '2300',
+        'city': 'La Chaux-de-Fonds',
+        'barcode': '2050124311',
+        'birth_date': '1967-06-07',
+        'email': 'simolibri07@gmail.com',
+        'phone': '+41324993585',
+        'patron_type': 'standard_user',
+        'is_staff': False,
+        'is_patron': True
+    }
+
+
+@pytest.yield_fixture()
+def minimal_staff_only_record():
+    """Simple patron record."""
+    yield {
+        '$schema': 'http://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json',
+        'pid': '3',
+        'first_name': 'Simonetta',
+        'last_name': 'Casalini',
+        'street': 'Avenue Leopold-Robert, 132',
+        'postal_code': '2300',
+        'city': 'La Chaux-de-Fonds',
+        'birth_date': '1967-06-07',
+        'email': 'simolibri07@gmail.com',
+        'phone': '+41324993585',
+        'member_pid': '1',
+        'is_staff': True,
+        'is_patron': False
+    }
+
+
+@pytest.yield_fixture()
+def minimal_staff_patron_record():
+    """Simple patron record."""
+    yield {
+        '$schema': 'http://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json',
+        'pid': '3',
+        'first_name': 'Simonetta',
+        'last_name': 'Casalini',
+        'street': 'Avenue Leopold-Robert, 132',
+        'barcode': '2050124311',
+        'postal_code': '2300',
+        'city': 'La Chaux-de-Fonds',
+        'birth_date': '1967-06-07',
+        'birth_date': '1967-06-07',
+        'email': 'simolibri07@gmail.com',
+        'phone': '+41324993585',
+        'patron_type': 'standard_user',
+        'is_staff': True,
+        'is_patron': True
     }
 
 

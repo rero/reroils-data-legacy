@@ -34,6 +34,8 @@ from .fetchers import patron_id_fetcher
 from .minters import patron_id_minter
 from .providers import PatronProvider
 
+_datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
+
 
 class BorrowedDocumentsSearch(RecordsSearch):
     """RecordsSearch for borrowed documents."""
@@ -70,7 +72,7 @@ class Patron(IlsRecord):
         """Get patron by email."""
         uuid, pid_value = cls._get_uuid_pid_by_email(email)
         if uuid:
-            return cls.get_record(uuid)
+            return super(IlsRecord, cls).get_record(uuid)
         else:
             return None
 
@@ -120,3 +122,58 @@ class Patron(IlsRecord):
             rec = DocumentsWithItems.get_record_by_pid(pid_value)
             to_return.append(rec)
         return to_return
+
+    def add_role(self, role_name, reindex=False):
+        """Add a given role to a user."""
+        email = self.get('email')
+        user = _datastore.find_user(email=email)
+        role = _datastore.find_role(role_name)
+        if _datastore.add_role_to_user(user, role):
+            _datastore.commit()
+            if reindex:
+                self.reindex()
+            return True
+        return False
+
+    def remove_role(self, role_name, reindex=False):
+        """Remove a given role from a user."""
+        email = self.get('email')
+        user = _datastore.find_user(email=email)
+        role = _datastore.find_role(role_name)
+        if _datastore.remove_role_from_user(user, role):
+            _datastore.commit()
+            if reindex:
+                self.reindex()
+            return True
+        return False
+
+    def has_role(self, role_name):
+        """Check if a user has a given role."""
+        email = self.get('email')
+        user = _datastore.find_user(email=email)
+        # role = _datastore.find_role(role_name)
+        return user.has_role(role_name)
+
+    def dumps(self, **kwargs):
+        """Return pure Python dictionary with record metadata."""
+        data = super(IlsRecord, self).dumps(**kwargs)
+        data['roles'] = self.role_names
+        data['name'] = ', '.join((
+            data.get('last_name', ''),
+            data.get('first_name', '')
+        ))
+        return data
+
+    @property
+    def roles(self):
+        """Return user roles."""
+        email = self.get('email')
+        user = _datastore.find_user(email=email)
+        if user:
+            return user.roles
+        return []
+
+    @property
+    def role_names(self):
+        """Return user role names."""
+        return [v.name for v in self.roles]

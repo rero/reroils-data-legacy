@@ -4,7 +4,7 @@
     "title": "patron",
     "description": "JSON schema for a patron",
     "additionalProperties": false,
-    "required": ["$schema", "pid", "first_name", "last_name", "birth_date", "email", "street", "postal_code", "city" , "barcode"],
+    "required": ["$schema", "pid", "first_name", "last_name", "birth_date", "email", "street", "postal_code", "city"],
     "properties": {
         "$schema": {
             "title": "Schema",
@@ -73,7 +73,8 @@
             "title": "Patron's type",
             "type": "string",
             "enum": [
-                "standard_user"
+                "standard_user",
+                "with_privileges"
             ],
             "default": "standard_user"
         },
@@ -81,6 +82,23 @@
             "title": "Patron's barcode or card number",
             "type": "string",
             "minLength": 6
+        },
+        "member_pid": {
+            "title": "The member pid of the appartenance library",
+            "type": "string",
+            "default": "1"
+        },
+        "is_patron": {
+            "title": "Qualify this user as a patron",
+            "type": "boolean",
+            "default": false,
+            "description": "Qualify this user as a patron."
+        },
+        "is_staff": {
+            "title": "Qualify this user as a staff member",
+            "type": "boolean",
+            "default": false,
+            "description": "Qualify this user as a staff member."
         }
     }
 }

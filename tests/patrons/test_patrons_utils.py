@@ -42,14 +42,20 @@ from reroils_data.patrons.utils import save_patron, structure_document
 @mock.patch('reroils_record_editor.utils.url_for')
 @mock.patch('invenio_indexer.api.RecordIndexer')
 @mock.patch('reroils_data.api.IlsRecord.reindex')
-def test_save_patron(reindex, record_indexer, url_for1, url_for2, send_email,
-                     confirm_user, app, db, minimal_patron_record):
+@mock.patch('reroils_data.patrons.api.Patron._get_uuid_pid_by_email')
+def test_save_patron(get_uuid_pid_by_email, reindex, record_indexer, url_for1,
+                     url_for2, send_email, confirm_user, app, db,
+                     minimal_patron_only_record):
     """Test save patron"""
     InvenioAccounts(app)
 
     # Convenient references
     security = LocalProxy(lambda: app.extensions['security'])
     datastore = LocalProxy(lambda: security.datastore)
+    datastore.create_role(name='patrons')
+
+    # hack the return value
+    get_uuid_pid_by_email.return_value = None, None
 
     email = 'test@rero.ch'
     u1 = datastore.create_user(
@@ -61,11 +67,11 @@ def test_save_patron(reindex, record_indexer, url_for1, url_for2, send_email,
     u2 = datastore.find_user(email=email)
     assert u1 == u2
     assert 1 == User.query.filter_by(email=email).count()
-    email = minimal_patron_record.get('email')
+    email = minimal_patron_only_record.get('email')
     assert datastore.get_user(email) is None
 
     save_patron(
-        minimal_patron_record,
+        minimal_patron_only_record,
         Patron.provider.pid_type,
         Patron.fetcher,
         Patron.minter,
@@ -73,7 +79,7 @@ def test_save_patron(reindex, record_indexer, url_for1, url_for2, send_email,
         Patron,
         None
     )
-    email = minimal_patron_record.get('email')
+    email = minimal_patron_only_record.get('email')
 
     # Verify that user exists in app's datastore
     user_ds = datastore.get_user(email)
