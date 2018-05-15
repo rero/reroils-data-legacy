@@ -24,8 +24,6 @@
 
 """API for manipulating locations associated to a members."""
 
-from invenio_records.errors import MissingModelError
-from invenio_records.models import RecordMetadata
 
 from ..api import RecordWithElements
 from ..locations.api import Location
@@ -89,6 +87,18 @@ class MemberWithLocations(RecordWithElements):
     @classmethod
     def get_member_by_locationid(cls, id_, with_deleted=False):
         """Retrieve the member by location id."""
-        super(MemberWithLocations, cls).get_record_by_elementid(
+        return super(MemberWithLocations, cls).get_record_by_elementid(
             id_, with_deleted
         )
+
+    def dumps(self, **kwargs):
+        """Return pure Python dictionary with record metadata."""
+        data = super(MemberWithLocations, self).dumps(*kwargs)
+        for item in data.get('itemslist', []):
+            pid, location = Location.get_location(item.get('location_pid'))
+            if location:
+                item['location_name'] = location.get('name')
+                member = Member.get_member_by_locationid(location.id)
+                if member:
+                    item['member_pid'] = member.pid
+        return data

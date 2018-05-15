@@ -28,9 +28,10 @@ from uuid import uuid4
 
 from invenio_circulation.api import Item as CirculationItem
 
-from reroils_data.transactions.api import CircTransaction
-
 from ..api import IlsRecord
+from ..locations.api import Location
+from ..members_locations.api import MemberWithLocations
+from ..transactions.api import CircTransaction
 from .fetchers import item_id_fetcher
 from .minters import item_id_minter
 from .providers import ItemProvider
@@ -146,4 +147,15 @@ class Item(IlsRecord, CirculationItem):
             'patron_barcode':
                 self['_circulation']['holdings'][record]['patron_barcode']
         }
+        return data
+
+    def dumps(self, **kwargs):
+        """Return pure Python dictionary with record metadata."""
+        data = super(IlsRecord, self).dumps(**kwargs)
+        location_pid = data.get('location_pid')
+        location = Location.get_record_by_pid(location_pid)
+        data['location_name'] = location.get('name')
+        member = MemberWithLocations.get_member_by_locationid(location.id)
+        data['member_pid'] = member.pid
+        data['requests_count'] = self.number_of_item_requests()
         return data

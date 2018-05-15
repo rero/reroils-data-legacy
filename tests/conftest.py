@@ -39,6 +39,7 @@ from invenio_pidstore import InvenioPIDStore
 from invenio_records import InvenioRecords
 from sqlalchemy_utils.functions import create_database, database_exists
 
+# TODO: get url dynamiclly
 url_schema = 'http://ils.test.rero.ch/schema'
 
 
@@ -46,7 +47,7 @@ url_schema = 'http://ils.test.rero.ch/schema'
 def minimal_patron_record():
     """Simple patron record."""
     yield {
-        '$schema': 'http://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json',
+        '$schema': url_schema + '/patrons/patron-v0.0.1.json',
         'pid': '1',
         'first_name': 'Simonetta',
         'last_name': 'Casalini',

@@ -32,16 +32,22 @@ from invenio_records.models import RecordMetadata
 from reroils_data.documents_items.api import DocumentsWithItems
 from reroils_data.documents_items.models import DocumentsItemsMetadata
 from reroils_data.items.api import Item
+from reroils_data.locations.api import Location
+from reroils_data.members_locations.api import MemberWithLocations
 
 
-def test_create(app, db, minimal_book_record, minimal_item_record):
+def test_create(db, minimal_book_record, minimal_item_record,
+                minimal_member_record, minimal_location_record):
     """Test DocumentWithItems creation."""
-    doc = DocumentsWithItems.create(minimal_book_record)
-    item = Item.create(minimal_item_record)
+    memb = MemberWithLocations.create(minimal_member_record, dbcommit=True)
+    loc = Location.create(minimal_location_record, dbcommit=True)
+    memb.add_location(loc, dbcommit=True)
+    minimal_item_record['location_pid'] = loc.pid
+    item = Item.create(minimal_item_record, dbcommit=True)
+    doc = DocumentsWithItems.create(minimal_book_record, dbcommit=True)
     assert doc.itemslist == []
 
-    doc.add_item(item)
-    doc.dbcommit()
+    doc.add_item(item, dbcommit=True)
     assert doc.itemslist[0] == item
 
     dump = doc.dumps()
@@ -49,7 +55,7 @@ def test_create(app, db, minimal_book_record, minimal_item_record):
 
 
 @mock.patch('reroils_data.api.IlsRecord.reindex')
-def test_delete_item(reindex, app, db,
+def test_delete_item(reindex, db,
                      minimal_book_record, minimal_item_record):
     """Test DocumentWithItems item deletion."""
     doc = DocumentsWithItems.create(minimal_book_record)
@@ -79,7 +85,7 @@ def test_delete_item(reindex, app, db,
 
 
 @mock.patch('reroils_data.api.IlsRecord.reindex')
-def test_delete_document(reindex, app, db,
+def test_delete_document(reindex, db,
                          minimal_book_record, minimal_item_record):
     """Test DocumentWithItems deletion."""
     doc = DocumentsWithItems.create(minimal_book_record)

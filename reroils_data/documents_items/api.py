@@ -24,15 +24,14 @@
 
 """API for manipulating items associated to a document."""
 
-from invenio_records.errors import MissingModelError
-from invenio_records.models import RecordMetadata
-
 from ..api import RecordWithElements
 from ..documents.api import Document
 from ..documents.fetchers import document_id_fetcher
 from ..documents.minters import document_id_minter
 from ..documents.providers import DocumentProvider
 from ..items.api import Item
+from ..locations.api import Location
+from ..members_locations.api import MemberWithLocations
 from .models import DocumentsItemsMetadata
 
 

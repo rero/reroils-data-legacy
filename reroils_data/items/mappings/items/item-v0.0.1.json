@@ -33,6 +33,13 @@
                     "type": "string",
                     "index": "not_analyzed"
                 },
+                "member_pid": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "requests_count": {
+                    "type": "integer"
+                },
                 "item_type": {
                     "type": "string",
                     "index": "not_analyzed"

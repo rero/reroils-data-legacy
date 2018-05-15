@@ -25,7 +25,3 @@
 """DocumentWithItem Records."""
 
 from __future__ import absolute_import, print_function
-
-from .ext import REROILSDOCUMENTSITEMS
-
-__all__ = ('REROILSDOCUMENTSITEMS')

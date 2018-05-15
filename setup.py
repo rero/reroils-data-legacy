@@ -47,6 +47,7 @@ class EggInfoWithCompile(egg_info):
         compiler.run()
         super().run()
 
+
 tests_require = [
     'check-manifest>=0.25',
     'coverage>=4.0',
@@ -117,8 +118,7 @@ setup(
     entry_points={
         'invenio_base.apps': [
             'reroils_data = reroils_data:REROILSDATA',
-            'reroils_item = reroils_data.items:REROILSITEM',
-            'reroils_documents_items = reroils_data.documents_items:REROILSDOCUMENTSITEMS',
+            'reroils_patron = reroils_data.patrons:REROILSPATRON',
         ],
         'invenio_i18n.translations': [
             'messages = reroils_data',
