@@ -8,7 +8,11 @@
            <li>{{ record.metadata.birth_date | date:'mediumDate'}}</li>
            <li>&mdash; {{ record.metadata.city }}</li>
     </ul>
-
+    <ul class="list-inline">
+        <li ng-repeat="role in record.metadata.roles">
+            {{ role }}
+        </li>
+    </ul>
     <div class="text-right">
       <ul class="list-inline">
         <li>
