@@ -198,6 +198,14 @@
         </div>
     </div>
 
+    <!-- display json source -->
+    <div class="text-right">
+        <a href="#source" data-toggle="collapse">{{_('Show source')}}</a>
+    </div>
+    <div id="source" class="collapse">
+        <pre>{{ record| tojson_pretty }}</pre>
+    </div>
+
     {%- if current_user | can_edit %}
     <div class="row">
         <div class="col-sm-12">
@@ -297,6 +305,15 @@
         </div>
       {% endif %}
     {% endif %}
+
+    <!-- display json source -->
+    <div class="text-right">
+        <a href="#source-{{ item.pid }}" data-toggle="collapse">{{_('Show source')}}</a>
+    </div>
+    <div id="source-{{ item.pid }}" class="collapse">
+        <pre>{{ item.dumps() | tojson_pretty }}</pre>
+    </div>
+
     <div class="row">
         <div class="col-sm-12">
             <div class="btn-group btn-group-sm" role="group" aria-label="...">

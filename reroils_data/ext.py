@@ -29,7 +29,7 @@ from __future__ import absolute_import, print_function
 from flask_babelex import gettext as _
 
 from . import config
-from .jinja2 import format_date_filter
+from .jinja2 import format_date_filter, to_pretty_json
 
 
 class REROILSDATA(object):
@@ -44,6 +44,7 @@ class REROILSDATA(object):
         if app:
             self.init_app(app)
             app.add_template_filter(format_date_filter, name='format_date')
+            app.add_template_filter(to_pretty_json, name='tojson_pretty')
 
     def init_app(self, app):
         """Flask application initialization."""

@@ -19,6 +19,14 @@
     </div>
     {% endif %}
 
+    <!-- display json source -->
+    <div class="text-right">
+        <a href="#source" data-toggle="collapse">{{_('Show source')}}</a>
+    </div>
+    <div id="source" class="collapse">
+        <pre>{{ record | tojson_pretty }}</pre>
+    </div>
+
     {%- if current_user | can_edit %}
     <div class="row">
         <div class="col-sm-12">
@@ -90,6 +98,14 @@
         </div>
     </div>
     {% endif %}
+
+    <!-- display json source -->
+    <div class="text-right">
+        <a href="#source-{{ member.pid }}" data-toggle="collapse">{{_('Show source')}}</a>
+    </div>
+    <div id="source-{{ member.pid }}" class="collapse">
+        <pre>{{ member.dumps() | tojson_pretty }}</pre>
+    </div>
 
     {%- if current_user | can_edit %}
     <div class="row">

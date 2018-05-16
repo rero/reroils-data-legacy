@@ -26,6 +26,7 @@
 
 
 import datetime
+import json
 
 import babel
 
@@ -42,3 +43,14 @@ def format_date_filter(date_str, format='medium', locale='en'):
     elif format == 'short_date':
         format = "dd.MM.y"
     return babel.dates.format_datetime(date, format, locale=locale)
+
+
+def to_pretty_json(value):
+    """Pretty json format."""
+    return json.dumps(
+        value,
+        sort_keys=True,
+        indent=4,
+        separators=(',', ': '),
+        ensure_ascii=False,
+    )
