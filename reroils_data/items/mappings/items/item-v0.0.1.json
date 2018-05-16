@@ -30,12 +30,14 @@
                     "index": "not_analyzed"
                 },
                 "location_name": {
-                    "type": "string",
-                    "index": "not_analyzed"
+                    "type": "string"
                 },
                 "member_pid": {
                     "type": "string",
                     "index": "not_analyzed"
+                },
+                "member_name": {
+                    "type": "string"
                 },
                 "requests_count": {
                     "type": "integer"
@@ -44,27 +46,48 @@
                     "type": "string",
                     "index": "not_analyzed"
                 },
-                "_circulation" : {
-                    "properties" : {
-                        "holdings" : {
-                            "properties" : {
-                                "id" : {
-                                    "type" : "string",
+                "requests_count": {
+                    "type": "integer"
+                },
+                "_circulation": {
+                    "properties": {
+                        "holdings": {
+                            "properties": {
+                                "id": {
+                                    "type": "string",
                                     "index": "not_analyzed"
+                                },
+                                "patron_barcode": {
+                                    "type": "string",
+                                    "index": "not_analyzed"
+                                },
+                                "start_date": {
+                                    "type": "date"
+                                },
+                                "end_date": {
+                                    "type": "date"
+                                },
+                                "pickup_member_pid": {
+                                    "type": "string",
+                                    "index": "not_analyzed"
+                                },
+                                "pickup_member_name": {
+                                    "type": "string"
                                 }
                             }
                         },
-                        "status" : {
-                            "type" : "string",
-                            "index": "not_analyzed"
+                        "status": {
+                            "type": "string",
+                            "index": "not_analyzed",
+                            "copy_to": "item_status"
                         }
                     }
                 },
-                "_created" : {
-                    "type" : "date"
+                "_created": {
+                    "type": "date"
                 },
-                "_updated" : {
-                    "type" : "date"
+                "_updated": {
+                    "type": "date"
                 }
             }
         }

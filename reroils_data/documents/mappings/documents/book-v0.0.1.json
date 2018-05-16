@@ -138,56 +138,96 @@
                 "subjects": {
                     "type": "string"
                 },
-                "itemslist" : {
-                    "properties" : {
-                        "$schema" : {
-                            "type" : "string",
+                "itemslist": {
+                    "type": "object",
+                    "properties": {
+                        "$schema": {
+                            "type": "string",
                             "index": "not_analyzed"
                         },
-                        "_circulation" : {
-                            "properties" : {
-                                "holdings" : {
-                                    "properties" : {
-                                        "id" : {
-                                            "type" : "string",
+                        "pid": {
+                            "type": "string",
+                            "index": "not_analyzed"
+                        },
+                        "barcode": {
+                            "type": "string",
+                            "index": "not_analyzed"
+                        },
+                        "callNumber": {
+                            "type": "string",
+                            "index": "not_analyzed"
+                        },
+                        "location_pid": {
+                            "type": "string",
+                            "index": "not_analyzed"
+                        },
+                        "location_name": {
+                            "type": "string"
+                        },
+                        "member_pid": {
+                            "type": "string",
+                            "index": "not_analyzed"
+                        },
+                        "member_name": {
+                            "type": "string"
+                        },
+                        "requests_count": {
+                            "type": "integer"
+                        },
+                        "item_type": {
+                            "type": "string",
+                            "index": "not_analyzed"
+                        },
+                        "requests_count": {
+                            "type": "integer"
+                        },
+                        "_circulation": {
+                            "properties": {
+                                "holdings": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
                                             "index": "not_analyzed"
+                                        },
+                                        "patron_barcode": {
+                                            "type": "string",
+                                            "index": "not_analyzed"
+                                        },
+                                        "start_date": {
+                                            "type": "date"
+                                        },
+                                        "end_date": {
+                                            "type": "date"
+                                        },
+                                        "pickup_member_pid": {
+                                            "type": "string",
+                                            "index": "not_analyzed"
+                                        },
+                                        "pickup_member_name": {
+                                            "type": "string"
                                         }
                                     }
                                 },
-                                "status" : {
-                                    "type" : "string",
+                                "status": {
+                                    "type": "string",
                                     "index": "not_analyzed",
                                     "copy_to": "item_status"
                                 }
                             }
                         },
-                        "barcode" : {
-                            "type" : "string",
-                            "index": "not_analyzed"
+                        "_created": {
+                            "type": "date"
                         },
-                        "callNumber" : {
-                            "type" : "string",
-                            "index": "not_analyzed"
-                        },
-                        "pid" : {
-                            "type" : "string",
-                            "index": "not_analyzed"
-                        },
-                        "location_name" : {
-                            "type" : "string",
-                            "index": "not_analyzed"
-                        },
-                        "item_type" : {
-                            "type" : "string",
-                            "index": "not_analyzed"
+                        "_updated": {
+                            "type": "date"
                         }
                     }
                 },
-                "_created" : {
-                    "type" : "date"
+                "_created": {
+                    "type": "date"
                 },
-                "_updated" : {
-                    "type" : "date"
+                "_updated": {
+                    "type": "date"
                 }
             }
         }

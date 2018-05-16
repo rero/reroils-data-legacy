@@ -27,6 +27,9 @@
 from __future__ import absolute_import, print_function
 
 from reroils_data.items.api import Item
+from reroils_data.locations.api import Location
+from reroils_data.members.api import Member
+from reroils_data.members_locations.api import MemberWithLocations
 
 
 def test_nb_item_requests(db, minimal_item_record, minimal_patron_record):
@@ -39,3 +42,22 @@ def test_nb_item_requests(db, minimal_item_record, minimal_patron_record):
     assert tr_barcode == patron_barcode
     number_requests = item.number_of_item_requests()
     assert number_requests == 1
+
+
+def test_member_name(db, minimal_member_record, minimal_item_record,
+                     minimal_location_record):
+    """Test member names."""
+    member = MemberWithLocations.create(minimal_member_record, dbcommit=True)
+    assert member
+    location = Location.create(minimal_location_record, dbcommit=True)
+    assert location
+    member.add_location(location)
+    assert member.locations
+    item = Item.create({})
+    item.update(minimal_item_record, dbcommit=True)
+    assert item
+    data = item.dumps()
+    assert data.get('member_pid') == '1'
+    assert data.get('member_name') == 'MV Sion'
+    holding = data.get('_circulation').get('holdings')[1]
+    assert holding['pickup_member_name'] == 'MV Sion'

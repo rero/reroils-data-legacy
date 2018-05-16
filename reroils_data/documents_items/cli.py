@@ -186,7 +186,7 @@ def create_request(patron_barcode, member_pid, short):
     end_date = (current_date + datetime.timedelta(days=end)).isoformat()
     request = {
         'patron_barcode': patron_barcode,
-        'member_pid': member_pid,
+        'pickup_member_pid': member_pid,
         'start_date': start_date,
         'end_date': end_date
     }

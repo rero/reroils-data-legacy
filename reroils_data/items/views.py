@@ -28,6 +28,7 @@ from reroils_record_editor.permissions import record_edit_permission
 from reroils_data.items.api import Item
 
 from ..documents_items.api import DocumentsWithItems
+from ..members.api import Member
 from ..patrons.api import Patron
 
 blueprint = Blueprint(
@@ -111,7 +112,7 @@ def get_request_item(pid_value, member):
         doc = DocumentsWithItems.get_document_by_itemid(item.id)
         item.request_item(
                 patron_barcode=patron_barcode,
-                member_pid=member,
+                pickup_member_pid=member,
                 start_date=start_date,
                 end_date=end_date
         )

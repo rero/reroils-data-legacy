@@ -30,6 +30,7 @@ from invenio_circulation.api import Item as CirculationItem
 
 from ..api import IlsRecord
 from ..locations.api import Location
+from ..members.api import Member
 from ..members_locations.api import MemberWithLocations
 from ..transactions.api import CircTransaction
 from .fetchers import item_id_fetcher
@@ -157,5 +158,11 @@ class Item(IlsRecord, CirculationItem):
         data['location_name'] = location.get('name')
         member = MemberWithLocations.get_member_by_locationid(location.id)
         data['member_pid'] = member.pid
+        data['member_name'] = member.get('name')
         data['requests_count'] = self.number_of_item_requests()
+        for holding in data.get('_circulation', {}).get('holdings', []):
+            pickup_member_pid = holding.get('pickup_member_pid')
+            if pickup_member_pid:
+                holding_member = Member.get_record_by_pid(pickup_member_pid)
+                holding['pickup_member_name'] = holding_member['name']
         return data

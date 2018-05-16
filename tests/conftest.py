@@ -155,7 +155,8 @@ def minimal_item_record():
             }, {
                 'patron_barcode': '123456',
                 'start_date': '2018-10-10',
-                'end_date': '2018-11-10'
+                'end_date': '2018-11-10',
+                'pickup_member_pid': '1'
             }],
             'status': 'on_loan'
         }

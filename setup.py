@@ -117,8 +117,7 @@ setup(
     platforms='any',
     entry_points={
         'invenio_base.apps': [
-            'reroils_data = reroils_data:REROILSDATA',
-            'reroils_patron = reroils_data.patrons:REROILSPATRON',
+            'reroils_data = reroils_data:REROILSDATA'
         ],
         'invenio_i18n.translations': [
             'messages = reroils_data',

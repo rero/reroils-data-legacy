@@ -8,7 +8,7 @@
         </div>
     </div>
     {%- block record_body %}
-        {{record | tojson}}
+        {{record.dumps() | tojson}}
     {%- endblock %}
     {%- if current_user | can_edit %}
     <div class="row">
