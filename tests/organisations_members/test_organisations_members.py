@@ -45,7 +45,7 @@ def test_organisation_members_create(app, db, minimal_organisation_record,
             minimal_organisation_record,
             dbcommit=True
         )
-        memb = Member.create(minimal_member_record, dbcommit=True)
+        memb = MemberWithLocations.create(minimal_member_record, dbcommit=True)
         assert org.members == []
 
         org.add_member(memb, dbcommit=True)
