@@ -137,7 +137,7 @@ def user_has_patron(user=current_user):
     """Test if user has a patron."""
     try:
         patron = Patron.get_patron_by_email(email=user.email)
-        if patron:
+        if patron and patron.get('is_patron', False):
             return True
     except Exception:
         pass
