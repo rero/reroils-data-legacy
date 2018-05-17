@@ -29,24 +29,20 @@ from __future__ import absolute_import, print_function
 from reroils_data.members.api import Member
 
 
-def test_members_create(app, db, minimal_member_record):
+def test_members_create(db, minimal_member_record):
     """Test member creat."""
-
-    with app.app_context():
-        from copy import deepcopy
-        del minimal_member_record['$schema']
-        memb_rec = deepcopy(minimal_member_record)
-        memb = Member.create(minimal_member_record)
-        assert memb_rec == memb
+    from copy import deepcopy
+    del minimal_member_record['$schema']
+    memb_rec = deepcopy(minimal_member_record)
+    memb = Member.create(minimal_member_record)
+    assert memb_rec == memb
 
 
-def test_memebers_create_pid(app, db, minimal_member_record):
+def test_memebers_create_pid(db, minimal_member_record):
     """Test member creat with pid."""
-
-    with app.app_context():
-        from copy import deepcopy
-        del minimal_member_record['$schema']
-        memb_rec = deepcopy(minimal_member_record)
-        memb = Member.create(minimal_member_record)
-        memb_rec['pid'] = '1'
-        assert memb_rec == memb
+    from copy import deepcopy
+    del minimal_member_record['$schema']
+    memb_rec = deepcopy(minimal_member_record)
+    memb = Member.create(minimal_member_record)
+    memb_rec['pid'] = '1'
+    assert memb_rec == memb

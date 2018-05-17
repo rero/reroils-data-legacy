@@ -35,70 +35,67 @@ from reroils_data.items.api import Item
 
 def test_create(app, db, minimal_book_record, minimal_item_record):
     """Test DocumentWithItems creation."""
-    with app.app_context():
-        doc = DocumentsWithItems.create(minimal_book_record)
-        item = Item.create(minimal_item_record)
-        assert doc.itemslist == []
+    doc = DocumentsWithItems.create(minimal_book_record)
+    item = Item.create(minimal_item_record)
+    assert doc.itemslist == []
 
-        doc.add_item(item)
-        doc.dbcommit()
-        assert doc.itemslist[0] == item
+    doc.add_item(item)
+    doc.dbcommit()
+    assert doc.itemslist[0] == item
 
-        dump = doc.dumps()
-        assert dump['itemslist'][0] == item.dumps()
+    dump = doc.dumps()
+    assert dump['itemslist'][0] == item.dumps()
 
 
 def test_delete_item(app, db, minimal_book_record, minimal_item_record):
     """Test DocumentWithItems item deletion."""
-    with app.app_context():
-        doc = DocumentsWithItems.create(minimal_book_record)
-        item = Item.create(minimal_item_record)
-        doc.add_item(item)
-        doc.dbcommit()
-        pid = item.persistent_identifier
-        assert pid.is_registered()
-        doc.remove_item(item, force=True)
-        doc.dbcommit()
-        assert True
-        assert pid.is_deleted()
-        assert doc.itemslist == []
+    doc = DocumentsWithItems.create(minimal_book_record)
+    item = Item.create(minimal_item_record)
+    doc.add_item(item)
+    doc.dbcommit()
+    pid = item.persistent_identifier
+    assert pid.is_registered()
+    doc.remove_item(item, force=True)
+    doc.dbcommit()
+    assert True
+    assert pid.is_deleted()
+    assert doc.itemslist == []
 
-        item1 = Item.create(minimal_item_record)
-        doc.add_item(item1)
-        item2 = Item.create(minimal_item_record)
-        doc.add_item(item2)
-        item3 = Item.create(minimal_item_record)
-        doc.add_item(item3)
-        doc.dbcommit()
-        doc.remove_item(item2, force=True)
-        doc.dbcommit()
-        assert len(doc.itemslist) == 2
-        assert doc.itemslist[0]['pid'] == '2'
-        assert doc.itemslist[1]['pid'] == '4'
+    item1 = Item.create(minimal_item_record)
+    doc.add_item(item1)
+    item2 = Item.create(minimal_item_record)
+    doc.add_item(item2)
+    item3 = Item.create(minimal_item_record)
+    doc.add_item(item3)
+    doc.dbcommit()
+    doc.remove_item(item2, force=True)
+    doc.dbcommit()
+    assert len(doc.itemslist) == 2
+    assert doc.itemslist[0]['pid'] == '2'
+    assert doc.itemslist[1]['pid'] == '4'
 
 
 def test_delete_document(app, db, minimal_book_record, minimal_item_record):
     """Test DocumentWithItems deletion."""
-    with app.app_context():
-        doc = DocumentsWithItems.create(minimal_book_record)
-        item1 = Item.create(minimal_item_record, dbcommit=True)
-        pid1 = item1.persistent_identifier
-        doc.add_item(item1)
-        item2 = Item.create(minimal_item_record, dbcommit=True)
-        pid2 = item2.persistent_identifier
-        doc.add_item(item2)
-        item3 = Item.create(minimal_item_record, dbcommit=True)
-        pid3 = item3.persistent_identifier
-        doc.add_item(item3)
-        doc.dbcommit()
-        assert DocumentsItemsMetadata.query.count() == 3
-        assert RecordMetadata.query.count() == 4
-        assert pid1.is_registered()
-        assert pid2.is_registered()
-        assert pid3.is_registered()
-        doc.delete(force=True)
-        assert DocumentsItemsMetadata.query.count() == 0
-        assert RecordMetadata.query.count() == 0
-        assert pid1.is_deleted()
-        assert pid2.is_deleted()
-        assert pid3.is_deleted()
+    doc = DocumentsWithItems.create(minimal_book_record)
+    item1 = Item.create(minimal_item_record, dbcommit=True)
+    pid1 = item1.persistent_identifier
+    doc.add_item(item1)
+    item2 = Item.create(minimal_item_record, dbcommit=True)
+    pid2 = item2.persistent_identifier
+    doc.add_item(item2)
+    item3 = Item.create(minimal_item_record, dbcommit=True)
+    pid3 = item3.persistent_identifier
+    doc.add_item(item3)
+    doc.dbcommit()
+    assert DocumentsItemsMetadata.query.count() == 3
+    assert RecordMetadata.query.count() == 4
+    assert pid1.is_registered()
+    assert pid2.is_registered()
+    assert pid3.is_registered()
+    doc.delete(force=True)
+    assert DocumentsItemsMetadata.query.count() == 0
+    assert RecordMetadata.query.count() == 0
+    assert pid1.is_deleted()
+    assert pid2.is_deleted()
+    assert pid3.is_deleted()

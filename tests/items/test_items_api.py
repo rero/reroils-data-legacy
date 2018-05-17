@@ -29,14 +29,13 @@ from __future__ import absolute_import, print_function
 from reroils_data.items.api import Item
 
 
-def test_nb_item_requests(app, db, minimal_item_record, minimal_patron_record):
+def test_nb_item_requests(db, minimal_item_record, minimal_patron_record):
     """Test number of item requests."""
     assert minimal_patron_record['barcode']
     patron_barcode = minimal_patron_record['barcode']
-    with app.app_context():
-        item = Item.create(minimal_item_record)
-        item.request_item(patron_barcode=patron_barcode)
-        tr_barcode = item['_circulation']['holdings'][0]['patron_barcode']
-        assert tr_barcode == patron_barcode
-        number_requests = item.number_of_item_requests()
-        assert number_requests == 1
+    item = Item.create(minimal_item_record)
+    item.request_item(patron_barcode=patron_barcode)
+    tr_barcode = item['_circulation']['holdings'][0]['patron_barcode']
+    assert tr_barcode == patron_barcode
+    number_requests = item.number_of_item_requests()
+    assert number_requests == 1

@@ -31,22 +31,20 @@ from uuid import uuid4
 from reroils_data.locations import minters
 
 
-def test_location_id_minter(app, db):
+def test_location_id_minter(db):
     """Test location_id minter."""
+    data = {}
+    # first record
+    rec_uuid = uuid4()
+    pid1 = minters.location_id_minter(rec_uuid, data)
+    assert pid1
+    assert data['pid'] == pid1.pid_value
+    assert data['pid'] == '1'
+    assert pid1.object_type == 'rec'
+    assert pid1.object_uuid == rec_uuid
 
-    with app.app_context():
-        data = {}
-        # first record
-        rec_uuid = uuid4()
-        pid1 = minters.location_id_minter(rec_uuid, data)
-        assert pid1
-        assert data['pid'] == pid1.pid_value
-        assert data['pid'] == '1'
-        assert pid1.object_type == 'rec'
-        assert pid1.object_uuid == rec_uuid
-
-        # second record
-        data = {}
-        rec_uuid = uuid4()
-        pid2 = minters.location_id_minter(rec_uuid, data)
-        assert data['pid'] == '2'
+    # second record
+    data = {}
+    rec_uuid = uuid4()
+    pid2 = minters.location_id_minter(rec_uuid, data)
+    assert data['pid'] == '2'

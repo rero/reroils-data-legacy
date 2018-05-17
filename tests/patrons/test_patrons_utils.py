@@ -51,38 +51,34 @@ def test_save_patron(reindex, record_indexer, url_for1, url_for2, send_email,
     security = LocalProxy(lambda: app.extensions['security'])
     datastore = LocalProxy(lambda: security.datastore)
 
-    with app.app_context():
+    email = 'test@rero.ch'
+    u1 = datastore.create_user(
+        email=email,
+        active=False,
+        password=hash_password('aafaf4as5fa')
+    )
+    datastore.commit()
+    u2 = datastore.find_user(email=email)
+    assert u1 == u2
+    assert 1 == User.query.filter_by(email=email).count()
+    email = minimal_patron_record.get('email')
+    assert datastore.get_user(email) is None
 
-        email = 'test@rero.ch'
-        u1 = datastore.create_user(
-            email=email,
-            active=False,
-            password=hash_password('aafaf4as5fa')
-        )
-        datastore.commit()
-        u2 = datastore.find_user(email=email)
-        assert u1 == u2
-        assert 1 == User.query.filter_by(email=email).count()
-        email = minimal_patron_record.get('email')
-        assert datastore.get_user(email) is None
+    save_patron(
+        minimal_patron_record,
+        Patron.provider.pid_type,
+        Patron.fetcher,
+        Patron.minter,
+        record_indexer,
+        Patron,
+        None
+    )
+    email = minimal_patron_record.get('email')
 
-        save_patron(
-            minimal_patron_record,
-            Patron.provider.pid_type,
-            Patron.fetcher,
-            Patron.minter,
-            record_indexer,
-            Patron,
-            None
-        )
-        email = minimal_patron_record.get('email')
-
-        # Verify that user exists in app's datastore
-        user_ds = datastore.get_user(email)
-        assert user_ds
-        assert user_ds.email == email
-
-    # user = create_test_user(email='foo@bar.com')
+    # Verify that user exists in app's datastore
+    user_ds = datastore.get_user(email)
+    assert user_ds
+    assert user_ds.email == email
 
 
 def test_structure_document(minimal_item_record):

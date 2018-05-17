@@ -36,99 +36,95 @@ from reroils_data.organisations_members.models import \
     OrganisationsMembersMetadata
 
 
-def test_organisation_members_create(app, db, minimal_organisation_record,
+def test_organisation_members_create(db, minimal_organisation_record,
                                      minimal_member_record):
     """Test organisation with members creation."""
+    org = OrganisationWithMembers.create(
+        minimal_organisation_record,
+        dbcommit=True
+    )
+    memb = MemberWithLocations.create(minimal_member_record, dbcommit=True)
+    assert org.members == []
 
-    with app.app_context():
-        org = OrganisationWithMembers.create(
-            minimal_organisation_record,
-            dbcommit=True
-        )
-        memb = MemberWithLocations.create(minimal_member_record, dbcommit=True)
-        assert org.members == []
+    org.add_member(memb, dbcommit=True)
+    assert org.members[0] == memb
 
-        org.add_member(memb, dbcommit=True)
-        assert org.members[0] == memb
-
-        dump = org.dumps()
-        assert dump['members'][0] == memb.dumps()
+    dump = org.dumps()
+    assert dump['members'][0] == memb.dumps()
 
 
-def test_delete_member(app, db, minimal_organisation_record,
+def test_delete_member(db, minimal_organisation_record,
                        minimal_member_record):
     """Test OrganisationsMembers delete."""
-    with app.app_context():
-        org = OrganisationWithMembers.create(
-            minimal_organisation_record,
-            dbcommit=True
-        )
-        member = MemberWithLocations.create(
-            minimal_member_record,
-            dbcommit=True
-        )
-        org.add_member(member, dbcommit=True)
-        pid = PersistentIdentifier.get_by_object('memb', 'rec', member.id)
-        assert pid.is_registered()
-        org.remove_member(member)
-        assert pid.is_deleted()
-        assert org.members == []
+    org = OrganisationWithMembers.create(
+        minimal_organisation_record,
+        dbcommit=True
+    )
+    member = MemberWithLocations.create(
+        minimal_member_record,
+        dbcommit=True
+    )
+    org.add_member(member, dbcommit=True)
+    pid = PersistentIdentifier.get_by_object('memb', 'rec', member.id)
+    assert pid.is_registered()
+    org.remove_member(member)
+    assert pid.is_deleted()
+    assert org.members == []
 
-        member1 = MemberWithLocations.create(
-            minimal_member_record,
-            dbcommit=True
-        )
-        org.add_member(member1, dbcommit=True)
-        member2 = MemberWithLocations.create(
-            minimal_member_record,
-            dbcommit=True
-        )
-        org.add_member(member2, dbcommit=True)
-        member3 = MemberWithLocations.create(
-            minimal_member_record,
-            dbcommit=True
-        )
-        org.add_member(member3, dbcommit=True)
-        org.remove_member(member2)
-        assert len(org.members) == 2
-        assert org.members[0]['pid'] == '2'
-        assert org.members[1]['pid'] == '4'
+    member1 = MemberWithLocations.create(
+        minimal_member_record,
+        dbcommit=True
+    )
+    org.add_member(member1, dbcommit=True)
+    member2 = MemberWithLocations.create(
+        minimal_member_record,
+        dbcommit=True
+    )
+    org.add_member(member2, dbcommit=True)
+    member3 = MemberWithLocations.create(
+        minimal_member_record,
+        dbcommit=True
+    )
+    org.add_member(member3, dbcommit=True)
+    org.remove_member(member2)
+    assert len(org.members) == 2
+    assert org.members[0]['pid'] == '2'
+    assert org.members[1]['pid'] == '4'
 
 
-def test_delete_organisation(app, db, minimal_organisation_record,
+def test_delete_organisation(db, minimal_organisation_record,
                              minimal_member_record):
     """Test Organisation delete."""
-    with app.app_context():
-        org = OrganisationWithMembers.create(
-            minimal_organisation_record,
-            dbcommit=True
-        )
-        member1 = MemberWithLocations.create(
-            minimal_member_record,
-            dbcommit=True
-        )
-        pid1 = PersistentIdentifier.get_by_object('memb', 'rec', member1.id)
-        member2 = MemberWithLocations.create(
-            minimal_member_record,
-            dbcommit=True
-        )
-        pid2 = PersistentIdentifier.get_by_object('memb', 'rec', member2.id)
-        member3 = MemberWithLocations.create(
-            minimal_member_record,
-            dbcommit=True
-        )
-        pid3 = PersistentIdentifier.get_by_object('memb', 'rec', member3.id)
-        org.add_member(member1, dbcommit=True)
-        org.add_member(member2, dbcommit=True)
-        org.add_member(member3, dbcommit=True)
-        assert OrganisationsMembersMetadata.query.count() == 3
-        assert RecordMetadata.query.count() == 4
-        assert pid1.is_registered()
-        assert pid2.is_registered()
-        assert pid3.is_registered()
-        org.delete(force=True)
-        assert OrganisationsMembersMetadata.query.count() == 0
-        assert RecordMetadata.query.count() == 0
-        assert pid1.is_deleted()
-        assert pid2.is_deleted()
-        assert pid3.is_deleted()
+    org = OrganisationWithMembers.create(
+        minimal_organisation_record,
+        dbcommit=True
+    )
+    member1 = MemberWithLocations.create(
+        minimal_member_record,
+        dbcommit=True
+    )
+    pid1 = PersistentIdentifier.get_by_object('memb', 'rec', member1.id)
+    member2 = MemberWithLocations.create(
+        minimal_member_record,
+        dbcommit=True
+    )
+    pid2 = PersistentIdentifier.get_by_object('memb', 'rec', member2.id)
+    member3 = MemberWithLocations.create(
+        minimal_member_record,
+        dbcommit=True
+    )
+    pid3 = PersistentIdentifier.get_by_object('memb', 'rec', member3.id)
+    org.add_member(member1, dbcommit=True)
+    org.add_member(member2, dbcommit=True)
+    org.add_member(member3, dbcommit=True)
+    assert OrganisationsMembersMetadata.query.count() == 3
+    assert RecordMetadata.query.count() == 4
+    assert pid1.is_registered()
+    assert pid2.is_registered()
+    assert pid3.is_registered()
+    org.delete(force=True)
+    assert OrganisationsMembersMetadata.query.count() == 0
+    assert RecordMetadata.query.count() == 0
+    assert pid1.is_deleted()
+    assert pid2.is_deleted()
+    assert pid3.is_deleted()

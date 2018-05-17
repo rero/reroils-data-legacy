@@ -35,71 +35,67 @@ from reroils_data.members_locations.api import MemberWithLocations
 from reroils_data.members_locations.models import MembersLocationsMetadata
 
 
-def test_members_locations_create(app, db, minimal_member_record,
+def test_members_locations_create(db, minimal_member_record,
                                   minimal_location_record):
     """Test organisation with members creation."""
+    memb = MemberWithLocations.create(minimal_member_record)
+    loc = Record.create(minimal_location_record)
+    assert memb.locations == []
 
-    with app.app_context():
-        memb = MemberWithLocations.create(minimal_member_record)
-        loc = Record.create(minimal_location_record)
-        assert memb.locations == []
+    memb.add_location(loc)
+    memb.dbcommit()
+    assert memb.locations[0] == loc
 
-        memb.add_location(loc)
-        memb.dbcommit()
-        assert memb.locations[0] == loc
-
-        dump = memb.dumps()
-        assert dump['locations'][0] == loc.dumps()
+    dump = memb.dumps()
+    assert dump['locations'][0] == loc.dumps()
 
 
-def test_delete_location(app, db, minimal_member_record,
+def test_delete_location(db, minimal_member_record,
                          minimal_location_record):
     """Test MembersLocations delete."""
-    with app.app_context():
-        memb = MemberWithLocations.create(minimal_member_record, dbcommit=True)
-        location = Location.create(minimal_location_record, dbcommit=True)
-        memb.add_location(location, dbcommit=True)
-        pid = PersistentIdentifier.get_by_object('loc', 'rec', location.id)
-        assert pid.is_registered()
-        memb.remove_location(location)
-        assert pid.is_deleted()
-        assert memb.locations == []
+    memb = MemberWithLocations.create(minimal_member_record, dbcommit=True)
+    location = Location.create(minimal_location_record, dbcommit=True)
+    memb.add_location(location, dbcommit=True)
+    pid = PersistentIdentifier.get_by_object('loc', 'rec', location.id)
+    assert pid.is_registered()
+    memb.remove_location(location)
+    assert pid.is_deleted()
+    assert memb.locations == []
 
-        location1 = Location.create(minimal_location_record, dbcommit=True)
-        memb.add_location(location1, dbcommit=True)
-        location2 = Location.create(minimal_location_record, dbcommit=True)
-        memb.add_location(location2, dbcommit=True)
-        location3 = Location.create(minimal_location_record, dbcommit=True)
-        memb.add_location(location3, dbcommit=True)
-        memb.remove_location(location2)
-        assert len(memb.locations) == 2
-        assert memb.locations[0]['pid'] == '2'
-        assert memb.locations[1]['pid'] == '4'
+    location1 = Location.create(minimal_location_record, dbcommit=True)
+    memb.add_location(location1, dbcommit=True)
+    location2 = Location.create(minimal_location_record, dbcommit=True)
+    memb.add_location(location2, dbcommit=True)
+    location3 = Location.create(minimal_location_record, dbcommit=True)
+    memb.add_location(location3, dbcommit=True)
+    memb.remove_location(location2)
+    assert len(memb.locations) == 2
+    assert memb.locations[0]['pid'] == '2'
+    assert memb.locations[1]['pid'] == '4'
 
 
-def test_delete_member(app, db, minimal_member_record,
+def test_delete_member(db, minimal_member_record,
                        minimal_location_record):
     """Test Member delete."""
-    with app.app_context():
-        memb = MemberWithLocations.create(minimal_member_record)
-        location1 = Location.create(minimal_location_record)
-        memb.add_location(location1)
-        pid1 = PersistentIdentifier.get_by_object('loc', 'rec', location1.id)
-        location2 = Location.create(minimal_location_record)
-        memb.add_location(location2)
-        pid2 = PersistentIdentifier.get_by_object('loc', 'rec', location2.id)
-        location3 = Location.create(minimal_location_record)
-        memb.add_location(location3)
-        pid3 = PersistentIdentifier.get_by_object('loc', 'rec', location3.id)
-        memb.dbcommit()
-        assert MembersLocationsMetadata.query.count() == 3
-        assert RecordMetadata.query.count() == 4
-        assert pid1.is_registered()
-        assert pid2.is_registered()
-        assert pid3.is_registered()
-        memb.delete(force=True)
-        assert MembersLocationsMetadata.query.count() == 0
-        assert RecordMetadata.query.count() == 0
-        assert pid1.is_deleted()
-        assert pid2.is_deleted()
-        assert pid3.is_deleted()
+    memb = MemberWithLocations.create(minimal_member_record)
+    location1 = Location.create(minimal_location_record)
+    memb.add_location(location1)
+    pid1 = PersistentIdentifier.get_by_object('loc', 'rec', location1.id)
+    location2 = Location.create(minimal_location_record)
+    memb.add_location(location2)
+    pid2 = PersistentIdentifier.get_by_object('loc', 'rec', location2.id)
+    location3 = Location.create(minimal_location_record)
+    memb.add_location(location3)
+    pid3 = PersistentIdentifier.get_by_object('loc', 'rec', location3.id)
+    memb.dbcommit()
+    assert MembersLocationsMetadata.query.count() == 3
+    assert RecordMetadata.query.count() == 4
+    assert pid1.is_registered()
+    assert pid2.is_registered()
+    assert pid3.is_registered()
+    memb.delete(force=True)
+    assert MembersLocationsMetadata.query.count() == 0
+    assert RecordMetadata.query.count() == 0
+    assert pid1.is_deleted()
+    assert pid2.is_deleted()
+    assert pid3.is_deleted()

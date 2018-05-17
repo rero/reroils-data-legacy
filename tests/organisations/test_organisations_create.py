@@ -29,19 +29,15 @@ from __future__ import absolute_import, print_function
 from reroils_data.organisations.api import Organisation
 
 
-def test_organisation_create(app, db, minimal_organisation_record):
+def test_organisation_create(db, minimal_organisation_record):
     """Test organisation creat."""
-
-    with app.app_context():
-        from copy import deepcopy
-        org_rec = deepcopy(minimal_organisation_record)
-        org = Organisation.create(minimal_organisation_record)
-        assert org_rec == org
+    from copy import deepcopy
+    org_rec = deepcopy(minimal_organisation_record)
+    org = Organisation.create(minimal_organisation_record)
+    assert org_rec == org
 
 
-def test_organisation_create_pid(app, db, minimal_organisation_record):
+def test_organisation_create_pid(db, minimal_organisation_record):
     """Test organisation creat with pid."""
-
-    with app.app_context():
-        org = Organisation.create(minimal_organisation_record)
-        assert org['pid'] == '1'
+    org = Organisation.create(minimal_organisation_record)
+    assert org['pid'] == '1'
