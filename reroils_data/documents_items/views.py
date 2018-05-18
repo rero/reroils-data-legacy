@@ -53,13 +53,14 @@ def can_request(item):
     if current_user.is_authenticated:
         patron = Patron.get_patron_by_user(current_user)
         if patron:
-            patron_barcode = patron.get('barcode')
-            item_status = item.get('_circulation', {}).get('status')
-            if item_status != 'missing':
-                loan = Item.loaned_to_patron(item, patron_barcode)
-                request = Item.requested_by_patron(item, patron_barcode)
-                if not (request or loan):
-                    return True
+            if patron.has_role('patrons'):
+                patron_barcode = patron.get('barcode')
+                item_status = item.get('_circulation', {}).get('status')
+                if item_status != 'missing':
+                    loan = Item.loaned_to_patron(item, patron_barcode)
+                    request = Item.requested_by_patron(item, patron_barcode)
+                    if not (request or loan):
+                        return True
     return False
 
 
