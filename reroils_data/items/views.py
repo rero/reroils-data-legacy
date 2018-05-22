@@ -13,7 +13,8 @@ this file.
 
 from __future__ import absolute_import, print_function
 
-import datetime
+# import datetime
+from datetime import datetime, timedelta
 
 from flask import Blueprint, flash, jsonify, redirect, render_template, \
     request, url_for
@@ -162,6 +163,24 @@ def post_request_item():
         # RecordIndexer().index(item)
         RecordIndexer().index(doc)
         RecordIndexer().client.indices.flush()
+        return jsonify({'status': 'ok'})
+    except Exception as e:
+        return jsonify({'status': 'error: %s' % e})
+
+
+@blueprint.route("/items/extend", methods=['POST', 'PUT'])
+@record_edit_permission.require()
+def extend_loan():
+    """HTTP request for Item due date extend action."""
+    try:
+        data = request.get_json()
+        pid = data.get('pid')
+        requested_end_date = data.get('end_date')
+        item = Item.get_record_by_pid(pid)
+        item.extend_loan(requested_end_date=requested_end_date)
+        item.dbcommit(reindex=True)
+        document = DocumentsWithItems.get_document_by_itemid(item.id)
+        document.dbcommit(reindex=True)
         return jsonify({'status': 'ok'})
     except Exception as e:
         return jsonify({'status': 'error: %s' % e})

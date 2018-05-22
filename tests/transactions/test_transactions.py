@@ -29,15 +29,21 @@ from __future__ import absolute_import, print_function
 from reroils_data.items.api import Item
 
 
-def test_item_circulation(db, minimal_item_record, minimal_patron_record):
-    """Test item loan, return and request."""
-    assert minimal_patron_record['barcode']
-    patron_barcode = minimal_patron_record['barcode']
-    item = Item.create(minimal_item_record)
-    item.loan_item(patron_barcode=patron_barcode)
-    assert item['_circulation']['status'] == 'on_loan'
+def test_item_circulation(db, minimal_item_record, minimal_patron_only_record):
+    """Test item extend, loan, return and request."""
+    assert minimal_patron_only_record['barcode']
+    patron_barcode = minimal_patron_only_record['barcode']
+    item = Item.create({})
+    item.update(minimal_item_record, dbcommit=True)
+    assert item['_circulation']['holdings'][0]['end_date'] == '2018-02-01'
+    item.extend_loan()
+    assert item['_circulation']['holdings'][0]['end_date'] == '2018-03-03'
+    item.extend_loan(requested_end_date='2018-02-01')
+    assert item['_circulation']['holdings'][0]['end_date'] == '2018-02-01'
     item.return_item()
     assert item['_circulation']['status'] != 'on_loan'
+    item.loan_item(patron_barcode=patron_barcode)
+    assert item['_circulation']['status'] == 'on_loan'
     item.request_item(patron_barcode=patron_barcode)
     record = item['_circulation']['holdings'][0]['patron_barcode']
     assert record == patron_barcode

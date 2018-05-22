@@ -24,6 +24,7 @@
 
 """API for manipulating items."""
 
+from datetime import datetime, timedelta
 from uuid import uuid4
 
 from invenio_circulation.api import Item as CirculationItem
@@ -44,6 +45,10 @@ class Item(IlsRecord, CirculationItem):
     minter = item_id_minter
     fetcher = item_id_fetcher
     provider = ItemProvider
+    default_duration = 30
+    durations = {
+        'short_loan': 15
+    }
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=True, **kwargs):
@@ -111,6 +116,22 @@ class Item(IlsRecord, CirculationItem):
         super(Item, self).commit()
         CircTransaction.create(self.build_data(0, 'add_item_loan'), id=id)
 
+    @property
+    def duration(self):
+        """Get loan/extend duration based on item type."""
+        return self.durations.get(self['item_type'], self.default_duration)
+
+    def extend_loan(self, requested_end_date=None, **kwargs):
+        """Extend loan for the user."""
+        id = str(uuid4())
+        if not requested_end_date:
+            end_date = self.get_end_date()
+            request_date = end_date + timedelta(self.duration)
+            requested_end_date = datetime.strftime(request_date, '%Y-%m-%d')
+        super(Item, self).extend_loan(requested_end_date, **kwargs)
+        super(Item, self).commit()
+        CircTransaction.create(self.build_data(0, 'extend_item_loan'), id=id)
+
     def request_item(self, **kwargs):
         """Request item for the user."""
         id = str(uuid4())
@@ -166,3 +187,16 @@ class Item(IlsRecord, CirculationItem):
                 holding_member = Member.get_record_by_pid(pickup_member_pid)
                 holding['pickup_member_name'] = holding_member['name']
         return data
+
+    def get_end_date(self):
+        """Get item due date a given item."""
+        circulation = self.get('_circulation', {})
+        if circulation:
+            holdings = circulation.get('holdings', [])
+            if holdings:
+                if self.get('_circulation', {}).get('status', '') == 'on_loan':
+                    if holdings[0].get('end_date'):
+                        end_date_str = holdings[0].get('end_date')
+                        end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
+                        return end_date
+        return None
