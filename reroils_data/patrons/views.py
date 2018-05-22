@@ -31,7 +31,7 @@ this file.
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, render_template
+from flask import Blueprint, jsonify, render_template
 from flask_babelex import gettext as _
 from flask_login import current_user, login_required
 from flask_menu import register_menu
@@ -43,12 +43,13 @@ from .utils import structure_document, user_has_patron
 blueprint = Blueprint(
     'reroils_data_patrons',
     __name__,
+    url_prefix='/patrons',
     template_folder='templates',
     static_folder='static',
 )
 
 
-@blueprint.route("/profile")
+@blueprint.route('/profile')
 @login_required
 @register_menu(
     blueprint,
@@ -70,3 +71,13 @@ def profile():
         loans=loans,
         pendings=pendings
     )
+
+
+@blueprint.route('/logged_user', methods=['GET'])
+@login_required
+def logger_user():
+    """Current logged user informations in JSON."""
+    patron = Patron.get_patron_by_user(current_user)
+    if patron is None:
+        raise NotFound()
+    return jsonify(patron.dumps())
