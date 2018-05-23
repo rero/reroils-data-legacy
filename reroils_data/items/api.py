@@ -26,7 +26,6 @@
 """API for manipulating items."""
 
 import collections
-import datetime
 import uuid
 from datetime import datetime, timedelta
 from functools import partial, wraps
@@ -36,6 +35,7 @@ from uuid import uuid4
 import six
 from invenio_db import db
 from invenio_pidstore.errors import PIDInvalidAction
+from invenio_records.models import RecordMetadata
 from sqlalchemy import BOOLEAN, DATE, INTEGER, cast, func, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy_continuum import version_class
@@ -85,7 +85,7 @@ class HoldingIterator(object):
         self._iterable = iterable
 
     def __len__(self):
-        """Get number of files."""
+        """Get number of holdings."""
         return len(self._iterable)
 
     def __iter__(self):
@@ -98,7 +98,7 @@ class HoldingIterator(object):
         return self.__next__()  # pragma: no cover
 
     def __next__(self):
-        """Get next file item."""
+        """Get next holding item."""
         return next(self._it)   # pragma: no cover
 
     def __contains__(self, id_):
@@ -106,11 +106,11 @@ class HoldingIterator(object):
         return id_ in (x['id'] for x in self)
 
     def __getitem__(self, key):
-        """Get a specific file."""
+        """Get a specific holding."""
         return self._iterable[key]  # pragma: no cover
 
     def __setitem__(self, key, obj):
-        """Add file inside a deposit."""
+        """Add holding inside a deposit."""
         self._iterable[key] = obj   # pragma: no cover
 
     def __delitem__(self, id_):
@@ -149,6 +149,11 @@ class Item(IlsRecord):
     def holdings(self):
         """Property of holdings associated with the given item."""
         return HoldingIterator(self['_circulation']['holdings'])
+
+    @property
+    def status(self):
+        """Shortcut for circulation status."""
+        return self.get('_circulation', {}).get('status')
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=True, **kwargs):
@@ -213,7 +218,43 @@ class Item(IlsRecord):
         for result in query:
             yield result
 
+    @check_status(statuses=[ItemStatus.IN_TRANSIT])
+    def receive_item(self, member_pid, **kwargs):
+        """Receive an item."""
+        print(self.number_of_item_requests())
+        id = str(uuid4())
+        if self.number_of_item_requests() == 0:
+            self['_circulation']['status'] = ItemStatus.ON_SHELF
+        else:
+            first_request = self.get_first_request()
+            pickup_member_pid = first_request['pickup_member_pid']
+            if pickup_member_pid == member_pid:
+                self['_circulation']['status'] = ItemStatus.AT_DESK
+            # TODO: want to log transaction without patron_barcode
+            data = self.build_data(0, 'receive_item_request')
+            CircTransaction.create(data, id=id)
+
     @check_status(statuses=[ItemStatus.ON_SHELF])
+    def validate_item_request(self, **kwargs):
+        """Validate item request."""
+        id = str(uuid4())
+        if self.number_of_item_requests() > 0:
+            first_request = self.get_first_request()
+            pickup_member_pid = first_request['pickup_member_pid']
+            location_pid = self.get('location_pid')
+            location = Location.get_record_by_pid(location_pid)
+            member = MemberWithLocations.get_member_by_locationid(location.id)
+            member_pid = member.pid
+            if member_pid == pickup_member_pid:
+                self['_circulation']['status'] = ItemStatus.AT_DESK
+            else:
+                self['_circulation']['status'] = ItemStatus.IN_TRANSIT
+            data = self.build_data(0, 'validate_item_request')
+            CircTransaction.create(data, id=id)
+        else:
+            raise PIDInvalidAction()
+
+    @check_status(statuses=[ItemStatus.ON_SHELF, ItemStatus.AT_DESK])
     def loan_item(self, **kwargs):
         """Loan item to the user.
 
@@ -228,6 +269,10 @@ class Item(IlsRecord):
         """
         id = str(uuid4())
         self['_circulation']['status'] = ItemStatus.ON_LOAN
+        holdings = self.holdings
+        if holdings and \
+           holdings[0]['patron_barcode'] == kwargs.get('patron_barcode'):
+            self.holdings.pop(0)
         self.holdings.insert(0, Holding.create(id=id, **kwargs))
         CircTransaction.create(self.build_data(0, 'add_item_loan'), id=id)
 
@@ -253,13 +298,23 @@ class Item(IlsRecord):
         CircTransaction.create(self.build_data(-1, 'add_item_request'), id=id)
 
     @check_status(statuses=[ItemStatus.ON_LOAN])
-    def return_item(self, **kwargs):
-        """Return given item.
-
-        The item's status will be set to ItemStatus.ON_SHELF.
-        """
+    def return_item(self, transaction_member_pid, **kwargs):
+        """Return given item."""
+        item = self.dumps()
+        member_pid = item['member_pid']
+        if transaction_member_pid == member_pid:
+            if self.number_of_item_requests():
+                first_request = self.get_first_request()
+                pickup_member_pid = first_request['pickup_member_pid']
+                if pickup_member_pid != member_pid:
+                    self['_circulation']['status'] = ItemStatus.IN_TRANSIT
+                else:
+                    self['_circulation']['status'] = ItemStatus.AT_DESK
+            else:
+                self['_circulation']['status'] = ItemStatus.ON_SHELF
+        else:
+            self['_circulation']['status'] = ItemStatus.IN_TRANSIT
         data = self.build_data(0, 'add_item_return')
-        self['_circulation']['status'] = ItemStatus.ON_SHELF
         self.holdings.pop(0)
         CircTransaction.create(data)
 
@@ -301,6 +356,7 @@ class Item(IlsRecord):
         """Get loan/extend duration based on item type."""
         return self.durations.get(self['item_type'], self.default_duration)
 
+    # ??? name ???
     @check_status(statuses=[ItemStatus.ON_LOAN])
     def extend_loan(
             self, requested_end_date=None, renewal_count=None, **kwargs
@@ -311,14 +367,15 @@ class Item(IlsRecord):
         """
         id = str(uuid4())
         if not renewal_count:
-            renewal_count = self.get_renewal_count()
+            renewal_count = self.get_renewal_count() + 1
         if not requested_end_date:
             end_date = self.get_item_end_date()
             request_date = end_date + timedelta(self.duration)
             requested_end_date = datetime.strftime(request_date, '%Y-%m-%d')
-        self['_circulation']['status'] = ItemStatus.ON_LOAN
+        # ???
+        # self['_circulation']['status'] = ItemStatus.ON_LOAN
         self.holdings[0]['end_date'] = requested_end_date
-        self.holdings[0]['renewal_count'] = renewal_count + 1
+        self.holdings[0]['renewal_count'] = renewal_count
         CircTransaction.create(self.build_data(0, 'extend_item_loan'), id=id)
 
     def get_item_end_date(self):
@@ -385,6 +442,17 @@ class Item(IlsRecord):
                 else:
                     number_requests = len(holdings)
         return number_requests
+
+    def get_first_request(self):
+        """Get item first request."""
+        if self.number_of_item_requests() > 0:
+            circulation = self.get('_circulation', {})
+            holdings = circulation.get('holdings', [])
+            if self.get('_circulation', {}).get('status', '') == 'on_loan':
+                first_request = holdings[1]
+            else:
+                first_request = holdings[0]
+        return first_request
 
     def patron_request_rank(self, patron_barcode):
         """Get the rank of patron in list of requests on this item."""

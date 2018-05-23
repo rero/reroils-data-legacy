@@ -26,7 +26,9 @@
 
 from __future__ import absolute_import, print_function
 
-from reroils_data.items.api import Item
+import copy
+
+from reroils_data.items.api import Item, ItemStatus
 from reroils_data.locations.api import Location
 from reroils_data.members_locations.api import MemberWithLocations
 
@@ -51,7 +53,7 @@ def test_member_name(db, minimal_member_record, minimal_item_record,
     assert member
     location = Location.create(minimal_location_record, dbcommit=True)
     assert location
-    member.add_location(location)
+    member.add_location(location, dbcommit=True)
     assert member.locations
     item = Item.create({})
     item.update(minimal_item_record, dbcommit=True)
@@ -61,3 +63,39 @@ def test_member_name(db, minimal_member_record, minimal_item_record,
     assert data.get('member_name') == 'MV Sion'
     holding = data.get('_circulation').get('holdings')[1]
     assert holding['pickup_member_name'] == 'MV Sion'
+
+
+def test_return_item(db, minimal_member_record, minimal_item_record,
+                     minimal_location_record):
+    member1 = MemberWithLocations.create(minimal_member_record, dbcommit=True)
+    assert member1
+    location1 = Location.create(minimal_location_record, dbcommit=True)
+    assert location1
+    member2 = MemberWithLocations.create(minimal_member_record, dbcommit=True)
+    assert member2
+    location2 = Location.create(minimal_location_record, dbcommit=True)
+    assert location2
+    member1.add_location(location1, dbcommit=True)
+    member2.add_location(location2, dbcommit=True)
+    assert member1.locations
+    assert member2.locations
+    item = Item.create({})
+    item.update(minimal_item_record, dbcommit=True)
+
+    item_without_requests = copy.deepcopy(item)
+    item_without_requests['_circulation']['holdings'].pop()
+    item_without_requests.return_item('1')
+    assert item_without_requests.status == ItemStatus.ON_SHELF
+
+    item_with_requests = copy.deepcopy(item)
+    item_with_requests.return_item('1')
+    assert item_with_requests.status == ItemStatus.AT_DESK
+
+    external_pickup = copy.deepcopy(item)
+    external_pickup['_circulation']['holdings'][1]['pickup_member_pid'] = 2
+    external_pickup.return_item('1')
+    assert external_pickup.status == ItemStatus.IN_TRANSIT
+
+    item_external_return = copy.deepcopy(item)
+    item_external_return.return_item('2')
+    assert item_external_return.status == ItemStatus.IN_TRANSIT

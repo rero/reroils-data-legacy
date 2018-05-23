@@ -41,7 +41,7 @@ def commit_item(item):
     if not isinstance(item, Item):
         raise TypeError
     item.commit()
-    item.dbcommit(reindex=True)
+    item.dbcommit(reindex=True, forceindex=True)
     document = DocumentsWithItems.get_document_by_itemid(item.id)
     document.reindex()
 

@@ -13,15 +13,11 @@ this file.
 
 from __future__ import absolute_import, print_function
 
-from datetime import datetime, timedelta
-
 from flask import Blueprint, flash, jsonify, redirect, render_template, \
     request, url_for
 from flask_babelex import gettext as _
 from flask_login import current_user
 from flask_menu import register_menu
-from invenio_db import db
-from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.resolver import Resolver
 from reroils_record_editor.permissions import record_edit_permission
 
@@ -38,6 +34,36 @@ blueprint = Blueprint(
     template_folder='templates',
     static_folder='static',
 )
+
+
+@blueprint.route("/validate", methods=['POST', 'PUT'])
+@record_edit_permission.require()
+def validate_item_request():
+    """HTTP request for Item request validation action."""
+    try:
+        data = request.get_json()
+        item = item_from_web_request(data)
+        item.validate_item_request(**data)
+        commit_item(item)
+        return jsonify({'status': 'ok'})
+    except Exception as e:
+        return jsonify({'status': 'error: %s' % e})
+
+
+@blueprint.route("/receive", methods=['POST', 'PUT'])
+@record_edit_permission.require()
+def receive_item():
+    """HTTP request for receive item action."""
+    try:
+        data = request.get_json()
+        patron = Patron.get_patron_by_email(current_user.email)
+        member_pid = patron['member_pid']
+        item = item_from_web_request(data)
+        item.receive_item(member_pid, **data)
+        commit_item(item)
+        return jsonify({'status': 'ok'})
+    except Exception as e:
+        return jsonify({'status': 'error: %s' % e})
 
 
 @blueprint.route("/loan", methods=['POST', 'PUT'])
@@ -61,7 +87,8 @@ def return_item():
     try:
         data = request.get_json()
         item = item_from_web_request(data)
-        item.return_item()
+        patron = Patron.get_patron_by_email(current_user.email)
+        item.return_item(patron['member_pid'])
         commit_item(item)
         return jsonify({'status': 'ok'})
     except Exception as e:
@@ -91,11 +118,8 @@ def extend_loan():
         requested_end_date = data.get('end_date')
         renewal_count = data.get('renewal_count')
         item = item_from_web_request(data)
-        extend_data = {
-            'requested_end_date': requested_end_date,
-            'renewal_count': renewal_count,
-        }
-        item.extend_loan(extend_data)
+        item.extend_loan(requested_end_date=requested_end_date,
+                         renewal_count=renewal_count)
         commit_item(item)
         return jsonify({'status': 'ok'})
     except Exception as e:
