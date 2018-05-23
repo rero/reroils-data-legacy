@@ -64,10 +64,10 @@
         },
         "phone": {
             "title": "Phone number",
-            "description": "Phone number with the international indicatif, without spaces.",
+            "description": "Phone number with the international prefix, without spaces.",
             "type": "string",
             "pattern": "^\\+[0-9]*$",
-            "validationMessage": "Phone number with the international indicatif, without spaces, ie +41221234567."
+            "validationMessage": "Phone number with the international prefix, without spaces, ie +41221234567."
         },
         "patron_type": {
             "title": "Patron's type",

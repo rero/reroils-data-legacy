@@ -19,7 +19,7 @@
         },
         "barcode": {
             "title": "Barcode",
-            "description": "Barecode of the item.",
+            "description": "Barcode of the item.",
             "type": "string",
             "minLength": 4
         },
