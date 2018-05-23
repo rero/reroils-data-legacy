@@ -28,6 +28,7 @@
     </div>
     {% endif %}
 
+
     {% if record.publishers|length > 0 %}
     <div class="row">
         <div class="col-xs-3 col-sm-2">
@@ -334,7 +335,7 @@
                         <li role="separator" class="divider"></li>
                         {%- for member in members %}
                              <li>
-                                <a href="{{ url_for('reroils_data_items.get_request_item', pid_value=item.pid,  member=member.pid)}}" >
+                                <a href="{{ url_for('reroils_data_items.request_item', pid_value=item.pid,  member=member.pid)}}" >
                                   {{member.name}}</a>
                              </li>
                         {%- endfor %}

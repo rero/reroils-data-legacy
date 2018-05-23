@@ -151,7 +151,8 @@ def minimal_item_record():
             'holdings': [{
                 'patron_barcode': '123456',
                 'start_date': '2018-01-01',
-                'end_date': '2018-02-01'
+                'end_date': '2018-02-01',
+                'renewal_count': 0
             }, {
                 'patron_barcode': '123456',
                 'start_date': '2018-10-10',

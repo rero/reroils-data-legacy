@@ -30,8 +30,6 @@ from ..documents.fetchers import document_id_fetcher
 from ..documents.minters import document_id_minter
 from ..documents.providers import DocumentProvider
 from ..items.api import Item
-from ..locations.api import Location
-from ..members_locations.api import MemberWithLocations
 from .models import DocumentsItemsMetadata
 
 

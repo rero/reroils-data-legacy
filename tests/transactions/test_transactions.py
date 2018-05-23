@@ -36,8 +36,10 @@ def test_item_circulation(db, minimal_item_record, minimal_patron_only_record):
     item = Item.create({})
     item.update(minimal_item_record, dbcommit=True)
     assert item['_circulation']['holdings'][0]['end_date'] == '2018-02-01'
+    assert item['_circulation']['holdings'][0]['renewal_count'] == 0
     item.extend_loan()
     assert item['_circulation']['holdings'][0]['end_date'] == '2018-03-03'
+    assert item['_circulation']['holdings'][0]['renewal_count'] == 1
     item.extend_loan(requested_end_date='2018-02-01')
     assert item['_circulation']['holdings'][0]['end_date'] == '2018-02-01'
     item.return_item()

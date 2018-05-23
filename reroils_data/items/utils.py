@@ -22,32 +22,40 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Define relation between records and buckets."""
-
-from __future__ import absolute_import
-
-from invenio_db import db
-from invenio_pidstore.models import RecordIdentifier
+"""Utilities functions for reroils-data."""
 
 
-class ItemIdentifier(RecordIdentifier):
-    """Sequence generator for Item identifiers."""
+from __future__ import absolute_import, print_function
 
-    __tablename__ = 'item_id'
-    __mapper_args__ = {'concrete': True}
+import datetime
 
-    recid = db.Column(
-        db.BigInteger().with_variant(db.Integer, 'sqlite'),
-        primary_key=True, autoincrement=True,
-    )
+from flask import request
+
+from reroils_data.items.api import Item
+
+from ..documents_items.api import DocumentsWithItems
 
 
-class ItemStatus(object):
-    """Class holding all availabe circulation item statuses."""
+def commit_item(item):
+    """commit_changes item and document."""
+    if not isinstance(item, Item):
+        raise TypeError
+    item.commit()
+    item.dbcommit(reindex=True)
+    document = DocumentsWithItems.get_document_by_itemid(item.id)
+    document.reindex()
 
-    ON_SHELF = 'on_shelf'
-    AT_DESK = 'at_desk'
-    ON_LOAN = 'on_loan'
-    IN_TRANSIT = 'in_transit'
-    EXCLUDED = 'excluded'
-    MISSING = 'missing'
+
+def item_from_web_request(data):
+    """Get item from web request data."""
+    data = request.get_json()
+    pid = data.pop('pid')
+    return Item.get_record_by_pid(pid)
+
+
+def request_start_end_date():
+    """Get item request expiration date."""
+    current_date = datetime.date.today()
+    start_date = current_date.isoformat()
+    end_date = (current_date + datetime.timedelta(days=45)).isoformat()
+    return start_date, end_date

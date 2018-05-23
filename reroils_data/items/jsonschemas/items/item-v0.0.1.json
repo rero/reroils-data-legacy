@@ -65,6 +65,12 @@
                             "user":{
                                 "type": "string"
                             },
+                            "renewal_count":{
+                                "title": "Renewal count",
+                                "description": "Item renewal count.",
+                                "type": "integer",
+                                "default": 0
+                            },
                             "delivery":{
                                 "enum":[
                                     "mail",
