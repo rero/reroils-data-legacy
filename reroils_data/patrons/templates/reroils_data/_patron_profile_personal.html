@@ -1,31 +1,32 @@
 <div class="container">
-    <div class="col-md-6 col-sm">
+<!--     <div class="col-md-6 col-sm">
         <div class="panel panel-defaut">
             <div class="panel-body">
                 <b>{{ _('Patron account') }}</b>
                 <div class="table-responsive">
                     <table class="table">
                         <tr>
-                            <td>- ({{ record.barcode }})</td>
+                            <td>- {{_('Barcode')}}: {{ record.barcode }}</td>
                             <td class="text-align-right">-</td>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="col-md-6 col-sm">
         <div class="panel panel-defaut">
-            <div class="panel-body">
-                <b>{{ _('Main address') }}</b><br>
-                {{ record.street }}<br>
-                {{ record.postal_code }} {{ record.city }}
-            </div>
+            <ul class="panel-body list-unstyled">
+                <li>{{_('Street')}}: {{ record.street }}</li>
+                <li>{{_('City')}}: {{ record.postal_code }} {{ record.city }}</li>
+                <li>{{_('Phone')}}: {{ record.phone }}</li>
+                <li>{{_('Email')}}: {{ record.email }}</li>
+            </ul>
         </div>
     </div>
 </div>
 
-<div class="container">
+<!-- <div class="container">
     <div class="col-md-6 col-sm">
         <div class="panel panel-defaut">
             <div class="panel-body">
@@ -41,4 +42,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

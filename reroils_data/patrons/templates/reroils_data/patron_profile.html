@@ -74,8 +74,8 @@
                 <td>{{ document.title }}</td>
                 <td>{{ document.item.callNumber }}</td>
                 <td>
-                    {% if document.item.member_pid %}
-                        {{ document.item.member_pid }}
+                    {% if document.item.holding.pickup_member_name %}
+                        {{ document.item.holding.pickup_member_name }}
                     {% else %}
                         -
                     {% endif %}
