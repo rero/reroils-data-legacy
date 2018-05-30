@@ -101,4 +101,4 @@ def test_structure_document(minimal_item_record):
     loans, pendings = structure_document(docs, '123456')
 
     assert len(loans) == 1
-    assert len(pendings) == 1
+    assert len(pendings) == 0

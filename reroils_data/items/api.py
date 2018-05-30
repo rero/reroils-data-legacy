@@ -219,26 +219,28 @@ class Item(IlsRecord):
             yield result
 
     @check_status(statuses=[ItemStatus.IN_TRANSIT])
-    def receive_item(self, member_pid, **kwargs):
+    def receive_item(self, transaction_member_pid, **kwargs):
         """Receive an item."""
-        print(self.number_of_item_requests())
+        item = self.dumps()
         id = str(uuid4())
-        if self.number_of_item_requests() == 0:
+        item_member_pid = item['member_pid']
+        first_request = self.get_first_request()
+        has_requests = self.number_of_item_requests() > 0
+        if not has_requests and item_member_pid == transaction_member_pid:
             self['_circulation']['status'] = ItemStatus.ON_SHELF
+        elif (has_requests and
+              first_request['pickup_member_pid'] == transaction_member_pid):
+            self['_circulation']['status'] = ItemStatus.AT_DESK
         else:
-            first_request = self.get_first_request()
-            pickup_member_pid = first_request['pickup_member_pid']
-            if pickup_member_pid == member_pid:
-                self['_circulation']['status'] = ItemStatus.AT_DESK
-            # TODO: want to log transaction without patron_barcode
-            data = self.build_data(0, 'receive_item_request')
-            CircTransaction.create(data, id=id)
+            self['_circulation']['status'] = ItemStatus.IN_TRANSIT
+        data = self.build_data(0, 'receive_item_request')
+        CircTransaction.create(data, id=id)
 
     @check_status(statuses=[ItemStatus.ON_SHELF])
     def validate_item_request(self, **kwargs):
         """Validate item request."""
         id = str(uuid4())
-        if self.number_of_item_requests() > 0:
+        if self.number_of_item_requests():
             first_request = self.get_first_request()
             pickup_member_pid = first_request['pickup_member_pid']
             location_pid = self.get('location_pid')
@@ -301,17 +303,14 @@ class Item(IlsRecord):
     def return_item(self, transaction_member_pid, **kwargs):
         """Return given item."""
         item = self.dumps()
-        member_pid = item['member_pid']
-        if transaction_member_pid == member_pid:
-            if self.number_of_item_requests():
-                first_request = self.get_first_request()
-                pickup_member_pid = first_request['pickup_member_pid']
-                if pickup_member_pid != member_pid:
-                    self['_circulation']['status'] = ItemStatus.IN_TRANSIT
-                else:
-                    self['_circulation']['status'] = ItemStatus.AT_DESK
-            else:
-                self['_circulation']['status'] = ItemStatus.ON_SHELF
+        item_member_pid = item['member_pid']
+        first_request = self.get_first_request()
+        has_requests = self.number_of_item_requests() > 0
+        if not has_requests and item_member_pid == transaction_member_pid:
+            self['_circulation']['status'] = ItemStatus.ON_SHELF
+        elif (has_requests and
+              first_request['pickup_member_pid'] == transaction_member_pid):
+            self['_circulation']['status'] = ItemStatus.AT_DESK
         else:
             self['_circulation']['status'] = ItemStatus.IN_TRANSIT
         data = self.build_data(0, 'add_item_return')
@@ -369,11 +368,8 @@ class Item(IlsRecord):
         if not renewal_count:
             renewal_count = self.get_renewal_count() + 1
         if not requested_end_date:
-            end_date = self.get_item_end_date()
-            request_date = end_date + timedelta(self.duration)
+            request_date = datetime.today() + timedelta(self.duration)
             requested_end_date = datetime.strftime(request_date, '%Y-%m-%d')
-        # ???
-        # self['_circulation']['status'] = ItemStatus.ON_LOAN
         self.holdings[0]['end_date'] = requested_end_date
         self.holdings[0]['renewal_count'] = renewal_count
         CircTransaction.create(self.build_data(0, 'extend_item_loan'), id=id)
@@ -405,11 +401,13 @@ class Item(IlsRecord):
 
     def build_data(self, record, _type):
         """Build transaction json data."""
+        b_code = ''
+        if self['_circulation']['holdings']:
+            b_code = self['_circulation']['holdings'][record]['patron_barcode']
         data = {
             'transaction_type': _type,
             'item_barcode': self['barcode'],
-            'patron_barcode':
-                self['_circulation']['holdings'][record]['patron_barcode']
+            'patron_barcode': b_code
         }
         return data
 
@@ -445,6 +443,7 @@ class Item(IlsRecord):
 
     def get_first_request(self):
         """Get item first request."""
+        first_request = []
         if self.number_of_item_requests() > 0:
             circulation = self.get('_circulation', {})
             holdings = circulation.get('holdings', [])

@@ -154,7 +154,7 @@ def minimal_item_record():
                 'end_date': '2018-02-01',
                 'renewal_count': 0
             }, {
-                'patron_barcode': '123456',
+                'patron_barcode': '654321',
                 'start_date': '2018-10-10',
                 'end_date': '2018-11-10',
                 'pickup_member_pid': '1'
