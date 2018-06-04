@@ -85,7 +85,6 @@ class DocumentsWithItems(RecordWithElements):
     @classmethod
     def get_document_by_itemid(cls, id_, with_deleted=False):
         """Retrieve the record by id."""
-        doc_item = cls.metadata.query.filter_by(item_id=id_).one()
-        doc_id = doc_item.document_id
-        doc = DocumentsWithItems.get_record_by_id(doc_id)
-        return doc
+        return super(DocumentsWithItems, cls).get_record_by_elementid(
+            id_, with_deleted
+        )
