@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reroils-data 0.1.0a12\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-05-24 10:49+0000\n"
+"POT-Creation-Date: 2018-06-05 11:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2018\n"
 "Language: de\n"
@@ -83,7 +83,7 @@ msgstr "Permanente Identifikatoren, automatisch generiert"
 
 #: reroils_data/documents/form_options/documents/document-v0.0.1.json:36
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:256
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:160
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:159
 msgid "ISBN"
 msgstr "ISBN"
 
@@ -289,7 +289,7 @@ msgid "Identify if the author is a person or an organisation."
 msgstr "Identifiziert, ob der Autor eine Person oder eine Organisation ist."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:106
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:49
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:48
 msgid "Date"
 msgstr "Datum"
 
@@ -399,7 +399,7 @@ msgid "Accompanying material of the resource, ie maps."
 msgstr "Begleitmaterial der Ressource (z.B. Landkarten)."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:194
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:103
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:102
 msgid "Series"
 msgstr "Reihe"
 
@@ -428,7 +428,7 @@ msgid "Note on the resource."
 msgstr "Anmerkung zur Ressource."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:227
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:64
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:63
 msgid "Abstract"
 msgstr "Abstrakt"
 
@@ -484,45 +484,45 @@ msgstr "verfügbare Exemplare"
 msgid "no item available"
 msgstr "kein verfügbares Exemplar"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:14
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:13
 msgid "Author"
 msgstr "Autoren"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:35
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:34
 msgid "Publisher"
 msgstr "Verlag"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:81
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:80
 msgid "Physical description"
 msgstr "Physikalische Beschreibung"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:92
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:91
 msgid "Additional Materials"
 msgstr "Zusätzliche Materialien"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:121
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:120
 msgid "Uniform title"
 msgstr "Einheitstitel"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:132
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:131
 msgid "Subjects"
 msgstr "Schlagwort"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:143
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:142
 msgid "Notes"
 msgstr "Anmerkung"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:172
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:184
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:171
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:183
 msgid "Source"
 msgstr "Herkunft"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:195
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:194
 msgid "Permalink"
 msgstr "Permalink"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:204
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:312
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:203
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:324
 #: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:13
 #: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:113
 #: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:24
@@ -531,8 +531,8 @@ msgstr "Permalink"
 msgid "Show source"
 msgstr "Quellcode"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:215
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:323
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:214
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:335
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:18
 #: reroils_data/locations/templates/reroils_data/detailed_view_locations.html:27
 #: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:69
@@ -544,8 +544,8 @@ msgstr "Quellcode"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:218
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:326
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:217
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:338
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:21
 #: reroils_data/locations/templates/reroils_data/detailed_view_locations.html:30
 #: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:72
@@ -557,74 +557,79 @@ msgstr "Bearbeiten"
 msgid "Delete"
 msgstr "Löschen"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:228
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:227
 msgid "Items"
 msgstr "Exemplare"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:232
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:231
 #: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:87
 #: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:53
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:243
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:244
 #: reroils_data/items/form_options/items/item-v0.0.1.json:66
 #: reroils_data/locations/form_options/locations/location-v0.0.1.json:16
 #: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:4
 msgid "Location"
 msgstr "Standort"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:254
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:255
 #: reroils_data/patrons/templates/reroils_data/patron_profile.html:53
 msgid "Call Number"
 msgstr "Signatur"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:265
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:266
 #: reroils_data/items/jsonschemas/items/item-v0.0.1.json:21
 #: reroils_data/patrons/templates/reroils_data/_patron_profile_head.html:15
+#: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:9
 #: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:95
 msgid "Barcode"
 msgstr "Strichcode"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:276
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:277
+msgid "Library"
+msgstr "Bibliothek"
+
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:288
 #: reroils_data/items/form_options/items/item-v0.0.1.json:99
 msgid "Status"
 msgstr "Status"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:281
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:293
 msgid "Requested"
 msgstr "Bestellt"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:287
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:299
 msgid "On Loan requested"
 msgstr "Ausgeliehen/Vorbestellt"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:301
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:313
 msgid "Rank"
 msgstr "Position"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:331
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:343
 msgid "Request"
 msgstr "Bestellung"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:334
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:346
 msgid "Available Pickup Locations"
 msgstr "Verfügbare Abholungsorte"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:355
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:367
 msgid "Export Formats"
 msgstr "Exportformate"
 
-#: reroils_data/items/views.py:124
+#: reroils_data/items/views.py:148
 #, python-format
 msgid "The item %s has been requested."
 msgstr "Das Exemplar %s wurde bestellt."
 
-#: reroils_data/items/views.py:130
+#: reroils_data/items/views.py:154
 msgid "Something went wrong"
 msgstr "Etwas hat nicht funktioniert."
 
-#: reroils_data/items/views.py:138
+#: reroils_data/items/views.py:162
 #, python-format
 msgid "%(icon)s Circulation"
 msgstr "%(icon)s Ausleihe und Rückgabe"
@@ -789,6 +794,7 @@ msgstr "Mitgliedsaddresse."
 #: reroils_data/organisations/templates/reroils_data/detailed_view_organisations.html:62
 #: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:94
 #: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:39
+#: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:23
 #: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:26
 msgid "Email"
 msgstr "E-Mail"
@@ -901,6 +907,7 @@ msgstr ""
 "haben."
 
 #: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:47
+#: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:20
 #: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:37
 msgid "Street"
 msgstr "Strasse"
@@ -924,6 +931,7 @@ msgstr "Erforderlich. Eine gültige Postleitzahl mit mindestens 4 Zeichen."
 
 #: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:60
 #: reroils_data/patrons/templates/reroils_data/_patron_profile_head.html:37
+#: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:21
 #: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:60
 msgid "City"
 msgstr "Stadt"
@@ -981,29 +989,26 @@ msgstr "Geburtsdatum"
 msgid "Patron account"
 msgstr "Nutzerkonto-en"
 
-#: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:20
-msgid "Main address"
-msgstr "Hauptadresse"
+#: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:22
+#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:71
+msgid "Phone"
+msgstr "Telefonnummer"
 
-#: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:32
+#: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:33
 msgid "Secondary address"
 msgstr "Zweitadresse"
 
-#: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:39
+#: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:40
 msgid "Edit my personal data"
 msgstr "Meine Personendaten bearbeiten"
 
-#: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:40
+#: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:41
 msgid "Change my password"
 msgstr "Mein Passwort ändern"
 
 #: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:49
 msgid "Postal Code"
 msgstr "Postleitzahl"
-
-#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:71
-msgid "Phone"
-msgstr "Telefonnummer"
 
 #: reroils_data/patrons/templates/reroils_data/patron_profile.html:16
 msgid "Loan"
@@ -1044,4 +1049,7 @@ msgstr "Verlängerungen"
 #: reroils_data/patrons/templates/reroils_data/patron_profile.html:66
 msgid "Limit date"
 msgstr "Ablaufdatum"
+
+#~ msgid "Main address"
+#~ msgstr "Hauptadresse"
 

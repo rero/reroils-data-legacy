@@ -1,5 +1,4 @@
 {%- extends config.RECORDS_UI_BASE_TEMPLATE %}
-
 {%- block page_body %}
 <div class="container search-page">
     <div class="row">
@@ -237,6 +236,8 @@
     </div>
     {% if record.itemslist %}
     {% for item in record.itemslist %}
+    {% set item_dump = item.dumps() %}
+
     {% if item.location %}
     <div class="row">
         <div class="col-xs-3 col-sm-2">
@@ -266,6 +267,17 @@
         </div>
         <div class="col-xs-9 col-sm-10">
             {{ item.barcode }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if item_dump.member_name %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Library')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ item_dump.member_name }}
         </div>
     </div>
     {% endif %}
