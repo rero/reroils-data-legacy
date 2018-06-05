@@ -257,20 +257,24 @@ def test_loan_item(db, create_minimal_resources_on_shelf,
     assert item
     assert location
     assert doc
+    assert doc.available
     assert member.locations
     patron_barcode = minimal_patron_only_record['barcode']
     assert patron_barcode
 
     item_on_shelf = copy.deepcopy(item)
     assert item_on_shelf.status == ItemStatus.ON_SHELF
+    assert item_on_shelf.available
     item_on_shelf.loan_item(patron_barcode=patron_barcode)
     db.session.commit()
     assert item_on_shelf.status == ItemStatus.ON_LOAN
+    assert not item_on_shelf.available
 
     item_at_desk = copy.deepcopy(item)
     assert item_at_desk.status == ItemStatus.ON_SHELF
     item_at_desk['_circulation']['status'] = ItemStatus.AT_DESK
     assert item_at_desk.status == ItemStatus.AT_DESK
+    assert not item_at_desk.available
     item_at_desk.loan_item(patron_barcode=patron_barcode)
     db.session.commit()
     assert item_at_desk.status == ItemStatus.ON_LOAN

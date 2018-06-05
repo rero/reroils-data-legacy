@@ -155,7 +155,7 @@ class Item(IlsRecord):
     @property
     def status(self):
         """Shortcut for circulation status."""
-        return self.get('_circulation', {}).get('status')
+        return self.get('_circulation', {}).get('status', '')
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=True, **kwargs):
@@ -368,6 +368,12 @@ class Item(IlsRecord):
         else:
             return []
 
+    @property
+    def available(self):
+        """Get availability for loan."""
+        return self.status == ItemStatus.ON_SHELF and\
+            self.number_of_item_requests() == 0
+
     # ??? name ???
     @check_status(statuses=[ItemStatus.ON_LOAN])
     def extend_loan(
@@ -393,7 +399,7 @@ class Item(IlsRecord):
         if circulation:
             holdings = circulation.get('holdings', [])
             if holdings:
-                if self.get('_circulation', {}).get('status', '') == 'on_loan':
+                if self.status == ItemStatus.ON_LOAN:
                     if holdings[0].get('end_date'):
                         end_date_str = holdings[0].get('end_date')
                         end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
@@ -406,7 +412,7 @@ class Item(IlsRecord):
         if circulation:
             holdings = circulation.get('holdings', [])
             if holdings:
-                if self.get('_circulation', {}).get('status', '') == 'on_loan':
+                if self.status == ItemStatus.ON_LOAN:
                     if holdings[0].get('renewal_count'):
                         renewal_count = holdings[0].get('renewal_count')
                         return renewal_count
@@ -434,6 +440,7 @@ class Item(IlsRecord):
         data['member_pid'] = member.pid
         data['member_name'] = member.get('name')
         data['requests_count'] = self.number_of_item_requests()
+        data['available'] = self.available
         for holding in data.get('_circulation', {}).get('holdings', []):
             pickup_member_pid = holding.get('pickup_member_pid')
             if pickup_member_pid:
@@ -448,7 +455,7 @@ class Item(IlsRecord):
         if circulation:
             holdings = circulation.get('holdings', [])
             if holdings:
-                if self.get('_circulation', {}).get('status', '') == 'on_loan':
+                if self.status == ItemStatus.ON_LOAN:
                         number_requests = len(holdings) - 1
                 else:
                     number_requests = len(holdings)
@@ -460,7 +467,7 @@ class Item(IlsRecord):
         if self.number_of_item_requests() > 0:
             circulation = self.get('_circulation', {})
             holdings = circulation.get('holdings', [])
-            if self.get('_circulation', {}).get('status', '') == 'on_loan':
+            if self.status == ItemStatus.ON_LOAN:
                 first_request = holdings[1]
             else:
                 first_request = holdings[0]
@@ -469,7 +476,7 @@ class Item(IlsRecord):
     def patron_request_rank(self, patron_barcode):
         """Get the rank of patron in list of requests on this item."""
         holdings = self.get('_circulation', {}).get('holdings', [])
-        if self.get('_circulation', {}).get('status', '') == 'on_loan':
+        if self.status == ItemStatus.ON_LOAN:
             start_pos = 1
         else:
             start_pos = 0
@@ -493,7 +500,7 @@ class Item(IlsRecord):
     def loaned_to_patron(self, patron_barcode):
         """Check if the item is loaned by a given patron."""
         for holding in self.get('_circulation', {}).get('holdings', []):
-            if self.get('_circulation', {}).get('status', '') == 'on_loan':
+            if self.status == ItemStatus.ON_LOAN:
                 if holding and holding.get('patron_barcode'):
                     if holding['patron_barcode'] == patron_barcode:
                         return True

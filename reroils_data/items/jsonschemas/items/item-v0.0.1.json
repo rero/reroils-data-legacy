@@ -45,6 +45,11 @@
                 "no_loan"
             ]
         },
+        "available": {
+            "title": "Item availability",
+            "type": "boolean",
+            "default": false
+        },
         "_circulation":{
             "type": "object",
             "properties":{

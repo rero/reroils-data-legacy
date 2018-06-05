@@ -15,8 +15,7 @@
                 "title": "Submit"
             }]
         }]
-    },
-    {
+    },{
         "type": "fieldset",
         "title": "Location",
         "items": [{

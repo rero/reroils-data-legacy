@@ -66,6 +66,14 @@ class DocumentsWithItems(RecordWithElements):
         """Itemslist."""
         return self.elements
 
+    @property
+    def available(self):
+        """Get availability for loan."""
+        available = False
+        for item in self.itemslist:
+            available = available or item.available
+        return available
+
     def add_item(self, item, dbcommit=False, reindex=False):
         """Add an item."""
         super(DocumentsWithItems, self).add_element(
@@ -81,6 +89,12 @@ class DocumentsWithItems(RecordWithElements):
             force=force,
             delindex=delindex
         )
+
+    def dumps(self, **kwargs):
+        """Return pure Python dictionary with record metadata."""
+        data = super(DocumentsWithItems, self).dumps(**kwargs)
+        data['available'] = self.available
+        return data
 
     @classmethod
     def get_document_by_itemid(cls, id_, with_deleted=False):
