@@ -4,11 +4,19 @@
         "items": [{
             "type": "actions",
             "htmlClass": "rero21-submit pull-right",
-            "items": [{
-                "type": "submit",
-                "style": "btn-success",
-                "title": "Submit"
-            }]
+            "items": [
+                {
+                    "type": "button",
+                    "style": "btn-warning",
+                    "title": "Cancel",
+                    "onClick": "onCancel()"
+                },
+                {
+                    "type": "submit",
+                    "style": "btn-success",
+                    "title": "Submit"
+                }
+            ]
         }]
     },
     {
@@ -107,11 +115,19 @@
         "items": [{
             "type": "actions",
             "htmlClass": "rero21-submit pull-right",
-            "items": [{
-                "type": "submit",
-                "style": "btn-success",
-                "title": "Submit"
-            }]
+            "items": [
+                {
+                    "type": "button",
+                    "style": "btn-warning",
+                    "title": "Cancel",
+                    "onClick": "onCancel()"
+                },
+                {
+                    "type": "submit",
+                    "style": "btn-success",
+                    "title": "Submit"
+                }
+            ]
         }]
     }
 ]

@@ -5,27 +5,30 @@
             "type": "actions",
             "htmlClass": "rero21-submit pull-right",
             "items": [{
+                "type": "button",
+                "style": "btn-warning",
+                "title": "Cancel",
+                "onClick": "onCancel()"
+            },{
                 "type": "submit",
                 "style": "btn-success",
                 "title": "Submit"
             }]
         }]
-    },
-    {
+    },{
         "type": "fieldset",
         "title": "Location",
         "items": [{
             "key": "pid",
             "readonly": true
-            },{
+        },{
             "key": "code",
             "validationMessage": {
                 "alreadyTakenMessage": "The code is already taken",
                 "cannotBeVerifiedMessage": "The server cannot verify the code"
-                }
-            },{
-            "key": "name"
             }
-        ]
+        },{
+            "key": "name"
+        }]
     }
 ]
