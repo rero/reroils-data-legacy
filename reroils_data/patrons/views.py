@@ -81,3 +81,9 @@ def logger_user():
     if patron is None:
         raise NotFound()
     return jsonify(patron.dumps())
+
+
+@blueprint.app_template_filter('get_patron_from_barcode')
+def get_patron_from_barcode(value):
+    """Get patron from barcode."""
+    return Patron.get_patron_by_barcode(value)

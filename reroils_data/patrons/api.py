@@ -77,6 +77,20 @@ class Patron(IlsRecord):
             return None
 
     @classmethod
+    def get_patron_by_barcode(cls, barcode=None):
+        """Get patron by barcode."""
+        search = PatronsSearch()
+        result = search.filter(
+            'term',
+            barcode=barcode
+        ).source(includes='pid').execute().to_dict()
+        try:
+            result = result['hits']['hits'][0]
+            return super(IlsRecord, cls).get_record(result['_id'])
+        except Exception:
+            return None
+
+    @classmethod
     def _get_uuid_pid_by_email(cls, email):
         """Get record by email."""
         search = PatronsSearch()

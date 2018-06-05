@@ -29,7 +29,7 @@ from __future__ import absolute_import, print_function
 from flask_babelex import gettext as _
 
 from . import config
-from .jinja2 import format_date_filter, to_pretty_json
+from .filter import format_date_filter, to_pretty_json
 
 
 class REROILSDATA(object):

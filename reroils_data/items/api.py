@@ -140,7 +140,9 @@ class Item(IlsRecord):
     minter = item_id_minter
     fetcher = item_id_fetcher
     provider = ItemProvider
+
     default_duration = 30
+
     durations = {
         'short_loan': 15
     }
@@ -354,6 +356,18 @@ class Item(IlsRecord):
     def duration(self):
         """Get loan/extend duration based on item type."""
         return self.durations.get(self['item_type'], self.default_duration)
+
+    @property
+    def requests(self):
+        """Get the list of requests."""
+        circulation = self.dumps().get('_circulation', None)
+        if circulation:
+            if circulation.get('status') == ItemStatus.ON_LOAN:
+                return circulation.get('holdings', [])[1:]
+            else:
+                return circulation.get('holdings', [])
+        else:
+            return []
 
     # ??? name ???
     @check_status(statuses=[ItemStatus.ON_LOAN])

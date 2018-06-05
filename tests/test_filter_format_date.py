@@ -24,7 +24,7 @@
 
 """Jinja2 format_date_filter tests."""
 
-from reroils_data.jinja2 import format_date_filter
+from reroils_data.filter import format_date_filter
 
 
 def test_date_filter_format_timestamp_en():

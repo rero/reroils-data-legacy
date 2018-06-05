@@ -16,11 +16,12 @@ from __future__ import absolute_import, print_function
 from datetime import datetime
 
 import pytz
-from flask import Blueprint, flash, jsonify, redirect, render_template, \
-    request, url_for
+from flask import Blueprint, current_app, flash, jsonify, redirect, \
+    render_template, request, url_for
 from flask_babelex import gettext as _
 from flask_login import current_user
 from flask_menu import register_menu
+from invenio_records_ui.signals import record_viewed
 from reroils_record_editor.permissions import record_edit_permission
 
 from reroils_data.items.api import Item
@@ -167,3 +168,28 @@ def request_item(pid_value, member):
 def circulation_ui(path=None):
     """Angular circulation application."""
     return render_template('reroils_data/circulation_ui.html')
+
+
+def item_view_method(pid, record, template=None, **kwargs):
+    r"""Display default view.
+
+    Sends record_viewed signal and renders template.
+
+    :param pid: PID object.
+    :param record: Record object.
+    :param template: Template to render.
+    :param \*\*kwargs: Additional view arguments based on URL rule.
+    :returns: The rendered template.
+    """
+    record_viewed.send(
+        current_app._get_current_object(),
+        pid=pid,
+        record=record,
+    )
+    document = DocumentsWithItems.get_document_by_itemid(record.id)
+    return render_template(
+        template,
+        pid=pid,
+        record=record,
+        document=document
+    )
