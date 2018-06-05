@@ -113,6 +113,7 @@ def create_random_item(locations_pids, patrons_barcodes, members_pids,
     barcodes = deepcopy(patrons_barcodes)
 
     data = {
+        '$schema': 'https://ils.test.rero.ch/schema/items/item-v0.0.1.json',
         'barcode': '????',
         'callNumber': '????',
         'location_pid': random.choice(locations_pids),

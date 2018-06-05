@@ -54,7 +54,9 @@
                     "enum":[
                         "on_shelf",
                         "on_loan",
-                        "missing"
+                        "missing",
+                        "in_transit",
+                        "at_desk"
                     ]
                 },
                 "holdings":{

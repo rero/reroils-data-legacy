@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
 # Copyright (C) 2017 RERO.
@@ -80,6 +79,8 @@ def test_item_validate(db, minimal_item_record,
     item['_circulation']['status'] = ItemStatus.ON_SHELF
     assert item['_circulation']['status'] == 'on_shelf'
     item.validate_item_request()
+    item.commit()
+    item.dbcommit()
     assert item['_circulation']['status'] == 'at_desk'
     item['_circulation']['status'] = ItemStatus.ON_SHELF
     assert item['_circulation']['status'] == 'on_shelf'
