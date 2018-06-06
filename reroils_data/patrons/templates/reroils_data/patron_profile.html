@@ -81,10 +81,17 @@
                     {% endif %}
                 </td>
                 <td>
-                    {{ document.item.holding.start_date|format_date(
-                        format='short_date',
-                        locale=current_i18n.locale.language
-                    ) }}
+                    {% if 'loan' == type %}
+                      {{ document.item.holding.start_date|format_date(
+                          format='short_date',
+                          locale=current_i18n.locale.language
+                      ) }}
+                    {% else %}
+                        {{ document.item.holding.request_datetime|format_date(
+                          format='timestamp',
+                          locale=current_i18n.locale.language
+                      )}}
+                    {% endif %}
                 </td>
                 <td>
                     {% if 'loan' == type %}

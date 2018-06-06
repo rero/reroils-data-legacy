@@ -13,6 +13,9 @@ this file.
 
 from __future__ import absolute_import, print_function
 
+from datetime import datetime
+
+import pytz
 from flask import Blueprint, flash, jsonify, redirect, render_template, \
     request, url_for
 from flask_babelex import gettext as _
@@ -133,16 +136,15 @@ def request_item(pid_value, member):
         patron = Patron.get_patron_by_email(current_user.email)
         patron_barcode = patron['barcode']
         start_date, end_date = request_start_end_date()
-        item_resolver = Resolver(pid_type='item',
-                                 object_type='rec',
-                                 getter=Item.get_record)
-        pid, item = item_resolver.resolve(pid_value)
+        item = Item.get_record_by_pid(pid_value)
         doc = DocumentsWithItems.get_document_by_itemid(item.id)
+        request_datetime = pytz.utc.localize(datetime.now()).isoformat()
         item.request_item(
             patron_barcode=patron_barcode,
             pickup_member_pid=member,
             start_date=start_date,
-            end_date=end_date
+            end_date=end_date,
+            request_datetime=request_datetime
         )
         commit_item(item)
         flash(_('The item %s has been requested.' % pid_value), 'success')

@@ -27,6 +27,13 @@
 from reroils_data.jinja2 import format_date_filter
 
 
+def test_date_filter_format_timestamp_en():
+    """Test timestamp english date filter"""
+    datestring = format_date_filter('2018-06-06T09:29:55.947149+00:00',
+                                    'timestamp')
+    assert '06.06.2018 09:29' in datestring
+
+
 def test_date_filter_format_default_en():
     """Test medium english date filter"""
     datestring = format_date_filter('1950-01-01')
