@@ -15,7 +15,8 @@
                 "title": "Submit"
             }]
         }]
-    },{
+    },
+    {
         "type": "fieldset",
         "title": "Location",
         "items": [{
@@ -29,6 +30,23 @@
             }
         },{
             "key": "name"
+        }]
+    },
+    {
+        "type": "fieldset",
+        "items": [{
+            "type": "actions",
+            "htmlClass": "rero21-submit pull-right",
+            "items": [{
+                "type": "button",
+                "style": "btn-warning",
+                "title": "Cancel",
+                "onClick": "onCancel()"
+            },{
+                "type": "submit",
+                "style": "btn-success",
+                "title": "Submit"
+            }]
         }]
     }
 ]

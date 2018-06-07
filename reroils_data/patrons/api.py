@@ -30,6 +30,8 @@ from werkzeug.local import LocalProxy
 
 from ..api import IlsRecord
 from ..documents_items.api import DocumentsWithItems
+from ..members.api import Member
+from ..organisations_members.api import OrganisationWithMembers
 from .fetchers import patron_id_fetcher
 from .minters import patron_id_minter
 from .providers import PatronProvider
@@ -191,3 +193,13 @@ class Patron(IlsRecord):
     def role_names(self):
         """Return user role names."""
         return [v.name for v in self.roles]
+
+    @property
+    def organisation_pid(self):
+        """Get Organisation pid of the logged in patron."""
+        member_pid = self.get('member_pid')
+        member = Member.get_record_by_pid(member_pid)
+        organisation = OrganisationWithMembers.get_organisation_by_memberid(
+            member.id
+        )
+        return organisation.pid

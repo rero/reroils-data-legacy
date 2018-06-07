@@ -1,77 +1,107 @@
 [
     {
         "$schema": "http://ils.test.rero.ch/schema/organisations/organisation-v0.0.1.json",
-        "name": "Network of Science Libraries",
-        "address": "Moffett Blvd, Mountain View.",
+        "pid": "1",
+        "name": "Réseau des bibliothèques du Canton d'Aoste",
+        "address": "Via Challand 132, 11100 Aosta",
         "members": [
             {
                 "$schema": "http://ils.test.rero.ch/schema/members/member-v0.0.1.json",
-                "code": "net1-national-doc",
-                "name": "National Documentation Centre",
-                "address": "48, Vas. Constantinou Av.",
-                "email": "national@network.ch",
+                "pid": "1",
+                "name": "Bibliothèque cantonale valdôtaine, site d'Aoste",
+                "address": "Via Challand 132, 11100 Aosta",
+                "code": "AOSTE-CANT1",
+                "email": "reroilstest+aoste1@gmail.com",
                 "locations": [
                     {
                         "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
-                        "code": "net1-store-base",
-                        "name": "Store Base 1"
+                        "code": "AOSTE-CANT1-PUB",
+                        "name": "Espaces publics",
+                        "pid": "1"
                     },
                     {
                         "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
-                        "code": "net1-main-base",
-                        "name": "Main Base 1"
+                        "code": "AOSTE-CANT1-BIBLIOGR",
+                        "name": "Bibliographie valdôtaine",
+                        "pid": "2"
+                    },
+                    {
+                        "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+                        "code": "AOSTE-CANT1-MAGA",
+                        "name": "Magasin A",
+                        "pid": "2"
                     }
                 ]
-            }
-        ]
-    },
-    {
-        "$schema": "http://ils.test.rero.ch/schema/organisations/organisation-v0.0.1.json",
-        "name": "Network of Medicine Libraries",
-        "address": "101 Independence Ave SE.",
-        "members": [
+            },
             {
                 "$schema": "http://ils.test.rero.ch/schema/members/member-v0.0.1.json",
-                "code": "net2-national-doc",
-                "name": "National Documentation Centre 2",
-                "address": "48, Vas. Constantinou Av.",
-                "email": "national2@network.ch",
+                "pid": "2",
+                "name": "Bibliothèque cantonale valdôtaine, site de Pont-Saint-Martin",
+                "address": "Viale Carlo Viola 93, 11026 Pont-Saint-Martin",
+                "code": "AOSTE-CANT2",
+                "email": "reroilstest+aoste2@gmail.com",
                 "locations": [
                     {
                         "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
-                        "code": "net2-store-base",
-                        "name": "Store Base 2"
-                    },
-                    {
-                        "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
-                        "code": "net2-main-base",
-                        "name": "Main Base 2"
+                        "code": "AOSTE-CANT2-PUB",
+                        "name": "Espaces publics",
+                        "pid": "1"
                     }
                 ]
-            }
-        ]
-    },
-    {
-        "$schema": "http://ils.test.rero.ch/schema/organisations/organisation-v0.0.1.json",
-        "name": "Network of Art Libraries",
-        "address": "Abandoibarra Etorb., 2.",
-        "members": [
+            },
             {
                 "$schema": "http://ils.test.rero.ch/schema/members/member-v0.0.1.json",
-                "code": "net3-national-doc",
-                "name": "National Documentation Centre 3",
-                "address": "48, Vas. Constantinou Av.",
-                "email": "national3@network.ch",
+                "pid": "3",
+                "name": "Bibliothèque communale et scolaire d'Avise",
+                "address": "Avise 345, 11010 Avise",
+                "code": "AOSTE-AVISE",
+                "email": "reroilstest+aoste3@gmail.com",
                 "locations": [
                     {
                         "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
-                        "code": "net3-store-base",
-                        "name": "Store Base 3"
+                        "code": "AOSTE-AVISE-FIC",
+                        "name": "Section fiction",
+                        "pid": "1"
                     },
                     {
                         "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
-                        "code": "net3-main-base",
-                        "name": "Main Base 3"
+                        "code": "AOSTE-AVISE-DOC",
+                        "name": "Section documentaires",
+                        "pid": "2"
+                    },
+                    {
+                        "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+                        "code": "AOSTE-AVISE-ENF",
+                        "name": "Section enfants",
+                        "pid": "3"
+                    },
+                    {
+                        "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+                        "code": "AOSTE-AVISE-MUL",
+                        "name": "Section multimédia",
+                        "pid": "4"
+                    }
+                ]
+            },
+            {
+                "$schema": "http://ils.test.rero.ch/schema/members/member-v0.0.1.json",
+                "pid": "4",
+                "name": "Bibliothèque du Lycée de la Vallée d'Aoste",
+                "address": "Via Piave 3, 11027 Saint-Vincent",
+                "code": "AOSTE-LYCEE",
+                "email": "reroilstest+aoste4@gmail.com",
+                "locations": [
+                    {
+                        "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+                        "code": "AOSTE-LYCEE-PUB",
+                        "name": "Espaces publics",
+                        "pid": "1"
+                    },
+                    {
+                        "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+                        "code": "AOSTE-LYCEE-MAT",
+                        "name": "Travaux de maturité",
+                        "pid": "2"
                     }
                 ]
             }
