@@ -28,7 +28,6 @@ from __future__ import absolute_import, print_function
 
 import mock
 from flask_security.utils import hash_password
-from invenio_accounts import InvenioAccounts
 from invenio_accounts.models import User
 from werkzeug.local import LocalProxy
 
@@ -47,7 +46,6 @@ def test_save_patron(get_uuid_pid_by_email, reindex, record_indexer, url_for1,
                      url_for2, send_email, confirm_user, app, db,
                      minimal_patron_only_record):
     """Test save patron"""
-    InvenioAccounts(app)
 
     # Convenient references
     security = LocalProxy(lambda: app.extensions['security'])
@@ -57,7 +55,7 @@ def test_save_patron(get_uuid_pid_by_email, reindex, record_indexer, url_for1,
     # hack the return value
     get_uuid_pid_by_email.return_value = None, None
 
-    email = 'test@rero.ch'
+    email = 'test_patron@rero.ch'
     u1 = datastore.create_user(
         email=email,
         active=False,

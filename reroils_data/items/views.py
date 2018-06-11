@@ -14,6 +14,7 @@ this file.
 from __future__ import absolute_import, print_function
 
 from datetime import datetime
+from functools import wraps
 
 import pytz
 from flask import Blueprint, current_app, flash, jsonify, redirect, \
@@ -25,6 +26,7 @@ from invenio_records_ui.signals import record_viewed
 from reroils_record_editor.permissions import record_edit_permission
 
 from reroils_data.items.api import Item
+from reroils_data.permissions import request_item_permission
 
 from ..documents_items.api import DocumentsWithItems
 from ..patrons.api import Patron
@@ -39,8 +41,47 @@ blueprint = Blueprint(
 )
 
 
+def check_authentication(func):
+    """Decorator to check authentication for items HTTP API."""
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return jsonify({'status': 'error: Unauthorized'}), 401
+        if not record_edit_permission.require().can():
+            return jsonify({'status': 'error: Forbidden'}), 403
+        return func(*args, **kwargs)
+    return decorated_view
+
+
+def check_authentication_for_request(func):
+    """Decorator to check authentication for item requests HTTP API."""
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return jsonify({'status': 'error: Unauthorized'}), 401
+        if not request_item_permission.require().can():
+            return jsonify({'status': 'error: Forbidden'}), 403
+        return func(*args, **kwargs)
+    return decorated_view
+
+
+@blueprint.route("/return", methods=['POST', 'PUT'])
+@check_authentication
+def return_item():
+    """HTTP request for Item return action."""
+    try:
+        data = request.get_json()
+        item = item_from_web_request(data)
+        patron = Patron.get_patron_by_email(current_user.email)
+        item.return_item(patron['member_pid'])
+        commit_item(item)
+        return jsonify({'status': 'ok'})
+    except Exception as e:
+        return jsonify({'status': 'error: %s' % e}), 500
+
+
 @blueprint.route("/validate", methods=['POST', 'PUT'])
-@record_edit_permission.require()
+@check_authentication
 def validate_item_request():
     """HTTP request for Item request validation action."""
     try:
@@ -50,11 +91,11 @@ def validate_item_request():
         commit_item(item)
         return jsonify({'status': 'ok'})
     except Exception as e:
-        return jsonify({'status': 'error: %s' % e})
+        return jsonify({'status': 'error: %s' % e}), 500
 
 
 @blueprint.route("/receive", methods=['POST', 'PUT'])
-@record_edit_permission.require()
+@check_authentication
 def receive_item():
     """HTTP request for receive item action."""
     try:
@@ -66,11 +107,11 @@ def receive_item():
         commit_item(item)
         return jsonify({'status': 'ok'})
     except Exception as e:
-        return jsonify({'status': 'error: %s' % e})
+        return jsonify({'status': 'error: %s' % e}), 500
 
 
 @blueprint.route("/loan", methods=['POST', 'PUT'])
-@record_edit_permission.require()
+@check_authentication
 def loan_item():
     """HTTP request for Item loan action."""
     try:
@@ -80,26 +121,11 @@ def loan_item():
         commit_item(item)
         return jsonify({'status': 'ok'})
     except Exception as e:
-        return jsonify({'status': 'error: %s' % e})
-
-
-@blueprint.route("/return", methods=['POST', 'PUT'])
-@record_edit_permission.require()
-def return_item():
-    """HTTP request for Item return action."""
-    try:
-        data = request.get_json()
-        item = item_from_web_request(data)
-        patron = Patron.get_patron_by_email(current_user.email)
-        item.return_item(patron['member_pid'])
-        commit_item(item)
-        return jsonify({'status': 'ok'})
-    except Exception as e:
-        return jsonify({'status': 'error: %s' % e})
+        return jsonify({'status': 'error: %s' % e}), 500
 
 
 @blueprint.route("/return_missing", methods=['POST', 'PUT'])
-@record_edit_permission.require()
+@check_authentication
 def return_missing_item():
     """HTTP request for Item return_missing action."""
     try:
@@ -109,11 +135,11 @@ def return_missing_item():
         commit_item(item)
         return jsonify({'status': 'ok'})
     except Exception as e:
-        return jsonify({'status': 'error: %s' % e})
+        return jsonify({'status': 'error: %s' % e}), 500
 
 
 @blueprint.route("/extend", methods=['POST', 'PUT'])
-@record_edit_permission.require()
+@check_authentication
 def extend_loan():
     """HTTP request for Item due date extend action."""
     try:
@@ -126,10 +152,11 @@ def extend_loan():
         commit_item(item)
         return jsonify({'status': 'ok'})
     except Exception as e:
-        return jsonify({'status': 'error: %s' % e})
+        return jsonify({'status': 'error: %s' % e}), 500
 
 
 @blueprint.route("/request/<pid_value>/<member>", methods=['GET'])
+@check_authentication_for_request
 def request_item(pid_value, member):
     """HTTP GET request for Item request action."""
     try:
@@ -148,17 +175,20 @@ def request_item(pid_value, member):
         )
         commit_item(item)
         flash(_('The item %s has been requested.' % pid_value), 'success')
+        return_value = redirect(
+            url_for('invenio_records_ui.doc', pid_value=doc['pid'])
+            )
         return redirect(
             url_for('invenio_records_ui.doc', pid_value=doc['pid'])
         )
     except Exception as e:
-        return jsonify({'status': 'error: %s' % e})
+        return jsonify({'status': 'error: %s' % e}), 500
         flash(_('Something went wrong'), 'danger')
 
 
 @blueprint.route("/circulation")
 @blueprint.route("/circulation/<path:path>")
-@record_edit_permission.require()
+@check_authentication
 @register_menu(
     blueprint,
     'main.manage.circulation',

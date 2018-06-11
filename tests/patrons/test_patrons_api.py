@@ -27,7 +27,6 @@
 from __future__ import absolute_import, print_function
 
 import mock
-from invenio_accounts import InvenioAccounts
 from werkzeug.local import LocalProxy
 
 from reroils_data.documents_items.api import DocumentsWithItems
@@ -48,7 +47,6 @@ def test_patron(reindex, get_borrowed_documents_pids, get_uuid_pid_by_email,
                 app, db, minimal_patron_record, minimal_book_record,
                 minimal_item_record):
     """Test patron"""
-    InvenioAccounts(app)
 
     # Convenient references
     security = LocalProxy(lambda: app.extensions['security'])

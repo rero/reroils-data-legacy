@@ -56,7 +56,8 @@
                         "on_loan",
                         "missing",
                         "in_transit",
-                        "at_desk"
+                        "at_desk",
+                        "excluded"
                     ]
                 },
                 "holdings":{
