@@ -198,30 +198,16 @@
         </div>
     </div>
 
-    <!-- display json source -->
-    <div class="text-right">
-        <a href="#source" data-toggle="collapse">{{_('Show source')}}</a>
-    </div>
-    <div id="source" class="collapse">
-        <pre>{{ record| tojson_pretty }}</pre>
-    </div>
-
-    {%- if current_user | can_edit %}
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="btn-group  pull-right" role="group" aria-label="...">
-                <a href="{{ url_for('reroils_record_editor.update_doc', pid=record.pid) }}" type="button" class="btn btn-success">
-                    <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Edit')}}
-                </a>
-                <a href="{{ url_for('reroils_record_editor.delete_doc', pid=record.pid) }}" type="button" class="btn btn-danger">
-                    <i class="fa fa-trash-o fa-fw"></i> {{_('Delete')}}
-                </a>
-            </div>
-        </div>
-    </div>
-    {% endif %}
+    {% with
+        href_update=url_for('reroils_record_editor.update_doc', pid=record.pid),
+        href_delete=url_for('reroils_record_editor.delete_doc', pid=record.pid),
+        json=record
+    %}
+        {% include 'reroils_record_editor/_button_actions.html' %}
+    {% endwith %}
 
     <!-- Items -->
+    <hr>
     <div class='reroils-items row'>
         <div class="col-sm-12">
             <h3>{{_('Items')}}
@@ -323,43 +309,36 @@
       {% endif %}
     {% endif %}
 
-    <!-- display json source -->
-    <div class="text-right">
-        <a href="#source-{{ item.pid }}" data-toggle="collapse">{{_('Show source')}}</a>
-    </div>
-    <div id="source-{{ item.pid }}" class="collapse">
-        <pre>{{ item.dumps() | tojson_pretty }}</pre>
-    </div>
-
     <div class="row">
-        <div class="col-sm-12">
-            <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                {%- if current_user | can_edit %}
-                    <a href="{{ url_for('reroils_record_editor.update_item', pid=item.pid,  parent_pid=record.pid) }}" type="button" class="btn btn-success">
-                        <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Edit')}}
-                    </a>
-                    <a href="{{ url_for('reroils_record_editor.delete_item', pid=item.pid,  parent_pid=record.pid) }}" type="button" class="btn btn-danger">
-                        <i class="fa fa-trash-o fa-fw"></i> {{_('Delete')}}
-                    </a>
-                {% endif %}
-                {% if item | can_request %}
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{_('Request')}} <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a>{{_('Available Pickup Locations')}}</a></li>
-                        <li role="separator" class="divider"></li>
-                        {%- for member in members %}
-                             <li>
-                                <a href="{{ url_for('reroils_data_items.request_item', pid_value=item.pid,  member=member.pid)}}" >
-                                  {{member.name}}</a>
-                             </li>
-                        {%- endfor %}
-                    </ul>
-                {% endif %}
-            </div>
+        <div class="col-sm-2">
+            {% if item | can_request %}
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{_('Request')}} <i class="fa fa-caret-down fa-fw"></i>
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a>{{_('Available Pickup Locations')}}</a></li>
+                    <li role="separator" class="divider"></li>
+                    {% for member in members %}
+                         <li>
+                            <a href="{{ url_for('reroils_data_items.request_item', pid_value=item.pid,  member=member.pid)}}" >
+                              {{member.name}}</a>
+                         </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="col-sm-10">
+            {% with
+                href_update=url_for('reroils_record_editor.update_item', pid=item.pid, parent_pid=record.pid),
+                href_delete=url_for('reroils_record_editor.delete_item', pid=item.pid, parent_pid=record.pid),
+                json=item
+            %}
+                {% include 'reroils_record_editor/_button_actions.html' %}
+            {% endwith %}
         </div>
     </div>
+
     <hr/>
     {% endfor %}
     {% endif %}

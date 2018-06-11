@@ -75,7 +75,6 @@
                 <tr>
                     <td>
                         {% if patron %}
-                            <!-- TODO task #572 link to circulation ui -->
                             <a href="{{ '/items/circulation/checkinout?patron=' + patron.get('barcode') }}">{{ patron_name }}</a>
                         {% else %}
                             {{_('No patron found!')}}
