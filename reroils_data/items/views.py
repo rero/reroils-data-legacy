@@ -21,7 +21,6 @@ from flask import Blueprint, flash, jsonify, redirect, render_template, \
 from flask_babelex import gettext as _
 from flask_login import current_user
 from flask_menu import register_menu
-from invenio_pidstore.resolver import Resolver
 from reroils_record_editor.permissions import record_edit_permission
 
 from reroils_data.items.api import Item
@@ -157,6 +156,7 @@ def request_item(pid_value, member):
 
 
 @blueprint.route("/circulation")
+@blueprint.route("/circulation/<path:path>")
 @record_edit_permission.require()
 @register_menu(
     blueprint,
@@ -164,6 +164,6 @@ def request_item(pid_value, member):
     _('%(icon)s Circulation', icon='<i class="fa fa-barcode fa-fw"></i>'),
     order=-1
 )
-def circulation_ui():
+def circulation_ui(path=None):
     """Angular circulation application."""
     return render_template('reroils_data/circulation_ui.html')
