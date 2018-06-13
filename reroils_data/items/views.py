@@ -30,7 +30,7 @@ from reroils_data.permissions import request_item_permission
 
 from ..documents_items.api import DocumentsWithItems
 from ..patrons.api import Patron
-from .utils import commit_item, item_from_web_request, request_start_end_date
+from .utils import commit_item, item_from_web_request
 
 blueprint = Blueprint(
     'reroils_data_items',
@@ -162,15 +162,12 @@ def request_item(pid_value, member):
     try:
         patron = Patron.get_patron_by_email(current_user.email)
         patron_barcode = patron['barcode']
-        start_date, end_date = request_start_end_date()
         item = Item.get_record_by_pid(pid_value)
         doc = DocumentsWithItems.get_document_by_itemid(item.id)
         request_datetime = pytz.utc.localize(datetime.now()).isoformat()
         item.request_item(
             patron_barcode=patron_barcode,
             pickup_member_pid=member,
-            start_date=start_date,
-            end_date=end_date,
             request_datetime=request_datetime
         )
         commit_item(item)

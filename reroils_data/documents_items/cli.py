@@ -32,6 +32,7 @@ from copy import deepcopy
 from random import randint
 
 import click
+import pytz
 from flask.cli import with_appcontext
 from invenio_indexer.api import RecordIndexer
 
@@ -135,7 +136,7 @@ def create_random_item(locations_pids, patrons_barcodes, members_pids,
             barcodes.remove(barcode)
             member_pid = random.choice(members_pids)
             item.loan_item(
-                ** create_request(
+                ** create_loan(
                     patron_barcode=barcode,
                     member_pid=member_pid,
                     short=item_type == 'short_loan'
@@ -175,7 +176,7 @@ def get_patrons_barcodes():
     return barcodes
 
 
-def create_request(patron_barcode, member_pid, short):
+def create_loan(patron_barcode, member_pid, short):
     """Create data dictionary for loan and request of item."""
     n = randint(0, 60)
     current_date = datetime.date.today()
@@ -190,5 +191,16 @@ def create_request(patron_barcode, member_pid, short):
         'pickup_member_pid': member_pid,
         'start_date': start_date,
         'end_date': end_date
+    }
+    return request
+
+
+def create_request(patron_barcode, member_pid, short):
+    """Create data dictionary for loan and request of item."""
+    request_datetime = pytz.utc.localize(datetime.datetime.now()).isoformat()
+    request = {
+        'patron_barcode': patron_barcode,
+        'pickup_member_pid': member_pid,
+        'request_datetime': request_datetime
     }
     return request

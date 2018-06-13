@@ -65,7 +65,6 @@
                     <th class="col-md-4" scope="col">{{ _('Patron') }}</th>
                     <th class="col-md-4" scope="col">{{ _('Pickup member') }}</th>
                     <th class="col-md-2" scope="col">{{ _('Reservation date') }}</th>
-                    <th class="col-md-2" scope="col">{{ _('Limit date') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -84,15 +83,15 @@
                         <a href="{{ '/members/' + holding.pickup_member_pid }}">{{ holding.pickup_member_name }}</a>
                     </td>
                     <!-- TODO task #554 change start_date to request_datetime -->
-                    <td>{{ holding.start_date|format_date(
+                    <td>
+                      {% if holding.request_datetime %}
+                      {{ holding.request_datetime|format_date(
                             format='short_date',
                             locale=current_i18n.locale.language
                         ) }}
-                    </td>
-                    <td>{{ holding.end_date|format_date(
-                            format='short_date',
-                            locale=current_i18n.locale.language
-                        ) }}
+                      {% else %}
+                        {{_('No Date')}}
+                      {% endif %}
                     </td>
                 {% endfor %}
             </tbody>

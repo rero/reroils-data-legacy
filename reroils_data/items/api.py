@@ -290,9 +290,8 @@ class Item(IlsRecord):
         Adds a request to *_circulation.holdings*.
 
         :param user: Invenio-Accounts user.
-        :param start_date: Start date of the loan. Must be today or a future
-                           date.
-        :param end_date: End date of the loan.
+        :param request_datetime: Start date of the loan.
+                                 Must be today or a future date.
         :param waitlist: If the desired dates are not available, the item will
                          be put on a waitlist.
         :param delivery: 'pickup' or 'mail'

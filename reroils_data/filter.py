@@ -25,7 +25,6 @@
 """Format the date."""
 
 
-import datetime
 import json
 
 import babel

@@ -51,7 +51,13 @@
             <tr>
                 <th class="col-md-6" scope="col">{{ _('Title') }}</th>
                 <th class="col-md-2" scope="col">{{ _('Call Number') }}</th>
-                <th class="col-md-2" scope="col">{{ _('Pickup member') }}</th>
+                <th class="col-md-2" scope="col">
+                  {% if 'loan' == type %}
+                    {{ _('Belongs to') }}
+                  {% else %}
+                    {{ _('Pickup member') }}
+                  {% endif %}
+                </th>
                 <th class="col-md-2" scope="col">
                     {% if 'loan' == type %}
                         {{ _('Due date') }}
@@ -59,13 +65,11 @@
                         {{ _('Reservation date') }}
                     {% endif %}
                 </th>
+                {% if 'loan' == type %}
                 <th class="col-md-1" scope="col">
-                    {% if 'loan' == type %}
                         {{ _('Renewals') }}
-                    {% else %}
-                        {{ _('Limit date') }}
-                    {% endif %}
                 </th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -74,10 +78,10 @@
                 <td>{{ document.title }}</td>
                 <td>{{ document.item.callNumber }}</td>
                 <td>
-                    {% if document.item.holding.pickup_member_name %}
-                        {{ document.item.holding.pickup_member_name }}
+                    {% if 'loan' == type %}
+                      {{ document.item.member_name}}
                     {% else %}
-                        -
+                        {{ document.item.holding.pickup_member_name }}
                     {% endif %}
                 </td>
                 <td>
@@ -85,24 +89,19 @@
                       {{ document.item.holding.start_date|format_date(
                           format='short_date',
                           locale=current_i18n.locale.language
-                      ) }}
+                      )}}
                     {% else %}
                         {{ document.item.holding.request_datetime|format_date(
-                          format='timestamp',
+                          format='short_date',
                           locale=current_i18n.locale.language
                       )}}
                     {% endif %}
                 </td>
+                {% if 'loan' == type %}
                 <td>
-                    {% if 'loan' == type %}
-                        -
-                    {% else %}
-                        {{ document.item.holding.end_date|format_date(
-                            format='short_date',
-                            locale=current_i18n.locale.language
-                        ) }}
-                    {% endif %}
+                    {{ document.item.holding.renewal_count }}
                 </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
