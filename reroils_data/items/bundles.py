@@ -38,6 +38,7 @@ circulation_ui_js = Bundle(
     'js/reroils_data/circulation_ui/inline.bundle.js',
     'js/reroils_data/circulation_ui/polyfills.bundle.js',
     'js/reroils_data/circulation_ui/styles.bundle.js',
-    # 'js/reroils_data/circulation_ui/main.bundle.js',
+    'js/reroils_data/circulation_ui/scripts.bundle.js',
+    'node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
     output='gen/reroils_data.circulation_ui_js.%(version)s.js'
 )
