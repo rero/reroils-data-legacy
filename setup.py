@@ -79,15 +79,19 @@ setup_requires = [
 ]
 
 install_requires = [
-    'Flask-BabelEx>=0.9.2',
-    'dojson>=1.3.2',
     'dateparser>=0.7.0',
-    'invenio-pidstore>=1.0.0b2',
-    'jsonschema>=2.5.1',
+    'dojson>=1.3.2',
+    'elasticsearch-dsl>=2.0.0,<3.0.0',
+    'Flask-BabelEx>=0.9.2',
+    'invenio-assets>=1.0.0',
     'invenio-db>=1.0.0b6',
     'invenio-jsonschemas>=1.0.0a7',
-    'invenio-records>=1.0.0b4',
-    'elasticsearch-dsl>=2.0.0,<3.0.0',
+    'invenio-pidstore>=1.0.0b2',
+    'invenio-records>=1.0.0',
+    'invenio-records-rest>=1.0.1',
+    'invenio-records-ui>=1.0.0',
+    'invenio-search>=1.0.0',
+    'jsonschema>=2.5.1',
     'SQLAlchemy-Continuum>=1.2.1,<1.3.5',
 ]
 
