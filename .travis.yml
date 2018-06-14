@@ -41,7 +41,6 @@ env:
   - REQUIREMENTS=devel
 
 python:
-  - "2.7"
   - "3.5"
 
 before_install:

@@ -25,20 +25,17 @@
  REROILS-DATA
 ==============
 
-.. image:: https://img.shields.io/travis/rero21/reroils-data.svg
-        :target: https://travis-ci.org/rero21/reroils-data
+.. image:: https://img.shields.io/travis/rero/reroils-data.svg
+        :target: https://travis-ci.org/rero/reroils-data
 
-.. image:: https://img.shields.io/coveralls/rero21/reroils-data.svg
-        :target: https://coveralls.io/r/rero21/reroils-data
+.. image:: https://img.shields.io/coveralls/rero/reroils-data.svg
+        :target: https://coveralls.io/r/rero/reroils-data
 
-.. image:: https://img.shields.io/github/tag/rero21/reroils-data.svg
-        :target: https://github.com/rero21/reroils-data/releases
+.. image:: https://img.shields.io/github/tag/rero/reroils-data.svg
+        :target: https://github.com/rero/reroils-data/releases
 
-.. image:: https://img.shields.io/pypi/dm/reroils-data.svg
-        :target: https://pypi.python.org/pypi/reroils-data
-
-.. image:: https://img.shields.io/github/license/rero21/reroils-data.svg
-        :target: https://github.com/rero21/reroils-data/blob/master/LICENSE
+.. image:: https://img.shields.io/github/license/rero/reroils-data.svg
+        :target: https://github.com/rero/reroils-data/blob/master/LICENSE
 
 rero21 ils data module
 
