@@ -7,7 +7,27 @@
             <h1>{{record.last_name}}, {{record.first_name}}</h1>
         </div>
     </div>
-        <!-- {{record | tojson}} -->
+
+    {% if record.is_patron %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Barcode')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+          <a href="{{ '/items/circulation/checkinout?patron=' + record.barcode }}">
+            {{record.barcode}}
+          </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Type')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.patron_type}}
+        </div>
+    </div>
+    {% endif %}
 
     {% if record.birth_date %}
     <div class="row">
@@ -77,33 +97,12 @@
     {% endif %}
 
     {% if record.is_staff %}
-    <h4>Staff</h4>
     <div class="row">
         <div class="col-xs-3 col-sm-2">
             {{_('Member')}}:
         </div>
         <div class="col-xs-9 col-sm-10">
             {{record.member_pid}}
-        </div>
-    </div>
-    {% endif %}
-
-    {% if record.is_patron %}
-    <h4>Patron</h4>
-    <div class="row">
-        <div class="col-xs-3 col-sm-2">
-            {{_('Barcode')}}:
-        </div>
-        <div class="col-xs-9 col-sm-10">
-            {{record.barcode}}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-3 col-sm-2">
-            {{_('Type')}}:
-        </div>
-        <div class="col-xs-9 col-sm-10">
-            {{record.patron_type}}
         </div>
     </div>
     {% endif %}
