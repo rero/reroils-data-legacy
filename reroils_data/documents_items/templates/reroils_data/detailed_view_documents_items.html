@@ -272,30 +272,6 @@
     </div>
     {% endif %}
 
-    {% if item._circulation.status %}
-    <div class="row">
-        <div class="col-xs-3 col-sm-2">
-            {{_('Status')}}:
-        </div>
-        <div class="col-xs-9 col-sm-10">
-            {% if item._circulation.status == 'on_shelf' %}
-              {% if item | number_of_requests > 0 %}
-                <i class="fa fa-circle text-danger" aria-hidden="true"></i> {{_('Requested')}}
-              {% else %}
-                  <i class="fa fa-circle text-success" aria-hidden="true"></i> {{ _(item._circulation.status) }}
-              {% endif %}
-            {% elif item._circulation.status == 'on_loan' %}
-              {% if item | number_of_requests > 0 %}
-                <i class="fa fa-circle text-danger" aria-hidden="true"></i> {{_('On Loan requested')}}
-              {% else %}
-                <i class="fa fa-circle text-danger" aria-hidden="true"></i> {{ _(item._circulation.status) }}
-              {% endif %}
-            {% else %}
-            <i class="fa fa-circle" aria-hidden="true"></i> {{ _(item._circulation.status) }}
-            {% endif %}
-        </div>
-    </div>
-    {% endif %}
     {% if item | number_of_requests > 0 %}
       {% if item | requested_this_item %}
         <div class="row">
@@ -307,6 +283,20 @@
           </div>
         </div>
       {% endif %}
+    {% endif %}
+
+    {% if item._circulation.status %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Status')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            <i class="fa fa-circle text-{{ 'success' if item.available else 'danger' }}" aria-hidden="true"></i> {{ item | item_status_text(
+                    format='short_date',
+                    locale=current_i18n.locale.language
+                )}}
+        </div>
+    </div>
     {% endif %}
 
     <div class="row">

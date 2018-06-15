@@ -22,13 +22,19 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Format the date."""
-
+"""Jinja filters."""
 
 import json
 
 import babel
 import dateparser
+
+from .items.models import ItemStatus
+
+
+def _(x):
+    """Identity."""
+    return x
 
 
 def format_date_filter(date_str, format='medium', locale='en'):
@@ -56,3 +62,25 @@ def to_pretty_json(value):
         separators=(',', ': '),
         ensure_ascii=False,
     )
+
+
+def item_status_text(item, format='medium', locale='en'):
+    """Text for item status."""
+    if item.available:
+        text = _('available')
+    else:
+        text = _('not available')
+        if item.status == ItemStatus.ON_LOAN:
+            due_date = format_date_filter(
+                item.get_item_end_date(),
+                format=format,
+                locale=locale
+            )
+            text += ' ({0} {1})'.format(_('due until'), due_date)
+        elif item.number_of_item_requests() > 0:
+            text += ' ({0})'.format(_('requested'))
+        elif item.status == ItemStatus.IN_TRANSIT:
+            text += ' ({0})'.format(_(ItemStatus.IN_TRANSIT))
+        elif item.get('item_type') == "no_loan":
+            text += ' ({0})'.format(_("no loan"))
+    return text

@@ -25,21 +25,9 @@
     <!-- publicationDate -->
     <span ng-show='record.metadata.publicationYear && !record.metadata.freeFormedPublicationDate'>{{ record.metadata.publicationYear }}</span>
     <span ng-show='record.metadata.freeFormedPublicationDate'>{{ record.metadata.freeFormedPublicationDate }}</span>
-    <div class="reroils-circulation">
-        <a ng-href="/documents/{{ record.id }}" ng-show='numberOfCitemsAvailable() === 1'>
-            <i class="fa fa-circle text-success" aria-hidden="true"></i>
-            <span class="">{{numberOfCitemsAvailable()}}</span>
-            <span translate>item available</span>
-        </a>
-        <a ng-href="/documents/{{ record.id }}" ng-show='numberOfCitemsAvailable() > 1'>
-            <i class="fa fa-circle text-success" aria-hidden="true"></i>
-            <span class="">{{numberOfCitemsAvailable()}}</span>
-            <span translate>items available</span>
-        </a>
-        <span ng-show='numberOfCitemsAvailable() === 0'>
-            <i class="fa fa-circle text-danger" aria-hidden="true"></i>
-            <span translate>no item available</span>
-        </span>
+    <div class='reroils-circulation'>
+        <i class="fa fa-circle text-{{ record.metadata.available ? 'success' : 'danger' }}" aria-hidden="true"></i>
+        <span translate>{{ record.metadata.available ? 'available' : 'not available' }}</span>
     </div>
     <hr />
   </li>
