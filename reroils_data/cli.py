@@ -27,8 +27,9 @@
 from __future__ import absolute_import, print_function
 
 import json
-import re
-from pathlib import Path
+import os
+from collections import OrderedDict
+from glob import glob
 
 import click
 from flask import current_app
@@ -90,41 +91,60 @@ def show(pid_value, pid_type):
 
 
 @utils.command()
-@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@click.argument('paths', nargs=-1)
 @click.option(
-    '-f', '--file', 'fname', type=click.STRING, default='',
-    help='default=for all files in project'
+    '-r', '--replace', 'replace', is_flag=True, default=False,
+    help='change file in place default=False'
 )
-def check_json(verbose, fname):
+@click.option(
+    '-s', '--sort-keys', 'sort_keys', is_flag=True, default=False,
+    help='order keys during replacement default=False'
+)
+@click.option(
+    '-i', '--indent', 'indent', type=click.INT, default=2,
+    help='intent default=2'
+)
+def check_json(paths, replace, indent, sort_keys):
     """Check json files."""
-    file_list = []
-    if not fname:
-        path = Path('.')
-        file_list = list(path.glob('**/*.json'))
-    else:
-        path = Path(fname)
-        file_list = [path]
-    re_sub = re.compile(r'\s{4}')
-    re_match = re.compile(r'^\s+')
+    files_list = []
+    for path in paths:
+        if os.path.isfile(path):
+            files_list.append(path)
+        elif os.path.isdir(path):
+            files_list = files_list + glob(os.path.join(path, '**/*.json'),
+                                           recursive=True)
+    if not paths:
+        files_list = glob('**/*.json', recursive=True)
     tot_error_cnt = 0
-    for path_file in file_list:
-        fname = str(path_file)
-        opened_file = path_file.open()
-        row_cnt = 0
+    for path_file in files_list:
         error_cnt = 0
-        for row in opened_file:
-            stripped_row = row.rstrip()
-            new_row = re_sub.sub('', stripped_row)
-            if re_match.match(new_row):
-                if verbose:
-                    click.echo(fname + ':' + str(row_cnt) + ': ', nl=False)
-                    click.secho(stripped_row, fg='red')
-                error_cnt += 1
-            row_cnt += 1
-        click.echo(fname + ': ', nl=False)
-        if error_cnt == 0:
-            click.secho('OK', fg='green')
-        else:
-            click.secho('NOT Ok', fg='red')
+        try:
+            fname = path_file
+            with open(fname, 'r') as opened_file:
+                json_orig = opened_file.read().rstrip()
+                opened_file.seek(0)
+                json_file = json.load(opened_file,
+                                      object_pairs_hook=OrderedDict)
+            json_dump = json.dumps(json_file, indent=indent).rstrip()
+            if json_dump != json_orig:
+                error_cnt = 1
+            click.echo(fname + ': ', nl=False)
+            if replace:
+                with open(fname, 'w') as opened_file:
+                    opened_file.write(json.dumps(json_file,
+                                                 indent=indent,
+                                                 sort_keys=sort_keys))
+                click.secho('File replaced', fg='yellow')
+            else:
+                if error_cnt == 0:
+                    click.secho('Well indented', fg='green')
+                else:
+                    click.secho('Bad indentation', fg='red')
+        except ValueError as e:
+            click.echo(fname + ': ', nl=False)
+            click.secho('Invalid JSON', fg='red', nl=False)
+            click.echo(' -- ' + e.msg)
+            error_cnt = 1
+
         tot_error_cnt += error_cnt
     return tot_error_cnt
