@@ -81,6 +81,6 @@ def item_status_text(item, format='medium', locale='en'):
             text += ' ({0})'.format(_('requested'))
         elif item.status == ItemStatus.IN_TRANSIT:
             text += ' ({0})'.format(_(ItemStatus.IN_TRANSIT))
-        elif item.get('item_type') == "no_loan":
-            text += ' ({0})'.format(_("no loan"))
+        elif item.get('item_type') == "on_site_consultation":
+            text += ' ({0})'.format(_("on_site consultation"))
     return text

@@ -74,47 +74,41 @@
           {
             "key": "location_pid",
             "title": "Location"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "type": "section",
-    "htmlClass": "row",
-    "items": [
-      {
-        "type": "section",
-        "htmlClass": "col-xs-6",
-        "items": [
+          },
           {
-            "key": "item_type",
-            "title": "Type",
-            "titleMap": [
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": [
               {
-                "value": "standard_loan",
-                "name": "Standard Loan"
-              },
-              {
-                "value": "short_loan",
-                "name": "Short Loan"
-              },
-              {
-                "value": "no_loan",
-                "name": "Not for Loan"
+                "key": "item_type",
+                "title": "Type",
+                "titleMap": [
+                  {
+                    "value": "standard_loan",
+                    "name": "Standard Loan"
+                  },
+                  {
+                    "value": "short_loan",
+                    "name": "Short Loan"
+                  },
+                  {
+                    "value": "on_site_consultation",
+                    "name": "On Site Consultation"
+                  }
+                ]
               }
             ]
-          }
-        ]
-      },
-      {
-        "type": "section",
-        "htmlClass": "col-xs-6",
-        "items": [
+          },
           {
-            "key": "_circulation.status",
-            "readonly": true,
-            "title": "Status"
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": [
+              {
+                "key": "_circulation.status",
+                "readonly": true,
+                "title": "Status"
+              }
+            ]
           }
         ]
       }

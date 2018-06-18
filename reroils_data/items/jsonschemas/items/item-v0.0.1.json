@@ -49,7 +49,7 @@
       "enum": [
         "standard_loan",
         "short_loan",
-        "no_loan"
+        "on_site_consultation"
       ]
     },
     "available": {
@@ -75,51 +75,53 @@
         "holdings": {
           "type": "array",
           "items": {
-            "type": "object",
-            "properties": {
-              "user": {
-                "type": "string"
-              },
-              "renewal_count": {
-                "title": "Renewal count",
-                "description": "Item renewal count.",
-                "type": "integer",
-                "default": 0
-              },
-              "delivery": {
-                "enum": [
-                  "mail",
-                  "pickup"
-                ]
-              },
-              "group_uuid": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              },
-              "start_date": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "end_date": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "desired_start_date": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "desired_end_date": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "requested_extension_end_date": {
-                "type": [
-                  "string",
-                  "null"
-                ],
-                "format": "date-time"
+            "_circulation": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "string"
+                },
+                "renewal_count": {
+                  "title": "Renewal count",
+                  "description": "Item renewal count.",
+                  "type": "integer",
+                  "default": 0
+                },
+                "delivery": {
+                  "enum": [
+                    "mail",
+                    "pickup"
+                  ]
+                },
+                "group_uuid": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "start_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "end_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "desired_start_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "desired_end_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "requested_extension_end_date": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "date-time"
+                }
               }
             }
           }

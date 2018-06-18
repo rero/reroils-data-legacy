@@ -109,7 +109,7 @@ def create_items(verbose, count, itemscount, missing, loaned, reserved,
 def create_random_item(locations_pids, patrons_barcodes, members_pids,
                        missing, loaned, reserved, verbose=False):
     """Create items with randomised values."""
-    item_types = ['standard_loan', 'short_loan', 'no_loan']
+    item_types = ['standard_loan', 'short_loan', 'on_site_consultation']
     item_type = random.choice(item_types)
     barcodes = deepcopy(patrons_barcodes)
 
@@ -131,7 +131,9 @@ def create_random_item(locations_pids, patrons_barcodes, members_pids,
         item.lose_item()
         missing -= 1
     else:
-        if randint(0, 5) == 0 and item_type != 'no_loan' and loaned > 0:
+        if (randint(0, 5) == 0 and
+                item_type != 'on_site_consultation' and
+                loaned > 0):
             barcode = random.choice(barcodes)
             barcodes.remove(barcode)
             member_pid = random.choice(members_pids)
@@ -143,7 +145,9 @@ def create_random_item(locations_pids, patrons_barcodes, members_pids,
                 )
             )
             loaned -= 1
-        if randint(0, 5) == 0 and item_type != 'no_loan' and reserved > 0:
+        if (randint(0, 5) == 0 and
+                item_type != 'on_site_consultation' and
+                reserved > 0):
             request_count = randint(0, len(barcodes))
             while request_count > 0 and len(barcodes) > 0:
                 barcode = random.choice(barcodes)
