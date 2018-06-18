@@ -24,6 +24,8 @@
 
 """API for manipulating items associated to a document."""
 
+from invenio_search.api import RecordsSearch
+
 from ..api import RecordWithElements
 from ..documents.api import Document
 from ..documents.fetchers import document_id_fetcher
@@ -31,6 +33,15 @@ from ..documents.minters import document_id_minter
 from ..documents.providers import DocumentProvider
 from ..items.api import Item
 from .models import DocumentsItemsMetadata
+
+
+class DocumentsSearch(RecordsSearch):
+    """RecordsSearch for borrowed documents."""
+
+    class Meta:
+        """Search only on documents index."""
+
+        index = 'documents'
 
 
 class DocumentsWithItems(RecordWithElements):

@@ -59,18 +59,10 @@ from .api import DocumentsWithItems
     help='default=10'
 )
 @click.option(
-    '-l', '--loaned', 'loaned', type=click.INT, default=10,
-    help='default=20'
-)
-@click.option(
-    '-r', '--reserved', 'reserved', type=click.INT, default=10,
-    help='default=20'
-)
-@click.option(
     '-R', '--reindex', 'reindex', is_flag=True, default=False
 )
 @with_appcontext
-def create_items(verbose, count, itemscount, missing, loaned, reserved,
+def create_items(verbose, count, itemscount, missing,
                  reindex):
     """Create circulation items."""
     uids = DocumentsWithItems.get_all_ids()
@@ -85,20 +77,16 @@ def create_items(verbose, count, itemscount, missing, loaned, reserved,
     locations_pids = Location.get_all_pids()
     patrons_barcodes = get_patrons_barcodes()
     missing *= len(patrons_barcodes)
-    loaned *= len(patrons_barcodes)
-    reserved *= len(patrons_barcodes)
     members_pids = Member.get_all_pids()
     with click.progressbar(reversed(uids[:count]), length=count) as bar:
         for id in bar:
             document = DocumentsWithItems.get_record_by_id(id)
             for i in range(0, randint(1, itemscount)):
-                missing, loaned, reserved, item = create_random_item(
+                missing, item = create_random_item(
                     locations_pids=locations_pids,
                     patrons_barcodes=patrons_barcodes,
                     members_pids=members_pids,
                     missing=missing,
-                    loaned=loaned,
-                    reserved=reserved,
                     verbose=False
                 )
                 document.add_item(item, dbcommit=True)
@@ -107,12 +95,9 @@ def create_items(verbose, count, itemscount, missing, loaned, reserved,
 
 
 def create_random_item(locations_pids, patrons_barcodes, members_pids,
-                       missing, loaned, reserved, verbose=False):
+                       missing, verbose=False):
     """Create items with randomised values."""
     item_types = ['standard_loan', 'short_loan', 'on_site_consultation']
-    item_type = random.choice(item_types)
-    barcodes = deepcopy(patrons_barcodes)
-
     data = {
         '$schema': 'https://ils.test.rero.ch/schema/items/item-v0.0.1.json',
         'barcode': '????',
@@ -130,42 +115,10 @@ def create_random_item(locations_pids, patrons_barcodes, members_pids,
     if randint(0, 5) == 0 and missing > 0:
         item.lose_item()
         missing -= 1
-    else:
-        if (randint(0, 5) == 0 and
-                item_type != 'on_site_consultation' and
-                loaned > 0):
-            barcode = random.choice(barcodes)
-            barcodes.remove(barcode)
-            member_pid = random.choice(members_pids)
-            item.loan_item(
-                ** create_loan(
-                    patron_barcode=barcode,
-                    member_pid=member_pid,
-                    short=item_type == 'short_loan'
-                )
-            )
-            loaned -= 1
-        if (randint(0, 5) == 0 and
-                item_type != 'on_site_consultation' and
-                reserved > 0):
-            request_count = randint(0, len(barcodes))
-            while request_count > 0 and len(barcodes) > 0:
-                barcode = random.choice(barcodes)
-                barcodes.remove(barcode)
-                member_pid = random.choice(members_pids)
-                item.request_item(
-                    ** create_request(
-                        patron_barcode=barcode,
-                        member_pid=member_pid,
-                        short=item_type == 'short_loan'
-                    )
-                )
-                request_count -= request_count
-            reserved -= 1
     if verbose:
         click.echo(item.id)
     item.update(data)
-    return missing, loaned, reserved, item
+    return missing, item
 
 
 def get_patrons_barcodes():

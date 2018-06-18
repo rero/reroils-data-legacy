@@ -41,6 +41,7 @@ from invenio_records.api import Record
 from werkzeug.local import LocalProxy
 
 from .documents_items.cli import create_items
+from .items.cli import create_circ_transactions
 from .organisations_members.cli import import_organisations
 from .patrons.cli import import_users
 
@@ -55,6 +56,7 @@ def fixtures():
 fixtures.add_command(import_organisations)
 fixtures.add_command(import_users)
 fixtures.add_command(create_items)
+fixtures.add_command(create_circ_transactions)
 
 
 @users.command('confirm')
