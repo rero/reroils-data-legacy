@@ -93,7 +93,7 @@ install_requires = [
     'invenio-records-ui>=1.0.0',
     'invenio-search>=1.0.0',
     'jsonschema>=2.5.1',
-    'SQLAlchemy-Continuum>=1.2.1,<1.3.5',
+    'SQLAlchemy-Continuum>=1.3,<1.3.5',
 ]
 
 packages = find_packages()
