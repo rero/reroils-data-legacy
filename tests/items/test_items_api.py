@@ -29,6 +29,8 @@ from __future__ import absolute_import, print_function
 import copy
 import datetime
 
+import mock
+
 from reroils_data.items.api import Item, ItemStatus
 from reroils_data.items.utils import commit_item
 from reroils_data.locations.api import Location
@@ -64,7 +66,9 @@ def test_extend_item(db, create_minimal_resources_on_loan,
     assert item_no_req['_circulation']['holdings'][0]['end_date'] == end_date
 
 
-def test_return_item(db, create_minimal_resources_on_loan,
+@mock.patch('reroils_data.patrons.listener.func_item_at_desk')
+def test_return_item(func_item_at_desk,
+                     db, create_minimal_resources_on_loan,
                      minimal_patron_only_record,
                      minimal_patron_record):
 
@@ -125,7 +129,9 @@ def test_return_item(db, create_minimal_resources_on_loan,
     assert item_req_ext.status == ItemStatus.IN_TRANSIT
 
 
-def test_validate_item(db, create_minimal_resources_on_shelf_req,
+@mock.patch('reroils_data.patrons.listener.func_item_at_desk')
+def test_validate_item(func_item_at_desk,
+                       db, create_minimal_resources_on_shelf_req,
                        minimal_patron_only_record,
                        minimal_patron_record):
 
@@ -164,7 +170,9 @@ def test_validate_item(db, create_minimal_resources_on_shelf_req,
     assert item_req_intern.status == ItemStatus.AT_DESK
 
 
-def test_receive_item(db, create_minimal_resources_in_transit,
+@mock.patch('reroils_data.patrons.listener.func_item_at_desk')
+def test_receive_item(func_item_at_desk,
+                      db, create_minimal_resources_in_transit,
                       minimal_patron_only_record,
                       minimal_patron_record):
 

@@ -37,7 +37,8 @@ from reroils_data.items.models import ItemStatus
 @mock.patch('reroils_data.patrons.api.Patron.get_patron_by_email')
 @mock.patch('invenio_indexer.api.RecordIndexer')
 @mock.patch('reroils_data.api.IlsRecord.reindex')
-def test_view_return_item(reindex, record_indexer,
+@mock.patch('reroils_data.patrons.listener.func_item_at_desk')
+def test_view_return_item(func_item_at_desk, reindex, record_indexer,
                           get_patron_by_email, db, http_client,
                           create_minimal_resources
                           ):
@@ -76,7 +77,8 @@ def test_view_return_item(reindex, record_indexer,
 
 @mock.patch('invenio_indexer.api.RecordIndexer')
 @mock.patch('reroils_data.api.IlsRecord.reindex')
-def test_view_validate_item(reindex, record_indexer,
+@mock.patch('reroils_data.patrons.listener.func_item_at_desk')
+def test_view_validate_item(func_item_at_desk, reindex, record_indexer,
                             db, http_client,
                             create_minimal_resources_on_shelf_req):
     """Test return items using a http post request."""

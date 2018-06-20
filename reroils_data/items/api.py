@@ -33,6 +33,7 @@ from operator import indexOf
 from uuid import uuid4
 
 import six
+from flask import current_app
 from invenio_db import db
 from invenio_pidstore.errors import PIDInvalidAction
 from invenio_records.models import RecordMetadata
@@ -49,6 +50,7 @@ from .fetchers import item_id_fetcher
 from .minters import item_id_minter
 from .models import ItemStatus
 from .providers import ItemProvider
+from .signals import item_at_desk
 
 
 def check_status(method=None, statuses=None):
@@ -233,6 +235,10 @@ class Item(IlsRecord):
         elif (has_requests and
               first_request['pickup_member_pid'] == transaction_member_pid):
             self['_circulation']['status'] = ItemStatus.AT_DESK
+            item_at_desk.send(
+                current_app._get_current_object(),
+                item=self
+            )
         else:
             self['_circulation']['status'] = ItemStatus.IN_TRANSIT
         data = self.build_data(0, 'receive_item_request')
@@ -251,6 +257,10 @@ class Item(IlsRecord):
             member_pid = member.pid
             if member_pid == pickup_member_pid:
                 self['_circulation']['status'] = ItemStatus.AT_DESK
+                item_at_desk.send(
+                    current_app._get_current_object(),
+                    item=self
+                )
             else:
                 self['_circulation']['status'] = ItemStatus.IN_TRANSIT
             data = self.build_data(0, 'validate_item_request')
@@ -312,6 +322,10 @@ class Item(IlsRecord):
         elif (has_requests and
               first_request['pickup_member_pid'] == transaction_member_pid):
             self['_circulation']['status'] = ItemStatus.AT_DESK
+            item_at_desk.send(
+                current_app._get_current_object(),
+                item=self
+            )
         else:
             self['_circulation']['status'] = ItemStatus.IN_TRANSIT
         data = self.build_data(0, 'add_item_return')
