@@ -46,7 +46,7 @@ def save_patron(data, record_type, fetcher, minter,
     and attached to the patron.
     """
     email = data.get('email')
-    data = staff_patron_fields(data)
+    data = clean_patron_fields(data)
     if email:
         find_user = datastore.find_user(email=email)
         if find_user is None:
@@ -88,8 +88,16 @@ def save_patron(data, record_type, fetcher, minter,
     return _next, patron.persistent_identifier
 
 
-def staff_patron_fields(data):
-    """Validate user fields based on user type (patorn or staff)."""
+def clean_patron_fields(data):
+    """Clean patron fields.
+
+    Remove empty fields and
+    validate user fields based on user type (patron/staff).
+    """
+    for key, value in list(data.items()):
+        if not value or value == '':
+            del data[key]
+
     if not data.get('is_patron'):
         if 'barcode' in data:
             del(data['barcode'])
