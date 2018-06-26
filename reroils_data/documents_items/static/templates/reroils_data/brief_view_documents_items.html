@@ -25,9 +25,9 @@
     <!-- publicationDate -->
     <span ng-show='record.metadata.publicationYear && !record.metadata.freeFormedPublicationDate'>{{ record.metadata.publicationYear }}</span>
     <span ng-show='record.metadata.freeFormedPublicationDate'>{{ record.metadata.freeFormedPublicationDate }}</span>
-    <div class='reroils-circulation'>
+    <div class='reroils-circulation' ng-if="status = record.metadata.available ? 'available' : 'not available'">
         <i class="fa fa-circle text-{{ record.metadata.available ? 'success' : 'danger' }}" aria-hidden="true"></i>
-        <span translate>{{ record.metadata.available ? 'available' : 'not available' }}</span>
+        <span>{{ status|translate }}</span>
     </div>
     <hr />
   </li>

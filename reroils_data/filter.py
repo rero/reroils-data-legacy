@@ -28,13 +28,9 @@ import json
 
 import babel
 import dateparser
+from flask_babelex import gettext as _
 
 from .items.models import ItemStatus
-
-
-def _(x):
-    """Identity."""
-    return x
 
 
 def format_date_filter(date_str, format='medium', locale='en'):

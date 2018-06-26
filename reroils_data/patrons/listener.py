@@ -25,14 +25,11 @@
 
 """Record module listener."""
 
+from flask_babelex import gettext as _
+
 from ..documents_items.api import DocumentsWithItems
 from ..patrons.api import Patron
 from ..utils import send_mail
-
-
-# Identity function for string extraction
-def _(x):
-    return x
 
 
 def listener_item_at_desk(sender, *args, **kwargs):
