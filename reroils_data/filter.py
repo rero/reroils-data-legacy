@@ -64,6 +64,8 @@ def item_status_text(item, format='medium', locale='en'):
     """Text for item status."""
     if item.available:
         text = _('available')
+        if item.get('item_type') == "on_site_consultation":
+            text += ' ({0})'.format(_("on_site consultation"))
     else:
         text = _('not available')
         if item.status == ItemStatus.ON_LOAN:
@@ -77,6 +79,4 @@ def item_status_text(item, format='medium', locale='en'):
             text += ' ({0})'.format(_('requested'))
         elif item.status == ItemStatus.IN_TRANSIT:
             text += ' ({0})'.format(_(ItemStatus.IN_TRANSIT))
-        elif item.get('item_type') == "on_site_consultation":
-            text += ' ({0})'.format(_("on_site consultation"))
     return text

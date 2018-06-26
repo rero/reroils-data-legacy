@@ -4,30 +4,49 @@
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
-# Translators:
-# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2018
-# iGor milhit <igor.milhit@rero.ch>, 2018
-# Nicolas Labat <n-labat@hotmail.com>, 2018
-# Nicolas Prongué <n.prongue@outlook.com>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-data 0.1.0a12\n"
+"Project-Id-Version: reroils-data 0.1.0a13\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-06-05 11:45+0200\n"
+"POT-Creation-Date: 2018-06-26 10:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2018\n"
+"Last-Translator: Nicolas Labat <n-labat@hotmail.com>, 2018\n"
 "Language: fr\n"
 "Language-Team: French (https://www.transifex.com/rero/teams/77935/fr/)\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.5.3\n"
+"Generated-By: Babel 2.6.0\n"
 
 #. NOTE: This is a note to a translator.
 #: reroils_data/ext.py:43
 msgid "A translation string"
 msgstr "A translation string"
+
+#: reroils_data/filter.py:66
+
+msgid "available"
+msgstr "disponible"
+
+#: reroils_data/filter.py:68
+
+msgid "not available"
+msgstr "non disponible"
+
+#: reroils_data/filter.py:75
+msgid "due until"
+msgstr "à rendre le"
+
+#: reroils_data/filter.py:77
+
+msgid "requested"
+msgstr "demandé"
+
+#: reroils_data/filter.py:81
+#, python-format
+msgid "on_site consultation"
+msgstr "consultation sur place"
 
 #: reroils_data/documents/views.py:63
 msgid "The record has been imported."
@@ -54,135 +73,152 @@ msgstr "Une erreur est survenue sur le serveur de la BNF."
 msgid "Error:"
 msgstr "Erreur:"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:10
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:176
-#: reroils_data/items/form_options/items/item-v0.0.1.json:10
-#: reroils_data/items/form_options/items/item-v0.0.1.json:113
-#: reroils_data/locations/form_options/locations/location-v0.0.1.json:10
-#: reroils_data/members/form_options/members/member-v0.0.1.json:10
-#: reroils_data/organisations/form_options/organisations/organisation-v0.0.1.json:10
-#: reroils_data/organisations/form_options/organisations/organisation-v0.0.1.json:34
-#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:10
-#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:129
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:12
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:252
+#: reroils_data/items/form_options/items/item-v0.0.1.json:12
+#: reroils_data/items/form_options/items/item-v0.0.1.json:127
+#: reroils_data/locations/form_options/locations/location-v0.0.1.json:12
+#: reroils_data/locations/form_options/locations/location-v0.0.1.json:54
+#: reroils_data/members/form_options/members/member-v0.0.1.json:12
+#: reroils_data/members/form_options/members/member-v0.0.1.json:60
+#: reroils_data/organisations/form_options/organisations/organisation-v0.0.1.json:12
+#: reroils_data/organisations/form_options/organisations/organisation-v0.0.1.json:50
+#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:12
+#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:173
+msgid "Cancel"
+msgstr "Annuler"
+
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:18
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:258
+#: reroils_data/items/form_options/items/item-v0.0.1.json:18
+#: reroils_data/items/form_options/items/item-v0.0.1.json:133
+#: reroils_data/locations/form_options/locations/location-v0.0.1.json:18
+#: reroils_data/locations/form_options/locations/location-v0.0.1.json:60
+#: reroils_data/members/form_options/members/member-v0.0.1.json:18
+#: reroils_data/members/form_options/members/member-v0.0.1.json:66
+#: reroils_data/organisations/form_options/organisations/organisation-v0.0.1.json:18
+#: reroils_data/organisations/form_options/organisations/organisation-v0.0.1.json:56
+#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:18
+#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:179
 msgid "Submit"
 msgstr "Soumettre"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:15
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:237
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:26
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:248
 msgid "Identifiers"
 msgstr "Identifiants"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:26
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:15
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:38
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:20
 msgid "Document ID"
 msgstr "ID du document"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:27
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:39
 msgid "Persistent identifier, automatically generated."
 msgstr "Identifiant persistant, généré automatiquement."
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:36
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:256
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:50
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:267
 #: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:159
 msgid "ISBN"
 msgstr "ISBN"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:46
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:64
 msgid "Import"
 msgstr "Importer"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:56
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:20
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:204
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:77
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:25
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:215
 #: reroils_data/patrons/templates/reroils_data/patron_profile.html:52
 msgid "Title"
 msgstr "Titre"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:66
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:88
 msgid "Author(s)"
 msgstr "Auteur(s)"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:71
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:94
 msgid "new author"
 msgstr "nouvel auteur"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:73
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:116
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:96
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:145
 msgid "btn-link"
 msgstr "btn-link"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:85
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:108
 msgid "Person"
 msgstr "Personne"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:89
-#: reroils_data/organisations/form_options/organisations/organisation-v0.0.1.json:16
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:112
+#: reroils_data/organisations/form_options/organisations/organisation-v0.0.1.json:26
 #: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
 msgid "Organisation"
 msgstr "Collectivité"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:109
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:137
 msgid "Language(s) of the resource"
 msgstr "Langue(s) de la ressource"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:113
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:142
 msgid "Language(s) name"
 msgstr "Nom de la langue ou des langues"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:114
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:143
 msgid "new language"
 msgstr "nouvelle langue"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:129
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:161
 msgid "Arabic"
 msgstr "Arabe"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:130
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:165
 msgid "Chinese"
 msgstr "Chinois"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:131
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:169
 msgid "English"
 msgstr "Anglais"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:132
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:173
 msgid "French"
 msgstr "Français"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:133
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:177
 msgid "German"
 msgstr "Allemand"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:134
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:181
 msgid "Hebrew"
 msgstr "Hébreu"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:135
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:185
 msgid "Italian"
 msgstr "Italien"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:136
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:189
 msgid "Japanese"
 msgstr "Japonais"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:137
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:193
 msgid "Latin"
 msgstr "Latin"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:138
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:197
 msgid "Portuguese"
 msgstr "Portugais"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:139
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:201
 msgid "Russian"
 msgstr "Russe"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:140
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:205
 msgid "Spanish"
 msgstr "Espagnol"
 
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:146
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:152
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:215
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:161
 msgid "Date of publication"
 msgstr "Date de publication"
 
@@ -190,29 +226,29 @@ msgstr "Date de publication"
 msgid "Schema for book"
 msgstr "Schéma pour un livre"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:9
-#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:10
-#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:10
-#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:10
-#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:10
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:10
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:14
+#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:17
+#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:15
+#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:14
+#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:14
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:20
 msgid "Schema"
 msgstr "Schéma"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:10
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:15
 msgid "Schema to validate book document against."
 msgstr "Schéma de validation des notices bibliographiques de type monographies."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:21
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:22
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:26
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:27
 msgid "Required. Entire title without statement of responsibility."
 msgstr "Requis. Titre complet sans mention de responsabilité."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:27
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:32
 msgid "Proper or uniformed title"
 msgstr "Titre uniforme"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:28
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:33
 msgid ""
 "Uniform title, a related or an analytical title that is controlled by an "
 "authority file or list, used as an added access point."
@@ -220,32 +256,32 @@ msgstr ""
 "Titre uniforme, un titre associé ou analytique, contrôlé par un fichier "
 "ou une liste d'autorités, et utilisé comme point d'accès supplémentaire."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:37
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:42
 msgid "Languages"
 msgstr "Langues"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:38
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:43
 msgid "List of languages for the resource."
 msgstr "Listes des langues de la ressource."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:47
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:54
 msgid "Language"
 msgstr "Langue"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:48
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:50
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:55
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:57
 msgid "Required. Language of the resource, primary or not."
 msgstr "Requis. Langue de la ressource, principale ou secondaire."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:70
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:77
 msgid "Translated from"
 msgstr "Traduit de"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:71
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:78
 msgid "Language from which a resource is translated."
 msgstr "Langue de laquelle la ressource a été traduite."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:77
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:84
 msgid ""
 "Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> "
 "for English."
@@ -253,46 +289,47 @@ msgstr ""
 "Doit être dans le format ISO 639, en 3 caractères, par exemple "
 "<code>eng</code> pour l'anglais."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:81
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:88
 msgid "Authors"
 msgstr "Auteurs"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:82
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:89
 msgid "Author(s) of the resource. Can be either persons or organisations."
 msgstr ""
 "Auteur(s) de la ressource. Peut être soit une personne soit une "
 "collectivité."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:91
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:128
-#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:25
-#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:25
-#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:20
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:101
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:138
+#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:30
+#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:29
+#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:24
 #: reroils_data/organisations/templates/reroils_data/detailed_view_organisations.html:41
 #: reroils_data/organisations/templates/reroils_data/detailed_view_organisations.html:76
 msgid "Name"
 msgstr "Nom"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:92
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:102
 msgid "Person's or organisation's name."
 msgstr "Nom de la personne ou de la collectivité."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:96
-#: reroils_data/items/form_options/items/item-v0.0.1.json:83
-#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:103
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:106
+#: reroils_data/items/form_options/items/item-v0.0.1.json:84
+#: reroils_data/items/templates/reroils_data/_item_head.html:17
+#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:24
 msgid "Type"
 msgstr "Type"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:97
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:107
 msgid "Identify if the author is a person or an organisation."
 msgstr "Identifie si l'auteur est une personne ou une collectivité."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:106
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:116
 #: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:48
 msgid "Date"
 msgstr "Date"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:107
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:117
 msgid ""
 "Information about the birth and the death of a person. Helpful to "
 "disambiguate people."
@@ -300,11 +337,11 @@ msgstr ""
 "Informations sur les dates de naissance et de décès d'une personne. Utile"
 " pour distinguer les homonymes."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:111
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:121
 msgid "Qualifier"
 msgstr "Qualificatif"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:112
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:122
 msgid ""
 "Information about the person, ie her profession. Helpful to disambiguate "
 "people."
@@ -312,27 +349,27 @@ msgstr ""
 "Informations qualifiant la personne, par exemple sa profession. Utile "
 "pour distinguer les homonymes."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:119
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:129
 msgid "Publishers"
 msgstr "Editeurs"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:120
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:130
 msgid "Publisher(s) of the resource."
 msgstr "Editeur(s) de la ressource."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:129
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:139
 msgid "Publisher's name."
 msgstr "Nom de l'éditeur."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:138
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:148
 msgid "Place of publication"
 msgstr "Lieu de publication"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:139
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:149
 msgid "Publisher's place of publication."
 msgstr "Lieu de publication de l'éditeur."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:153
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:162
 msgid ""
 "Date of the publication. This must be an integer, ie 1989, 453, -50. Used"
 " to sort search results. Once this field is set, a free formed date of "
@@ -343,15 +380,15 @@ msgstr ""
 "renseigné, une date de publication sous forme libre peut être ajoutée "
 "dans le champ suivant."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:157
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:166
 msgid "Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
 msgstr "Doit être un chiffre, de -9999 à +2050. Aucun préfixe n'est nécessaire."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:160
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:169
 msgid "Date of publication (free formed)"
 msgstr "Date de publication (forme libre)"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:161
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:170
 msgid ""
 "Date of the publication in a free form. If there's a normalized date of "
 "publication, then a free formed date can be added to be displayed."
@@ -360,21 +397,21 @@ msgstr ""
 " sous forme normalisée, une date sous forme libre peut être ajoutée et "
 "affichée."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:166
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:175
 msgid "Extent"
 msgstr "Importance matérielle"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:167
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:176
 msgid "Extent of the resource, ie number of pages or volumes."
 msgstr ""
 "Importance matérielle de la ressource, par exemple le nombre de pages ou "
 "de volumes."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:172
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:181
 msgid "Other Material Characteristics"
 msgstr "Autres caractéristiques matérielles"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:173
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:182
 msgid ""
 "Other Material Characteristics, ie illustrations, black and with or "
 "coloured."
@@ -382,109 +419,101 @@ msgstr ""
 "Autres caractéristiques matérielles, par exemple des illustrations, noir "
 "et blanc ou en couleurs."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:178
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:187
 msgid "Format"
 msgstr "Format"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:179
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:188
 msgid "Format of the resource, ie dimensions in cm."
 msgstr "Format de la ressource, par exemple les dimensions en cm."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:188
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:197
 msgid "Additional materials"
 msgstr "Matériel d'accompagnement"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:189
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:198
 msgid "Accompanying material of the resource, ie maps."
 msgstr ""
 "Matériel d'accompagnement de la ressource, par exemple des cartes "
 "géographiques."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:194
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:203
 #: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:102
 msgid "Series"
 msgstr "Collection"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:195
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:204
 msgid "Series to which belongs the resource."
 msgstr "Collection à laquelle appartient la ressource."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:205
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:216
 msgid "Title of the series."
 msgstr "Titre de la collection."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:209
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:220
 msgid "Numbering"
 msgstr "Numérotation"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:210
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:221
 msgid "Numbering of the resource within the series."
 msgstr "Numérotation de la ressource au sein de la collection."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:217
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:228
 msgid "Note"
 msgstr "Note"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:218
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:229
 msgid "Note on the resource."
 msgstr "Note sur la ressource."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:227
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:238
 #: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:63
 msgid "Abstract"
 msgstr "Résumé"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:228
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:239
 msgid "Abstract of the resource."
 msgstr "Résumé de la ressource."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:238
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:249
 msgid "Persistent identifiers of the resource, ie reroID and ISBN."
 msgstr "Identifiants pérennes de la ressource, par exemple le reroID et l'ISBN."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:244
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:255
 msgid "reroID"
 msgstr "reroID"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:245
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:256
 msgid "Corresponding reroID of the original RERO record."
 msgstr "reroID correspondant de la notice bibliographique RERO d'origine."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:250
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:261
 msgid "bnfID"
 msgstr "bnfID"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:251
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:262
 msgid "Corresponding bnfID of the original BNF record."
 msgstr "bnfID correspondant de la notice bibliographique BNF d'origine."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:257
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:268
 msgid "ISBN of the resource."
 msgstr "ISBN de la ressource."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:260
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:271
 msgid "Should be a valid ISBN-13 without dashes."
 msgstr "Doit être un ISBN-13 valide sans traits d'union."
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:265
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:276
 msgid "Subject"
 msgstr "Sujet"
 
-#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:266
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:277
 msgid "Subject of the resource."
 msgstr "Sujet de la ressource."
 
-#: reroils_data/documents_items/static/templates/reroils_data/brief_view_documents_items.html:32
-msgid "item available"
-msgstr "exemplaire disponible"
-
-#: reroils_data/documents_items/static/templates/reroils_data/brief_view_documents_items.html:37
-msgid "items available"
-msgstr "exemplaires disponibles"
-
-#: reroils_data/documents_items/static/templates/reroils_data/brief_view_documents_items.html:41
-msgid "no item available"
-msgstr "aucun exemplaire disponible"
+#: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:286
+msgid "Document availability"
+msgstr "Disponibilité du document"
 
 #: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:13
 msgid "Author"
@@ -523,140 +552,98 @@ msgstr "Source"
 msgid "Permalink"
 msgstr "Permalien"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:203
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:324
-#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:13
-#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:113
-#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:24
-#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:104
-#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:113
-msgid "Show source"
-msgstr "Montrer les données sources"
-
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:214
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:335
-#: reroils_data/items/templates/reroils_data/detailed_view_items.html:18
-#: reroils_data/locations/templates/reroils_data/detailed_view_locations.html:27
-#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:69
-#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:124
-#: reroils_data/organisations/templates/reroils_data/detailed_view_organisations.html:103
-#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:35
-#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:115
-#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:125
-msgid "Edit"
-msgstr "Editer"
-
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:217
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:338
-#: reroils_data/items/templates/reroils_data/detailed_view_items.html:21
-#: reroils_data/locations/templates/reroils_data/detailed_view_locations.html:30
-#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:72
-#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:127
-#: reroils_data/organisations/templates/reroils_data/detailed_view_organisations.html:106
-#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:38
-#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:118
-#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:128
-msgid "Delete"
-msgstr "Supprimer"
-
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:227
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:213
 msgid "Items"
 msgstr "Exemplaires"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:231
-#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:87
-#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:53
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:217
+#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:61
+#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:38
 msgid "Add"
 msgstr "Ajouter"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:244
-#: reroils_data/items/form_options/items/item-v0.0.1.json:66
-#: reroils_data/locations/form_options/locations/location-v0.0.1.json:16
-#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:4
-msgid "Location"
-msgstr "Localisation"
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:230
+#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:28
+#: reroils_data/patrons/templates/reroils_data/_patron_profile_head.html:15
+#: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:9
+#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:14
+msgid "Barcode"
+msgstr "Code-barre"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:255
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:245
 #: reroils_data/patrons/templates/reroils_data/patron_profile.html:53
 msgid "Call Number"
 msgstr "Cote"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:266
-#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:21
-#: reroils_data/patrons/templates/reroils_data/_patron_profile_head.html:15
-#: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:9
-#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:95
-msgid "Barcode"
-msgstr "Code-barre"
-
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:277
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:256
 msgid "Library"
 msgstr "Bibliothèque"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:288
-#: reroils_data/items/form_options/items/item-v0.0.1.json:99
-msgid "Status"
-msgstr "Statut"
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:267
+#: reroils_data/items/form_options/items/item-v0.0.1.json:76
+#: reroils_data/items/templates/reroils_data/_item_head.html:33
+#: reroils_data/locations/form_options/locations/location-v0.0.1.json:26
+#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:4
+msgid "Location"
+msgstr "Localisation"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:293
-msgid "Requested"
-msgstr "Réservé"
-
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:299
-msgid "On Loan requested"
-msgstr "Emprunté/Réservé"
-
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:313
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:280
 msgid "Rank"
 msgstr "Position dans la liste"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:343
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:292
+#: reroils_data/items/form_options/items/item-v0.0.1.json:109
+msgid "Status"
+msgstr "Statut"
+
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:307
 msgid "Request"
 msgstr "Demander"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:346
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:311
 msgid "Available Pickup Locations"
 msgstr "Lieux de retrait disponibles"
 
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:367
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:341
 msgid "Export Formats"
 msgstr "Formats d'export"
 
-#: reroils_data/items/views.py:148
+#: reroils_data/items/views.py:174
 #, python-format
 msgid "The item %s has been requested."
 msgstr "L'exemplaire %s a été demandé."
 
-#: reroils_data/items/views.py:154
+#: reroils_data/items/views.py:183
 msgid "Something went wrong"
 msgstr "Quelque chose s'est mal passé"
 
-#: reroils_data/items/views.py:162
+#: reroils_data/items/views.py:192
 #, python-format
 msgid "%(icon)s Circulation"
 msgstr "%(icon)s Prêt et retour"
 
-#: reroils_data/items/form_options/items/item-v0.0.1.json:35
-#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:96
+#: reroils_data/items/form_options/items/item-v0.0.1.json:45
+#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:136
 msgid "The barcode is already taken"
 msgstr "Le code-barres est déjà utilisé"
 
-#: reroils_data/items/form_options/items/item-v0.0.1.json:36
-#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:97
+#: reroils_data/items/form_options/items/item-v0.0.1.json:46
+#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:137
 msgid "The server cannot verify the barcode"
 msgstr "Le serveur ne peut pas vérifier le code-barres"
 
-#: reroils_data/items/form_options/items/item-v0.0.1.json:85
+#: reroils_data/items/form_options/items/item-v0.0.1.json:88
 msgid "Standard Loan"
 msgstr "Prêt standard"
 
-#: reroils_data/items/form_options/items/item-v0.0.1.json:86
+#: reroils_data/items/form_options/items/item-v0.0.1.json:92
 msgid "Short Loan"
 msgstr "Prêt court"
 
-#: reroils_data/items/form_options/items/item-v0.0.1.json:87
-msgid "Not for Loan"
-msgstr "Exclu du prêt"
+#: reroils_data/items/form_options/items/item-v0.0.1.json:96
+#, python-format
+msgid "On Site Consultation"
+msgstr "%(icon)s Prêt et retour"
 
 #: reroils_data/items/jsonschemas/items/item-v0.0.1.json:4
 msgid "Item"
@@ -666,53 +653,124 @@ msgstr "Exemplaire"
 msgid "JSON schema for an item."
 msgstr "Schéma pour un exemplaire."
 
-#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:11
+#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:18
 msgid "Schema to validate item records against."
 msgstr "Schéma pour la validation d'un exemplaire."
 
-#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:16
+#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:23
 msgid "Item ID"
 msgstr "ID de l'exemplaire"
 
-#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:22
+#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:29
 msgid "Barcode of the item."
 msgstr "Code-barres de l'exemplaire."
 
-#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:27
+#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:34
 msgid "Call number"
 msgstr "Cote"
 
-#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:28
+#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:35
 msgid "Call number of the item."
 msgstr "Cote de l'exemplaire."
 
-#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:33
+#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:40
 msgid "Location PID"
 msgstr "PID de la localisation"
 
-#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:34
+#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:41
 msgid "Location PID of the item."
 msgstr "PID de la localisation de l'exemplaire."
 
-#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:39
+#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:46
 msgid "Item type"
 msgstr "Type d'exemplaire"
 
-#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:69
+#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:56
+
+msgid "Item availability"
+msgstr "non disponible"
+
+#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:85
 msgid "Renewal count"
 msgstr "Nombre de prolongation(s)"
 
-#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:70
+#: reroils_data/items/jsonschemas/items/item-v0.0.1.json:86
 msgid "Item renewal count."
 msgstr "Nombre de prolongation de l'exemplaire."
 
-#: reroils_data/locations/form_options/locations/location-v0.0.1.json:23
-#: reroils_data/members/form_options/members/member-v0.0.1.json:25
+#: reroils_data/items/templates/reroils_data/_item_head.html:9
+
+msgid "Callnumber"
+msgstr "Cote"
+
+#: reroils_data/items/templates/reroils_data/_item_head.html:25
+
+msgid "Document"
+msgstr "ID du document"
+
+#: reroils_data/items/templates/reroils_data/_item_head.html:41
+#: reroils_data/members/form_options/members/member-v0.0.1.json:26
+#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:4
+#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:102
+msgid "Member"
+msgstr "Membre"
+
+#: reroils_data/items/templates/reroils_data/detailed_view_items.html:14
+msgid "In Transit"
+msgstr "En transit"
+
+#: reroils_data/items/templates/reroils_data/detailed_view_items.html:22
+msgid "Loaned by"
+msgstr "Emprunté par"
+
+#: reroils_data/items/templates/reroils_data/detailed_view_items.html:28
+#: reroils_data/items/templates/reroils_data/detailed_view_items.html:65
+
+msgid "Patron"
+msgstr "lecteur"
+
+#: reroils_data/items/templates/reroils_data/detailed_view_items.html:29
+#: reroils_data/patrons/templates/reroils_data/patron_profile.html:63
+msgid "Due date"
+msgstr "Date de retour"
+
+#: reroils_data/items/templates/reroils_data/detailed_view_items.html:30
+#: reroils_data/patrons/templates/reroils_data/patron_profile.html:70
+msgid "Renewals"
+msgstr "Prolongations"
+
+#: reroils_data/items/templates/reroils_data/detailed_view_items.html:59
+#: reroils_data/patrons/templates/reroils_data/patron_profile.html:19
+msgid "Pending"
+msgstr "En attente"
+
+#: reroils_data/items/templates/reroils_data/detailed_view_items.html:66
+#: reroils_data/patrons/templates/reroils_data/patron_profile.html:58
+msgid "Pickup member"
+msgstr "Lieu de retrait"
+
+#: reroils_data/items/templates/reroils_data/detailed_view_items.html:67
+#: reroils_data/patrons/templates/reroils_data/patron_profile.html:65
+msgid "Reservation date"
+msgstr "Date de la réservation"
+
+#: reroils_data/items/templates/reroils_data/detailed_view_items.html:79
+
+msgid "No patron found!"
+msgstr "Compte(s) du lecteur"
+
+#: reroils_data/items/templates/reroils_data/detailed_view_items.html:93
+
+msgid "No Date"
+msgstr "Date de retour"
+
+#: reroils_data/locations/form_options/locations/location-v0.0.1.json:35
+#: reroils_data/members/form_options/members/member-v0.0.1.json:38
 msgid "The code is already taken"
 msgstr "Le code-barres est déjà utilisé"
 
-#: reroils_data/locations/form_options/locations/location-v0.0.1.json:24
-#: reroils_data/members/form_options/members/member-v0.0.1.json:26
+#: reroils_data/locations/form_options/locations/location-v0.0.1.json:36
+#: reroils_data/members/form_options/members/member-v0.0.1.json:39
 msgid "The server cannot verify the code"
 msgstr "Le serveur ne peut pas vérifier le code-barres"
 
@@ -720,30 +778,31 @@ msgstr "Le serveur ne peut pas vérifier le code-barres"
 msgid "JSON schema for an location"
 msgstr "Schéma pour une institution"
 
-#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:11
-#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:11
-#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:11
+#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:16
+#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:15
+#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:15
 msgid "Schema to validate organisation records against."
 msgstr "Schéma de validation des enregistrements d'institutions."
 
-#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:16
+#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:21
 msgid "Location ID"
 msgstr "ID de la localisation"
 
-#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:20
-#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:20
-#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:103
+#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:25
+#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:24
+#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:15
+#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:77
 #: reroils_data/organisations/templates/reroils_data/detailed_view_organisations.html:55
 #: reroils_data/organisations/templates/reroils_data/detailed_view_organisations.html:82
-#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:72
+#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:57
 msgid "Code"
 msgstr "Code"
 
-#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:21
+#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:26
 msgid "Code of the location."
 msgstr "Code de la localisation."
 
-#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:26
+#: reroils_data/locations/jsonschemas/locations/location-v0.0.1.json:31
 msgid "Name of the location."
 msgstr "Nom de la localisation."
 
@@ -751,66 +810,58 @@ msgstr "Nom de la localisation."
 msgid "Code:"
 msgstr "Code:"
 
-#: reroils_data/members/form_options/members/member-v0.0.1.json:16
-#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:4
-#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:83
-msgid "Member"
-msgstr "Membre"
-
 #: reroils_data/members/jsonschemas/members/member-v0.0.1.json:5
 msgid "JSON schema for an member"
 msgstr "Schéma pour un exemplaire"
 
-#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:16
+#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:20
 #: reroils_data/members/templates/reroils_data/detailed_view_members.html:14
-#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:23
 msgid "Member ID"
 msgstr "ID du membre"
 
-#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:21
+#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:25
 msgid "Code of the member."
 msgstr "Code du membre."
 
-#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:26
+#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:30
 msgid "Name of the member."
 msgstr "Nom du membre."
 
-#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:31
+#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:35
 #: reroils_data/members/templates/reroils_data/detailed_view_members.html:36
-#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:45
-#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:27
+#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:26
+#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:31
 #: reroils_data/organisations/templates/reroils_data/detailed_view_organisations.html:26
 #: reroils_data/organisations/templates/reroils_data/detailed_view_organisations.html:48
 #: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:14
-#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:83
+#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:68
 msgid "Address"
 msgstr "Adresse"
 
-#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:32
+#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:36
 msgid "Address of the member."
 msgstr "Adresse du membre."
 
-#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:37
+#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:41
 #: reroils_data/members/templates/reroils_data/detailed_view_members.html:47
-#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:56
+#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:37
 #: reroils_data/organisations/templates/reroils_data/detailed_view_organisations.html:62
-#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:94
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:39
+#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:79
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:49
 #: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:23
-#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:26
+#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:46
 msgid "Email"
 msgstr "Email"
 
-#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:38
+#: reroils_data/members/jsonschemas/members/member-v0.0.1.json:42
 msgid "Email of the member."
 msgstr "Email du membre."
 
 #: reroils_data/members/templates/reroils_data/detailed_view_members.html:25
-#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:34
 msgid "Member code"
 msgstr "Code du membre"
 
-#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:83
+#: reroils_data/members_locations/templates/reroils_data/detailed_view_members_locations.html:57
 #: reroils_data/organisations/templates/reroils_data/detailed_view_organisations.html:70
 msgid "Locations"
 msgstr "Localisations"
@@ -819,17 +870,17 @@ msgstr "Localisations"
 msgid "JSON schema for an organisation"
 msgstr "Schéma d'une organisation"
 
-#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:16
+#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:20
 #: reroils_data/organisations/templates/reroils_data/detailed_view_organisations.html:15
 msgid "Organisation ID"
 msgstr "ID de l'organisation"
 
-#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:21
-#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:22
+#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:25
+#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:26
 msgid "Required. Name of the organisation."
 msgstr "Obligatoire. Nom de l'organisation."
 
-#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:28
+#: reroils_data/organisations/jsonschemas/organisations/organisation-v0.0.1.json:32
 msgid "Address of the organisation."
 msgstr "Adresse de l'organisation."
 
@@ -837,28 +888,32 @@ msgstr "Adresse de l'organisation."
 msgid "Libraries"
 msgstr "Bibliothèques"
 
-#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:49
+#: reroils_data/organisations_members/templates/reroils_data/detailed_view_organisations_members.html:34
 msgid "Members"
 msgstr "Membres"
+
+#: reroils_data/patrons/listener.py:52
+msgid "Document at desk"
+msgstr "Document au bureau de prêt"
 
 #: reroils_data/patrons/views.py:57
 #, python-format
 msgid "%(icon)s Profile"
 msgstr "%(icon)s Mon compte"
 
-#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:16
+#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:26
 msgid "Personal information"
 msgstr "Données personnelles"
 
-#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:44
+#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:65
 msgid "Contact information"
 msgstr "Information de contact"
 
-#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:85
+#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:124
 msgid "Patron information"
 msgstr "Données du compte lecteur/lectrice"
 
-#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:108
+#: reroils_data/patrons/form_options/patrons/patron-v0.0.1.json:149
 msgid "Staff information"
 msgstr "Données du professionnel"
 
@@ -870,81 +925,81 @@ msgstr "lecteur"
 msgid "JSON schema for a patron"
 msgstr "Schéma d'un lecteur"
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:11
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:21
 msgid "Schema to validate patron records against."
 msgstr "Schéma pour la validation d'un lecteur."
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:16
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:26
 msgid "Patron ID"
 msgstr "ID du lecteur"
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:20
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:30
 msgid "First name"
 msgstr "Prénom"
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:21
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:31
 msgid "First Name is required."
 msgstr "Le prénom est obligatoire."
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:26
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:36
 msgid "Last name"
 msgstr "Nom de famille"
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:27
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:37
 msgid "Last Name is required."
 msgstr "Le nom de famille est obligatoire."
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:32
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:42
 msgid "Date of birth"
 msgstr "Date de naissance"
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:36
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:46
 msgid "Required. Should be in the ISO 8601, YYYY-MM-DD."
 msgstr "Obligatoire. Doit être au format ISO 8601, AAAA-MM-JJ."
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:44
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:54
 msgid "Email should have at least one <code>@</code> and one <code>.</code>"
 msgstr "L'email doit comporter au moins un <code>@</code> et un <code>.</code>"
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:47
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:57
 #: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:20
-#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:37
+#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:57
 msgid "Street"
 msgstr "Rue"
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:48
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:58
 msgid "Street and number of the patron's address, separated by a coma."
 msgstr "Rue et n° de l'adresse du lecteur, séparés par une virgule."
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:51
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:63
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:61
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:73
 msgid "Required."
 msgstr "Obligatoire."
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:54
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:64
 msgid "Postal code"
 msgstr "Code postal"
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:57
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:67
 msgid "Required. A valid postal code with a min of 4 characters."
 msgstr "Obligatoire. Code postal valide d'au moins 4 caractères."
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:60
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:70
 #: reroils_data/patrons/templates/reroils_data/_patron_profile_head.html:37
 #: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:21
-#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:60
+#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:80
 msgid "City"
 msgstr "Ville"
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:66
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:76
 msgid "Phone number"
 msgstr "Numéro de téléphone"
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:67
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:77
 msgid "Phone number with the international prefix, without spaces."
 msgstr "Numéro de téléphone avec l'indicatif international, sans espaces."
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:70
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:80
 msgid ""
 "Phone number with the international prefix, without spaces, ie "
 "+41221234567."
@@ -952,36 +1007,36 @@ msgstr ""
 "Numéro de téléphone avec l'indicatif international, sans espaces, ex: "
 "+41221234567."
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:73
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:83
 msgid "Patron's type"
 msgstr "Type de lecteur"
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:82
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:92
 msgid "Patron's barcode or card number"
 msgstr "Code-barres ou numéro de carte du lecteur"
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:87
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:97
 msgid "The member pid of the appartenance library"
 msgstr "Le PID du membre de la bibliothèque d'appartenance"
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:92
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:102
 msgid "Qualify this user as a patron"
 msgstr "Ajouter à cet utilisateur le rôle de lecteur"
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:95
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:105
 msgid "Qualify this user as a patron."
 msgstr "Ajoute à cet utilisateur le rôle de lecteur."
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:98
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:108
 msgid "Qualify this user as a staff member"
 msgstr "Ajouter à cet utilisateur le rôle de professionnel"
 
-#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:101
+#: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:111
 msgid "Qualify this user as a staff member."
 msgstr "Ajouter à cet utilisateur le rôle de professionnel."
 
 #: reroils_data/patrons/templates/reroils_data/_patron_profile_head.html:26
-#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:15
+#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:35
 msgid "Birth Date"
 msgstr "Date de naissance"
 
@@ -990,7 +1045,7 @@ msgid "Patron account"
 msgstr "Compte(s) du lecteur"
 
 #: reroils_data/patrons/templates/reroils_data/_patron_profile_personal.html:22
-#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:71
+#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:91
 msgid "Phone"
 msgstr "Téléphone"
 
@@ -1006,17 +1061,13 @@ msgstr "Modifier mes données personnelles"
 msgid "Change my password"
 msgstr "Modifier mon mot de passe"
 
-#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:49
+#: reroils_data/patrons/templates/reroils_data/detailed_view_patrons.html:69
 msgid "Postal Code"
 msgstr "Code postal"
 
 #: reroils_data/patrons/templates/reroils_data/patron_profile.html:16
 msgid "Loan"
 msgstr "Livre(s) emprunté(s)"
-
-#: reroils_data/patrons/templates/reroils_data/patron_profile.html:19
-msgid "Pending"
-msgstr "En attente"
 
 #: reroils_data/patrons/templates/reroils_data/patron_profile.html:22
 msgid "Personal data"
@@ -1030,26 +1081,78 @@ msgstr "Aucun livre emprunté"
 msgid "No pending"
 msgstr "Aucune réservation"
 
-#: reroils_data/patrons/templates/reroils_data/patron_profile.html:54
-msgid "Pickup member"
-msgstr "Lieu de retrait"
+#: reroils_data/patrons/templates/reroils_data/patron_profile.html:56
+msgid "Belongs to"
+msgstr "Appartient à"
 
-#: reroils_data/patrons/templates/reroils_data/patron_profile.html:57
-msgid "Due date"
-msgstr "Date de retour"
+#~ msgid "available"
+#~ msgstr "disponible"
 
-#: reroils_data/patrons/templates/reroils_data/patron_profile.html:59
-msgid "Reservation date"
-msgstr "Date de la réservation"
+#~ msgid "due until"
+#~ msgstr "à rendre le"
 
-#: reroils_data/patrons/templates/reroils_data/patron_profile.html:64
-msgid "Renewals"
-msgstr "Prolongations"
+#~ msgid "on_site consultation"
+#~ msgstr "consultation sur place"
 
-#: reroils_data/patrons/templates/reroils_data/patron_profile.html:66
-msgid "Limit date"
-msgstr "Date d'expiration"
+#~ msgid "Cancel"
+#~ msgstr "Annuler"
 
-#~ msgid "Main address"
-#~ msgstr "Adresse principale"
+#~ msgid "Document availability"
+#~ msgstr "Disponibilité du document"
 
+#~ msgid "{{ record.metadata.available ? 'available' : 'not available' }}"
+#~ msgstr "{{ record.metadata.available ? 'disponible' \\: 'non-disponible' }}"
+
+#~ msgid "On Site Consultation"
+#~ msgstr "Consultation sur place"
+
+#~ msgid "Item availability"
+#~ msgstr "Disponibilité de l'exemplaire"
+
+#~ msgid "Callnumber"
+#~ msgstr "Cote"
+
+#~ msgid "Document"
+#~ msgstr "Document"
+
+#~ msgid "In Transit"
+#~ msgstr "En transit"
+
+#~ msgid "Loaned by"
+#~ msgstr "Emprunté par"
+
+#~ msgid "Patron"
+#~ msgstr "Lecteur"
+
+#~ msgid "No patron found!"
+#~ msgstr "Aucun lecteur trouvé!"
+
+#~ msgid "No Date"
+#~ msgstr "Aucune date"
+
+#~ msgid "Document at desk"
+#~ msgstr "Document au bureau de prêt"
+
+#~ msgid "Belongs to"
+#~ msgstr "Appartient à"
+
+#~ msgid "items available"
+#~ msgstr "non disponible"
+
+#~ msgid "Show source"
+#~ msgstr ""
+
+#~ msgid "Edit"
+#~ msgstr ""
+
+#~ msgid "Delete"
+#~ msgstr ""
+
+#~ msgid "On Loan requested"
+#~ msgstr "demandé"
+
+#~ msgid "Not for Loan"
+#~ msgstr "Aucun livre emprunté"
+
+#~ msgid "Limit date"
+#~ msgstr "Date de naissance"
