@@ -20,7 +20,7 @@
     </ul>
     <ul class="list-inline">
         <li ng-repeat="role in record.metadata.roles">
-            {{ role }}
+            {{ role|translate }}{{ $last ? '': ', '}}
         </li>
     </ul>
     <div class="text-right">
