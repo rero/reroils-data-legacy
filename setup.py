@@ -154,6 +154,7 @@ setup(
             'documents = reroils_data.documents.views:blueprint',
             'items = reroils_data.items.views:blueprint',
             'patrons = reroils_data.patrons.views:blueprint',
+            'authorities = reroils_data.authorities.views:blueprint',
         ],
         'invenio_db.models': [
             'organisations = reroils_data.organisations.models',
@@ -166,6 +167,7 @@ setup(
             'items = reroils_data.items.models',
             'patrons = reroils_data.patrons.models',
             'transactions = reroils_data.transactions.models',
+            'authorities = reroils_data.authorities.models',
         ],
         'invenio_pidstore.minters': [
             'organisation_id = reroils_data.organisations.minters:organisation_id_minter',
@@ -174,6 +176,7 @@ setup(
             'document_id = reroils_data.documents.minters:document_id_minter',
             'item_id = reroils_data.items.minters:item_id_minter',
             'patron_id = reroils_data.patrons.minters:patron_id_minter',
+            'auth_id = reroils_data.authorities.minters:auth_id_minter',
         ],
         'invenio_pidstore.fetchers': [
             'organisation_id = reroils_data.organisations.fetchers:organisation_id_fetcher',
@@ -182,6 +185,7 @@ setup(
             'document_id = reroils_data.documents.fetchers:document_id_fetcher',
             'item_id = reroils_data.items.fetchers:item_id_fetcher',
             'patron_id = reroils_data.patrons.fetchers:patron_id_fetcher',
+            'auth_id = reroils_data.authorities.fetchers:auth_id_fetcher',
         ],
         'invenio_jsonschemas.schemas': [
             'organisations = reroils_data.organisations.jsonschemas',
@@ -190,6 +194,7 @@ setup(
             'documents = reroils_data.documents.jsonschemas',
             'items = reroils_data.items.jsonschemas',
             'patrons = reroils_data.patrons.jsonschemas',
+            'authorities = reroils_data.authorities.jsonschemas',
         ],
         'invenio_search.mappings': [
             'organisations = reroils_data.organisations.mappings',
@@ -198,6 +203,7 @@ setup(
             'documents = reroils_data.documents.mappings',
             'items = reroils_data.items.mappings',
             'patrons = reroils_data.patrons.mappings',
+            'authorities = reroils_data.authorities.mappings',
         ],
         'invenio_assets.bundles': [
             'reroils_data_item_editor_js = reroils_data.items.bundles:editor_js',
@@ -206,7 +212,8 @@ setup(
             'reroils_data_patron_profile_css = reroils_data.patrons.bundles:profile_css',
             'reroils_data_patron_editor_js = reroils_data.patrons.bundles:editor_js',
             'reroils_data_member_editor_js = reroils_data.members_locations.bundles:editor_js',
-            'reroils_data_location_editor_js = reroils_data.locations.bundles:editor_js'
+            'reroils_data_location_editor_js = reroils_data.locations.bundles:editor_js',
+            'reroils_data_authority_editor_js = reroils_data.authorities.bundles:editor_js'
         ],
     },
     extras_require=extras_require,
