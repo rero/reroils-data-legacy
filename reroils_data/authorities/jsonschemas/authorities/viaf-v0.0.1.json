@@ -44,5 +44,5 @@
       "type": "string",
       "minLength": 1
     }
-    }
+  }
 }
