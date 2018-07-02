@@ -42,7 +42,7 @@
       "title": "Date of birth",
       "type": "string",
       "format": "date",
-      "pattern": "^\\d{4}(\\-\\d{2}){2}$",
+      "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
       "validationMessage": "Required. Should be in the ISO 8601, YYYY-MM-DD."
     },
     "email": {
