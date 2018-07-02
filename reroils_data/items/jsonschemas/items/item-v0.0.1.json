@@ -8,7 +8,7 @@
     "$schema",
     "pid",
     "barcode",
-    "callNumber",
+    "call_number",
     "location_pid",
     "item_type"
   ],
@@ -30,7 +30,7 @@
       "type": "string",
       "minLength": 4
     },
-    "callNumber": {
+    "call_number": {
       "title": "Call number",
       "description": "Call number of the item.",
       "type": "string",

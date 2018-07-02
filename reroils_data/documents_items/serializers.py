@@ -48,7 +48,7 @@ class TextSerializer(object):
         for citem in record.get('citems', []):
             item_fields = []
             item_fields.append(str(citem.get('barcode')))
-            item_fields.append(str(citem.get('callNumber')))
+            item_fields.append(str(citem.get('call_number')))
             item_fields.append(str(citem.get('location')))
             item_fields.append(
                 str(citem.get('_circulation', {}).get('status'))

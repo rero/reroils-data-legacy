@@ -76,7 +76,7 @@
             {% for document in documents %}
             <tr>
                 <td>{{ document.title }}</td>
-                <td>{{ document.item.callNumber }}</td>
+                <td>{{ document.item.call_number }}</td>
                 <td>
                     {% if 'loan' == type %}
                       {{ document.item.member_name}}

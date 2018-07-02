@@ -157,7 +157,7 @@ def minimal_item_record():
         '$schema': url_schema + '/items/item-v0.0.1.json',
         'pid': '1',
         'barcode': '10000000000',
-        'callNumber': 'PA-41234',
+        'call_number': 'PA-41234',
         'location_pid': '1',
         'item_type': 'standard_loan',
         '_circulation': {
@@ -184,7 +184,7 @@ def item_record_on_shelf():
         '$schema': url_schema + '/items/item-v0.0.1.json',
         'pid': '1',
         'barcode': '10000000000',
-        'callNumber': 'PA-41234',
+        'call_number': 'PA-41234',
         'location_pid': '1',
         'item_type': 'standard_loan',
         '_circulation': {
@@ -201,7 +201,7 @@ def item_record_in_transit():
         '$schema': url_schema + '/items/item-v0.0.1.json',
         'pid': '1',
         'barcode': '10000000000',
-        'callNumber': 'PA-41234',
+        'call_number': 'PA-41234',
         'location_pid': '1',
         'item_type': 'standard_loan',
         '_circulation': {
@@ -218,7 +218,7 @@ def item_record_on_shelf_requested():
         '$schema': url_schema + '/items/item-v0.0.1.json',
         'pid': '1',
         'barcode': '10000000000',
-        'callNumber': 'PA-41234',
+        'call_number': 'PA-41234',
         'location_pid': '1',
         'item_type': 'standard_loan',
         '_circulation': {
@@ -240,7 +240,7 @@ def item_record_on_loan():
         '$schema': url_schema + '/items/item-v0.0.1.json',
         'pid': '1',
         'barcode': '10000000000',
-        'callNumber': 'PA-41234',
+        'call_number': 'PA-41234',
         'location_pid': '1',
         'item_type': 'standard_loan',
         '_circulation': {

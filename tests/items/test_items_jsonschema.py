@@ -57,7 +57,7 @@ def test_barcode(item_schema, minimal_item_record):
         validate(minimal_item_record, item_schema)
 
 
-def test_callNumber(item_schema, minimal_item_record):
+def test_call_number(item_schema, minimal_item_record):
     """Test call_number for item jsonschema."""
     validate(minimal_item_record, item_schema)
 

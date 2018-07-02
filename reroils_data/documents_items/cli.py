@@ -28,7 +28,6 @@ from __future__ import absolute_import, print_function
 
 import datetime
 import random
-from copy import deepcopy
 from random import randint
 
 import click
@@ -101,7 +100,7 @@ def create_random_item(locations_pids, patrons_barcodes, members_pids,
     data = {
         '$schema': 'https://ils.test.rero.ch/schema/items/item-v0.0.1.json',
         'barcode': '????',
-        'callNumber': '????',
+        'call_number': '????',
         'location_pid': random.choice(locations_pids),
         'item_type': random.choice(item_types)
     }
@@ -109,7 +108,7 @@ def create_random_item(locations_pids, patrons_barcodes, members_pids,
 
     n = int(item.pid)
     data['barcode'] = str(10000000000 + n)
-    data['callNumber'] = str(n).zfill(5)
+    data['call_number'] = str(n).zfill(5)
     item.update(data)
 
     if randint(0, 5) == 0 and missing > 0:
