@@ -1,10 +1,12 @@
-# English translations for reroils-data.
+# Translations template for reroils-data.
 # Copyright (C) 2018 RERO
 # This file is distributed under the same license as the reroils-data
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
-#
-
+# 
+# Translators:
+# iGor milhit <igor.milhit@rero.ch>, 2018
+# Nicolas Labat <n-labat@hotmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: reroils-data 0.1.0a13\n"
@@ -12,13 +14,13 @@ msgstr ""
 "POT-Creation-Date: 2018-06-26 10:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Nicolas Labat <n-labat@hotmail.com>, 2018\n"
-"Language: en\n"
 "Language-Team: English (https://www.transifex.com/rero/teams/77935/en/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. NOTE: This is a note to a translator.
 #: reroils_data/ext.py:43
@@ -26,26 +28,22 @@ msgid "A translation string"
 msgstr "A translation string"
 
 #: reroils_data/filter.py:66
-
 msgid "available"
 msgstr "available"
 
 #: reroils_data/filter.py:68
-
 msgid "not available"
 msgstr "not available"
 
 #: reroils_data/filter.py:75
 msgid "due until"
-msgstr ""
+msgstr "due until"
 
 #: reroils_data/filter.py:77
-
 msgid "requested"
 msgstr "requested"
 
 #: reroils_data/filter.py:81
-#, python-format
 msgid "on_site consultation"
 msgstr "on-site consultation"
 
@@ -284,11 +282,11 @@ msgstr "Language from which a resource is translated."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:84
 msgid ""
-"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> "
-"for English."
+"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for "
+"English."
 msgstr ""
-"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> "
-"for English."
+"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for "
+"English."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:88
 msgid "Authors"
@@ -370,17 +368,19 @@ msgstr "Publisher's place of publication."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:162
 msgid ""
-"Date of the publication. This must be an integer, ie 1989, 453, -50. Used"
-" to sort search results. Once this field is set, a free formed date of "
+"Date of the publication. This must be an integer, ie 1989, 453, -50. Used to"
+" sort search results. Once this field is set, a free formed date of "
 "publication can be added in the next field."
 msgstr ""
-"Date of the publication. This must be an integer, ie 1989, 453, -50. Used"
-" to sort search results. Once this field is set, a free formed date of "
+"Date of the publication. This must be an integer, ie 1989, 453, -50. Used to"
+" sort search results. Once this field is set, a free formed date of "
 "publication can be added in the next field."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:166
-msgid "Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
-msgstr "Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
+msgid ""
+"Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
+msgstr ""
+"Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:169
 msgid "Date of publication (free formed)"
@@ -634,9 +634,8 @@ msgid "Short Loan"
 msgstr "Short Loan"
 
 #: reroils_data/items/form_options/items/item-v0.0.1.json:96
-#, python-format
 msgid "On Site Consultation"
-msgstr "%(icon)s Check in & Check out"
+msgstr "On Site Consultation"
 
 #: reroils_data/items/jsonschemas/items/item-v0.0.1.json:4
 msgid "Item"
@@ -679,9 +678,8 @@ msgid "Item type"
 msgstr "Item type"
 
 #: reroils_data/items/jsonschemas/items/item-v0.0.1.json:56
-
 msgid "Item availability"
-msgstr "not available"
+msgstr "Item availability"
 
 #: reroils_data/items/jsonschemas/items/item-v0.0.1.json:85
 msgid "Renewal count"
@@ -692,14 +690,12 @@ msgid "Item renewal count."
 msgstr "Item renewal count."
 
 #: reroils_data/items/templates/reroils_data/_item_head.html:9
-
 msgid "Callnumber"
 msgstr "Call number"
 
 #: reroils_data/items/templates/reroils_data/_item_head.html:25
-
 msgid "Document"
-msgstr "Document ID"
+msgstr "Document"
 
 #: reroils_data/items/templates/reroils_data/_item_head.html:41
 #: reroils_data/members/form_options/members/member-v0.0.1.json:26
@@ -710,7 +706,7 @@ msgstr "Member"
 
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:14
 msgid "In Transit"
-msgstr ""
+msgstr "In Transit"
 
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:22
 msgid "Loaned by"
@@ -718,9 +714,8 @@ msgstr "Loaned by"
 
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:28
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:65
-
 msgid "Patron"
-msgstr "user"
+msgstr "Patron"
 
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:29
 #: reroils_data/patrons/templates/reroils_data/patron_profile.html:63
@@ -748,14 +743,12 @@ msgid "Reservation date"
 msgstr "Reservation date"
 
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:79
-
 msgid "No patron found!"
-msgstr "Patron account(s)"
+msgstr "No patron found!"
 
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:93
-
 msgid "No Date"
-msgstr "Due date"
+msgstr "No Date"
 
 #: reroils_data/locations/form_options/locations/location-v0.0.1.json:35
 #: reroils_data/members/form_options/members/member-v0.0.1.json:38
@@ -994,11 +987,9 @@ msgstr "Phone number with the international prefix, without spaces."
 
 #: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:80
 msgid ""
-"Phone number with the international prefix, without spaces, ie "
-"+41221234567."
+"Phone number with the international prefix, without spaces, ie +41221234567."
 msgstr ""
-"Phone number with the international prefix, without spaces, ie "
-"+41221234567."
+"Phone number with the international prefix, without spaces, ie +41221234567."
 
 #: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:83
 msgid "Patron's type"
@@ -1077,75 +1068,3 @@ msgstr "No pending"
 #: reroils_data/patrons/templates/reroils_data/patron_profile.html:56
 msgid "Belongs to"
 msgstr "Belongs to"
-
-#~ msgid "available"
-#~ msgstr "available"
-
-#~ msgid "due until"
-#~ msgstr "due until"
-
-#~ msgid "on_site consultation"
-#~ msgstr "on-site consultation"
-
-#~ msgid "Cancel"
-#~ msgstr "Cancel"
-
-#~ msgid "Document availability"
-#~ msgstr "Document availability"
-
-#~ msgid "{{ record.metadata.available ? 'available' : 'not available' }}"
-#~ msgstr "{{ record.metadata.available ? 'available' \\: 'not available' }}"
-
-#~ msgid "On Site Consultation"
-#~ msgstr "On Site Consultation"
-
-#~ msgid "Item availability"
-#~ msgstr "Item availability"
-
-#~ msgid "Callnumber"
-#~ msgstr "Call Number"
-
-#~ msgid "Document"
-#~ msgstr "Document"
-
-#~ msgid "In Transit"
-#~ msgstr "In Transit"
-
-#~ msgid "Loaned by"
-#~ msgstr "Loaned by"
-
-#~ msgid "Patron"
-#~ msgstr "Patron"
-
-#~ msgid "No patron found!"
-#~ msgstr "No patron found!"
-
-#~ msgid "No Date"
-#~ msgstr "No Date"
-
-#~ msgid "Document at desk"
-#~ msgstr "Document at desk"
-
-#~ msgid "Belongs to"
-#~ msgstr "Belongs to"
-
-#~ msgid "items available"
-#~ msgstr "not available"
-
-#~ msgid "Show source"
-#~ msgstr ""
-
-#~ msgid "Edit"
-#~ msgstr ""
-
-#~ msgid "Delete"
-#~ msgstr ""
-
-#~ msgid "On Loan requested"
-#~ msgstr "requested"
-
-#~ msgid "Not for Loan"
-#~ msgstr "No loan"
-
-#~ msgid "Limit date"
-#~ msgstr "Birth Date"

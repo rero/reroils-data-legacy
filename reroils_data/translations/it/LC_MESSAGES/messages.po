@@ -1,10 +1,14 @@
-# Italian translations for reroils-data.
+# Translations template for reroils-data.
 # Copyright (C) 2018 RERO
 # This file is distributed under the same license as the reroils-data
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
-#
-
+# 
+# Translators:
+# iGor milhit <igor.milhit@rero.ch>, 2018
+# Gianni Pante <gianni.pante@rero.ch>, 2018
+# Nicolas Prongué <n.prongue@outlook.com>, 2018
+# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: reroils-data 0.1.0a13\n"
@@ -12,13 +16,13 @@ msgstr ""
 "POT-Creation-Date: 2018-06-26 10:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2018\n"
-"Language: it\n"
 "Language-Team: Italian (https://www.transifex.com/rero/teams/77935/it/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. NOTE: This is a note to a translator.
 #: reroils_data/ext.py:43
@@ -26,12 +30,10 @@ msgid "A translation string"
 msgstr "A translation string"
 
 #: reroils_data/filter.py:66
-
 msgid "available"
 msgstr "disponibile"
 
 #: reroils_data/filter.py:68
-
 msgid "not available"
 msgstr "indisponibile"
 
@@ -40,12 +42,10 @@ msgid "due until"
 msgstr "in scadenza fino al"
 
 #: reroils_data/filter.py:77
-
 msgid "requested"
 msgstr "richiesto"
 
 #: reroils_data/filter.py:81
-#, python-format
 msgid "on_site consultation"
 msgstr "consultazione in loco"
 
@@ -255,8 +255,8 @@ msgid ""
 "authority file or list, used as an added access point."
 msgstr ""
 "Titolo uniforme, un titolo associato o analitico, controllato da un "
-"fascicolo o da un elenco di autorità e utilizzato come ulteriore punto di"
-" accesso."
+"fascicolo o da un elenco di autorità e utilizzato come ulteriore punto di "
+"accesso."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:42
 msgid "Languages"
@@ -285,11 +285,11 @@ msgstr "Lingua da cui l'opera è stata tradotta."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:84
 msgid ""
-"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> "
-"for English."
+"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for "
+"English."
 msgstr ""
-"Deve essere in formato ISO 639, in 3 caratteri, ad esempio "
-"<code>eng</code> per l'inglese."
+"Deve essere in formato ISO 639, in 3 caratteri, ad esempio <code>eng</code> "
+"per l'inglese."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:88
 msgid "Authors"
@@ -334,8 +334,8 @@ msgid ""
 "Information about the birth and the death of a person. Helpful to "
 "disambiguate people."
 msgstr ""
-"Informazioni sulla data di nascita e di decesso di una persona. Utile per"
-" distinguere gli omonimi."
+"Informazioni sulla data di nascita e di decesso di una persona. Utile per "
+"distinguere gli omonimi."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:121
 msgid "Qualifier"
@@ -346,8 +346,8 @@ msgid ""
 "Information about the person, ie her profession. Helpful to disambiguate "
 "people."
 msgstr ""
-"Informazioni che qualificano la persona, come la sua occupazione. Utile "
-"per distinguere gli omonimi."
+"Informazioni che qualificano la persona, come la sua occupazione. Utile per "
+"distinguere gli omonimi."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:129
 msgid "Publishers"
@@ -371,17 +371,18 @@ msgstr "Luogo di pubblicazione dell'editore."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:162
 msgid ""
-"Date of the publication. This must be an integer, ie 1989, 453, -50. Used"
-" to sort search results. Once this field is set, a free formed date of "
+"Date of the publication. This must be an integer, ie 1989, 453, -50. Used to"
+" sort search results. Once this field is set, a free formed date of "
 "publication can be added in the next field."
 msgstr ""
-"Data di pubblicazione. Deve essere una cifra, per esempio 1989, 453, -50,"
-" utilizzata per filtrare i risultati della ricerca. Una volta compilato "
-"il campo, è possibile aggiungere una data di pubblicazione in forma "
-"libera nel campo successivo."
+"Data di pubblicazione. Deve essere una cifra, per esempio 1989, 453, -50, "
+"utilizzata per filtrare i risultati della ricerca. Una volta compilato il "
+"campo, è possibile aggiungere una data di pubblicazione in forma libera nel "
+"campo successivo."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:166
-msgid "Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
+msgid ""
+"Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
 msgstr "Deve essere un numero, da -999999 a +2050. Nessun prefisso richiesto."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:169
@@ -393,9 +394,8 @@ msgid ""
 "Date of the publication in a free form. If there's a normalized date of "
 "publication, then a free formed date can be added to be displayed."
 msgstr ""
-"Data di pubblicazione (visualizzata). Se esiste una data di pubblicazione"
-" in forma standard, è possibile aggiungere e visualizzare una data "
-"libera."
+"Data di pubblicazione (visualizzata). Se esiste una data di pubblicazione in"
+" forma standard, è possibile aggiungere e visualizzare una data libera."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:175
 msgid "Extent"
@@ -403,7 +403,8 @@ msgstr "Importanza materiale"
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:176
 msgid "Extent of the resource, ie number of pages or volumes."
-msgstr "Importanza materiale della risorsa, ad esempio numero di pagine o volumi."
+msgstr ""
+"Importanza materiale della risorsa, ad esempio numero di pagine o volumi."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:181
 msgid "Other Material Characteristics"
@@ -414,8 +415,8 @@ msgid ""
 "Other Material Characteristics, ie illustrations, black and with or "
 "coloured."
 msgstr ""
-"Altre caratteristiche dei materiali, ad esempio illustrazioni, in bianco "
-"e nero o a colori."
+"Altre caratteristiche dei materiali, ad esempio illustrazioni, in bianco e "
+"nero o a colori."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:187
 msgid "Format"
@@ -481,7 +482,8 @@ msgstr "reroID"
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:256
 msgid "Corresponding reroID of the original RERO record."
-msgstr "reroID corrispondente risvolto del record bibliografico RERO originale."
+msgstr ""
+"reroID corrispondente risvolto del record bibliografico RERO originale."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:261
 msgid "bnfID"
@@ -509,7 +511,7 @@ msgstr "Oggetto della risorsa."
 
 #: reroils_data/documents/jsonschemas/documents/book-v0.0.1.json:286
 msgid "Document availability"
-msgstr ""
+msgstr "Disponibilità del documento"
 
 #: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:13
 msgid "Author"
@@ -637,9 +639,8 @@ msgid "Short Loan"
 msgstr "Prestito corto"
 
 #: reroils_data/items/form_options/items/item-v0.0.1.json:96
-#, python-format
 msgid "On Site Consultation"
-msgstr "%(icon)s Prestito e ritorno"
+msgstr "Consultazione in loco"
 
 #: reroils_data/items/jsonschemas/items/item-v0.0.1.json:4
 msgid "Item"
@@ -682,9 +683,8 @@ msgid "Item type"
 msgstr "Typo di esemplare "
 
 #: reroils_data/items/jsonschemas/items/item-v0.0.1.json:56
-
 msgid "Item availability"
-msgstr "indisponibile"
+msgstr "Disponibilità dell'esemplare"
 
 #: reroils_data/items/jsonschemas/items/item-v0.0.1.json:85
 msgid "Renewal count"
@@ -695,14 +695,12 @@ msgid "Item renewal count."
 msgstr "Numero di rinnovi del esemplare."
 
 #: reroils_data/items/templates/reroils_data/_item_head.html:9
-
 msgid "Callnumber"
-msgstr "Classificazione"
+msgstr "Segnatura"
 
 #: reroils_data/items/templates/reroils_data/_item_head.html:25
-
 msgid "Document"
-msgstr "Documento ID"
+msgstr "Documento"
 
 #: reroils_data/items/templates/reroils_data/_item_head.html:41
 #: reroils_data/members/form_options/members/member-v0.0.1.json:26
@@ -721,9 +719,8 @@ msgstr "In prestito da"
 
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:28
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:65
-
 msgid "Patron"
-msgstr "lettore"
+msgstr "Lettore"
 
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:29
 #: reroils_data/patrons/templates/reroils_data/patron_profile.html:63
@@ -751,14 +748,12 @@ msgid "Reservation date"
 msgstr "Data di prenotazione"
 
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:79
-
 msgid "No patron found!"
-msgstr "Account lettore"
+msgstr "Nessun lettore trovato"
 
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:93
-
 msgid "No Date"
-msgstr "Data di scadenza"
+msgstr "Nessuna data"
 
 #: reroils_data/locations/form_options/locations/location-v0.0.1.json:35
 #: reroils_data/members/form_options/members/member-v0.0.1.json:38
@@ -997,8 +992,7 @@ msgstr "Numero di telefono con l'indicazione internazionale, senza spazi."
 
 #: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:80
 msgid ""
-"Phone number with the international prefix, without spaces, ie "
-"+41221234567."
+"Phone number with the international prefix, without spaces, ie +41221234567."
 msgstr ""
 "Numero di telefono con l'indicazione internazionale, senza spazi, cioè "
 "+41221234567."
@@ -1080,75 +1074,3 @@ msgstr "Nessuna prenotazione"
 #: reroils_data/patrons/templates/reroils_data/patron_profile.html:56
 msgid "Belongs to"
 msgstr "Appartiene a"
-
-#~ msgid "available"
-#~ msgstr "disponibile"
-
-#~ msgid "due until"
-#~ msgstr "in scadenza fino al"
-
-#~ msgid "on_site consultation"
-#~ msgstr "consultazione in loco"
-
-#~ msgid "Cancel"
-#~ msgstr "Annulare"
-
-#~ msgid "Document availability"
-#~ msgstr "Disponibilità del documento"
-
-#~ msgid "{{ record.metadata.available ? 'available' : 'not available' }}"
-#~ msgstr "{{ record.metadata.available ? 'available' : 'not available' }}"
-
-#~ msgid "On Site Consultation"
-#~ msgstr "Consultazione in loco"
-
-#~ msgid "Item availability"
-#~ msgstr "Disponibilità dell'esemplare"
-
-#~ msgid "Callnumber"
-#~ msgstr "Segnatura"
-
-#~ msgid "Document"
-#~ msgstr "Documento"
-
-#~ msgid "In Transit"
-#~ msgstr "In transito"
-
-#~ msgid "Loaned by"
-#~ msgstr "In prestito da"
-
-#~ msgid "Patron"
-#~ msgstr "Lettore"
-
-#~ msgid "No patron found!"
-#~ msgstr "Nessun lettore trovato"
-
-#~ msgid "No Date"
-#~ msgstr "Nessuna data"
-
-#~ msgid "Document at desk"
-#~ msgstr "Documento al banco prestiti"
-
-#~ msgid "Belongs to"
-#~ msgstr "Appartiene a"
-
-#~ msgid "items available"
-#~ msgstr "indisponibile"
-
-#~ msgid "Show source"
-#~ msgstr ""
-
-#~ msgid "Edit"
-#~ msgstr ""
-
-#~ msgid "Delete"
-#~ msgstr ""
-
-#~ msgid "On Loan requested"
-#~ msgstr "richiesto"
-
-#~ msgid "Not for Loan"
-#~ msgstr "Nessun prestito"
-
-#~ msgid "Limit date"
-#~ msgstr "Data di nascita"
