@@ -1,11 +1,38 @@
 # -*- coding: utf-8 -*-
+#
+# This file is part of Invenio.
+# Copyright (C) 2017 RERO.
+#
+# Invenio is free software; you can redistribute it
+# and/or modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the
+# License, or (at your option) any later version.
+#
+# Invenio is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Invenio; if not, write to the
+# Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+# MA 02111-1307, USA.
+#
+# In applying this license, RERO does not
+# waive the privileges and immunities granted to it by virtue of its status
+# as an Intergovernmental Organization or submit itself to any jurisdiction.
+
+"""Pytest configuration."""
+
 # vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4
 
 import os
 
 import pytest
-from marctojson.do_bnf_auth_person import Transformation
 from pymarc import MARCReader, marcxml
+
+from reroils_data.authorities.marctojson.do_bnf_auth_person import \
+    Transformation
 
 
 def trans_bnf_prep(xml_part_to_add):
@@ -41,87 +68,6 @@ def build_xml_bnf_record_file(xml_part_to_add):
 
 @pytest.fixture(scope='session')
 def empty_mef_record():
-    """empty MEF record."""
+    """Empty MEF record."""
     json_mef_record = {}
     return json_mef_record
-
-
-@pytest.fixture(scope='session')
-def marc_record():
-    """marc record."""
-    current_dir = os.path.dirname(__file__)
-    file_name = os.path.join(current_dir, 'examples/one_record.mrc')
-    records = MARCReader(
-        open(file_name, 'rb'),
-        to_unicode=True,
-        force_utf8=True,
-        utf8_handling='ignore'
-    )
-    for record in records:
-        return record
-
-
-@pytest.fixture(scope='session')
-def minimal_marcxml_record():
-    """marc record."""
-    current_dir = os.path.dirname(__file__)
-    file_name = os.path.join(
-        current_dir, 'examples/bnf_auth_person_minimal.xml')
-    records = marcxml.parse_xml_to_array(
-        file_name, strict=False, normalize_form=None)
-    for record in records:
-        return record
-
-
-@pytest.fixture(scope='session')
-def one_marcxml_record():
-    """marc record."""
-    current_dir = os.path.dirname(__file__)
-    file_name = os.path.join(
-        current_dir, 'examples/bnf_auth_person_complete.xml')
-
-    records = marcxml.parse_xml_to_array(
-        file_name, strict=False, normalize_form=None)
-    # records = MARCReader(
-    #     open(file_name, 'rb'),
-    #     to_unicode=True,
-    #     force_utf8=True,
-    #     utf8_handling='ignore'
-    # )
-    for record in records:
-        return record
-
-
-@pytest.fixture(scope='session')
-def all_marcxml_records():
-    """marc record."""
-    current_dir = os.path.dirname(__file__)
-    file_name = os.path.join(
-        current_dir, '../data/bnf_auth_person_P1486_20.mrc')
-    records = MARCReader(
-        open(file_name, 'rb'),
-        to_unicode=True,
-        force_utf8=True,
-        utf8_handling='ignore'
-    )
-    return records
-
-
-@pytest.fixture(scope='session')
-def ten_marcxml_records():
-    """marc record."""
-    current_dir = os.path.dirname(__file__)
-    file_name = os.path.join(
-        current_dir, 'examples/ten_xml_record.xml')
-
-    records = marcxml.parse_xml_to_array(
-        file_name, strict=False, normalize_form=None)
-    # records = MARCReader(
-    #     open(file_name, 'rb'),
-    #     to_unicode=True,
-    #     force_utf8=True,
-    #     utf8_handling='ignore'
-    # )
-    # for record in records:
-    #     print('print_log', records)
-    return records

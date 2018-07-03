@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4
 
-from .conftest import trans_bnf_prep
+from conftest import trans_bnf_prep
 
 
 def _test_bnf_FIELDNAME():
