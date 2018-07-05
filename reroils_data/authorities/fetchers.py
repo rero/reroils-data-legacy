@@ -30,6 +30,12 @@ from __future__ import absolute_import, print_function
 from functools import partial
 
 from ..fetchers import id_fetcher
-from .providers import AuthorityProvider
+from .providers import AuthorityProvider, BnfProvider, GndProvider, \
+    MefProvider, ReroProvider, ViafProvider
 
 auth_id_fetcher = partial(id_fetcher, provider=AuthorityProvider)
+viaf_id_fetcher = partial(id_fetcher, provider=ViafProvider)
+gnd_id_fetcher = partial(id_fetcher, provider=GndProvider)
+mef_id_fetcher = partial(id_fetcher, provider=MefProvider)
+rero_id_fetcher = partial(id_fetcher, provider=ReroProvider)
+bnf_id_fetcher = partial(id_fetcher, provider=BnfProvider)
