@@ -86,7 +86,7 @@
                 </td>
                 <td>
                     {% if 'loan' == type %}
-                      {{ document.item.holding.start_date|format_date(
+                      {{ document.item.holding.end_date|format_date(
                           format='short_date',
                           locale=current_i18n.locale.language
                       )}}
