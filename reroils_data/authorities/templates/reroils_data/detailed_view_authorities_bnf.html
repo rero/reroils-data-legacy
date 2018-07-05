@@ -1,0 +1,84 @@
+{%- extends config.RECORDS_UI_BASE_TEMPLATE %}
+
+{%- block page_body %}
+<div class="container search-page">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{_('VIAF ID')}}: {{record.viaf_pid}}</h1>
+        </div>
+    </div>
+
+        <div class="row">
+            <div class="col-xs-3 col-sm-2">
+                {{_('Relations ID')}}:
+            </div>
+            <div class="col-xs-9 col-sm-10">
+                {{record.pid }}
+            </div>
+        </div>
+
+    {% if record.bnf_pid  %}
+        <div class="row">
+            <div class="col-xs-3 col-sm-2">
+                {{_('BNF ID')}}:
+            </div>
+            <div class="col-xs-9 col-sm-10">
+                {{record.bnf_pid }}
+            </div>
+        </div>
+     {% endif  %}
+
+    {% if record.dnb_pid  %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('GND ID')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.dnb_pid }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.rero_auth_pid %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('RERO ID')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.rero_auth_pid }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.rero_auth_pid %}
+        <div class="row">
+            <div class="col-xs-3 col-sm-2">
+                {{_('MES ID')}}:
+            </div>
+            <div class="col-xs-9 col-sm-10">
+                {{record.rero_auth_pid }}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if record.virtua_auth_pid %}
+        <div class="row">
+            <div class="col-xs-3 col-sm-2">
+                {{_('Virtua Auth ID')}}:
+            </div>
+            <div class="col-xs-9 col-sm-10">
+                {{record.virtua_auth_pid }}
+            </div>
+        </div>
+    {% endif %}
+
+
+
+
+    {% with
+        json=record
+    %}
+        {% include 'reroils_record_editor/_button_actions.html' %}
+    {% endwith %}
+</div>
+{%- endblock %}

@@ -29,6 +29,12 @@ from __future__ import absolute_import, print_function, unicode_literals
 from functools import partial
 
 from ..minters import id_minter
-from .providers import AuthorityProvider
+from .providers import AuthorityProvider, BnfProvider, GndProvider, \
+    MefProvider, ReroProvider, ViafProvider
 
 auth_id_minter = partial(id_minter, provider=AuthorityProvider)
+viaf_id_minter = partial(id_minter, provider=ViafProvider)
+bnf_id_minter = partial(id_minter, provider=BnfProvider)
+gnd_id_minter = partial(id_minter, provider=GndProvider)
+mef_id_minter = partial(id_minter, provider=MefProvider)
+rero_id_minter = partial(id_minter, provider=ReroProvider)

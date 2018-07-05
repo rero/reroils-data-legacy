@@ -25,14 +25,57 @@
 """API for manipulating authorities."""
 
 from ..api import IlsRecord
-from .fetchers import auth_id_fetcher
-from .minters import auth_id_minter
-from .providers import AuthorityProvider
+from .fetchers import auth_id_fetcher, bnf_id_fetcher, gnd_id_fetcher, \
+    mef_id_fetcher, rero_id_fetcher, viaf_id_fetcher
+from .minters import auth_id_minter, bnf_id_minter, gnd_id_minter, \
+    mef_id_minter, rero_id_minter, viaf_id_minter
+from .providers import AuthorityProvider, BnfProvider, GndProvider, \
+    MefProvider, ReroProvider, ViafProvider
 
 
 class Authority(IlsRecord):
-    """Location class."""
+    """Authority class."""
 
     minter = auth_id_minter
     fetcher = auth_id_fetcher
     provider = AuthorityProvider
+
+
+class Mef(IlsRecord):
+    """Mef Authority class."""
+
+    minter = mef_id_minter
+    fetcher = mef_id_fetcher
+    provider = MefProvider
+
+
+class Gnd(IlsRecord):
+    """Gnd Authority class."""
+
+    minter = gnd_id_minter
+    fetcher = gnd_id_fetcher
+    provider = GndProvider
+
+
+class Rero(IlsRecord):
+    """Rero Authority class."""
+
+    minter = rero_id_minter
+    fetcher = rero_id_fetcher
+    provider = ReroProvider
+
+
+class Bnf(IlsRecord):
+    """Bnf Authority class."""
+
+    minter = bnf_id_minter
+    fetcher = bnf_id_fetcher
+    provider = BnfProvider
+
+
+class Viaf(IlsRecord):
+    """Viaf Authority class."""
+
+    minter = viaf_id_minter
+    fetcher = viaf_id_fetcher
+    provider = ViafProvider

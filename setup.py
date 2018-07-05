@@ -177,6 +177,11 @@ setup(
             'item_id = reroils_data.items.minters:item_id_minter',
             'patron_id = reroils_data.patrons.minters:patron_id_minter',
             'auth_id = reroils_data.authorities.minters:auth_id_minter',
+            'viaf_id = reroils_data.authorities.minters:viaf_id_minter',
+            'bnf_id = reroils_data.authorities.minters:bnf_id_minter',
+            'gnd_id = reroils_data.authorities.minters:gnd_id_minter',
+            'rero_id = reroils_data.authorities.minters:rero_id_minter',
+            'mef_id = reroils_data.authorities.minters:mef_id_minter',
         ],
         'invenio_pidstore.fetchers': [
             'organisation_id = reroils_data.organisations.fetchers:organisation_id_fetcher',
@@ -186,6 +191,11 @@ setup(
             'item_id = reroils_data.items.fetchers:item_id_fetcher',
             'patron_id = reroils_data.patrons.fetchers:patron_id_fetcher',
             'auth_id = reroils_data.authorities.fetchers:auth_id_fetcher',
+            'viaf_id = reroils_data.authorities.fetchers:viaf_id_fetcher',
+            'bnf_id = reroils_data.authorities.fetchers:bnf_id_fetcher',
+            'gnd_id = reroils_data.authorities.fetchers:gnd_id_fetcher',
+            'rero_id = reroils_data.authorities.fetchers:rero_id_fetcher',
+            'mef_id = reroils_data.authorities.fetchers:mef_id_fetcher',
         ],
         'invenio_jsonschemas.schemas': [
             'organisations = reroils_data.organisations.jsonschemas',
