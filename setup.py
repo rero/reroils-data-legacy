@@ -79,6 +79,7 @@ setup_requires = [
 ]
 
 install_requires = [
+    'angular-gettext-babel>=0.1',
     'dateparser>=0.7.0',
     'dojson>=1.3.2',
     'elasticsearch-dsl>=2.0.0,<3.0.0',
@@ -123,6 +124,9 @@ setup(
     include_package_data=True,
     platforms='any',
     entry_points={
+        'babel.extractors': [
+            'angular_gettext = angular_gettext_babel.extract:extract_angular',
+        ],
         'invenio_base.apps': [
             'reroils_data = reroils_data:REROILSDATA'
         ],
@@ -206,7 +210,7 @@ setup(
             'reroils_data_patron_profile_css = reroils_data.patrons.bundles:profile_css',
             'reroils_data_patron_editor_js = reroils_data.patrons.bundles:editor_js',
             'reroils_data_member_editor_js = reroils_data.members_locations.bundles:editor_js',
-            'reroils_data_location_editor_js = reroils_data.locations.bundles:editor_js'
+            'reroils_data_location_editor_js = reroils_data.locations.bundles:editor_js',
         ],
     },
     extras_require=extras_require,

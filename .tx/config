@@ -7,3 +7,8 @@ source_file = reroils_data/translations/messages.pot
 source_lang = en_US
 type = PO
 
+[reroils.reroils-data-messages-js]
+file_filter = reroils_data/translations/<lang>/LC_MESSAGES/messages-js.po
+source_file = reroils_data/translations/messages-js.pot
+source_lang = en_US
+type = PO
