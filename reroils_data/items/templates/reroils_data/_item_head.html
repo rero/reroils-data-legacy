@@ -44,7 +44,16 @@
           <a href="{{ '/members/' + item_dumps.member_pid }}">{{ item_dumps.member_name }}</a>
         </div>
     </div>
-
+    {% if record._circulation.status %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Status')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+           {{ _(record._circulation.status) }}
+        </div>
+    </div>
+    {% endif %}
     {% with
         href_update=url_for('reroils_record_editor.update_item', pid=record.pid),
         href_delete=url_for('reroils_record_editor.delete_item', pid=record.pid),
