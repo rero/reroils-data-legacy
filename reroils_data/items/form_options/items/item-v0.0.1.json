@@ -58,7 +58,7 @@
         "type": "section",
         "htmlClass": "col-xs-6",
         "items": [
-          "call_Number"
+          "call_number"
         ]
       }
     ]
