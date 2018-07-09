@@ -74,7 +74,7 @@ def test_bnf_language_of_person_1():
     }
 
 
-def test_bnf_language_of_perso_2():
+def test_bnf_language_of_person_2():
     """Test language of person 101 missing"""
     xml_part_to_add = ""
     trans = trans_bnf_prep(xml_part_to_add)
