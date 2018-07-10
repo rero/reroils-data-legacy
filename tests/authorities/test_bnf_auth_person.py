@@ -74,7 +74,7 @@ def test_bnf_language_of_person_1():
     }
 
 
-def test_bnf_language_of_perso_2():
+def test_bnf_language_of_person_2():
     """Test language of person 101 missing"""
     xml_part_to_add = ""
     trans = trans_bnf_prep(xml_part_to_add)
@@ -258,28 +258,27 @@ def test_bnf_variant_name_for_person_2():
     assert trans.json == {}
 
 
-def test_bnf_authorized_access_point_representing_a_person_1():
-    """Test Authorized access point representing a person 200 $abcdf"""
+def test_authorized_access_point_representing_a_person_1():
+    """Test Authorized access point representing a person 200 $abfc"""
     xml_part_to_add = """
         <datafield ind1=" " ind2=" " tag="200">
             <subfield code="a">Brontë</subfield>
             <subfield code="b">Charlotte</subfield>
-            <subfield code="c">écrivain</subfield>
-            <subfield code="c">biographe</subfield>
             <subfield code="f">1816-1855</subfield>
-            <subfield code="e">ignorer</subfield>
+            <subfield code="c">écrivain</subfield>
+            <subfield code="d">ignorer</subfield>
         </datafield>
      """
-    trans = trans_bnf_prep(xml_part_to_add)
-    trans.trans_bnf_authorized_access_point_representing_a_person()
+    trans = trans_prep(xml_part_to_add)
+    trans.trans_authorized_access_point_representing_a_person()
     assert trans.json == {
         "authorized_access_point_representing_a_person":
-            "Brontë, Charlotte, écrivain, biographe, 1816-1855"
+            "Brontë, Charlotte, 1816-1855, écrivain"
     }
 
 
 def test_bnf_authorized_access_point_representing_a_person_2():
-    """Test Authorized access point representing a person 200 $abcdf missing"""
+    """Test Authorized access point representing a person 200 $abfc missing"""
     xml_part_to_add = ""
     trans = trans_bnf_prep(xml_part_to_add)
     trans.trans_bnf_authorized_access_point_representing_a_person()
