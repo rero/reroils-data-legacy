@@ -257,16 +257,33 @@ def test_bnf_variant_name_for_person_2():
     trans.trans_bnf_variant_name_for_person()
     assert trans.json == {}
 
+def test_authorized_access_point_representing_a_person_diff_order():
+    """Test Authorized access point representing a person 200 $abdfc"""
+    xml_part_to_add = """
+        <datafield ind1=" " ind2=" " tag="200">
+            <subfield code="f">1816-1855</subfield>
+            <subfield code="b">Charlotte</subfield>
+            <subfield code="a">Brontë</subfield>
+            <subfield code="e">ignorer le texte</subfield>
+            <subfield code="c">écrivain</subfield>
+        </datafield>
+     """
+    trans = trans_prep(xml_part_to_add)
+    trans.trans_authorized_access_point_representing_a_person()
+    assert trans.json == {
+        "authorized_access_point_representing_a_person":
+            "1816-1855, Charlotte, Brontë, écrivain"
+    }
 
-def test_authorized_access_point_representing_a_person_1():
-    """Test Authorized access point representing a person 200 $abfc"""
+def test_authorized_access_point_representing_a_person_general_order():
+    """Test Authorized access point representing a person 200 $abdfc"""
     xml_part_to_add = """
         <datafield ind1=" " ind2=" " tag="200">
             <subfield code="a">Brontë</subfield>
             <subfield code="b">Charlotte</subfield>
             <subfield code="f">1816-1855</subfield>
             <subfield code="c">écrivain</subfield>
-            <subfield code="d">ignorer</subfield>
+            <subfield code="e">ignorer le texte</subfield>
         </datafield>
      """
     trans = trans_prep(xml_part_to_add)
@@ -277,9 +294,10 @@ def test_authorized_access_point_representing_a_person_1():
     }
 
 
-def test_bnf_authorized_access_point_representing_a_person_2():
-    """Test Authorized access point representing a person 200 $abfc missing"""
+def test_bnf_authorized_access_point_representing_a_person_missing_field():
+    """Test Authorized access point representing a person 200 $abdfc missing"""
     xml_part_to_add = ""
     trans = trans_bnf_prep(xml_part_to_add)
     trans.trans_bnf_authorized_access_point_representing_a_person()
-    assert trans.json == {}
+assert trans.json == {}
+
