@@ -32,27 +32,37 @@ import pytest
 from pymarc import MARCReader, marcxml
 
 from reroils_data.authorities.marctojson.do_bnf_auth_person import \
-    Transformation
+    Transformation as Transformation_bnf
+from reroils_data.authorities.marctojson.do_rero_auth_person import \
+    Transformation as Transformation_rero
 
 
-def trans_bnf_prep(xml_part_to_add):
+def trans_prep(source, xml_part_to_add):
     """Prepare transformation."""
-    build_xml_bnf_record_file(xml_part_to_add)
+    build_xml_record_file(xml_part_to_add)
     current_dir = os.path.dirname(__file__)
     file_name = os.path.join(
         current_dir, 'examples/xml_minimal_record.xml')
     records = marcxml.parse_xml_to_array(
         file_name, strict=False, normalize_form=None)
-    trans = Transformation(
-        marc=records[0],
-        logger=None,
-        verbose=False,
-        transform=False
-    )
+    if source == 'bnf':
+        trans = Transformation_bnf(
+            marc=records[0],
+            logger=None,
+            verbose=False,
+            transform=False
+        )
+    elif source == 'rero':
+        trans = Transformation_rero(
+            marc=records[0],
+            logger=None,
+            verbose=False,
+            transform=False
+        )
     return trans
 
 
-def build_xml_bnf_record_file(xml_part_to_add):
+def build_xml_record_file(xml_part_to_add):
     """Build_xml_record_file."""
     xml_record_as_text = """
         <record>
