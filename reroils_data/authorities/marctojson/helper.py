@@ -134,6 +134,24 @@ def display_record(record, ctrl=False):
     print(nice_record(record, ctrl))
 
 
+def build_string_list_from_fields(record, tag, subfields, separator):
+    """Build a list of strings (one per field).
+
+    from the given field tag and given subfields.
+    the given separator is used as subfields delimitor.
+    """
+    fields = record.get_fields(tag)
+    filed_string_list = []
+    for field in fields:
+        subfield_list = []
+        for code, data in field:
+            if re.match('[' + subfields + ']', code):
+                subfield_list.append(data)
+        string_from_field = separator.join(subfield_list)
+        filed_string_list.append(string_from_field)
+    return filed_string_list
+
+
 def as_marc(field):
     """Docstring."""
     return field.as_marc(encoding='utf-8').decode('utf-8')

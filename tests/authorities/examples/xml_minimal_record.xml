@@ -1,3 +1,11 @@
 
         <record>
-            <leader>00589nx  a2200193   45  </leader> </record>
+            <leader>00589nx  a2200193   45  </leader> 
+        <datafield ind1=" " ind2=" " tag="200">
+            <subfield code="a">Brontë</subfield>
+            <subfield code="b">Charlotte</subfield>
+            <subfield code="f">1816-1855</subfield>
+            <subfield code="c">écrivain</subfield>
+            <subfield code="e">ignorer le texte</subfield>
+        </datafield>
+     </record>
