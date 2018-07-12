@@ -4,22 +4,6 @@
 from conftest import trans_prep
 
 
-def _test_FIELDNAME():
-    """Test FIELDNAME DESCRIPTION"""
-    xml_part_to_add = """
-        <datafield ind1="_A_" ind2="_B_" tag="_CCC_">
-            <subfield code="_D_">_SUBFIELDATA_</subfield>
-        </datafield>
-     """
-    trans = trans_prep('rero', xml_part_to_add)
-    trans.trans_rero_FIELDNAME()
-    assert trans.json == {
-        "_FIELDNAME_": [
-            "_FIELDATA_"
-        ]
-    }
-
-
 def test_rero_identifier_for_person():
     """Test identifier for person 001"""
     xml_part_to_add = """

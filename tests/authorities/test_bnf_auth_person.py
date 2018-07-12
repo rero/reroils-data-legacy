@@ -4,22 +4,6 @@
 from conftest import trans_prep
 
 
-def _test_bnf_FIELDNAME():
-    """Test FIELDNAME DESCRIPTION"""
-    xml_part_to_add = """
-        <datafield ind1="_A_" ind2="_B_" tag="_CCC_">
-            <subfield code="_D_">_SUBFIELDATA_</subfield>
-        </datafield>
-     """
-    trans = trans_prep('bnf', xml_part_to_add)
-    trans.trans_bnf_FIELDNAME()
-    assert trans.json == {
-        "_FIELDNAME_": [
-            "_FIELDATA_"
-        ]
-    }
-
-
 def test_bnf_gender_female():
     """Test gender 120 $a a = female, b = male, - = not known."""
     xml_part_to_add = """
