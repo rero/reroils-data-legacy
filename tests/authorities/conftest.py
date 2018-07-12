@@ -33,6 +33,8 @@ from pymarc import MARCReader, marcxml
 
 from reroils_data.authorities.marctojson.do_bnf_auth_person import \
     Transformation as Transformation_bnf
+from reroils_data.authorities.marctojson.do_gnd_auth_person import \
+    Transformation as Transformation_gnd
 from reroils_data.authorities.marctojson.do_rero_auth_person import \
     Transformation as Transformation_rero
 
@@ -47,6 +49,13 @@ def trans_prep(source, xml_part_to_add):
         file_name, strict=False, normalize_form=None)
     if source == 'bnf':
         trans = Transformation_bnf(
+            marc=records[0],
+            logger=None,
+            verbose=False,
+            transform=False
+        )
+    elif source == 'gnd':
+        trans = Transformation_gnd(
             marc=records[0],
             logger=None,
             verbose=False,
