@@ -4,75 +4,40 @@
 <div class="container search-page">
     <div class="row">
         <div class="col-md-12">
-            <h1>{{_('VIAF ID')}}: {{record.viaf_pid}}</h1>
+            <h1>{{_('Bnf ID')}}: {{record.identifier_for_person}}</h1>
         </div>
     </div>
 
         <div class="row">
             <div class="col-xs-3 col-sm-2">
-                {{_('Relations ID')}}:
+                {{_('Record ID')}}:
             </div>
             <div class="col-xs-9 col-sm-10">
                 {{record.pid }}
             </div>
         </div>
 
-    {% if record.bnf_pid  %}
+    {% if record.preferred_name_for_person  %}
         <div class="row">
             <div class="col-xs-3 col-sm-2">
-                {{_('BNF ID')}}:
+                {{_('preferred_name')}}:
             </div>
             <div class="col-xs-9 col-sm-10">
-                {{record.bnf_pid }}
+                {{record.preferred_name_for_person }}
             </div>
         </div>
      {% endif  %}
 
-    {% if record.dnb_pid  %}
-    <div class="row">
-        <div class="col-xs-3 col-sm-2">
-            {{_('GND ID')}}:
-        </div>
-        <div class="col-xs-9 col-sm-10">
-            {{record.dnb_pid }}
-        </div>
-    </div>
-    {% endif %}
-
-    {% if record.rero_auth_pid %}
-    <div class="row">
-        <div class="col-xs-3 col-sm-2">
-            {{_('RERO ID')}}:
-        </div>
-        <div class="col-xs-9 col-sm-10">
-            {{record.rero_auth_pid }}
-        </div>
-    </div>
-    {% endif %}
-
-    {% if record.rero_auth_pid %}
+    {% if record.authorized_access_point_representing_a_person  %}
         <div class="row">
             <div class="col-xs-3 col-sm-2">
-                {{_('MES ID')}}:
+                {{_('aap_person')}}:
             </div>
             <div class="col-xs-9 col-sm-10">
-                {{record.rero_auth_pid }}
+                {{record.preferred_name_for_person }}
             </div>
         </div>
-    {% endif %}
-
-    {% if record.virtua_auth_pid %}
-        <div class="row">
-            <div class="col-xs-3 col-sm-2">
-                {{_('Virtua Auth ID')}}:
-            </div>
-            <div class="col-xs-9 col-sm-10">
-                {{record.virtua_auth_pid }}
-            </div>
-        </div>
-    {% endif %}
-
-
+     {% endif  %}
 
 
     {% with

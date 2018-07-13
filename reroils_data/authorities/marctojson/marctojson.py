@@ -108,7 +108,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     # try:
-    module_name = 'marctojson.' + options.transformation
+    module_name = options.transformation
     module = __import__(module_name, fromlist=[''])
     Transformation = getattr(module, 'Transformation')
 

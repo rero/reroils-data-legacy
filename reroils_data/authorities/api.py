@@ -24,6 +24,8 @@
 
 """API for manipulating authorities."""
 
+from invenio_search.api import RecordsSearch
+
 from ..api import IlsRecord
 from .fetchers import auth_id_fetcher, bnf_id_fetcher, gnd_id_fetcher, \
     mef_id_fetcher, rero_id_fetcher, viaf_id_fetcher
@@ -31,6 +33,51 @@ from .minters import auth_id_minter, bnf_id_minter, gnd_id_minter, \
     mef_id_minter, rero_id_minter, viaf_id_minter
 from .providers import AuthorityProvider, BnfProvider, GndProvider, \
     MefProvider, ReroProvider, ViafProvider
+
+
+class ViafSearch(RecordsSearch):
+    """RecordsSearch."""
+
+    class Meta:
+        """Search only on index."""
+
+        index = 'viaf'
+
+
+class BnfSearch(RecordsSearch):
+    """RecordsSearch."""
+
+    class Meta:
+        """Search only on index."""
+
+        index = 'bnf'
+
+
+class ReroSearch(RecordsSearch):
+    """RecordsSearch."""
+
+    class Meta:
+        """Search only on index."""
+
+        index = 'rero'
+
+
+class GndSearch(RecordsSearch):
+    """RecordsSearch."""
+
+    class Meta:
+        """Search only on index."""
+
+        index = 'gnd'
+
+
+class MefSearch(RecordsSearch):
+    """RecordsSearch."""
+
+    class Meta:
+        """Search only on index."""
+
+        index = 'mef'
 
 
 class Authority(IlsRecord):
