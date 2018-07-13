@@ -30,7 +30,8 @@
 
 import re
 
-from .helper import build_string_list_from_fields
+from reroils_data.authorities.marctojson.helper import \
+    build_string_list_from_fields
 
 # third party modules
 
