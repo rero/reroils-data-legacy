@@ -41,7 +41,7 @@ class ViafSearch(RecordsSearch):
     class Meta:
         """Search only on index."""
 
-        index = 'viaf'
+        index = 'authorities-viaf-person-v0.0.1'
 
 
 class BnfSearch(RecordsSearch):
@@ -50,7 +50,7 @@ class BnfSearch(RecordsSearch):
     class Meta:
         """Search only on index."""
 
-        index = 'bnf'
+        index = 'authorities-bnf-person-v0.0.1'
 
 
 class ReroSearch(RecordsSearch):
@@ -59,7 +59,7 @@ class ReroSearch(RecordsSearch):
     class Meta:
         """Search only on index."""
 
-        index = 'rero'
+        index = 'authorities-rero-person-v0.0.1'
 
 
 class GndSearch(RecordsSearch):
@@ -68,7 +68,7 @@ class GndSearch(RecordsSearch):
     class Meta:
         """Search only on index."""
 
-        index = 'gnd'
+        index = 'authorities-gnd-person-v0.0.1'
 
 
 class MefSearch(RecordsSearch):
@@ -77,7 +77,7 @@ class MefSearch(RecordsSearch):
     class Meta:
         """Search only on index."""
 
-        index = 'mef'
+        index = 'authorities-mef-person-v0.0.1'
 
 
 class Authority(IlsRecord):
