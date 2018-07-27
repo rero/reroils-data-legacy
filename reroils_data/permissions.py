@@ -26,7 +26,7 @@
 
 
 from flask_login import current_user
-from flask_principal import PermissionDenied, RoleNeed
+from flask_principal import RoleNeed
 from invenio_access.permissions import DynamicPermission
 
 request_item_permission = DynamicPermission(RoleNeed('patrons'))
