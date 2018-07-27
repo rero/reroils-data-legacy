@@ -13,15 +13,7 @@ this file.
 
 from __future__ import absolute_import, print_function
 
-from urllib.request import urlopen
-
-import six
-from dojson.contrib.marc21.utils import create_record, split_stream
-from flask import Blueprint, abort, current_app, jsonify
-from flask_babelex import gettext as _
-from reroils_record_editor.permissions import record_edit_permission
-
-from .dojson.contrib.unimarctojson import unimarctojson
+from flask import Blueprint
 
 blueprint = Blueprint(
     'reroils_data_authorities',

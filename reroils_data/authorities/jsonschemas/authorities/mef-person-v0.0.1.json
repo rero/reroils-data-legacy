@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Schema for mef authority",
+  "type": "object",
+  "required": [
+    "$schema",
+    "pid"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to mef authority record.",
+      "type": "string",
+      "minLength": 7
+    },
+    "pid": {
+      "title": "Mef record ID",
+      "type": "string",
+      "minLength": 1
+    }
+   }
+}
