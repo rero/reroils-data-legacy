@@ -146,6 +146,7 @@ def minimal_document_record():
         '$schema': url_schema + '/documents/document-v0.0.1.json',
         'pid': '2',
         'title': 'RERO21 pour les nuls : les premiers pas',
+        'type': 'book',
         'languages': [{'language': 'fre'}],
     }
 
