@@ -68,6 +68,28 @@ def test_titlesProper(document_schema, minimal_document_record):
         validate(minimal_document_record, document_schema)
 
 
+def test_type(document_schema, minimal_document_record):
+    """Test type for document jsonschema."""
+    validate(minimal_document_record, document_schema)
+
+    with pytest.raises(ValidationError):
+        minimal_document_record['type'] = 2
+        validate(minimal_document_record, document_schema)
+
+    with pytest.raises(ValidationError):
+        minimal_document_record['type'] = 'CD-ROM'
+        validate(minimal_document_record, document_schema)
+
+
+def test_is_part_of(document_schema, minimal_document_record):
+    """Test type for document jsonschema."""
+    validate(minimal_document_record, document_schema)
+
+    with pytest.raises(ValidationError):
+        minimal_document_record['is_part_of'] = 2
+        validate(minimal_document_record, document_schema)
+
+
 def test_languages(document_schema, minimal_document_record):
     """Test languages for jsonschema."""
     validate(minimal_document_record, document_schema)
