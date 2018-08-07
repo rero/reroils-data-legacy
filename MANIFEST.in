@@ -57,10 +57,7 @@ recursive-include tests *.py
 recursive-include reroils_data *.po *.pot *.mo
 
 # added by check_manifest.py
-recursive-include data *.ids
 recursive-include data *.json
-recursive-include data *.marc
-recursive-include data *.mrc
 recursive-include data *.xml
 
 # added by check_manifest.py

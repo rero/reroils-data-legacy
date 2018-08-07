@@ -31,10 +31,95 @@ from dojson.contrib.marc21.utils import create_record
 from reroils_data.documents.dojson.contrib.marc21tojson import marc21tojson
 
 
+# type: leader
+def test_marc21_to_type():
+    """
+    Test dojson marc21_to_type.
+
+    Books: LDR/6-7: am
+    Journals: LDR/6-7: as
+    Articles: LDR/6-7: aa + add field 773 (journal title)
+    Scores: LDR/6: c|d
+    Videos: LDR/6: g + 007/0: m|v
+    Sounds: LDR/6: i|j
+    E-books (imported from Cantook)
+    """
+
+    marc21xml = """
+    <record>
+        <leader>00501nam a2200133 a 4500</leader>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('type') == 'book'
+
+    marc21xml = """
+    <record>
+        <leader>00501nas a2200133 a 4500</leader>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('type') == 'journal'
+
+    marc21xml = """
+    <record>
+        <leader>00501naa a2200133 a 4500</leader>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('type') == 'article'
+
+    marc21xml = """
+    <record>
+        <leader>00501nca a2200133 a 4500</leader>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('type') == 'score'
+    marc21xml = """
+    <record>
+        <leader>00501nda a2200133 a 4500</leader>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('type') == 'score'
+
+    marc21xml = """
+    <record>
+        <leader>00501nia a2200133 a 4500</leader>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('type') == 'sound'
+    marc21xml = """
+    <record>
+        <leader>00501nja a2200133 a 4500</leader>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('type') == 'sound'
+
+    marc21xml = """
+    <record>
+        <leader>00501nga a2200133 a 4500</leader>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('type') == 'video'
+
+
 # title: 245$a
 # without the punctuaction. If there's a $b, then 245$a : $b without the " /"
-def test_marc21totitle():
-    """Test dojson marc21totitle."""
+def test_marc21_to_title():
+    """Test dojson marc21_to_title."""
 
     # subfields $a $b $c
     marc21xml = """
@@ -75,7 +160,7 @@ def test_marc21totitle():
 
 
 # titleProper: [730$a repetitive]
-def test_marc21totitlesProper():
+def test_marc21_to_titlesProper():
     """Test dojson marc21titlesProper."""
 
     marc21xml = """
@@ -106,7 +191,7 @@ def test_marc21totitlesProper():
 
 # languages: 008 and 041 [$a, repetitive]
 # translatedFrom: 041 [$h repetitive]
-def test_marc21languages():
+def test_marc21_to_languages():
     """Test dojson marc21languages."""
 
     marc21xml = """
@@ -170,8 +255,8 @@ def test_marc21languages():
 # authors.date: 100 $d or 700 $d (facultatif)
 # authors.qualifier: 100 $c or 700 $c (facultatif)
 # authors.type: if 100 or 700 then person, if 710 then organisation
-def test_marc21toauthors():
-    """Test dojson marc21toauthors."""
+def test_marc21_to_authors():
+    """Test dojson marc21_to_authors."""
 
     marc21xml = """
     <record>
@@ -251,7 +336,7 @@ def test_marc21toauthors():
 # publishers.name: 260 [$b repetitive] (without the , but keep the ;)
 # publishers.place: 260 [$a repetitive] (without the : but keep the ;)
 # publicationDate: 260 [$c repetitive] (but take only the first one)
-def test_marc21publishers_publicationDate():
+def test_marc21_to_publishers_publicationDate():
     """Test dojson publishers publicationDate."""
 
     marc21xml = """
@@ -323,7 +408,7 @@ def test_marc21publishers_publicationDate():
 # extent: 300$a (the first one if many)
 # otherMaterialCharacteristics: 300$b (the first one if many)
 # formats: 300 [$c repetitive]
-def test_marc21description():
+def test_marc21_to_description():
     """Test dojson extent, otherMaterialCharacteristics, formats."""
 
     marc21xml = """
@@ -365,7 +450,7 @@ def test_marc21description():
 
 # series.name: [490$a repetitive]
 # series.number: [490$v repetitive]
-def test_marc21series():
+def test_marc21_to_series():
     """Test dojson series."""
 
     marc21xml = """
@@ -394,7 +479,7 @@ def test_marc21series():
 
 
 # abstract: [520$a repetitive]
-def test_marc21abstract():
+def test_marc21_to_abstract():
     """Test dojson abstract."""
 
     marc21xml = """
@@ -411,7 +496,7 @@ def test_marc21abstract():
 
 # identifiers:reroID: 035$a
 # identifiers:isbn: 020$a
-def test_marc21identifiers():
+def test_marc21_to_identifiers():
     """Test dojson identifiers."""
 
     marc21xml = """
@@ -433,7 +518,7 @@ def test_marc21identifiers():
 
 
 # notes: [500$a repetitive]
-def test_marc21notes():
+def test_marc21_to_notes():
     """Test dojson notes."""
 
     marc21xml = """
@@ -451,9 +536,26 @@ def test_marc21notes():
     assert data.get('notes') == ['note 1', 'note 2']
 
 
+# is_part_of 773$t
+def test_marc21_to_is_part_of():
+    """Test dojson is_part_of."""
+
+    marc21xml = """
+    <record>
+      <datafield tag="773" ind1="1" ind2=" ">
+        <subfield code="t">Stuart Hall : critical dialogues</subfield>
+        <subfield code="g">411</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('is_part_of') == 'Stuart Hall : critical dialogues'
+
+
 # subjects: 6xx [duplicates could exist between several vocabularies,
 # if possible deduplicate]
-def test_marc21subjects():
+def test_marc21_to_subjects():
     """Test dojson subjects."""
 
     marc21xml = """

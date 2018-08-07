@@ -64,10 +64,42 @@ def remove_punctuation(data):
 #
 #     return order
 
+@marc21tojson.over('type', 'leader')
+def marc21_to_type(self, key, value):
+    """
+    Get document type.
+
+    Books: LDR/6-7: am
+    Journals: LDR/6-7: as
+    Articles: LDR/6-7: aa + add field 773 (journal title)
+    Scores: LDR/6: c|d
+    Videos: LDR/6: g + 007/0: m|v
+    Sounds: LDR/6: i|j
+    E-books (imported from Cantook)
+    """
+    type = None
+    type_of_record = value[6]
+    bibliographic_level = value[7]
+    if type_of_record == 'a':
+        if bibliographic_level == 'm':
+            type = 'book'
+        elif bibliographic_level == 's':
+            type = 'journal'
+        elif bibliographic_level == 'a':
+            type = 'article'
+    elif type_of_record in ['c', 'd']:
+        type = 'score'
+    elif type_of_record in ['i', 'j']:
+        type = 'sound'
+    elif type_of_record == 'g':
+        type = 'video'
+        # Todo 007
+    return type
+
 
 @marc21tojson.over('title', '^245..')
 @utils.ignore_value
-def marc21totitle(self, key, value):
+def marc21_to_title(self, key, value):
     """Get title.
 
     title: 245$a
@@ -86,7 +118,7 @@ def marc21totitle(self, key, value):
 @marc21tojson.over('titlesProper', '^730..')
 @utils.for_each_value
 @utils.ignore_value
-def marc21totitlesProper(self, key, value):
+def marc21_to_titlesProper(self, key, value):
     """Test dojson marc21titlesProper.
 
     titleProper: 730$a
@@ -96,7 +128,7 @@ def marc21totitlesProper(self, key, value):
 
 @marc21tojson.over('languages', '^008')
 @utils.ignore_value
-def marc21languages(self, key, value):
+def marc21_to_languages(self, key, value):
     """Get languages.
 
     languages: 008 and 041 [$a, repetitive]
@@ -108,7 +140,7 @@ def marc21languages(self, key, value):
 
 @marc21tojson.over('translatedFrom', '^041..')
 @utils.ignore_value
-def marc21translatedFrom(self, key, value):
+def marc21_to_translatedFrom(self, key, value):
     """Get translatedFrom.
 
     translatedFrom: 041 [$h repetitive]
@@ -140,7 +172,7 @@ def marc21translatedFrom(self, key, value):
 @marc21tojson.over('authors', '[17][01]0..')
 @utils.for_each_value
 @utils.ignore_value
-def marc21toauthor(self, key, value):
+def marc21_to_author(self, key, value):
     """Get author.
 
     authors: loop:
@@ -173,7 +205,7 @@ def marc21toauthor(self, key, value):
 
 @marc21tojson.over('publishers', '^260..')
 @utils.ignore_value
-def marc21publishers_publicationDate(self, key, value):
+def marc21_to_publishers_publicationDate(self, key, value):
     """Get publisher.
 
     publisher.name: 260 [$b repetitive] (without the , but keep the ;)
@@ -219,7 +251,7 @@ def marc21publishers_publicationDate(self, key, value):
 
 @marc21tojson.over('formats', '^300..')
 @utils.ignore_value
-def marc21description(self, key, value):
+def marc21_to_description(self, key, value):
     """Get extent, otherMaterialCharacteristics, formats.
 
     extent: 300$a (the first one if many)
@@ -249,7 +281,7 @@ def marc21description(self, key, value):
 @marc21tojson.over('series', '^490..')
 @utils.for_each_value
 @utils.ignore_value
-def marc21series(self, key, value):
+def marc21_to_series(self, key, value):
     """Get series.
 
     series.name: [490$a repetitive]
@@ -268,7 +300,7 @@ def marc21series(self, key, value):
 @marc21tojson.over('abstracts', '^520..')
 @utils.for_each_value
 @utils.ignore_value
-def marc21abstracts(self, key, value):
+def marc21_to_abstracts(self, key, value):
     """Get abstracts.
 
     abstract: [520$a repetitive]
@@ -278,7 +310,7 @@ def marc21abstracts(self, key, value):
 
 @marc21tojson.over('identifiers', '^020..')
 @utils.ignore_value
-def marc21identifier_isbn(self, key, value):
+def marc21_to_identifier_isbn(self, key, value):
     """Get identifier isbn.
 
     identifiers:isbn: 020$a
@@ -293,7 +325,7 @@ def marc21identifier_isbn(self, key, value):
 
 @marc21tojson.over('identifiers', '^035..')
 @utils.ignore_value
-def marc21identifier_reroID(self, key, value):
+def marc21_to_identifier_reroID(self, key, value):
     """Get identifier reroId.
 
     identifiers:reroID: 035$a
@@ -306,7 +338,7 @@ def marc21identifier_reroID(self, key, value):
 @marc21tojson.over('notes', '^500..')
 @utils.for_each_value
 @utils.ignore_value
-def marc21notes(self, key, value):
+def marc21_to_notes(self, key, value):
     """Get  notes.
 
     note: [500$a repetitive]
@@ -314,10 +346,21 @@ def marc21notes(self, key, value):
     return value.get('a')
 
 
+@marc21tojson.over('is_part_of', '^773..')
+@utils.ignore_value
+def marc21_to_is_part_of(self, key, value):
+    """Get  is_part_of.
+
+    is_part_of: [773$t repetitive]
+    """
+    if not self.get('is_part_of', None):
+        return value.get('t')
+
+
 @marc21tojson.over('subjects', '^6....')
 @utils.for_each_value
 @utils.ignore_value
-def marc21subjects(self, key, value):
+def marc21_to_subjects(self, key, value):
     """Get subjects.
 
     subjects: 6xx [duplicates could exist between several vocabularies,

@@ -5,6 +5,7 @@
   "required": [
     "$schema",
     "pid",
+    "type",
     "title",
     "languages"
   ],
@@ -20,6 +21,22 @@
       "title": "Document ID",
       "type": "string",
       "minLength": 1
+    },
+    "type": {
+      "title": "Type",
+      "description": "Document type.",
+      "type": "string",
+      "validationMessage": "Required. Type of the document. Should be selected in the list below.",
+      "enum": [
+        "article",
+        "book",
+        "ebook",
+        "journal",
+        "score",
+        "sound",
+        "video"
+      ],
+      "minLength": 4
     },
     "title": {
       "title": "Title",
@@ -37,6 +54,12 @@
         "type": "string",
         "minLength": 1
       }
+    },
+    "is_part_of": {
+      "title": "Is part of",
+      "description": "Title of the host document.",
+      "type": "string",
+      "minLength": 3
     },
     "languages": {
       "title": "Languages",
