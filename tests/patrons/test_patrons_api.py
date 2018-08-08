@@ -44,7 +44,7 @@ from reroils_data.patrons.utils import save_patron
 @mock.patch('reroils_data.api.IlsRecord.reindex')
 def test_patron(reindex, get_borrowed_documents_pids, get_uuid_pid_by_email,
                 record_indexer, url_for1, url_for2, send_email, confirm_user,
-                app, db, minimal_patron_record, minimal_book_record,
+                app, db, minimal_patron_record, minimal_document_record,
                 minimal_item_record):
     """Test patron"""
 
@@ -77,7 +77,7 @@ def test_patron(reindex, get_borrowed_documents_pids, get_uuid_pid_by_email,
     patron = Patron.get_patron_by_user(user)
     assert patron.get('email') == email
 
-    doc = DocumentsWithItems.create(minimal_book_record, dbcommit=True)
+    doc = DocumentsWithItems.create(minimal_document_record, dbcommit=True)
 
     # hack the return value
     get_borrowed_documents_pids.return_value = [doc.pid]

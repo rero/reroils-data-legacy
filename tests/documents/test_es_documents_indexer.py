@@ -25,13 +25,13 @@
 """Elastic search module tests."""
 
 
-def test_mappings_book():
+def test_mappings_document():
     """Test elasticsearch mappings."""
 
     from json import loads
     from pkg_resources import resource_string
 
     mappings_in_bytes = resource_string('reroils_data.documents.mappings',
-                                        'documents/book-v0.0.1.json')
+                                        'documents/document-v0.0.1.json')
     mappings = loads(mappings_in_bytes.decode('utf8'))
-    assert mappings.get('mappings').get('book-v0.0.1')
+    assert mappings.get('mappings').get('document-v0.0.1')
