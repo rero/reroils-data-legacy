@@ -140,10 +140,10 @@ def minimal_staff_patron_record():
 
 
 @pytest.yield_fixture()
-def minimal_book_record():
-    """Minimal book."""
+def minimal_document_record():
+    """Minimal document."""
     yield {
-        '$schema': url_schema + '/documents/book-v0.0.1.json',
+        '$schema': url_schema + '/documents/document-v0.0.1.json',
         'pid': '2',
         'title': 'RERO21 pour les nuls : les premiers pas',
         'languages': [{'language': 'fre'}],
@@ -293,12 +293,12 @@ def minimal_location_record():
 @pytest.yield_fixture()
 def create_minimal_resources(db, minimal_member_record,
                              minimal_location_record, minimal_item_record,
-                             minimal_book_record):
+                             minimal_document_record):
     """Simple patron record."""
     member = MemberWithLocations.create(minimal_member_record, dbcommit=True)
     location = Location.create(minimal_location_record, dbcommit=True)
     member.add_location(location)
-    doc = DocumentsWithItems.create(minimal_book_record, dbcommit=True)
+    doc = DocumentsWithItems.create(minimal_document_record, dbcommit=True)
     item = Item.create({})
     item.update(minimal_item_record, dbcommit=True)
     doc.add_item(item, dbcommit=True)
@@ -310,12 +310,12 @@ def create_minimal_resources(db, minimal_member_record,
 def create_minimal_resources_on_shelf(db, minimal_member_record,
                                       minimal_location_record,
                                       item_record_on_shelf,
-                                      minimal_book_record):
+                                      minimal_document_record):
     """Simple patron record."""
     member = MemberWithLocations.create(minimal_member_record, dbcommit=True)
     location = Location.create(minimal_location_record, dbcommit=True)
     member.add_location(location)
-    doc = DocumentsWithItems.create(minimal_book_record, dbcommit=True)
+    doc = DocumentsWithItems.create(minimal_document_record, dbcommit=True)
     item = Item.create({})
     item.update(item_record_on_shelf, dbcommit=True)
     doc.add_item(item, dbcommit=True)
@@ -327,12 +327,12 @@ def create_minimal_resources_on_shelf(db, minimal_member_record,
 def create_minimal_resources_on_shelf_req(db, minimal_member_record,
                                           minimal_location_record,
                                           item_record_on_shelf_requested,
-                                          minimal_book_record):
+                                          minimal_document_record):
     """Simple patron record."""
     member = MemberWithLocations.create(minimal_member_record, dbcommit=True)
     location = Location.create(minimal_location_record, dbcommit=True)
     member.add_location(location)
-    doc = DocumentsWithItems.create(minimal_book_record, dbcommit=True)
+    doc = DocumentsWithItems.create(minimal_document_record, dbcommit=True)
     item = Item.create({})
     item.update(item_record_on_shelf_requested, dbcommit=True)
     doc.add_item(item, dbcommit=True)
@@ -344,12 +344,12 @@ def create_minimal_resources_on_shelf_req(db, minimal_member_record,
 def create_minimal_resources_in_transit(db, minimal_member_record,
                                         minimal_location_record,
                                         item_record_in_transit,
-                                        minimal_book_record):
+                                        minimal_document_record):
     """Simple patron record."""
     member = MemberWithLocations.create(minimal_member_record, dbcommit=True)
     location = Location.create(minimal_location_record, dbcommit=True)
     member.add_location(location)
-    doc = DocumentsWithItems.create(minimal_book_record, dbcommit=True)
+    doc = DocumentsWithItems.create(minimal_document_record, dbcommit=True)
     item = Item.create({})
     item.update(item_record_in_transit, dbcommit=True)
     doc.add_item(item, dbcommit=True)
@@ -361,12 +361,12 @@ def create_minimal_resources_in_transit(db, minimal_member_record,
 def create_minimal_resources_on_loan(db, minimal_member_record,
                                      minimal_location_record,
                                      item_record_on_loan,
-                                     minimal_book_record):
+                                     minimal_document_record):
     """Simple patron record."""
     member = MemberWithLocations.create(minimal_member_record, dbcommit=True)
     location = Location.create(minimal_location_record, dbcommit=True)
     member.add_location(location)
-    doc = DocumentsWithItems.create(minimal_book_record, dbcommit=True)
+    doc = DocumentsWithItems.create(minimal_document_record, dbcommit=True)
     item = Item.create({})
     item.update(item_record_on_loan, dbcommit=True)
     doc.add_item(item, dbcommit=True)

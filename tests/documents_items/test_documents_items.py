@@ -36,7 +36,7 @@ from reroils_data.locations.api import Location
 from reroils_data.members_locations.api import MemberWithLocations
 
 
-def test_create(db, minimal_book_record, minimal_item_record,
+def test_create(db, minimal_document_record, minimal_item_record,
                 minimal_member_record, minimal_location_record):
     """Test DocumentWithItems creation."""
     memb = MemberWithLocations.create(minimal_member_record, dbcommit=True)
@@ -44,7 +44,7 @@ def test_create(db, minimal_book_record, minimal_item_record,
     memb.add_location(loc, dbcommit=True)
     minimal_item_record['location_pid'] = loc.pid
     item = Item.create(minimal_item_record, dbcommit=True)
-    doc = DocumentsWithItems.create(minimal_book_record, dbcommit=True)
+    doc = DocumentsWithItems.create(minimal_document_record, dbcommit=True)
     assert doc.itemslist == []
 
     doc.add_item(item, dbcommit=True)
@@ -56,9 +56,9 @@ def test_create(db, minimal_book_record, minimal_item_record,
 
 @mock.patch('reroils_data.api.IlsRecord.reindex')
 def test_delete_item(reindex, db,
-                     minimal_book_record, minimal_item_record):
+                     minimal_document_record, minimal_item_record):
     """Test DocumentWithItems item deletion."""
-    doc = DocumentsWithItems.create(minimal_book_record)
+    doc = DocumentsWithItems.create(minimal_document_record)
     item = Item.create(minimal_item_record)
     doc.add_item(item)
     doc.dbcommit()
@@ -86,9 +86,9 @@ def test_delete_item(reindex, db,
 
 @mock.patch('reroils_data.api.IlsRecord.reindex')
 def test_delete_document(reindex, db,
-                         minimal_book_record, minimal_item_record):
+                         minimal_document_record, minimal_item_record):
     """Test DocumentWithItems deletion."""
-    doc = DocumentsWithItems.create(minimal_book_record)
+    doc = DocumentsWithItems.create(minimal_document_record)
     item1 = Item.create(minimal_item_record, dbcommit=True)
     pid1 = item1.persistent_identifier
     doc.add_item(item1)

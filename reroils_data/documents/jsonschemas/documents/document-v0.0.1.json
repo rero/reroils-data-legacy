@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Schema for book",
+  "title": "Schema for document",
   "type": "object",
   "required": [
     "$schema",
@@ -12,7 +12,7 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate book document against.",
+      "description": "Schema to validate document against.",
       "type": "string",
       "minLength": 7
     },
