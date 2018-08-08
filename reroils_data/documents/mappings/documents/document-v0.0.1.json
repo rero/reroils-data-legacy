@@ -5,7 +5,7 @@
     "max_result_window": 20000
   },
   "mappings": {
-    "book-v0.0.1": {
+    "document-v0.0.1": {
       "date_detection": false,
       "numeric_detection": false,
       "properties": {

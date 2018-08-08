@@ -33,9 +33,9 @@ from pkg_resources import resource_string
 
 
 @pytest.fixture()
-def book_schema():
+def document_schema():
     """Jsonschema for documents."""
     schema_in_bytes = resource_string('reroils_data.documents.jsonschemas',
-                                      'documents/book-v0.0.1.json')
+                                      'documents/document-v0.0.1.json')
     schema = loads(schema_in_bytes.decode('utf8'))
     return schema
