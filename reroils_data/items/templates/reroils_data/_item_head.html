@@ -14,18 +14,36 @@
     </div>
     <div class="row">
         <div class="col-xs-3 col-sm-2">
-            {{_('Type')}}:
+            {{_('Item Type')}}:
         </div>
         <div class="col-xs-9 col-sm-10">
             {{item_dumps.item_type}}
         </div>
     </div>
+    {% if document.is_part_of %}
+    <div class="row">
+        <div class="col-xs-2">
+            {{_('Is part of')}}:
+        </div>
+        <div class="col-xs-9">
+            {{_(document.is_part_of)}}
+        </div>
+    </div>
+    {% endif %}
     <div class="row">
         <div class="col-xs-3 col-sm-2">
             {{_('Document')}}:
         </div>
         <div class="col-xs-9 col-sm-10">
             <a href="{{ '/documents/' + document.pid }}">{{ document.title }}</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+            {{_('Document Type')}}:
+        </div>
+        <div class="col-xs-9">
+            {{_(document.type)}}
         </div>
     </div>
     <div class="row">
