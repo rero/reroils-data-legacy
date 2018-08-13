@@ -455,6 +455,7 @@ class Item(IlsRecord):
         data['member_name'] = member.get('name')
         data['requests_count'] = self.number_of_item_requests()
         data['available'] = self.available
+        is_part_of = self.get('is_part_of', None)
         for holding in data.get('_circulation', {}).get('holdings', []):
             pickup_member_pid = holding.get('pickup_member_pid')
             if pickup_member_pid:
