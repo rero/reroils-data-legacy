@@ -241,6 +241,29 @@
   },
   {
     "type": "fieldset",
+    "title": "Type of the document",
+    "items": [
+      {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [
+          {
+            "type": "section",
+            "htmlClass": "col-xs-4",
+            "items": [
+              {
+                "key": "type",
+                "title": "Document type",
+                "description": "Type of the document"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
     "items": [
       {
         "type": "actions",
