@@ -48,6 +48,38 @@ unimarctojson = Overdo()
 #
 #     return order
 
+@unimarctojson.over('type', 'leader')
+def unimarctype(self, key, value):
+    """
+    Get document type.
+
+    Books: LDR/6-7: am
+    Journals: LDR/6-7: as
+    Articles: LDR/6-7: aa + add field 773 (journal title)
+    Scores: LDR/6: c|d
+    Videos: LDR/6: g + 007/0: m|v
+    Sounds: LDR/6: i|j
+    E-books (imported from Cantook)
+    """
+    type = None
+    type_of_record = value[6]
+    bibliographic_level = value[7]
+    if type_of_record == 'a':
+        if bibliographic_level == 'm':
+            type = 'book'
+        elif bibliographic_level == 's':
+            type = 'journal'
+        elif bibliographic_level == 'a':
+            type = 'article'
+    elif type_of_record in ['c', 'd']:
+        type = 'score'
+    elif type_of_record in ['i', 'j']:
+        type = 'sound'
+    elif type_of_record == 'g':
+        type = 'video'
+        # Todo 007
+    return type
+
 
 @unimarctojson.over('identifiers', '^003')
 @utils.ignore_value

@@ -31,13 +31,98 @@ from dojson.contrib.marc21.utils import create_record
 from reroils_data.documents.dojson.contrib.unimarctojson import unimarctojson
 
 
+# type: leader
+def test_unimarctotype():
+    """
+    Test dojson marc21_to_type.
+
+    Books: LDR/6-7: am
+    Journals: LDR/6-7: as
+    Articles: LDR/6-7: aa + add field 773 (journal title)
+    Scores: LDR/6: c|d
+    Videos: LDR/6: g + 007/0: m|v
+    Sounds: LDR/6: i|j
+    E-books (imported from Cantook)
+    """
+
+    unimarcxml = """
+    <record>
+        <leader>00501nam a2200133 a 4500</leader>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('type') == 'book'
+
+    unimarcxml = """
+    <record>
+        <leader>00501nas a2200133 a 4500</leader>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('type') == 'journal'
+
+    unimarcxml = """
+    <record>
+        <leader>00501naa a2200133 a 4500</leader>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('type') == 'article'
+
+    unimarcxml = """
+    <record>
+        <leader>00501nca a2200133 a 4500</leader>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('type') == 'score'
+    unimarcxml = """
+    <record>
+        <leader>00501nda a2200133 a 4500</leader>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('type') == 'score'
+
+    unimarcxml = """
+    <record>
+        <leader>00501nia a2200133 a 4500</leader>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('type') == 'sound'
+    unimarcxml = """
+    <record>
+        <leader>00501nja a2200133 a 4500</leader>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('type') == 'sound'
+
+    unimarcxml = """
+    <record>
+        <leader>00501nga a2200133 a 4500</leader>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('type') == 'video'
+
+
 # title: 200$a
 # without the punctuaction. If there's a $e, then 200$a : $e
 def test_unimarctotitle():
     """Test dojson unimarctotitle."""
 
     # subfields $a $b $c
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="200" ind1="1" ind2="0">
         <subfield code="a">main title</subfield>
@@ -46,11 +131,11 @@ def test_unimarctotitle():
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('title') == 'main title : subtitle'
     # subfields $a $c
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="200" ind1="1" ind2="0">
         <subfield code="a">main title</subfield>
@@ -58,19 +143,19 @@ def test_unimarctotitle():
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('title') == 'main title'
     # subfield $a
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="200" ind1="1" ind2="0">
         <subfield code="a">main title</subfield>
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('title') == 'main title'
 
 
@@ -78,18 +163,18 @@ def test_unimarctotitle():
 def test_unimarctotitlesProper():
     """Test dojson marc21titlesProper."""
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="500" ind1="1" ind2="0">
         <subfield code="a">proper title</subfield>
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('titlesProper') == ['proper title']
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="500" ind1=" " ind2=" ">
         <subfield code="a">proper title</subfield>
@@ -99,8 +184,8 @@ def test_unimarctotitlesProper():
        </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('titlesProper') == ['proper title', 'other proper title']
 
 
@@ -108,18 +193,18 @@ def test_unimarctotitlesProper():
 def test_marc21languages():
     """Test dojson marc21languages."""
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="101" ind1=" " ind2=" ">
         <subfield code="a">eng</subfield>
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('languages') == [{'language': 'eng'}]
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="101" ind1=" " ind2=" ">
         <subfield code="a">eng</subfield>
@@ -128,15 +213,15 @@ def test_marc21languages():
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('languages') == [
         {'language': 'eng'},
         {'language': 'fre'}
     ]
     assert data.get('translatedFrom') == ['ita']
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="101" ind1=" " ind2=" ">
         <subfield code="a">eng</subfield>
@@ -145,8 +230,8 @@ def test_marc21languages():
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('languages') == [
         {'language': 'eng'},
     ]
@@ -163,7 +248,7 @@ def test_marc21languages():
 def test_unimarctoauthors():
     """Test dojson unimarctoauthors."""
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="700" ind1=" " ind2=" ">
         <subfield code="a">Jean-Paul</subfield>
@@ -193,8 +278,8 @@ def test_unimarctoauthors():
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     authors = data.get('authors')
     assert authors == [
         {
@@ -235,7 +320,7 @@ def test_unimarctoauthors():
 def test_marc21publishers_publicationDate():
     """Test dojson publishers publicationDate."""
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="210" ind1=" " ind2=" ">
         <subfield code="a">Lausanne</subfield>
@@ -244,8 +329,8 @@ def test_marc21publishers_publicationDate():
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('publishers') == [
         {
             'place': ['Lausanne'],
@@ -254,7 +339,7 @@ def test_marc21publishers_publicationDate():
     ]
     assert data.get('publicationYear') == 2015
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="210" ind1=" " ind2=" ">
         <subfield code="a">Paris</subfield>
@@ -264,8 +349,8 @@ def test_marc21publishers_publicationDate():
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('publishers') == [
         {
             'place': ['Paris', 'Lausanne'],
@@ -274,7 +359,7 @@ def test_marc21publishers_publicationDate():
     ]
     assert data.get('publicationYear') == 1920
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="210" ind1=" " ind2=" ">
         <subfield code="a">Paris</subfield>
@@ -285,8 +370,8 @@ def test_marc21publishers_publicationDate():
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('publishers') == [
         {
             'place': ['Paris'],
@@ -307,7 +392,7 @@ def test_marc21publishers_publicationDate():
 def test_marc21description():
     """Test dojson extent, otherMaterialCharacteristics, formats."""
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="215" ind1=" " ind2=" ">
         <subfield code="a">116 p.</subfield>
@@ -316,13 +401,13 @@ def test_marc21description():
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('extent') == '116 p.'
     assert data.get('otherMaterialCharacteristics') == 'ill.'
     assert data.get('formats') == ['22 cm']
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="215" ind1=" " ind2=" ">
         <subfield code="a">116 p.</subfield>
@@ -337,8 +422,8 @@ def test_marc21description():
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('extent') == '116 p.'
     assert data.get('otherMaterialCharacteristics') == 'ill.'
     assert data.get('formats') == ['22 cm', '12 x 15']
@@ -349,7 +434,7 @@ def test_marc21description():
 def test_marc21series():
     """Test dojson series."""
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="225" ind1=" " ind2=" ">
         <subfield code="a">Collection One</subfield>
@@ -360,8 +445,8 @@ def test_marc21series():
         <subfield code="v">123</subfield>
       </datafield>    </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('series') == [
         {
             'name': 'Collection One',
@@ -378,15 +463,15 @@ def test_marc21series():
 def test_marc21abstract():
     """Test dojson abstract."""
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="330" ind1=" " ind2=" ">
         <subfield code="a">This book is about</subfield>
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('abstracts') == ["This book is about"]
 
 
@@ -394,7 +479,7 @@ def test_marc21abstract():
 def test_marc21identifiers():
     """Test dojson identifiers."""
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <controlfield tag="003">
         http://catalogue.bnf.fr/ark:/12148/cb350330441<controlfield>
@@ -403,8 +488,8 @@ def test_marc21identifiers():
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('identifiers') == {
         'bnfID': 'cb350330441',
         'isbn': '9782370550163'
@@ -415,17 +500,17 @@ def test_marc21identifiers():
 def test_marc21notes():
     """Test dojson notes."""
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="300" ind1=" " ind2=" ">
         <subfield code="a">note</subfield>
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('notes') == ['note']
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="300" ind1=" " ind2=" ">
         <subfield code="a">note 1</subfield>
@@ -435,8 +520,8 @@ def test_marc21notes():
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('notes') == ['note 1', 'note 2']
 
 
@@ -446,7 +531,7 @@ def test_marc21notes():
 def test_marc21subjects():
     """Test dojson subjects."""
 
-    marc21xml = """
+    unimarcxml = """
     <record>
       <datafield tag="600" ind1=" " ind2=" ">
         <subfield code="a">subjects 600</subfield>
@@ -460,8 +545,8 @@ def test_marc21subjects():
       </datafield>
     </record>
     """
-    marc21json = create_record(marc21xml)
-    data = unimarctojson.do(marc21json)
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
     assert data.get('subjects') == [
         'subjects 600', 'Capet, Louis III, Jr., 1700-1780'
     ]
