@@ -1,28 +1,23 @@
-# Italian translations for reroils-data.
+# Translations template for reroils-data.
 # Copyright (C) 2018 RERO
 # This file is distributed under the same license as the reroils-data
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
-# Translators:
-# iGor milhit <igor.milhit@rero.ch>, 2018
-# Gianni Pante <gianni.pante@rero.ch>, 2018
-# Nicolas Prongué <n.prongue@outlook.com>, 2018
-# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-data 0.1.0a13\n"
+"Project-Id-Version: reroils-data 0.1.0a17\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-08-10 07:00+0000\n"
+"POT-Creation-Date: 2018-08-20 09:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2018\n"
-"Language: it\n"
 "Language-Team: Italian (https://www.transifex.com/rero/teams/77935/it/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. NOTE: This is a note to a translator.
 #: reroils_data/ext.py:43
@@ -75,7 +70,7 @@ msgid "Error:"
 msgstr "Errore:"
 
 #: reroils_data/documents/form_options/documents/document-v0.0.1.json:12
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:252
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:275
 #: reroils_data/items/form_options/items/item-v0.0.1.json:12
 #: reroils_data/items/form_options/items/item-v0.0.1.json:127
 #: reroils_data/locations/form_options/locations/location-v0.0.1.json:12
@@ -90,7 +85,7 @@ msgid "Cancel"
 msgstr "Annulare"
 
 #: reroils_data/documents/form_options/documents/document-v0.0.1.json:18
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:258
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:281
 #: reroils_data/items/form_options/items/item-v0.0.1.json:18
 #: reroils_data/items/form_options/items/item-v0.0.1.json:133
 #: reroils_data/locations/form_options/locations/location-v0.0.1.json:18
@@ -223,9 +218,18 @@ msgstr "Spagnolo"
 msgid "Date of publication"
 msgstr "Data di pubblicazione"
 
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:244
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:257
+msgid "Type of the document"
+msgstr "Tipo di documento"
+
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:256
+msgid "Document type"
+msgstr "Tipo di documento"
+
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:3
 msgid "Schema for document"
-msgstr "Schema per un libro"
+msgstr "Schema per un documento"
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:15
 #: reroils_data/items/jsonschemas/items/item-v0.0.1.json:17
@@ -250,11 +254,11 @@ msgstr "Typo"
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:27
 msgid "Document type."
-msgstr "Documento al banco prestiti"
+msgstr "Tipo di documento."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:29
 msgid "Required. Type of the document. Should be selected in the list below."
-msgstr ""
+msgstr "Richiesto. Tipo di documento. Dove essere selezionato nell'elenco."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:43
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:44
@@ -271,12 +275,13 @@ msgid ""
 "authority file or list, used as an added access point."
 msgstr ""
 "Titolo uniforme, un titolo associato o analitico, controllato da un "
-"fascicolo o da un elenco di autorità e utilizzato come ulteriore punto di"
-" accesso."
+"fascicolo o da un elenco di autorità e utilizzato come ulteriore punto di "
+"accesso."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:59
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:138
 msgid "Is part of"
-msgstr ""
+msgstr "Fa parte di"
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:60
 msgid "Title of the host document."
@@ -309,11 +314,11 @@ msgstr "Lingua da cui l'opera è stata tradotta."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:107
 msgid ""
-"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> "
-"for English."
+"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for "
+"English."
 msgstr ""
-"Deve essere in formato ISO 639, in 3 caratteri, ad esempio "
-"<code>eng</code> per l'inglese."
+"Deve essere in formato ISO 639, in 3 caratteri, ad esempio <code>eng</code> "
+"per l'inglese."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:111
 msgid "Authors"
@@ -351,8 +356,8 @@ msgid ""
 "Information about the birth and the death of a person. Helpful to "
 "disambiguate people."
 msgstr ""
-"Informazioni sulla data di nascita e di decesso di una persona. Utile per"
-" distinguere gli omonimi."
+"Informazioni sulla data di nascita e di decesso di una persona. Utile per "
+"distinguere gli omonimi."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:144
 msgid "Qualifier"
@@ -363,8 +368,8 @@ msgid ""
 "Information about the person, ie her profession. Helpful to disambiguate "
 "people."
 msgstr ""
-"Informazioni che qualificano la persona, come la sua occupazione. Utile "
-"per distinguere gli omonimi."
+"Informazioni che qualificano la persona, come la sua occupazione. Utile per "
+"distinguere gli omonimi."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:152
 msgid "Publishers"
@@ -388,17 +393,18 @@ msgstr "Luogo di pubblicazione dell'editore."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:185
 msgid ""
-"Date of the publication. This must be an integer, ie 1989, 453, -50. Used"
-" to sort search results. Once this field is set, a free formed date of "
+"Date of the publication. This must be an integer, ie 1989, 453, -50. Used to"
+" sort search results. Once this field is set, a free formed date of "
 "publication can be added in the next field."
 msgstr ""
-"Data di pubblicazione. Deve essere una cifra, per esempio 1989, 453, -50,"
-" utilizzata per filtrare i risultati della ricerca. Una volta compilato "
-"il campo, è possibile aggiungere una data di pubblicazione in forma "
-"libera nel campo successivo."
+"Data di pubblicazione. Deve essere una cifra, per esempio 1989, 453, -50, "
+"utilizzata per filtrare i risultati della ricerca. Una volta compilato il "
+"campo, è possibile aggiungere una data di pubblicazione in forma libera nel "
+"campo successivo."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:189
-msgid "Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
+msgid ""
+"Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
 msgstr "Deve essere un numero, da -999999 a +2050. Nessun prefisso richiesto."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:192
@@ -410,9 +416,8 @@ msgid ""
 "Date of the publication in a free form. If there's a normalized date of "
 "publication, then a free formed date can be added to be displayed."
 msgstr ""
-"Data di pubblicazione (visualizzata). Se esiste una data di pubblicazione"
-" in forma standard, è possibile aggiungere e visualizzare una data "
-"libera."
+"Data di pubblicazione (visualizzata). Se esiste una data di pubblicazione in"
+" forma standard, è possibile aggiungere e visualizzare una data libera."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:198
 msgid "Extent"
@@ -420,7 +425,8 @@ msgstr "Importanza materiale"
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:199
 msgid "Extent of the resource, ie number of pages or volumes."
-msgstr "Importanza materiale della risorsa, ad esempio numero di pagine o volumi."
+msgstr ""
+"Importanza materiale della risorsa, ad esempio numero di pagine o volumi."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:204
 msgid "Other Material Characteristics"
@@ -431,8 +437,8 @@ msgid ""
 "Other Material Characteristics, ie illustrations, black and with or "
 "coloured."
 msgstr ""
-"Altre caratteristiche dei materiali, ad esempio illustrazioni, in bianco "
-"e nero o a colori."
+"Altre caratteristiche dei materiali, ad esempio illustrazioni, in bianco e "
+"nero o a colori."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:210
 msgid "Format"
@@ -498,7 +504,8 @@ msgstr "reroID"
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:279
 msgid "Corresponding reroID of the original RERO record."
-msgstr "reroID corrispondente risvolto del record bibliografico RERO originale."
+msgstr ""
+"reroID corrispondente risvolto del record bibliografico RERO originale."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:284
 msgid "bnfID"
@@ -547,10 +554,6 @@ msgstr "Materiale di accompagnamento"
 #: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:127
 msgid "Uniform title"
 msgstr "Titolo uniforme"
-
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:138
-msgid "Is part of"
-msgstr ""
 
 #: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:149
 msgid "Subjects"
@@ -1009,8 +1012,7 @@ msgstr "Numero di telefono con l'indicazione internazionale, senza spazi."
 
 #: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:80
 msgid ""
-"Phone number with the international prefix, without spaces, ie "
-"+41221234567."
+"Phone number with the international prefix, without spaces, ie +41221234567."
 msgstr ""
 "Numero di telefono con l'indicazione internazionale, senza spazi, cioè "
 "+41221234567."
@@ -1092,7 +1094,3 @@ msgstr "Nessuna prenotazione"
 #: reroils_data/patrons/templates/reroils_data/patron_profile.html:56
 msgid "Belongs to"
 msgstr "Appartiene a"
-
-#~ msgid "Callnumber"
-#~ msgstr "Segnatura"
-

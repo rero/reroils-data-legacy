@@ -1,26 +1,23 @@
-# English translations for reroils-data.
+# Translations template for reroils-data.
 # Copyright (C) 2018 RERO
 # This file is distributed under the same license as the reroils-data
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
-# Translators:
-# iGor milhit <igor.milhit@rero.ch>, 2018
-# Nicolas Labat <n-labat@hotmail.com>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-data 0.1.0a13\n"
+"Project-Id-Version: reroils-data 0.1.0a17\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-08-10 07:00+0000\n"
+"POT-Creation-Date: 2018-08-20 09:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Nicolas Labat <n-labat@hotmail.com>, 2018\n"
-"Language: en\n"
 "Language-Team: English (https://www.transifex.com/rero/teams/77935/en/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. NOTE: This is a note to a translator.
 #: reroils_data/ext.py:43
@@ -73,7 +70,7 @@ msgid "Error:"
 msgstr "Error:"
 
 #: reroils_data/documents/form_options/documents/document-v0.0.1.json:12
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:252
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:275
 #: reroils_data/items/form_options/items/item-v0.0.1.json:12
 #: reroils_data/items/form_options/items/item-v0.0.1.json:127
 #: reroils_data/locations/form_options/locations/location-v0.0.1.json:12
@@ -88,7 +85,7 @@ msgid "Cancel"
 msgstr "Cancel"
 
 #: reroils_data/documents/form_options/documents/document-v0.0.1.json:18
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:258
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:281
 #: reroils_data/items/form_options/items/item-v0.0.1.json:18
 #: reroils_data/items/form_options/items/item-v0.0.1.json:133
 #: reroils_data/locations/form_options/locations/location-v0.0.1.json:18
@@ -221,9 +218,18 @@ msgstr "Spanish"
 msgid "Date of publication"
 msgstr "Date of publication"
 
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:244
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:257
+msgid "Type of the document"
+msgstr "Type of the document"
+
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:256
+msgid "Document type"
+msgstr "Document type"
+
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:3
 msgid "Schema for document"
-msgstr "Schema for book"
+msgstr "Schema for document"
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:15
 #: reroils_data/items/jsonschemas/items/item-v0.0.1.json:17
@@ -236,7 +242,7 @@ msgstr "Schema"
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:16
 msgid "Schema to validate document against."
-msgstr "Schema to validate book document against."
+msgstr "Schema to validate document against."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:26
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:129
@@ -248,11 +254,11 @@ msgstr "Type"
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:27
 msgid "Document type."
-msgstr "Document at desk"
+msgstr "Document type."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:29
 msgid "Required. Type of the document. Should be selected in the list below."
-msgstr ""
+msgstr "Required. Type of the document. Should be selected in the list below."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:43
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:44
@@ -272,12 +278,13 @@ msgstr ""
 "authority file or list, used as an added access point."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:59
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:138
 msgid "Is part of"
-msgstr ""
+msgstr "Is part of"
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:60
 msgid "Title of the host document."
-msgstr "Title of the series."
+msgstr "Title of the host document."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:65
 msgid "Languages"
@@ -306,11 +313,11 @@ msgstr "Language from which a resource is translated."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:107
 msgid ""
-"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> "
-"for English."
+"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for "
+"English."
 msgstr ""
-"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> "
-"for English."
+"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for "
+"English."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:111
 msgid "Authors"
@@ -385,17 +392,19 @@ msgstr "Publisher's place of publication."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:185
 msgid ""
-"Date of the publication. This must be an integer, ie 1989, 453, -50. Used"
-" to sort search results. Once this field is set, a free formed date of "
+"Date of the publication. This must be an integer, ie 1989, 453, -50. Used to"
+" sort search results. Once this field is set, a free formed date of "
 "publication can be added in the next field."
 msgstr ""
-"Date of the publication. This must be an integer, ie 1989, 453, -50. Used"
-" to sort search results. Once this field is set, a free formed date of "
+"Date of the publication. This must be an integer, ie 1989, 453, -50. Used to"
+" sort search results. Once this field is set, a free formed date of "
 "publication can be added in the next field."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:189
-msgid "Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
-msgstr "Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
+msgid ""
+"Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
+msgstr ""
+"Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:192
 msgid "Date of publication (free formed)"
@@ -542,10 +551,6 @@ msgstr "Additional Materials"
 #: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:127
 msgid "Uniform title"
 msgstr "Uniform title"
-
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:138
-msgid "Is part of"
-msgstr ""
 
 #: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:149
 msgid "Subjects"
@@ -727,7 +732,7 @@ msgstr "In Transit"
 
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:22
 msgid "Loaned by"
-msgstr "Loaned by"
+msgstr "Borrowed by"
 
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:28
 #: reroils_data/items/templates/reroils_data/detailed_view_items.html:65
@@ -1004,11 +1009,9 @@ msgstr "Phone number with the international prefix, without spaces."
 
 #: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:80
 msgid ""
-"Phone number with the international prefix, without spaces, ie "
-"+41221234567."
+"Phone number with the international prefix, without spaces, ie +41221234567."
 msgstr ""
-"Phone number with the international prefix, without spaces, ie "
-"+41221234567."
+"Phone number with the international prefix, without spaces, ie +41221234567."
 
 #: reroils_data/patrons/jsonschemas/patrons/patron-v0.0.1.json:83
 msgid "Patron's type"
@@ -1087,7 +1090,3 @@ msgstr "No pending"
 #: reroils_data/patrons/templates/reroils_data/patron_profile.html:56
 msgid "Belongs to"
 msgstr "Belongs to"
-
-#~ msgid "Callnumber"
-#~ msgstr "Call number"
-

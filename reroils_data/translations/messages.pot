@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-data 0.1.0a16\n"
+"Project-Id-Version: reroils-data 0.1.0a17\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-08-10 07:00+0000\n"
+"POT-Creation-Date: 2018-08-20 09:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgid "Error:"
 msgstr ""
 
 #: reroils_data/documents/form_options/documents/document-v0.0.1.json:12
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:252
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:275
 #: reroils_data/items/form_options/items/item-v0.0.1.json:12
 #: reroils_data/items/form_options/items/item-v0.0.1.json:127
 #: reroils_data/locations/form_options/locations/location-v0.0.1.json:12
@@ -83,7 +83,7 @@ msgid "Cancel"
 msgstr ""
 
 #: reroils_data/documents/form_options/documents/document-v0.0.1.json:18
-#: reroils_data/documents/form_options/documents/document-v0.0.1.json:258
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:281
 #: reroils_data/items/form_options/items/item-v0.0.1.json:18
 #: reroils_data/items/form_options/items/item-v0.0.1.json:133
 #: reroils_data/locations/form_options/locations/location-v0.0.1.json:18
@@ -216,6 +216,15 @@ msgstr ""
 msgid "Date of publication"
 msgstr ""
 
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:244
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:257
+msgid "Type of the document"
+msgstr ""
+
+#: reroils_data/documents/form_options/documents/document-v0.0.1.json:256
+msgid "Document type"
+msgstr ""
+
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:3
 msgid "Schema for document"
 msgstr ""
@@ -265,6 +274,7 @@ msgid ""
 msgstr ""
 
 #: reroils_data/documents/jsonschemas/documents/document-v0.0.1.json:59
+#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:138
 msgid "Is part of"
 msgstr ""
 
@@ -521,10 +531,6 @@ msgstr ""
 
 #: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:127
 msgid "Uniform title"
-msgstr ""
-
-#: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:138
-msgid "Is part of"
 msgstr ""
 
 #: reroils_data/documents_items/templates/reroils_data/detailed_view_documents_items.html:149
