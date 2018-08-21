@@ -22,5 +22,27 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-git+https://github.com/rero/reroils-record-editor.git@v0.1.0a16#egg=reroils-record-editor
-git+https://github.com/inveniosoftware/invenio-oaiharvester.git@v1.0.0a4#egg=invenio-harvester
+"""Utilities."""
+
+from flask import current_app
+from invenio_db import db
+from invenio_oaiharvester.models import OAIHarvestConfig
+
+
+def add_oai_source(name, baseurl, metadataprefix='marc21',
+                   setspecs='', comment=''):
+    """Add OAIHarvestConfig."""
+    with current_app.app_context():
+        if OAIHarvestConfig.query.filter_by(name=name).count() == 0:
+            source = OAIHarvestConfig(
+                name=name,
+                baseurl=baseurl,
+                metadataprefix=metadataprefix,
+                setspecs=setspecs,
+                comment=comment
+            )
+            source.save()
+            db.session.commit()
+            return True
+        else:
+            return False

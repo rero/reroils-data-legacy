@@ -65,6 +65,7 @@ def create_items(verbose, count, itemscount, missing,
                  reindex):
     """Create circulation items."""
     uids = DocumentsWithItems.get_all_ids()
+
     if count == -1:
         count = len(uids)
 
@@ -80,6 +81,8 @@ def create_items(verbose, count, itemscount, missing,
     with click.progressbar(reversed(uids[:count]), length=count) as bar:
         for id in bar:
             document = DocumentsWithItems.get_record_by_id(id)
+            if document.get('type') == 'ebook':
+                continue
             for i in range(0, randint(1, itemscount)):
                 missing, item = create_random_item(
                     locations_pids=locations_pids,
