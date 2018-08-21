@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
-# Copyright (C) 2017 RERO.
+# Copyright (C) 2018 RERO.
 #
 # Invenio is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
@@ -22,5 +22,6 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-git+https://github.com/rero/reroils-record-editor.git@v0.1.0a16#egg=reroils-record-editor
-git+https://github.com/inveniosoftware/invenio-oaiharvester.git@v1.0.0a4#egg=invenio-harvester
+"""JSON schemas."""
+
+from __future__ import absolute_import, print_function

@@ -41,6 +41,7 @@ from invenio_records.api import Record
 from werkzeug.local import LocalProxy
 
 from .documents_items.cli import create_items
+from .ebooks.cli import oaiharvester
 from .items.cli import create_circ_transactions
 from .organisations_members.cli import import_organisations
 from .patrons.cli import import_users

@@ -22,5 +22,4 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-git+https://github.com/rero/reroils-record-editor.git@v0.1.0a16#egg=reroils-record-editor
-git+https://github.com/inveniosoftware/invenio-oaiharvester.git@v1.0.0a4#egg=invenio-harvester
+"""DOJSON transformations."""

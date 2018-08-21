@@ -42,7 +42,8 @@
         </div>
         <div class="col-xs-9">
             {% for publisher in record.publishers %}
-            {{ publisher.place|join('; ') }}:
+            {{ publisher.place|join('; ') }}
+            {% if publisher.place %}: {% endif %}
             {{ publisher.name|join('; ') }}
             {% endfor %}
         </div>
@@ -58,7 +59,7 @@
             {% if record.freeFormedPublicationDate %}
             {{record.freeFormedPublicationDate}}
             {% else %}
-            {{ record.publicationYear }}
+            {{ record.publicationYear}}
             {% endif %}
         </div>
     </div>
@@ -182,6 +183,19 @@
     </div>
     {% endif %}
 
+    {% if record.electronic_location|length > 0 %}
+    <div class="row">
+        <div class="col-xs-2">
+            {{_('Online Access')}}:
+        </div>
+        <div class="col-xs-9">
+            {% for resource in record.electronic_location %}
+            <a href="{{ resource.uri }}">{{ resource.uri }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
     {% if record.identifiers.reroID %}
     {% set source = config.REROILS_RECORD_EDITOR_PERMALINK_RERO_URL + '01-' + record.identifiers.reroID %}
     <div class="row">
@@ -215,17 +229,35 @@
             {{ url_for('invenio_records_ui.doc', pid_value=record.pid, _external=True) }}
         </div>
     </div>
-
+    {% if record.type != 'ebook' %}
     {% with
-        href_update=url_for('reroils_record_editor.update_doc', pid=record.pid),
-        href_delete=url_for('reroils_record_editor.delete_doc', pid=record.pid),
-        json=record
+      href_update=url_for('reroils_record_editor.update_doc', pid=record.pid),
+      href_delete=url_for('reroils_record_editor.delete_doc', pid=record.pid),
+      json=record
     %}
-        {% include 'reroils_record_editor/_button_actions.html' %}
+      {% include 'reroils_record_editor/_button_actions.html' %}
     {% endwith %}
-
+    {% else %}
+      {%- if current_user | can_edit %}
+      <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group  pull-right" role="group" aria-label="...">
+                <a href="#source-{{ record.id }}" data-toggle="collapse" type="button" class="btn btn-info">
+                    <i class="fa fa-search-plus  fa-fw"></i> {{_('JSON')}}
+                </a>
+            </div>
+        </div>
+      </div>
+      <div id="source-{{ record.id }}" class="collapse">
+        <pre>{{ record.dumps() | tojson_pretty }}</pre>
+      </div>
+      {% endif %}
+    {% endif %}
+    <hr/>
     <!-- Items -->
-    <hr>
+    {% if record.type != 'ebook' %}
+
+    {%- if current_user | can_edit or record.itemslist %}
     <div class='reroils-items row'>
         <div class="col-sm-12">
             <h3>{{_('Items')}}
@@ -238,6 +270,8 @@
             </h3>
         </div>
     </div>
+    {% endif %}
+
     {% if record.itemslist %}
     {% for item in record.itemslist %}
     {% set item_dump = item.dumps() %}
@@ -350,6 +384,7 @@
 
     <hr/>
     {% endfor %}
+    {% endif %}
     {% endif %}
 
     {%- set formats = export_formats(pid.pid_type) %}

@@ -87,6 +87,7 @@ install_requires = [
     'invenio-assets>=1.0.0',
     'invenio-db>=1.0.0',
     'invenio-jsonschemas>=1.0.0',
+    'invenio-oaiharvester>=1.0.0a4',
     'invenio-pidstore>=1.0.0',
     'invenio-records>=1.0.0',
     'invenio-records-rest>=1.0.1',
@@ -94,6 +95,8 @@ install_requires = [
     'invenio-search>=1.0.0',
     'jsonschema>=2.5.1',
     'SQLAlchemy-Continuum>=1.3,<1.3.5',
+    'isbnlib>=3.9.1',
+    'PyYAML>=3.13'
 ]
 
 packages = find_packages()
@@ -139,12 +142,14 @@ setup(
         'dojson.cli.rule': [
             'marc21tojson ='
             'reroils_data.documents.dojson.contrib.marc21tojson:marc21tojson',
+            'marc21toebooks ='
+            'reroils_data.ebooks.dojson.contrib.marc21:marc21',
             'unimarctojson ='
             'reroils_data.documents.dojson.contrib.unimarctojson:unimarctojson',
         ],
         'flask.commands': [
             'fixtures = reroils_data.cli:fixtures',
-            'utils = reroils_data.cli:utils',
+            'utils = reroils_data.cli:utils'
         ],
         'invenio_base.blueprints': [
             'organisations = reroils_data.organisations_members.views:blueprint',
@@ -208,6 +213,9 @@ setup(
             'reroils_data_member_editor_js = reroils_data.members_locations.bundles:editor_js',
             'reroils_data_location_editor_js = reroils_data.locations.bundles:editor_js'
         ],
+        'invenio_celery.tasks': [
+            'reroils_data_oaiharvest = reroils_data.ebooks.tasks',
+        ]
     },
     extras_require=extras_require,
     install_requires=install_requires,

@@ -62,3 +62,6 @@ recursive-include data *.xml
 
 # added by check_manifest.py
 recursive-include reroils_data *.scss
+
+# added by check_manifest.py
+recursive-include data *.yml

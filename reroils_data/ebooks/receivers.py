@@ -22,5 +22,31 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-git+https://github.com/rero/reroils-record-editor.git@v0.1.0a16#egg=reroils-record-editor
-git+https://github.com/inveniosoftware/invenio-oaiharvester.git@v1.0.0a4#egg=invenio-harvester
+
+"""Signals connections for ebooks document."""
+
+from dojson.contrib.marc21.utils import create_record
+from flask import current_app
+
+from .dojson.contrib.marc21 import marc21
+from .tasks import create_records
+
+
+def publish_harvested_records(sender=None, records=[], *args, **kwargs):
+    """Create, index the harvested records."""
+    # name = kwargs['name']
+    converted_records = []
+    for record in records:
+        if record.deleted:
+            # TODO: remove record
+            continue
+        rec = create_record(record.xml)
+        rec = marc21.do(rec)
+        rec.setdefault('identifiers', {})['oai'] = record.header.identifier
+        converted_records.append(rec)
+    if records:
+        current_app.logger.info('publish_harvester: received {} records'
+                                .format(len(converted_records)))
+        create_records(converted_records)
+    else:
+        current_app.logger.info('publish_harvester: nothing to do')

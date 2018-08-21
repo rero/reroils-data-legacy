@@ -27,8 +27,10 @@
 from __future__ import absolute_import, print_function
 
 from flask_babelex import gettext as _
+from invenio_oaiharvester.signals import oaiharvest_finished
 
 from . import config
+from .ebooks.receivers import publish_harvested_records
 from .filter import format_date_filter, item_status_text, to_pretty_json
 
 
@@ -70,3 +72,5 @@ class REROILSDATA(object):
         from .items.signals import item_at_desk
         from .patrons.listener import listener_item_at_desk
         item_at_desk.connect(listener_item_at_desk)
+        oaiharvest_finished.connect(publish_harvested_records,
+                                    weak=False)

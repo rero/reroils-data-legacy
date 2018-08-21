@@ -24,7 +24,7 @@
         <!-- publishers -->
         <ul class="list-inline" ng-show='record.metadata.publishers.length > 0'>
             <li ng-repeat='publisher in record.metadata.publishers'>
-                {{ publisher.place.join(', ') }}:
+                {{ publisher.place.join(', ') }}<span ng-if="publisher.place">: </span>
                 {{ publisher.name.join(', ') }}
                 {{ $last ? '' : '; ' }}
             </li>
@@ -33,7 +33,7 @@
         <!-- publicationDate -->
         <span ng-show='record.metadata.publicationYear && !record.metadata.freeFormedPublicationDate'>{{ record.metadata.publicationYear }}</span>
         <span ng-show='record.metadata.freeFormedPublicationDate'>{{ record.metadata.freeFormedPublicationDate }}</span>
-        <div class='reroils-circulation' ng-if="status = record.metadata.available ? 'available' : 'not available'">
+        <div ng-hide="record.metadata.type == 'ebook'" class='reroils-circulation' ng-if="status = record.metadata.available ? 'available' : 'not available'">
             <i class="fa fa-circle text-{{ record.metadata.available ? 'success' : 'danger' }}" aria-hidden="true"></i>
             <span>{{ status|translate }}</span>
         </div>
